@@ -5,7 +5,7 @@ namespace Voice\CustomFields;
 use Illuminate\Support\ServiceProvider;
 use Voice\CustomFields\App\Console\Commands\MakeCustomFields;
 
-class CustomFieldServiceProvider extends ServiceProvider
+class CustomFieldsServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.

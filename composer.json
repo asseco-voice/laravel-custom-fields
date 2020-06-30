@@ -1,5 +1,6 @@
 {
-    "name": "asseco-voice/laravel-customfields",
+    "name": "asseco-voice/laravel-custom-fields",
+    "description": "Laravel support for custom fields",
     "license": "MIT",
     "require": {
         "php": "^7.4",
@@ -16,13 +17,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Voice\\Customfields\\": "src/"
+            "Voice\\CustomFields\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Voice\\Customfields\\CustomfieldsServiceProvider"
+                "Voice\\CustomFields\\CustomFieldsServiceProvider"
             ]
         }
     }
