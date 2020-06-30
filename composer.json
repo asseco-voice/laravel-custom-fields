@@ -1,0 +1,29 @@
+{
+    "name": "asseco-voice/laravel-customfields",
+    "license": "MIT",
+    "require": {
+        "php": "^7.4",
+        "illuminate/support": "^7.11",
+        "illuminate/contracts": "^7.5",
+        "illuminate/database": "^7.13",
+        "illuminate/console": "^7.13",
+        "illuminate/filesystem": "^7.13",
+        "illuminate/http": "^7.14"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5",
+        "mockery/mockery": "^1.3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Voice\\Customfields\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Voice\\Customfields\\CustomfieldsServiceProvider"
+            ]
+        }
+    }
+}
