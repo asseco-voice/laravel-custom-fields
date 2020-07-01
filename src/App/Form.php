@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Voice\CustomFields\App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Voice\CustomFields\App\Http\Controllers;
 
-use App\CustomFieldConfig;
 use Illuminate\Http\Request;
+use Voice\CustomFields\App\CustomFieldConfig;
 
 class CustomFieldConfigController extends Controller
 {

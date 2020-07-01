@@ -3,9 +3,6 @@
 namespace Voice\CustomFields\App\Console\Commands;
 
 use Illuminate\Database\Console\Migrations\MigrateMakeCommand;
-use Illuminate\Database\Console\Migrations\TableGuesser;
-use Illuminate\Support\Str;
-use InvalidArgumentException;
 
 class MakeCustomFields extends MigrateMakeCommand
 {
