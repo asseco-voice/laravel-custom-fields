@@ -13,8 +13,8 @@ class CustomFieldValidation extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    public function customFieldConfigs()
+    public function configs()
     {
-        return $this->hasMany(CustomFieldConfig::class);
+        return $this->hasMany(CustomFieldConfig::class, 'custom_field_config_id');
     }
 }

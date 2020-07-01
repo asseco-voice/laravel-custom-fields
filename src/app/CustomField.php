@@ -18,9 +18,9 @@ class CustomField extends Model
         return $this->hasMany(CustomField::class, 'parent_id');
     }
 
-    public function customFieldConfig()
+    public function config()
     {
-        return $this->belongsTo(CustomFieldConfig::class);
+        return $this->belongsTo(CustomFieldConfig::class, 'custom_field_config_id');
     }
 
 }

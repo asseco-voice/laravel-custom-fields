@@ -22,13 +22,10 @@ class CreateCustomFieldConfigsTable extends Migration
             $table->string('name')->unique('cf_name_configs');
             $table->string('model', 255);
             $table->string('label', 255);
-            $table->unsignedBigInteger('type');
-            $table->foreign('type')->references('id')->on('custom_field_config_types')->onDelete('cascade');
-
             $table->text('definition');
 
-            $table->unsignedBigInteger('custom_validation_id')->nullable();
-            $table->foreign('custom_validation_id')->references('id')->on('custom_field_validations')->onDelete('cascade');
+            $table->foreignId('custom_field_config_type_id')->constrained()->onDelete('cascade');
+            $table->foreignId('custom_field_validation_id')->constrained()->onDelete('cascade');
         });
     }
 

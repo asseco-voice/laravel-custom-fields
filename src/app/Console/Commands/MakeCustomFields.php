@@ -24,5 +24,5 @@ class MakeCustomFields extends MigrateMakeCommand
      *
      * @var string
      */
-    protected $description = 'Creating customfields migrations for models having Containable trait';
+    protected $description = 'Creating custom fields migrations for models having Containable trait';
 }

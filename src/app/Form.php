@@ -15,6 +15,6 @@ class Form extends Model
 
     public function customFieldConfigs()
     {
-        return $this->hasMany(Form::class);
+        return $this->hasMany(CustomFieldConfig::class);
     }
 }

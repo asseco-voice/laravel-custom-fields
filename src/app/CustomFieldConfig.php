@@ -13,9 +13,9 @@ class CustomFieldConfig extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    public function customFieldValidation()
+    public function validation()
     {
-        return $this->belongsTo(CustomFieldValidation::class);
+        return $this->belongsTo(CustomFieldValidation::class, 'custom_field_validation_id');
     }
 
     public function customFields()
@@ -23,8 +23,8 @@ class CustomFieldConfig extends Model
         return $this->hasMany(CustomField::class);
     }
 
-    public function customFieldConfigType()
+    public function type()
     {
-        return $this->belongsTo(CustomFieldConfigType::class);
+        return $this->belongsTo(CustomFieldConfigType::class, 'custom_field_config_type_id');
     }
 }
