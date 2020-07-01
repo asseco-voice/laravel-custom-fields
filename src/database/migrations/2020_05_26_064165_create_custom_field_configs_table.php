@@ -20,6 +20,7 @@ class CreateCustomFieldConfigsTable extends Migration
 
             $table->integer('tenant_id');
             $table->string('name')->unique('cf_name_configs');
+            // TODO: vidjeti kakav će uopće biti model i baciti u novu tablicu ako treba
             $table->string('model', 255);
             $table->string('label', 255);
             $table->text('definition');

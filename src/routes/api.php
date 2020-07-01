@@ -17,8 +17,8 @@ use Voice\CustomFields\App\Http\Controllers\CustomFieldValidationController;
 |
 */
 
-Route::apiResource('custom-fields', 'CustomFieldController');
-Route::apiResource('custom-field-configs', 'CustomFieldConfigController');
-Route::apiResource('custom-field-config-types', 'CustomFieldConfigTypeController');
-Route::apiResource('custom-field-validations', 'CustomFieldValidationController');
-Route::apiResource('forms', 'FormsController');
+Route::apiResource('api/custom-fields', 'CustomFieldController');
+Route::apiResource('api/custom-field-configs', 'CustomFieldConfigController');
+Route::apiResource('api/custom-field-config-types', 'CustomFieldConfigTypeController');
+Route::apiResource('api/custom-field-validations', 'CustomFieldValidationController');
+Route::apiResource('api/forms', 'FormsController');

@@ -21,7 +21,7 @@ class CreateCustomFieldsTable extends Migration
             $table->string('record_id', 36)->index('record_id');
 
             $table->foreignId('custom_field_config_id')->constrained()->onDelete('cascade');
-            $table->foreignId('parent_id')->constrained('custom_fields')->onDelete('cascade');
+            $table->foreignId('parent_id')->nullable()->constrained('custom_fields')->onDelete('cascade');
 
             $table->string('value_string', 255)->nullable();
             $table->decimal('value_number', 18,6)->nullable();
