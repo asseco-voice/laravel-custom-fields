@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'custom-fields' => [
+    'custom_fields' => [
         /**
          * Path to Laravel models. This does not recurse in folders
          */
@@ -10,6 +10,9 @@ return [
          * Namespace for Laravel models.
          */
         'model_namespace' => 'App\\',
-
+        /**
+         * Namespace to Customizable trait
+         */
+        'trait_path'      => 'Voice\CustomFields\App\Traits\Customizable',
     ]
 ];

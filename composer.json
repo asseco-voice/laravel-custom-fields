@@ -6,7 +6,7 @@
         "php": "^7.4",
         "illuminate/support": "^7.11",
         "illuminate/contracts": "^7.5",
-        "illuminate/database": "^7.13",
+        "illuminate/database": "^7.18",
         "illuminate/console": "^7.13",
         "illuminate/filesystem": "^7.13",
         "illuminate/http": "^7.14"
