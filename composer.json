@@ -1,5 +1,6 @@
 {
     "name": "asseco-voice/laravel-custom-fields",
+    "description": "Laravel support for custom fields",
     "license": "MIT",
     "require": {
         "php": "^7.4",
