@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Voice\CustomFields\App\Http\Controllers\CustomFieldController;
 use Voice\CustomFields\App\Http\Controllers\CustomFieldConfigController;
 use Voice\CustomFields\App\Http\Controllers\CustomFieldConfigTypeController;
+use Voice\CustomFields\App\Http\Controllers\CustomFieldController;
 use Voice\CustomFields\App\Http\Controllers\CustomFieldValidationController;
+use Voice\CustomFields\App\Http\Controllers\FormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +18,8 @@ use Voice\CustomFields\App\Http\Controllers\CustomFieldValidationController;
 |
 */
 
-Route::apiResource('api/custom-fields', 'CustomFieldController');
-Route::apiResource('api/custom-field-configs', 'CustomFieldConfigController');
-Route::apiResource('api/custom-field-config-types', 'CustomFieldConfigTypeController');
-Route::apiResource('api/custom-field-validations', 'CustomFieldValidationController');
-Route::apiResource('api/forms', 'FormsController');
+Route::apiResource('api/custom-fields', CustomFieldController::class);
+Route::apiResource('api/custom-field-configs', CustomFieldConfigController::class);
+Route::apiResource('api/custom-field-config-types', CustomFieldConfigTypeController::class);
+Route::apiResource('api/custom-field-validations', CustomFieldValidationController::class);
+Route::apiResource('api/forms', FormController::class);

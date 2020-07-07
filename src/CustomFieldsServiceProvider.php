@@ -3,8 +3,6 @@
 namespace Voice\CustomFields;
 
 use Illuminate\Support\ServiceProvider;
-use Voice\Containers\App\Console\Commands\MakeContainers;
-use Voice\Containers\CustomMigrationCreator;
 use Voice\CustomFields\App\Console\Commands\MakeCustomFields;
 
 class CustomFieldsServiceProvider extends ServiceProvider
