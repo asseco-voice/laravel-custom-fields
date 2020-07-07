@@ -2,6 +2,7 @@
 
 namespace Voice\CustomFields\App\Http\Controllers;
 
+use App\Http\Controllers\Controller; // Stock Laravel controller class
 use Illuminate\Http\Request;
 use Voice\CustomFields\App\CustomFieldValidation;
 
