@@ -22,6 +22,7 @@ class CreateCustomFieldsTable extends Migration
             $table->string('name')->unique('cf_name_configs');
             $table->string('label', 255);
             $table->text('definition');
+            $table->boolean('required')->default(0);
 
             $table->foreignId('custom_field_type_id')->constrained()->onDelete('cascade');
             $table->foreignId('custom_field_validation_id')->constrained()->onDelete('cascade');
