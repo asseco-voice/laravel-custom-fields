@@ -1,10 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Voice\CustomFields\App\Http\Controllers\CustomFieldController;
-use Voice\CustomFields\App\Http\Controllers\CustomFieldTypeController;
-use Voice\CustomFields\App\Http\Controllers\CustomFieldValidationController;
-use Voice\CustomFields\App\Http\Controllers\FormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +13,15 @@ use Voice\CustomFields\App\Http\Controllers\FormController;
 |
 */
 
-Route::apiResource('api/custom-fields', CustomFieldController::class);
-Route::apiResource('api/custom-field-types', CustomFieldTypeController::class);
-Route::apiResource('api/custom-field-validations', CustomFieldValidationController::class);
-Route::apiResource('api/forms', FormController::class);
+Route::namespace('Voice\CustomFields\App\Http\Controllers')
+    ->prefix('api')
+    ->middleware('api')
+    ->group(function () {
+
+        Route::apiResource('api/custom-fields', 'CustomFieldController');
+        Route::apiResource('api/custom-field-types', 'CustomFieldTypeController');
+        Route::apiResource('api/custom-field-validations', 'CustomFieldValidationController');
+        Route::apiResource('api/forms', 'FormController');
+
+    });
+
