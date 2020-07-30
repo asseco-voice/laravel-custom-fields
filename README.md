@@ -3,7 +3,8 @@
 Purpose of this repository is to provide custom field support for any Laravel model. 
 
 **Custom field** can be any field with which you wish to extend your model providing
-a highly flexible model for additional fields. 
+a highly flexible model for additional fields, without the need to constantly add
+new attributes to a DB model.
 
 ## Installation
 
@@ -55,25 +56,3 @@ children/descendants).
 Connecting any model to a custom field will be done through a pivot table which besides relation
 to the ``custom_fields`` table has also values split to several value columns (`value_text`, `value_number`...)
 for more performant table searching.
-
-## Configuration
-
-The stock configuration looks like this, and most probably should never
-be changed, but if you ever need to override it:
-
-```
-'containers' => [
-    /**
-     * Path to Laravel models. This does not recurse in folders
-     */
-    'models_path'     => app_path(),
-    /**
-     * Namespace for Laravel models.
-     */
-    'model_namespace' => 'App\\',
-    /**
-     * Namespace to Customizable trait
-     */
-    'trait_path'      => 'Voice\CustomFields\App\Traits\Customizable',
-],
-```
