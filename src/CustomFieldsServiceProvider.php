@@ -12,9 +12,9 @@ class CustomFieldsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/config/asseco-custom-fields.php', 'asseco-custom-fields');
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
-        $this->loadRoutesFrom(__DIR__ . '/routes/api.php');
+        $this->mergeConfigFrom(__DIR__ . '/Config/asseco-custom-fields.php', 'asseco-custom-fields');
+        $this->loadMigrationsFrom(__DIR__ . '/Database/migrations');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
     }
 
     /**
@@ -22,7 +22,7 @@ class CustomFieldsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([__DIR__ . '/config/asseco-custom-fields.php' => config_path('asseco-custom-fields.php'),]);
+        $this->publishes([__DIR__ . '/Config/asseco-custom-fields.php' => config_path('asseco-custom-fields.php'),]);
 
         $this->registerCreator();
         $this->registerMigrateMakeCommand();
@@ -40,7 +40,7 @@ class CustomFieldsServiceProvider extends ServiceProvider
     protected function registerCreator()
     {
         $this->app->singleton('asseco-voice.custom-field-migration.creator', function ($app) {
-            return new CustomMigrationCreator($app['files'], __DIR__ . '/stubs');
+            return new CustomMigrationCreator($app['files'], __DIR__ . '/Stubs');
         });
     }
 

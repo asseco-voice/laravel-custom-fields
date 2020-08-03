@@ -39,8 +39,8 @@ class MakeCustomFields extends MigrateMakeCommand
 
     protected function getModelsWithCustomizableTrait()
     {
-        $path = config('asseco-voice.custom_fields.models_path');
-        $namespace = config('asseco-voice.custom_fields.model_namespace');
+        $path = config('asseco-custom-fields.models_path');
+        $namespace = config('asseco-custom-fields.model_namespace');
         $models = [];
         $results = scandir($path);
 
@@ -63,7 +63,7 @@ class MakeCustomFields extends MigrateMakeCommand
     protected function hasCustomizableTrait($class)
     {
         $traits = class_uses($class);
-        $customizable = config('asseco-voice.custom_fields.trait_path');
+        $customizable = config('asseco-custom-fields.trait_path');
 
         return in_array($customizable, $traits);
     }
