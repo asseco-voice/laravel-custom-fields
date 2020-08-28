@@ -18,10 +18,10 @@ Route::namespace('Voice\CustomFields\App\Http\Controllers')
     ->middleware('api')
     ->group(function () {
 
-        Route::apiResource('api/custom-fields', 'CustomFieldController');
-        Route::apiResource('api/custom-field-types', 'CustomFieldTypeController');
-        Route::apiResource('api/custom-field-validations', 'CustomFieldValidationController');
-        Route::apiResource('api/forms', 'FormController');
+        Route::apiResource('custom-fields', 'CustomFieldController');
+        Route::apiResource('custom-field-types', 'CustomFieldTypeController');
+        Route::apiResource('custom-field-validations', 'CustomFieldValidationController');
+        Route::apiResource('forms', 'FormController');
 
     });
 
