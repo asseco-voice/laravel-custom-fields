@@ -18,7 +18,7 @@ class CreateCustomFieldConfigsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->integer('tenant_id');
+            $table->string('tenant_id', 30)->nullable();
             $table->string('name')->unique('cf_name_configs');
             // TODO: vidjeti kakav će uopće biti model i baciti u novu tablicu ako treba
             $table->string('model', 255);
