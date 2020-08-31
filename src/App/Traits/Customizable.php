@@ -6,9 +6,10 @@ use Voice\CustomFields\App\CustomField;
 
 trait Customizable
 {
-    public function customField()
+    public function customFields()
     {
-        return $this->belongsTo(CustomField::class);
+        return $this->belongsToMany(CustomField::class)
+            ->withPivot('value_string', 'value_number', 'value_date', 'value_text')
+            ->withTimestamps();
     }
-
 }

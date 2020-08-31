@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCustomFieldConfigTypesTable extends Migration
+class CreateCustomFieldTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateCustomFieldConfigTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('custom_field_config_types', function (Blueprint $table) {
+        Schema::create('custom_field_types', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
 
             $table->string('name', 150)->unique('cf_name_types');
-
         });
     }
 
@@ -30,6 +29,6 @@ class CreateCustomFieldConfigTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('custom_field_config_types');
+        Schema::dropIfExists('custom_field_types');
     }
 }

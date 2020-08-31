@@ -13,14 +13,23 @@ class CustomField extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    public function parents()
+    public function validation()
     {
-        return $this->hasMany(CustomField::class, 'parent_id');
+        return $this->belongsTo(CustomFieldValidation::class, 'custom_field_validation_id');
     }
 
-    public function config()
+    public function type()
     {
-        return $this->belongsTo(CustomFieldConfig::class, 'custom_field_config_id');
+        return $this->belongsTo(CustomFieldType::class, 'custom_field_type_id');
     }
 
+    public function children()
+    {
+        return $this->belongsToMany(CustomField::class, 'custom_field_relations', 'custom_field_parent', 'custom_field_child');
+    }
+
+    public function parent()
+    {
+        return $this->belongsToMany(CustomField::class, 'custom_field_relations', 'custom_field_child', 'custom_field_parent');
+    }
 }

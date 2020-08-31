@@ -3,6 +3,8 @@
 namespace Voice\CustomFields\App\Http\Controllers;
 
 use App\Http\Controllers\Controller; // Stock Laravel controller class
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Voice\CustomFields\App\Form;
 
@@ -11,7 +13,7 @@ class FormController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function index()
     {
@@ -21,8 +23,8 @@ class FormController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -34,33 +36,34 @@ class FormController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Form  $form
-     * @return \Illuminate\Http\Response
+     * @param Form $form
+     * @return JsonResponse
      */
     public function show(Form $form)
     {
-    	return response()->json($form);
+        return response()->json($form);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Form  $form
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Form $form
+     * @return JsonResponse
      */
     public function update(Request $request, Form $form)
     {
-        $form->update($request->all());
+        $isUpdated = $form->update($request->all());
 
-        return response()->json($form);
+        return response()->json($isUpdated);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Form  $form
-     * @return \Illuminate\Http\Response
+     * @param Form $form
+     * @return JsonResponse
+     * @throws Exception
      */
     public function destroy(Form $form)
     {

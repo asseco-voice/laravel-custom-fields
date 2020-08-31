@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller; // Stock Laravel controller class
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Voice\CustomFields\App\CustomFieldValidation;
+use Voice\CustomFields\App\CustomFieldType;
 
-class CustomFieldValidationController extends Controller
+class CustomFieldTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class CustomFieldValidationController extends Controller
      */
     public function index()
     {
-        return response()->json(CustomFieldValidation::all());
+        return response()->json(CustomFieldType::all());
     }
 
     /**
@@ -28,32 +28,32 @@ class CustomFieldValidationController extends Controller
      */
     public function store(Request $request)
     {
-        $customFieldValidation = CustomFieldValidation::create($request->all());
+        $customFieldType = CustomFieldType::create($request->all());
 
-        return response()->json($customFieldValidation);
+        return response()->json($customFieldType);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param CustomFieldValidation $customFieldValidation
+     * @param CustomFieldType $customFieldType
      * @return JsonResponse
      */
-    public function show(CustomFieldValidation $customFieldValidation)
+    public function show(CustomFieldType $customFieldType)
     {
-        return response()->json($customFieldValidation);
+        return response()->json($customFieldType);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param CustomFieldValidation $customFieldValidation
+     * @param CustomFieldType $customFieldType
      * @return JsonResponse
      */
-    public function update(Request $request, CustomFieldValidation $customFieldValidation)
+    public function update(Request $request, CustomFieldType $customFieldType)
     {
-        $isUpdated = $customFieldValidation->update($request->all());
+        $isUpdated = $customFieldType->update($request->all());
 
         return response()->json($isUpdated);
     }
@@ -61,13 +61,13 @@ class CustomFieldValidationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param CustomFieldValidation $customFieldValidation
+     * @param CustomFieldType $customFieldType
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(CustomFieldValidation $customFieldValidation)
+    public function destroy(CustomFieldType $customFieldType)
     {
-        $isDeleted = $customFieldValidation->delete();
+        $isDeleted = $customFieldType->delete();
 
         return response()->json($isDeleted);
     }

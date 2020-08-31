@@ -5,7 +5,7 @@ namespace Voice\CustomFields\App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CustomFieldConfigType extends Model
+class CustomFieldType extends Model
 {
     use SoftDeletes;
 
@@ -13,8 +13,8 @@ class CustomFieldConfigType extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    public function configs()
+    public function customFields()
     {
-        return $this->hasMany(CustomFieldConfig::class, 'custom_field_config_id');
+        return $this->hasMany(CustomField::class);
     }
 }

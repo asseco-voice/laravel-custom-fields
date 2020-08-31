@@ -18,17 +18,14 @@ class CreateCustomFieldsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->string('record_id', 36)->index('record_id');
+            $table->string('tenant_id', 30)->nullable();
+            $table->string('name')->unique('cf_name_configs');
+            $table->string('label', 255);
+            $table->text('definition');
+            $table->boolean('required')->default(0);
 
-            $table->foreignId('custom_field_config_id')->constrained()->onDelete('cascade');
-            $table->foreignId('parent_id')->nullable()->constrained('custom_fields')->onDelete('cascade');
-
-            $table->string('value_string', 255)->nullable();
-            $table->decimal('value_number', 18,6)->nullable();
-            $table->timestamp('value_date')->nullable();
-            $table->text('value_text')->nullable();
-
-            $table->index(['record_id', 'custom_field_config_id']);
+            $table->foreignId('custom_field_type_id')->constrained()->onDelete('cascade');
+            $table->foreignId('custom_field_validation_id')->constrained()->onDelete('cascade');
         });
 
 
