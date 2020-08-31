@@ -17,7 +17,7 @@ class CreateFormsTable extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->integer('tenant_id');
+            $table->string('tenant_id', 30)->nullable();
             $table->string('name')->unique('form_name');
             $table->text('definition');
         });
