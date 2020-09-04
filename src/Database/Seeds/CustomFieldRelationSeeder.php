@@ -6,6 +6,7 @@ namespace Voice\CustomFields\Database\Seeds;
 
 use Illuminate\Database\Seeder;
 use Voice\CustomFields\App\CustomField;
+use Voice\CustomFields\App\CustomFieldRelation;
 
 class CustomFieldRelationSeeder extends Seeder
 {
@@ -22,6 +23,6 @@ class CustomFieldRelationSeeder extends Seeder
             ];
         }
 
-        CustomField::query()->insert($data);
+        CustomFieldRelation::query()->insert($data);
     }
 }
