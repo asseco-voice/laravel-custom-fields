@@ -42,7 +42,7 @@ class CustomFieldsServiceProvider extends ServiceProvider
     protected function registerCreator(): void
     {
         $this->app->singleton('asseco-voice.custom-field-migration.creator', function ($app) {
-            return new CustomMigrationCreator($app['files'], __DIR__ . '/Stubs');
+            return new CustomMigrationCreator($app['files'], __DIR__ . '/../stubs');
         });
     }
 
