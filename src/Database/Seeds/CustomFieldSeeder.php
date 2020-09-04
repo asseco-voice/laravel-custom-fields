@@ -17,21 +17,23 @@ class CustomFieldSeeder extends Seeder
         $faker = Factory::create();
         $type = CustomFieldType::all('id')->pluck('id')->toArray();
         $validation = CustomFieldValidation::all('id')->pluck('id')->toArray();
-        $amount = 5000;
-        $data = [];
+        $amount = 500;
 
-        for ($i = 0; $i < $amount; $i++) {
-            $data[] = [
-                'tenant_id'                  => $faker->uuid,
-                'name'                       => $faker->word,
-                'label'                      => $faker->word,
-                'definition'                 => $faker->word,
-                'custom_field_type_id'       => $type[array_rand($type)],
-                'custom_field_validation_id' => $validation[array_rand($validation)],
-                'required'                   => $faker->boolean(10),
-            ];
+        for ($j = 0; $j < 10; $j++) {
+            $data = [];
+            for ($i = 0; $i < $amount; $i++) {
+                $data[] = [
+                    'name'                       => implode(' ', $faker->words(5)),
+                    'label'                      => $faker->word,
+                    'definition'                 => $faker->word,
+                    'custom_field_type_id'       => $type[array_rand($type)],
+                    'custom_field_validation_id' => $validation[array_rand($validation)],
+                    'required'                   => $faker->boolean(10),
+                ];
+            }
+
+            CustomField::query()->insert($data);
         }
 
-        CustomField::query()->insert($data);
     }
 }

@@ -18,7 +18,7 @@ class CustomFieldValidationSeeder extends Seeder
 
         for ($i = 0; $i < $amount; $i++) {
             $data[] = [
-                'name'       => $faker->word,
+                'name' => implode(' ', $faker->words),
                 'validation' => '/some_regex/',
             ];
         }
