@@ -6,6 +6,7 @@ namespace Voice\CustomFields\App\Console\Commands;
 
 use Illuminate\Database\Console\Migrations\MigrateMakeCommand;
 use Illuminate\Database\Console\Migrations\TableGuesser;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 
@@ -41,8 +42,8 @@ class MakeCustomFields extends MigrateMakeCommand
 
     protected function getModelsWithCustomizableTrait(): array
     {
-        $path = config('asseco-custom-fields.models_path');
-        $namespace = config('asseco-custom-fields.model_namespace');
+        $path = Config::get('asseco-custom-fields.models_path');
+        $namespace = Config::get('asseco-custom-fields.model_namespace');
         $models = [];
         $results = scandir($path);
 
@@ -65,7 +66,7 @@ class MakeCustomFields extends MigrateMakeCommand
     protected function hasCustomizableTrait($class): bool
     {
         $traits = class_uses($class);
-        $customizable = config('asseco-custom-fields.trait_path');
+        $customizable = Config::get('asseco-custom-fields.trait_path');
 
         return in_array($customizable, $traits);
     }

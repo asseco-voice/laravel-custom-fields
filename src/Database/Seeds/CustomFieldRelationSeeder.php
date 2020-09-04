@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonAuthorization\Database\Seeds;
+namespace Voice\CustomFields\Database\Seeds;
 
 use Illuminate\Database\Seeder;
 use Voice\CustomFields\App\CustomField;
