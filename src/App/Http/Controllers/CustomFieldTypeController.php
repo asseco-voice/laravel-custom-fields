@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Voice\CustomFields\App\Http\Controllers;
 
-use App\Http\Controllers\Controller; // Stock Laravel controller class
+use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\CustomFieldType;
 
 class CustomFieldTypeController extends Controller
@@ -15,9 +18,9 @@ class CustomFieldTypeController extends Controller
      *
      * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        return response()->json(CustomFieldType::all());
+        return Response::json(CustomFieldType::all());
     }
 
     /**
@@ -26,11 +29,11 @@ class CustomFieldTypeController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        $customFieldType = CustomFieldType::create($request->all());
+        $customFieldType = CustomFieldType::query()->create($request->all());
 
-        return response()->json($customFieldType);
+        return Response::json($customFieldType);
     }
 
     /**
@@ -39,9 +42,9 @@ class CustomFieldTypeController extends Controller
      * @param CustomFieldType $customFieldType
      * @return JsonResponse
      */
-    public function show(CustomFieldType $customFieldType)
+    public function show(CustomFieldType $customFieldType): JsonResponse
     {
-        return response()->json($customFieldType);
+        return Response::json($customFieldType);
     }
 
     /**
@@ -51,11 +54,11 @@ class CustomFieldTypeController extends Controller
      * @param CustomFieldType $customFieldType
      * @return JsonResponse
      */
-    public function update(Request $request, CustomFieldType $customFieldType)
+    public function update(Request $request, CustomFieldType $customFieldType): JsonResponse
     {
         $isUpdated = $customFieldType->update($request->all());
 
-        return response()->json($isUpdated);
+        return Response::json($isUpdated ? 'true' : 'false');
     }
 
     /**
@@ -65,10 +68,10 @@ class CustomFieldTypeController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(CustomFieldType $customFieldType)
+    public function destroy(CustomFieldType $customFieldType): JsonResponse
     {
         $isDeleted = $customFieldType->delete();
 
-        return response()->json($isDeleted);
+        return Response::json($isDeleted ? 'true' : 'false');
     }
 }

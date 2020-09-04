@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Voice\CustomFields\App\Http\Controllers;
 
-use App\Http\Controllers\Controller; // Stock Laravel controller class
+use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\CustomFieldValidation;
 
 class CustomFieldValidationController extends Controller
@@ -15,9 +18,9 @@ class CustomFieldValidationController extends Controller
      *
      * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        return response()->json(CustomFieldValidation::all());
+        return Response::json(CustomFieldValidation::all());
     }
 
     /**
@@ -26,11 +29,11 @@ class CustomFieldValidationController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        $customFieldValidation = CustomFieldValidation::create($request->all());
+        $customFieldValidation = CustomFieldValidation::query()->create($request->all());
 
-        return response()->json($customFieldValidation);
+        return Response::json($customFieldValidation);
     }
 
     /**
@@ -39,9 +42,9 @@ class CustomFieldValidationController extends Controller
      * @param CustomFieldValidation $customFieldValidation
      * @return JsonResponse
      */
-    public function show(CustomFieldValidation $customFieldValidation)
+    public function show(CustomFieldValidation $customFieldValidation): JsonResponse
     {
-        return response()->json($customFieldValidation);
+        return Response::json($customFieldValidation);
     }
 
     /**
@@ -51,11 +54,11 @@ class CustomFieldValidationController extends Controller
      * @param CustomFieldValidation $customFieldValidation
      * @return JsonResponse
      */
-    public function update(Request $request, CustomFieldValidation $customFieldValidation)
+    public function update(Request $request, CustomFieldValidation $customFieldValidation): JsonResponse
     {
         $isUpdated = $customFieldValidation->update($request->all());
 
-        return response()->json($isUpdated);
+        return Response::json($isUpdated ? 'true' : 'false');
     }
 
     /**
@@ -65,10 +68,10 @@ class CustomFieldValidationController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(CustomFieldValidation $customFieldValidation)
+    public function destroy(CustomFieldValidation $customFieldValidation): JsonResponse
     {
         $isDeleted = $customFieldValidation->delete();
 
-        return response()->json($isDeleted);
+        return Response::json($isDeleted ? 'true' : 'false');
     }
 }

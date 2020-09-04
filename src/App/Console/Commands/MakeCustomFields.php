@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Voice\CustomFields\App\Console\Commands;
 
 use Illuminate\Database\Console\Migrations\MigrateMakeCommand;
@@ -26,7 +28,7 @@ class MakeCustomFields extends MigrateMakeCommand
      */
     protected $description = 'Creating custom fields migrations for models having Customizable trait';
 
-    public function handle()
+    public function handle(): void
     {
         $models = $this->getModelsWithCustomizableTrait();
 
@@ -37,7 +39,7 @@ class MakeCustomFields extends MigrateMakeCommand
         $this->composer->dumpAutoloads();
     }
 
-    protected function getModelsWithCustomizableTrait()
+    protected function getModelsWithCustomizableTrait(): array
     {
         $path = config('asseco-custom-fields.models_path');
         $namespace = config('asseco-custom-fields.model_namespace');
@@ -60,7 +62,7 @@ class MakeCustomFields extends MigrateMakeCommand
         return $models;
     }
 
-    protected function hasCustomizableTrait($class)
+    protected function hasCustomizableTrait($class): bool
     {
         $traits = class_uses($class);
         $customizable = config('asseco-custom-fields.trait_path');
@@ -68,7 +70,7 @@ class MakeCustomFields extends MigrateMakeCommand
         return in_array($customizable, $traits);
     }
 
-    protected function createMigration($model)
+    protected function createMigration($model): void
     {
         $modelSnakeCase = Str::snake(class_basename($model));
 
@@ -87,7 +89,7 @@ class MakeCustomFields extends MigrateMakeCommand
         }
     }
 
-    protected function writeMigrationOverloaded($name, $table, $create, $model)
+    protected function writeMigrationOverloaded($name, $table, $create, $model): void
     {
         $file = $this->creator->createOverloaded(
             $name, $this->getMigrationPath(), $model, $table, $create

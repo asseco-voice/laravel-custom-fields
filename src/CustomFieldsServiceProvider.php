@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Voice\CustomFields;
 
 use Illuminate\Support\ServiceProvider;
@@ -10,19 +12,19 @@ class CustomFieldsServiceProvider extends ServiceProvider
     /**
      * Register the application services.
      */
-    public function register()
+    public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/Config/asseco-custom-fields.php', 'asseco-custom-fields');
-        $this->loadMigrationsFrom(__DIR__ . '/Database/migrations');
-        $this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
+        $this->mergeConfigFrom(__DIR__ . '/../config/asseco-custom-fields.php', 'asseco-custom-fields');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
     }
 
     /**
      * Bootstrap the application services.
      */
-    public function boot()
+    public function boot(): void
     {
-        $this->publishes([__DIR__ . '/Config/asseco-custom-fields.php' => config_path('asseco-custom-fields.php'),]);
+        $this->publishes([__DIR__ . '/../config/asseco-custom-fields.php' => config_path('asseco-custom-fields.php'),]);
 
         $this->registerCreator();
         $this->registerMigrateMakeCommand();
@@ -37,7 +39,7 @@ class CustomFieldsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerCreator()
+    protected function registerCreator(): void
     {
         $this->app->singleton('asseco-voice.custom-field-migration.creator', function ($app) {
             return new CustomMigrationCreator($app['files'], __DIR__ . '/Stubs');
@@ -49,7 +51,7 @@ class CustomFieldsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerMigrateMakeCommand()
+    protected function registerMigrateMakeCommand(): void
     {
         $this->app->singleton('asseco-voice.command.custom-field-migrate.make', function ($app) {
             $creator = $app['asseco-voice.custom-field-migration.creator'];

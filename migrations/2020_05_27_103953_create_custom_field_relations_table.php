@@ -17,8 +17,8 @@ class CreateCustomFieldRelationsTable extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('custom_field_parent')->constrained('custom_fields')->onDelete('cascade');
-            $table->foreignId('custom_field_child')->constrained('custom_fields')->onDelete('cascade');
+            $table->foreignId('custom_field_parent_id')->constrained('custom_fields')->onDelete('cascade');
+            $table->foreignId('custom_field_child_id')->constrained('custom_fields')->onDelete('cascade');
         });
     }
 

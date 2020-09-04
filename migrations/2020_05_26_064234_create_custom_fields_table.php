@@ -27,8 +27,6 @@ class CreateCustomFieldsTable extends Migration
             $table->foreignId('custom_field_type_id')->constrained()->onDelete('cascade');
             $table->foreignId('custom_field_validation_id')->constrained()->onDelete('cascade');
         });
-
-
     }
 
     /**

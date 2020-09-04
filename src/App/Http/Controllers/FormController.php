@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Voice\CustomFields\App\Http\Controllers;
 
-use App\Http\Controllers\Controller; // Stock Laravel controller class
+use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\Form;
 
 class FormController extends Controller
@@ -15,9 +18,9 @@ class FormController extends Controller
      *
      * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        return response()->json(Form::all());
+        return Response::json(Form::all());
     }
 
     /**
@@ -26,11 +29,11 @@ class FormController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        $form = Form::create($request->all());
+        $form = Form::query()->create($request->all());
 
-        return response()->json($form);
+        return Response::json($form);
     }
 
     /**
@@ -39,9 +42,9 @@ class FormController extends Controller
      * @param Form $form
      * @return JsonResponse
      */
-    public function show(Form $form)
+    public function show(Form $form): JsonResponse
     {
-        return response()->json($form);
+        return Response::json($form);
     }
 
     /**
@@ -51,11 +54,11 @@ class FormController extends Controller
      * @param Form $form
      * @return JsonResponse
      */
-    public function update(Request $request, Form $form)
+    public function update(Request $request, Form $form): JsonResponse
     {
         $isUpdated = $form->update($request->all());
 
-        return response()->json($isUpdated);
+        return Response::json($isUpdated ? 'true' : 'false');
     }
 
     /**
@@ -65,10 +68,10 @@ class FormController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(Form $form)
+    public function destroy(Form $form): JsonResponse
     {
         $isDeleted = $form->delete();
 
-        return response()->json($isDeleted);
+        return Response::json($isDeleted ? 'true' : 'false');
     }
 }
