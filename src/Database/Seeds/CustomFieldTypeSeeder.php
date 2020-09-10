@@ -6,6 +6,7 @@ namespace Voice\CustomFields\Database\Seeds;
 
 use Faker\Factory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Config;
 use Voice\CustomFields\App\CustomFieldType;
 
 class CustomFieldTypeSeeder extends Seeder
@@ -13,6 +14,22 @@ class CustomFieldTypeSeeder extends Seeder
     public function run(): void
     {
         $faker = Factory::create();
+
+        if (Config::get('app.env') === 'frontend') {
+            $data = [
+                ['name' => 'select'],
+                ['name' => 'text'],
+                ['name' => 'textarea'],
+                ['name' => 'phone'],
+                ['name' => 'numeric'],
+                ['name' => 'date'],
+            ];
+
+            CustomFieldType::query()->insert($data);
+
+            return;
+        }
+
         $amount = 200;
         $data = [];
 
