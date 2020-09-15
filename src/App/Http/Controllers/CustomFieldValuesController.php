@@ -10,8 +10,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\CustomFieldValue;
-
-class CustomFieldValueController extends Controller
+#     CustomFieldValuesController
+class CustomFieldValuesController extends Controller
 {
     /**
      * Display a listing of the resource.
