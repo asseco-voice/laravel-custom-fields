@@ -7,7 +7,6 @@ namespace Voice\CustomFields\Database\Seeds;
 use Carbon\Carbon;
 use Faker\Factory;
 use Faker\Generator;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Config;
 use Voice\CustomFields\App\CustomField;
@@ -36,20 +35,20 @@ class CustomFieldValueSeeder extends Seeder
 
         $data = [];
         for ($i = 0; $i < $amount; $i++) {
-            $data[] = $this->generateData($customFields->random(1)->first(), $now, $models, $customFieldTypes, $faker);
+            $randomCustomField = $customFields->random(1)->first();
+            $customFieldType = $customFieldTypes->where('id', $randomCustomField->custom_field_type_id)->first();
+            $model = $models[array_rand($models)];
+
+            $data[] = $this->generateData($randomCustomField->id, $now, $model, $customFieldType->name, $faker);
         }
 
         CustomFieldValue::query()->insert($data);
     }
 
-    protected function generateData(CustomField $customField, Carbon $now, array $models, Collection $customFieldTypes, Generator $faker): array
+    protected function generateData(int $customFieldId, Carbon $now, string $model, string $customFieldType, Generator $faker): array
     {
-        $customFieldType = $customFieldTypes->where('id', $customField->custom_field_type_id)->first();
-
-        $model = $models[array_rand($models)];
-
         $data = [
-            'custom_field_id'   => $customField->id,
+            'custom_field_id'   => $customFieldId,
             'customizable_type' => $model,
             'customizable_id'   => $this->getCached($model),
             'created_at'        => $now,
