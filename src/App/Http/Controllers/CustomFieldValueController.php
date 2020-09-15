@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\CustomFieldValue;
 
-class CustomFieldValuesController extends Controller
+class CustomFieldValueController extends Controller
 {
     /**
      * Display a listing of the resource.
