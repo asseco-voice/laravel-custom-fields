@@ -4,40 +4,48 @@ declare(strict_types=1);
 
 namespace Voice\CustomFields\Database\Seeds;
 
-use Faker\Factory;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Config;
 use Voice\CustomFields\App\CustomFieldType;
 
 class CustomFieldTypeSeeder extends Seeder
 {
     public function run(): void
     {
-        $faker = Factory::create();
-
-        if (Config::get('app.env') === 'frontend') {
-            $data = [
-                ['name' => 'select'],
-                ['name' => 'text'],
-                ['name' => 'textarea'],
-                ['name' => 'phone'],
-                ['name' => 'numeric'],
-                ['name' => 'date'],
-            ];
-
-            CustomFieldType::query()->insert($data);
-
-            return;
-        }
-
-        $amount = 200;
-        $data = [];
-
-        for ($i = 0; $i < $amount; $i++) {
-            $data[] = [
-                'name' => implode(' ', $faker->words),
-            ];
-        }
+        $now = Carbon::now();
+        
+        $data = [
+            [
+                'name'       => 'string',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name'       => 'integer',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name'       => 'float',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name'       => 'date',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name'       => 'text',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name'       => 'boolean',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+        ];
 
         CustomFieldType::query()->insert($data);
     }

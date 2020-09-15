@@ -21,6 +21,8 @@ Route::namespace('Voice\CustomFields\App\Http\Controllers')
         Route::apiResource('custom-fields', 'CustomFieldController');
         Route::apiResource('custom-field-types', 'CustomFieldTypeController');
         Route::apiResource('custom-field-validations', 'CustomFieldValidationController');
+        Route::apiResource('custom-field-values', 'CustomFieldValuesController');
+
         Route::apiResource('forms', 'FormController');
 
     });

@@ -25,39 +25,5 @@ class CustomFieldsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([__DIR__ . '/../config/asseco-custom-fields.php' => config_path('asseco-custom-fields.php'),]);
-
-        $this->registerCreator();
-        $this->registerMigrateMakeCommand();
-
-        $this->commands([
-            'asseco-voice.command.custom-field-migrate.make'
-        ]);
-    }
-
-    /**
-     * Register the migration creator.
-     *
-     * @return void
-     */
-    protected function registerCreator(): void
-    {
-        $this->app->singleton('asseco-voice.custom-field-migration.creator', function ($app) {
-            return new CustomMigrationCreator($app['files'], __DIR__ . '/../stubs');
-        });
-    }
-
-    /**
-     * Register the command.
-     *
-     * @return void
-     */
-    protected function registerMigrateMakeCommand(): void
-    {
-        $this->app->singleton('asseco-voice.command.custom-field-migrate.make', function ($app) {
-            $creator = $app['asseco-voice.custom-field-migration.creator'];
-            $composer = $app['composer'];
-
-            return new MakeCustomFields($creator, $composer);
-        });
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFormsTable extends Migration
+class CreateCustomFieldFormTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateFormsTable extends Migration
      */
     public function up()
     {
-        Schema::create('forms', function (Blueprint $table) {
+        Schema::create('custom_field_form', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->softDeletes();
 
-            $table->string('tenant_id', 30)->nullable();
-            $table->string('name')->unique('form_name');
-            $table->json('definition');
-            $table->string('action_url')->nullable();
+            $table->foreignId('custom_field_id')->constrained()->onDelete('cascade');
+            $table->foreignId('form_id')->constrained()->onDelete('cascade');
 
         });
     }
@@ -33,6 +30,6 @@ class CreateFormsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('forms');
+        Schema::dropIfExists('custom_field_form');
     }
 }

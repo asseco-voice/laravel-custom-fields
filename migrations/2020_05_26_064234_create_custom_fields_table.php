@@ -19,9 +19,11 @@ class CreateCustomFieldsTable extends Migration
             $table->softDeletes();
 
             $table->string('tenant_id', 30)->nullable();
+
+            $table->string('model');
             $table->string('name')->unique('cf_name_configs');
             $table->string('label', 255);
-            $table->text('definition');
+            $table->json('definition');
             $table->boolean('required')->default(0);
 
             $table->foreignId('custom_field_type_id')->constrained()->onDelete('cascade');

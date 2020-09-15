@@ -2,13 +2,15 @@
 
 return [
     /**
-     * Path to Laravel models. This does not recurse in folders
+     * Path to Laravel models in 'path => namespace' format
+     *
+     * This does not recurse in folders, so you need to specify
+     * an array of paths if non-standard models are to be used
      */
-    'models_path'     => app_path(),
-    /**
-     * Namespace for Laravel models.
-     */
-    'model_namespace' => 'App\\',
+    'models_path'      => [
+        app_path() => 'App\\'
+    ],
+
     /**
      * Namespace to Customizable trait
      */

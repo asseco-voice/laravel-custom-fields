@@ -7,27 +7,27 @@ namespace Voice\CustomFields\Database\Seeds;
 use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
-use Voice\CustomFields\App\CustomFieldValidation;
+use Voice\CustomFields\App\Form;
 
-class CustomFieldValidationSeeder extends Seeder
+class FormSeeder extends Seeder
 {
     public function run(): void
     {
         $faker = Factory::create();
-        $amount = 200;
-        $data = [];
-
+        $amount = 100;
         $now = Carbon::now();
 
+        $data = [];
         for ($i = 0; $i < $amount; $i++) {
+
             $data[] = [
                 'name'       => implode(' ', $faker->words),
-                'validation' => '/some_regex/',
+                'definition' => json_encode(["test" => "test"]),
                 'created_at' => $now,
                 'updated_at' => $now
             ];
         }
 
-        CustomFieldValidation::query()->insert($data);
+        Form::query()->insert($data);
     }
 }

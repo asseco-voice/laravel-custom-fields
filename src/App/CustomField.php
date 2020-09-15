@@ -27,13 +27,28 @@ class CustomField extends Model
         return $this->belongsTo(CustomFieldType::class, 'custom_field_type_id');
     }
 
+    public function forms(): BelongsToMany
+    {
+        return $this->belongsToMany(Form::class)->withTimestamps();
+    }
+
     public function children(): BelongsToMany
     {
-        return $this->belongsToMany(CustomField::class, 'custom_field_relations', 'custom_field_parent', 'custom_field_child');
+        return $this->belongsToMany(
+            CustomField::class,
+            'custom_field_relations',
+            'custom_field_parent',
+            'custom_field_child')
+            ->withTimestamps();
     }
 
     public function parent(): BelongsToMany
     {
-        return $this->belongsToMany(CustomField::class, 'custom_field_relations', 'custom_field_child', 'custom_field_parent');
+        return $this->belongsToMany(
+            CustomField::class,
+            'custom_field_relations',
+            'custom_field_child',
+            'custom_field_parent')
+            ->withTimestamps();
     }
 }

@@ -14,7 +14,11 @@ class CustomFieldPackageSeeder extends Seeder
             CustomFieldTypeSeeder::class,
             CustomFieldValidationSeeder::class,
             CustomFieldSeeder::class,
-            CustomFieldRelationSeeder::class
+            CustomFieldRelationSeeder::class,
+            CustomFieldValueSeeder::class,
+
+            FormSeeder::class,
+            CustomFieldFormSeeder::class
         ]);
     }
 }
