@@ -6,6 +6,8 @@ namespace Voice\CustomFields\App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class CustomFieldValue extends Model
 {
@@ -18,7 +20,7 @@ class CustomFieldValue extends Model
         return $this->belongsTo(CustomField::class);
     }
 
-    public function type()
+    public function type(): HasOneThrough
     {
         return $this->hasOneThrough(
             CustomFieldType::class,
@@ -29,7 +31,18 @@ class CustomFieldValue extends Model
             'custom_field_type_id');
     }
 
-    public function customizable()
+    public function validation(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            CustomFieldValidation::class,
+            CustomField::class,
+            'id',
+            'id',
+            'custom_field_id',
+            'custom_field_validation_id');
+    }
+
+    public function customizable(): MorphTo
     {
         return $this->morphTo();
     }
