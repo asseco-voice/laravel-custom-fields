@@ -18,9 +18,4 @@ class RemoteType extends Model
     {
         return $this->morphMany(CustomField::class, 'selectable');
     }
-
-    public function plainType(): BelongsTo
-    {
-        return $this->belongsTo(PlainType::class);
-    }
 }

@@ -52,17 +52,17 @@ class CustomFieldValueSeeder extends Seeder
     protected function initialData(int $customFieldId, string $model, Carbon $now): array
     {
         return [
-            'customizable_type' => $model,
-            'customizable_id'   => $this->getCached($model),
-            'custom_field_id'   => $customFieldId,
-            'created_at'        => $now,
-            'updated_at'        => $now,
-            'integer'           => null,
-            'float'             => null,
-            'date'              => null,
-            'text'              => null,
-            'boolean'           => null,
-            'string'            => null,
+            'model_type'      => $model,
+            'model_id'        => $this->getCached($model),
+            'custom_field_id' => $customFieldId,
+            'created_at'      => $now,
+            'updated_at'      => $now,
+            'integer'         => null,
+            'float'           => null,
+            'date'            => null,
+            'text'            => null,
+            'boolean'         => null,
+            'string'          => null,
         ];
     }
 

@@ -6,15 +6,14 @@ namespace Voice\CustomFields\App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class CustomFieldValue extends Model
 {
     protected $guarded = ['id'];
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden  = ['created_at', 'updated_at'];
 
-    public function customizable(): MorphTo
+    public function model(): MorphTo
     {
         return $this->morphTo();
     }
@@ -24,30 +23,13 @@ class CustomFieldValue extends Model
         return $this->belongsTo(CustomField::class);
     }
 
-    public function selectable()
+    public function selectable(): MorphTo
     {
         return $this->customField->selectable();
     }
 
-    public function validation(): HasOneThrough
+    public function validation(): BelongsTo
     {
-        return $this->hasOneThrough(
-            Validation::class,
-            CustomField::class,
-            'id',
-            'id',
-            'custom_field_id',
-            'validation_id');
-    }
-
-    public function type(): HasOneThrough
-    {
-        return $this->hasOneThrough(
-            PlainType::class,
-            CustomField::class,
-            'id',
-            'id',
-            'custom_field_id',
-            'custom_field_type_id');
+        return $this->customField->validation();
     }
 }
