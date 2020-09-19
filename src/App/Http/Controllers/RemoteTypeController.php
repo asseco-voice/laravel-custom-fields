@@ -9,9 +9,10 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use Voice\CustomFields\App\Relation;
+use Voice\CustomFields\App\PlainType;
+use Voice\CustomFields\App\RemoteType;
 
-class CustomFieldRelationController extends Controller
+class RemoteTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +21,7 @@ class CustomFieldRelationController extends Controller
      */
     public function index(): JsonResponse
     {
-        return Response::json(Relation::all());
+        return Response::json(RemoteType::all());
     }
 
     /**
@@ -31,32 +32,32 @@ class CustomFieldRelationController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $customFieldRelation = Relation::query()->create($request->all());
+        $remoteType = RemoteType::query()->create($request->all());
 
-        return Response::json($customFieldRelation);
+        return Response::json($remoteType);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Relation $customFieldRelation
+     * @param RemoteType $remoteType
      * @return JsonResponse
      */
-    public function show(Relation $customFieldRelation): JsonResponse
+    public function show(RemoteType $remoteType): JsonResponse
     {
-        return Response::json($customFieldRelation);
+        return Response::json($remoteType);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Relation $customFieldRelation
+     * @param RemoteType $remoteType
      * @return JsonResponse
      */
-    public function update(Request $request, Relation $customFieldRelation): JsonResponse
+    public function update(Request $request, RemoteType $remoteType): JsonResponse
     {
-        $isUpdated = $customFieldRelation->update($request->all());
+        $isUpdated = $remoteType->update($request->all());
 
         return Response::json($isUpdated ? 'true' : 'false');
     }
@@ -64,13 +65,13 @@ class CustomFieldRelationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Relation $customFieldRelation
+     * @param RemoteType $remoteType
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(Relation $customFieldRelation): JsonResponse
+    public function destroy(RemoteType $remoteType): JsonResponse
     {
-        $isDeleted = $customFieldRelation->delete();
+        $isDeleted = $remoteType->delete();
 
         return Response::json($isDeleted ? 'true' : 'false');
     }

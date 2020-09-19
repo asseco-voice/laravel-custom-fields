@@ -9,9 +9,9 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use Voice\CustomFields\App\PlainType;
+use Voice\CustomFields\App\SelectionType;
 
-class CustomFieldTypeController extends Controller
+class SelectionTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class CustomFieldTypeController extends Controller
      */
     public function index(): JsonResponse
     {
-        return Response::json(PlainType::all());
+        return Response::json(SelectionType::all());
     }
 
     /**
@@ -31,32 +31,32 @@ class CustomFieldTypeController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $customFieldType = PlainType::query()->create($request->all());
+        $selectionType = SelectionType::query()->create($request->all());
 
-        return Response::json($customFieldType);
+        return Response::json($selectionType);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param PlainType $customFieldType
+     * @param SelectionType $selectionType
      * @return JsonResponse
      */
-    public function show(PlainType $customFieldType): JsonResponse
+    public function show(SelectionType $selectionType): JsonResponse
     {
-        return Response::json($customFieldType);
+        return Response::json($selectionType);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param PlainType $customFieldType
+     * @param SelectionType $selectionType
      * @return JsonResponse
      */
-    public function update(Request $request, PlainType $customFieldType): JsonResponse
+    public function update(Request $request, SelectionType $selectionType): JsonResponse
     {
-        $isUpdated = $customFieldType->update($request->all());
+        $isUpdated = $selectionType->update($request->all());
 
         return Response::json($isUpdated ? 'true' : 'false');
     }
@@ -64,13 +64,13 @@ class CustomFieldTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param PlainType $customFieldType
+     * @param SelectionType $selectionType
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(PlainType $customFieldType): JsonResponse
+    public function destroy(SelectionType $selectionType): JsonResponse
     {
-        $isDeleted = $customFieldType->delete();
+        $isDeleted = $selectionType->delete();
 
         return Response::json($isDeleted ? 'true' : 'false');
     }
