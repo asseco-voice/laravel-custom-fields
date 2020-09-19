@@ -17,10 +17,9 @@ class CreateCustomFieldValuesTable extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('custom_field_id')->constrained()->onDelete('cascade');
             $table->morphs('customizable');
+            $table->foreignId('custom_field_id')->constrained()->onDelete('cascade');
 
-            // Values == custom_field_types
             $table->string('string', 255)->nullable();
             $table->integer('integer')->nullable();
             $table->float('float', 18,6)->nullable();

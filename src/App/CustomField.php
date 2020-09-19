@@ -7,6 +7,8 @@ namespace Voice\CustomFields\App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CustomField extends Model
@@ -14,17 +16,16 @@ class CustomField extends Model
     use SoftDeletes;
 
     protected $guarded = ['id'];
+    protected $hidden  = ['created_at', 'updated_at'];
 
-    protected $hidden = ['created_at', 'updated_at'];
-
-    public function validation(): BelongsTo
+    public function selectable(): MorphTo
     {
-        return $this->belongsTo(CustomFieldValidation::class, 'custom_field_validation_id');
+        return $this->morphTo();
     }
 
-    public function type(): BelongsTo
+    public function values(): HasMany
     {
-        return $this->belongsTo(CustomFieldType::class, 'custom_field_type_id');
+        return $this->hasMany(CustomFieldValue::class);
     }
 
     public function forms(): BelongsToMany
@@ -32,13 +33,18 @@ class CustomField extends Model
         return $this->belongsToMany(Form::class)->withTimestamps();
     }
 
+    public function validation(): BelongsTo
+    {
+        return $this->belongsTo(Validation::class);
+    }
+
     public function children(): BelongsToMany
     {
         return $this->belongsToMany(
             CustomField::class,
             'custom_field_relations',
-            'custom_field_parent',
-            'custom_field_child')
+            'parent_id',
+            'child_id')
             ->withTimestamps();
     }
 
@@ -47,8 +53,8 @@ class CustomField extends Model
         return $this->belongsToMany(
             CustomField::class,
             'custom_field_relations',
-            'custom_field_child',
-            'custom_field_parent')
+            'child_id',
+            'parent_id')
             ->withTimestamps();
     }
 }

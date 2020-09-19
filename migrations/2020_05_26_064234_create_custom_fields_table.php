@@ -18,16 +18,16 @@ class CreateCustomFieldsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->string('tenant_id', 30)->nullable();
+            $table->morphs('selectable');
 
+            $table->string('tenant_id', 30)->nullable();
             $table->string('model');
-            $table->string('name')->unique('cf_name_configs');
+            $table->string('name')->unique('cf_name');
             $table->string('label', 255);
             $table->json('definition');
             $table->boolean('required')->default(0);
 
-            $table->foreignId('custom_field_type_id')->constrained()->onDelete('cascade');
-            $table->foreignId('custom_field_validation_id')->constrained()->onDelete('cascade');
+            $table->foreignId('validation_id')->constrained('custom_field_validations')->onDelete('cascade');
         });
     }
 

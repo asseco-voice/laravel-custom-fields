@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCustomFieldRelationsTable extends Migration
+class CreateCustomFieldRemoteTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateCustomFieldRelationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('custom_field_relations', function (Blueprint $table) {
+        Schema::create('custom_field_remote_types', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('parent_id')->constrained('custom_fields')->onDelete('cascade');
-            $table->foreignId('child_id')->constrained('custom_fields')->onDelete('cascade');
+            $table->string('url');
+            $table->enum('method', ['GET', 'POST', 'PUT']);
+            $table->text('parameters')->nullable();
         });
     }
 
@@ -29,6 +30,6 @@ class CreateCustomFieldRelationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('custom_field_relations');
+        Schema::dropIfExists('custom_field_remote_types');
     }
 }

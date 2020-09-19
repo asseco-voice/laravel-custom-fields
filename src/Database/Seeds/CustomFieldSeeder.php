@@ -9,9 +9,11 @@ use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Config;
 use Voice\CustomFields\App\CustomField;
-use Voice\CustomFields\App\CustomFieldType;
-use Voice\CustomFields\App\CustomFieldValidation;
+use Voice\CustomFields\App\PlainType;
+use Voice\CustomFields\App\RemoteType;
+use Voice\CustomFields\App\SelectionType;
 use Voice\CustomFields\App\Traits\FindsTraits;
+use Voice\CustomFields\App\Validation;
 
 class CustomFieldSeeder extends Seeder
 {
@@ -19,35 +21,55 @@ class CustomFieldSeeder extends Seeder
 
     public function run(): void
     {
+        $now = Carbon::now();
         $faker = Factory::create();
         $traitPath = Config::get('asseco-custom-fields.trait_path');
 
         $models = $this->getModelsWithTrait($traitPath);
+        $types = $this->getTypes();
+        $validations = Validation::all('id');
 
-        $type = CustomFieldType::all('id')->pluck('id')->toArray();
-        $validation = CustomFieldValidation::all('id')->pluck('id')->toArray();
         $amount = 200;
-
-        $now = Carbon::now();
-
         for ($j = 0; $j < 10; $j++) {
             $data = [];
             for ($i = 0; $i < $amount; $i++) {
+
+                $type = $faker->randomElement($types);
+
                 $data[] = [
-                    'name'                       => implode(' ', $faker->words(5)),
-                    'label'                      => $faker->word,
-                    'definition'                 => json_encode(["test1" => "test2"]),
-                    'required'                   => $faker->boolean(10),
-                    'model'                      => $models[array_rand($models)],
-                    'custom_field_type_id'       => $type[array_rand($type)],
-                    'custom_field_validation_id' => $validation[array_rand($validation)],
-                    'created_at'                 => $now,
-                    'updated_at'                 => $now
+                    'selectable_type' => $type['type'],
+                    'selectable_id'   => $faker->randomElement($type['values']),
+                    'name'            => implode(' ', $faker->words(5)),
+                    'label'           => $faker->word,
+                    'definition'      => json_encode(["test1" => "test2"]),
+                    'model'           => $faker->randomElement($models),
+                    'required'        => $faker->boolean(10),
+                    'validation_id'   => $validations->random(1)->first()->id,
+                    'created_at'      => $now,
+                    'updated_at'      => $now
                 ];
             }
 
             CustomField::query()->insert($data);
         }
 
+    }
+
+    protected function getTypes(): array
+    {
+        return [
+            [
+                'type'   => PlainType::class,
+                'values' => PlainType::all('id')->pluck('id')->toArray()
+            ],
+            [
+                'type'   => SelectionType::class,
+                'values' => SelectionType::all('id')->pluck('id')->toArray()
+            ],
+            [
+                'type'   => RemoteType::class,
+                'values' => RemoteType::all('id')->pluck('id')->toArray()
+            ],
+        ];
     }
 }

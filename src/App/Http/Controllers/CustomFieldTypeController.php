@@ -9,7 +9,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use Voice\CustomFields\App\CustomFieldType;
+use Voice\CustomFields\App\PlainType;
 
 class CustomFieldTypeController extends Controller
 {
@@ -20,7 +20,7 @@ class CustomFieldTypeController extends Controller
      */
     public function index(): JsonResponse
     {
-        return Response::json(CustomFieldType::all());
+        return Response::json(PlainType::all());
     }
 
     /**
@@ -31,7 +31,7 @@ class CustomFieldTypeController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $customFieldType = CustomFieldType::query()->create($request->all());
+        $customFieldType = PlainType::query()->create($request->all());
 
         return Response::json($customFieldType);
     }
@@ -39,10 +39,10 @@ class CustomFieldTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param CustomFieldType $customFieldType
+     * @param PlainType $customFieldType
      * @return JsonResponse
      */
-    public function show(CustomFieldType $customFieldType): JsonResponse
+    public function show(PlainType $customFieldType): JsonResponse
     {
         return Response::json($customFieldType);
     }
@@ -51,10 +51,10 @@ class CustomFieldTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param CustomFieldType $customFieldType
+     * @param PlainType $customFieldType
      * @return JsonResponse
      */
-    public function update(Request $request, CustomFieldType $customFieldType): JsonResponse
+    public function update(Request $request, PlainType $customFieldType): JsonResponse
     {
         $isUpdated = $customFieldType->update($request->all());
 
@@ -64,11 +64,11 @@ class CustomFieldTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param CustomFieldType $customFieldType
+     * @param PlainType $customFieldType
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(CustomFieldType $customFieldType): JsonResponse
+    public function destroy(PlainType $customFieldType): JsonResponse
     {
         $isDeleted = $customFieldType->delete();
 

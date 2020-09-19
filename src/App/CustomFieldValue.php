@@ -12,38 +12,42 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 class CustomFieldValue extends Model
 {
     protected $guarded = ['id'];
-
     protected $hidden = ['created_at', 'updated_at'];
+
+    public function customizable(): MorphTo
+    {
+        return $this->morphTo();
+    }
 
     public function customField(): BelongsTo
     {
         return $this->belongsTo(CustomField::class);
     }
 
-    public function type(): HasOneThrough
+    public function selectable()
     {
-        return $this->hasOneThrough(
-            CustomFieldType::class,
-            CustomField::class,
-            'id',
-            'id',
-            'custom_field_id',
-            'custom_field_type_id');
+        return $this->customField->selectable();
     }
 
     public function validation(): HasOneThrough
     {
         return $this->hasOneThrough(
-            CustomFieldValidation::class,
+            Validation::class,
             CustomField::class,
             'id',
             'id',
             'custom_field_id',
-            'custom_field_validation_id');
+            'validation_id');
     }
 
-    public function customizable(): MorphTo
+    public function type(): HasOneThrough
     {
-        return $this->morphTo();
+        return $this->hasOneThrough(
+            PlainType::class,
+            CustomField::class,
+            'id',
+            'id',
+            'custom_field_id',
+            'custom_field_type_id');
     }
 }

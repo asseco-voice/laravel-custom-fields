@@ -9,7 +9,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use Voice\CustomFields\App\CustomFieldValidation;
+use Voice\CustomFields\App\Validation;
 
 class CustomFieldValidationController extends Controller
 {
@@ -20,7 +20,7 @@ class CustomFieldValidationController extends Controller
      */
     public function index(): JsonResponse
     {
-        return Response::json(CustomFieldValidation::all());
+        return Response::json(Validation::all());
     }
 
     /**
@@ -31,7 +31,7 @@ class CustomFieldValidationController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $customFieldValidation = CustomFieldValidation::query()->create($request->all());
+        $customFieldValidation = Validation::query()->create($request->all());
 
         return Response::json($customFieldValidation);
     }
@@ -39,10 +39,10 @@ class CustomFieldValidationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param CustomFieldValidation $customFieldValidation
+     * @param Validation $customFieldValidation
      * @return JsonResponse
      */
-    public function show(CustomFieldValidation $customFieldValidation): JsonResponse
+    public function show(Validation $customFieldValidation): JsonResponse
     {
         return Response::json($customFieldValidation);
     }
@@ -51,10 +51,10 @@ class CustomFieldValidationController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param CustomFieldValidation $customFieldValidation
+     * @param Validation $customFieldValidation
      * @return JsonResponse
      */
-    public function update(Request $request, CustomFieldValidation $customFieldValidation): JsonResponse
+    public function update(Request $request, Validation $customFieldValidation): JsonResponse
     {
         $isUpdated = $customFieldValidation->update($request->all());
 
@@ -64,11 +64,11 @@ class CustomFieldValidationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param CustomFieldValidation $customFieldValidation
+     * @param Validation $customFieldValidation
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(CustomFieldValidation $customFieldValidation): JsonResponse
+    public function destroy(Validation $customFieldValidation): JsonResponse
     {
         $isDeleted = $customFieldValidation->delete();
 

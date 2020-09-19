@@ -9,7 +9,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use Voice\CustomFields\App\CustomFieldRelation;
+use Voice\CustomFields\App\Relation;
 
 class CustomFieldRelationController extends Controller
 {
@@ -20,7 +20,7 @@ class CustomFieldRelationController extends Controller
      */
     public function index(): JsonResponse
     {
-        return Response::json(CustomFieldRelation::all());
+        return Response::json(Relation::all());
     }
 
     /**
@@ -31,7 +31,7 @@ class CustomFieldRelationController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $customFieldRelation = CustomFieldRelation::query()->create($request->all());
+        $customFieldRelation = Relation::query()->create($request->all());
 
         return Response::json($customFieldRelation);
     }
@@ -39,10 +39,10 @@ class CustomFieldRelationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param CustomFieldRelation $customFieldRelation
+     * @param Relation $customFieldRelation
      * @return JsonResponse
      */
-    public function show(CustomFieldRelation $customFieldRelation): JsonResponse
+    public function show(Relation $customFieldRelation): JsonResponse
     {
         return Response::json($customFieldRelation);
     }
@@ -51,10 +51,10 @@ class CustomFieldRelationController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param CustomFieldRelation $customFieldRelation
+     * @param Relation $customFieldRelation
      * @return JsonResponse
      */
-    public function update(Request $request, CustomFieldRelation $customFieldRelation): JsonResponse
+    public function update(Request $request, Relation $customFieldRelation): JsonResponse
     {
         $isUpdated = $customFieldRelation->update($request->all());
 
@@ -64,11 +64,11 @@ class CustomFieldRelationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param CustomFieldRelation $customFieldRelation
+     * @param Relation $customFieldRelation
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(CustomFieldRelation $customFieldRelation): JsonResponse
+    public function destroy(Relation $customFieldRelation): JsonResponse
     {
         $isDeleted = $customFieldRelation->delete();
 
