@@ -15,10 +15,11 @@ class CreateCustomFieldRelationsTable extends Migration
     {
         Schema::create('custom_field_relations', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
 
             $table->foreignId('parent_id')->constrained('custom_fields')->onDelete('cascade');
             $table->foreignId('child_id')->constrained('custom_fields')->onDelete('cascade');
+
+            $table->timestamps();
         });
     }
 

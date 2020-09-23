@@ -9,9 +9,9 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use Voice\CustomFields\App\SelectionType;
+use Voice\CustomFields\App\SelectType;
 
-class SelectionTypeController extends Controller
+class SelectTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class SelectionTypeController extends Controller
      */
     public function index(): JsonResponse
     {
-        return Response::json(SelectionType::all());
+        return Response::json(SelectType::all());
     }
 
     /**
@@ -31,32 +31,32 @@ class SelectionTypeController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $selectionType = SelectionType::query()->create($request->all());
+        $selectType = SelectType::query()->create($request->all());
 
-        return Response::json($selectionType);
+        return Response::json($selectType);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param SelectionType $selectionType
+     * @param SelectType $selectType
      * @return JsonResponse
      */
-    public function show(SelectionType $selectionType): JsonResponse
+    public function show(SelectType $selectType): JsonResponse
     {
-        return Response::json($selectionType);
+        return Response::json($selectType);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param SelectionType $selectionType
+     * @param SelectType $selectType
      * @return JsonResponse
      */
-    public function update(Request $request, SelectionType $selectionType): JsonResponse
+    public function update(Request $request, SelectType $selectType): JsonResponse
     {
-        $isUpdated = $selectionType->update($request->all());
+        $isUpdated = $selectType->update($request->all());
 
         return Response::json($isUpdated ? 'true' : 'false');
     }
@@ -64,13 +64,13 @@ class SelectionTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param SelectionType $selectionType
+     * @param SelectType $selectType
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(SelectionType $selectionType): JsonResponse
+    public function destroy(SelectType $selectType): JsonResponse
     {
-        $isDeleted = $selectionType->delete();
+        $isDeleted = $selectType->delete();
 
         return Response::json($isDeleted ? 'true' : 'false');
     }

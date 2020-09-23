@@ -15,11 +15,12 @@ class CreateCustomFieldRemoteTypesTable extends Migration
     {
         Schema::create('custom_field_remote_types', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
 
             $table->string('url');
             $table->enum('method', ['GET', 'POST', 'PUT']);
             $table->text('parameters')->nullable();
+
+            $table->timestamps();
         });
     }
 

@@ -6,6 +6,7 @@ namespace Voice\CustomFields\Database\Seeds;
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Config;
 use Voice\CustomFields\App\PlainType;
 
 class PlainTypeSeeder extends Seeder
@@ -14,22 +15,24 @@ class PlainTypeSeeder extends Seeder
     {
         $now = Carbon::now();
 
-        $data = [
-            ['name' => 'string'],
-            ['name' => 'integer'],
-            ['name' => 'float'],
-            ['name' => 'date'],
-            ['name' => 'text'],
-            ['name' => 'boolean']
-        ];
+        $types = Config::get('asseco-custom-fields.type_mappings');
+
+        $data = [];
+        foreach ($types as $typeName => $typeClass) {
+
+            if (!is_subclass_of($typeClass, PlainType::class)) {
+                continue;
+            }
+
+            $data[] = [
+                'name'       => $typeName,
+                'created_at' => $now,
+                'updated_at' => $now
+            ];
+        }
 
         foreach ($data as $item) {
-            PlainType::query()->updateOrInsert(['name' => $item['name']],
-                [
-                    'name'       => $item['name'],
-                    'created_at' => $now,
-                    'updated_at' => $now
-                ]);
+            PlainType::query()->updateOrInsert(['name' => $item['name']], $item);
         }
     }
 }

@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class SelectionValue extends Model
+class SelectValue extends Model
 {
-    protected $table = 'custom_field_selection_values';
+    protected $table = 'custom_field_select_values';
     protected $guarded = ['id'];
     protected $hidden = ['created_at', 'updated_at'];
 
-    public function selectionType(): BelongsTo
+    public function selectType(): BelongsTo
     {
-        return $this->belongsTo(SelectionType::class);
+        return $this->belongsTo(SelectType::class);
     }
 }

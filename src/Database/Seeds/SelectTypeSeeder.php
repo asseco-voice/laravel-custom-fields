@@ -8,27 +8,27 @@ use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Voice\CustomFields\App\PlainType;
-use Voice\CustomFields\App\SelectionType;
+use Voice\CustomFields\App\SelectType;
 
-class SelectionTypeSeeder extends Seeder
+class SelectTypeSeeder extends Seeder
 {
     public function run(): void
     {
         $now = Carbon::now();
         $faker = Factory::create();
         $amount = 50;
-        $plainTypes = PlainType::all('id');
+        $types = PlainType::all('id');
 
         $data = [];
         for ($i = 0; $i < $amount; $i++) {
             $data[] = [
-                'plain_type_id' => $plainTypes->random(1)->first()->id,
+                'plain_type_id' => $types->random(1)->first()->id,
                 'multiselect'   => $faker->boolean,
                 'created_at'    => $now,
                 'updated_at'    => $now
             ];
         }
 
-        SelectionType::query()->insert($data);
+        SelectType::query()->insert($data);
     }
 }

@@ -7,7 +7,8 @@ use Voice\CustomFields\App\Http\Controllers\FormController;
 use Voice\CustomFields\App\Http\Controllers\PlainTypeController;
 use Voice\CustomFields\App\Http\Controllers\RelationController;
 use Voice\CustomFields\App\Http\Controllers\RemoteTypeController;
-use Voice\CustomFields\App\Http\Controllers\SelectionTypeController;
+use Voice\CustomFields\App\Http\Controllers\SelectTypeController;
+use Voice\CustomFields\App\Http\Controllers\TypeController;
 use Voice\CustomFields\App\Http\Controllers\ValidationController;
 
 /*
@@ -27,9 +28,10 @@ Route::prefix('api')
 
         Route::apiResource('custom-fields', CustomFieldController::class);
 
+        Route::get('custom-field-types', [TypeController::class, 'index']);
         Route::apiResource('custom-field-plain-types', PlainTypeController::class);
         Route::apiResource('custom-field-remote-types', RemoteTypeController::class);
-        Route::apiResource('custom-field-selection-types', SelectionTypeController::class);
+        Route::apiResource('custom-field-select-types', SelectTypeController::class);
 
         Route::apiResource('custom-field-validations', ValidationController::class);
         Route::apiResource('custom-field-relations', RelationController::class);

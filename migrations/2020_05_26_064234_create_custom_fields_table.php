@@ -15,19 +15,19 @@ class CreateCustomFieldsTable extends Migration
     {
         Schema::create('custom_fields', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->softDeletes();
 
-            $table->morphs('selectable');
-
-            $table->string('tenant_id', 30)->nullable();
-            $table->string('model');
+//            $table->string('tenant_id', 30)->nullable();
             $table->string('name')->unique('cf_name');
             $table->string('label', 255);
-            $table->json('definition');
+            $table->morphs('selectable');
+            $table->string('model');
             $table->boolean('required')->default(0);
-
             $table->foreignId('validation_id')->constrained('custom_field_validations')->onDelete('cascade');
+
+//            $table->json('definition');
+
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

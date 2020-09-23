@@ -15,17 +15,17 @@ class CreateCustomFieldValuesTable extends Migration
     {
         Schema::create('custom_field_values', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
 
-            $table->morphs('model');
             $table->foreignId('custom_field_id')->constrained()->onDelete('cascade');
-
+            $table->morphs('model');
             $table->string('string', 255)->nullable();
             $table->integer('integer')->nullable();
             $table->float('float', 18,6)->nullable();
             $table->date('date')->nullable();
             $table->text('text')->nullable();
             $table->boolean('boolean')->nullable();
+
+            $table->timestamps();
         });
     }
 

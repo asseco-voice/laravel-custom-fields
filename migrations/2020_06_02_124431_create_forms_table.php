@@ -15,14 +15,14 @@ class CreateFormsTable extends Migration
     {
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->softDeletes();
 
             $table->string('tenant_id', 30)->nullable();
             $table->string('name')->unique('form_name');
             $table->json('definition');
             $table->string('action_url')->nullable();
 
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

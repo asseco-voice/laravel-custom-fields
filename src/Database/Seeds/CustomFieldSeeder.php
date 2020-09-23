@@ -6,12 +6,13 @@ namespace Voice\CustomFields\Database\Seeds;
 
 use Carbon\Carbon;
 use Faker\Factory;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Config;
 use Voice\CustomFields\App\CustomField;
 use Voice\CustomFields\App\PlainType;
 use Voice\CustomFields\App\RemoteType;
-use Voice\CustomFields\App\SelectionType;
+use Voice\CustomFields\App\SelectType;
 use Voice\CustomFields\App\Traits\FindsTraits;
 use Voice\CustomFields\App\Validation;
 
@@ -26,7 +27,13 @@ class CustomFieldSeeder extends Seeder
         $traitPath = Config::get('asseco-custom-fields.trait_path');
 
         $models = $this->getModelsWithTrait($traitPath);
-        $types = $this->getTypes();
+
+        $types = Config::get('asseco-custom-fields.type_mappings');
+
+        $plainTypes = PlainType::all('id', 'name');
+        $selectTypes = SelectType::all('id');
+        $remoteTypes = RemoteType::all('id');
+
         $validations = Validation::all('id');
 
         $amount = 200;
@@ -34,14 +41,16 @@ class CustomFieldSeeder extends Seeder
             $data = [];
             for ($i = 0; $i < $amount; $i++) {
 
-                $type = $faker->randomElement($types);
+                $typeName = array_rand($types);
+                $typeClass = $types[$typeName];
+
+                $typeValue = $this->getTypeValue($typeClass, $typeName, $plainTypes, $selectTypes, $remoteTypes);
 
                 $data[] = [
-                    'selectable_type' => $type['type'],
-                    'selectable_id'   => $faker->randomElement($type['values']),
+                    'selectable_type' => $typeClass,
+                    'selectable_id'   => $typeValue,
                     'name'            => implode(' ', $faker->words(5)),
                     'label'           => $faker->word,
-                    'definition'      => json_encode(["test1" => "test2"]),
                     'model'           => $faker->randomElement($models),
                     'required'        => $faker->boolean(10),
                     'validation_id'   => $validations->random(1)->first()->id,
@@ -55,21 +64,15 @@ class CustomFieldSeeder extends Seeder
 
     }
 
-    protected function getTypes(): array
+    protected function getTypeValue(string $typeClass, string $typeName, Collection $plainTypes, Collection $selectTypes, Collection $remoteTypes)
     {
-        return [
-            [
-                'type'   => PlainType::class,
-                'values' => PlainType::all('id')->pluck('id')->toArray()
-            ],
-            [
-                'type'   => SelectionType::class,
-                'values' => SelectionType::all('id')->pluck('id')->toArray()
-            ],
-            [
-                'type'   => RemoteType::class,
-                'values' => RemoteType::all('id')->pluck('id')->toArray()
-            ],
-        ];
+        switch ($typeClass) {
+            case RemoteType::class:
+                return $remoteTypes->random(1)->first()->id;
+            case SelectType::class:
+                return $selectTypes->random(1)->first()->id;
+            default:
+                return $plainTypes->where('name', $typeName)->first()->id;
+        }
     }
 }

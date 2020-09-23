@@ -15,11 +15,12 @@ class CreateCustomFieldValidationsTable extends Migration
     {
         Schema::create('custom_field_validations', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->softDeletes();
 
             $table->string('name', 150)->unique('cf_name_validations');
             $table->string('validation', 255)->nullable();
+
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

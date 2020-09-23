@@ -15,10 +15,10 @@ class CreateCustomFieldPlainTypesTable extends Migration
     {
         Schema::create('custom_field_plain_types', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
 
             $table->string('name', 150)->unique('cf_name_types');
-            $table->string('description')->nullable();
+
+            $table->timestamps();
         });
     }
 
