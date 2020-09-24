@@ -18,8 +18,8 @@ class CustomFieldPackageSeeder extends Seeder
         if (Config::get('app.env') !== 'production') {
             $this->call([
                 RemoteTypeSeeder::class,
-                SelectTypeSeeder::class,
-                SelectValueSeeder::class,
+                SelectionTypeSeeder::class,
+                SelectionValueSeeder::class,
 
                 ValidationSeeder::class,
                 CustomFieldSeeder::class,

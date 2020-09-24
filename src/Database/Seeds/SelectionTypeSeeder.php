@@ -8,9 +8,9 @@ use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Voice\CustomFields\App\PlainType;
-use Voice\CustomFields\App\SelectType;
+use Voice\CustomFields\App\SelectionType;
 
-class SelectTypeSeeder extends Seeder
+class SelectionTypeSeeder extends Seeder
 {
     public function run(): void
     {
@@ -29,6 +29,6 @@ class SelectTypeSeeder extends Seeder
             ];
         }
 
-        SelectType::query()->insert($data);
+        SelectionType::query()->insert($data);
     }
 }

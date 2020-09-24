@@ -7,7 +7,7 @@ use Voice\CustomFields\App\PlainTypes\IntegerType;
 use Voice\CustomFields\App\PlainTypes\StringType;
 use Voice\CustomFields\App\PlainTypes\TextType;
 use Voice\CustomFields\App\RemoteType;
-use Voice\CustomFields\App\SelectType;
+use Voice\CustomFields\App\SelectionType;
 
 return [
     /**
@@ -26,7 +26,7 @@ return [
     'trait_path'  => 'Voice\CustomFields\App\Traits\Customizable',
 
     'type_mappings' => [
-        'plain'  => [
+        'plain'     => [
             'string'  => StringType::class,
             'integer' => IntegerType::class,
             'float'   => FloatType::class,
@@ -34,7 +34,7 @@ return [
             'text'    => TextType::class,
             'boolean' => BooleanType::class,
         ],
-        'remote' => RemoteType::class,
-        'select' => SelectType::class,
+        'remote'    => RemoteType::class,
+        'selection' => SelectionType::class,
     ],
 ];

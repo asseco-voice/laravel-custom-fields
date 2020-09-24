@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class SelectType extends Model
+class SelectionType extends Model
 {
-    protected $table   = 'custom_field_select_types';
+    protected $table   = 'custom_field_selection_types';
     protected $guarded = ['id'];
     protected $hidden  = ['created_at', 'updated_at'];
     protected $appends = ['name'];
@@ -28,11 +28,11 @@ class SelectType extends Model
 
     public function values(): HasMany
     {
-        return $this->hasMany(SelectValue::class);
+        return $this->hasMany(SelectionValue::class);
     }
 
     public function getNameAttribute()
     {
-        return 'select';
+        return 'selection';
     }
 }

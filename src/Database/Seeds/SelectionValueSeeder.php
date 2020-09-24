@@ -8,17 +8,17 @@ use Carbon\Carbon;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Database\Seeder;
-use Voice\CustomFields\App\SelectType;
-use Voice\CustomFields\App\SelectValue;
+use Voice\CustomFields\App\SelectionType;
+use Voice\CustomFields\App\SelectionValue;
 
-class SelectValueSeeder extends Seeder
+class SelectionValueSeeder extends Seeder
 {
     public function run(): void
     {
         $now = Carbon::now();
         $faker = Factory::create();
         $amount = 50;
-        $selectTypes = SelectType::with('type')->get();
+        $selectionTypes = SelectionType::with('type')->get();
 
         $data = [];
         for ($i = 0; $i < $amount; $i++) {
@@ -26,23 +26,23 @@ class SelectValueSeeder extends Seeder
             $random = rand(3, 10);
 
             for ($j = 0; $j < $random; $j++) {
-                $selectType = $selectTypes->random(1)->first();
+                $selectionType = $selectionTypes->random(1)->first();
                 $data[] = [
-                    'select_type_id' => $selectType->id,
-                    'label'          => $faker->word,
-                    'value'          => $this->getTypeValue($selectType, $faker),
-                    'created_at'     => $now,
-                    'updated_at'     => $now
+                    'selection_type_id' => $selectionType->id,
+                    'label'             => $faker->word,
+                    'value'             => $this->getTypeValue($selectionType, $faker),
+                    'created_at'        => $now,
+                    'updated_at'        => $now
                 ];
             }
         }
 
-        SelectValue::query()->insert($data);
+        SelectionValue::query()->insert($data);
     }
 
-    protected function getTypeValue(SelectType $selectTypes, Generator $faker)
+    protected function getTypeValue(SelectionType $selectionType, Generator $faker)
     {
-        $plainType = $selectTypes->type->name;
+        $plainType = $selectionType->type->name;
 
         switch ($plainType) {
             case 'integer':

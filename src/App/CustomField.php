@@ -39,7 +39,7 @@ class CustomField extends Model
 
     public function scopeSelection(Builder $query)
     {
-        return $query->whereHasMorph('selectable', [SelectType::class]);
+        return $query->whereHasMorph('selectable', [SelectionType::class]);
     }
 
     public function values(): HasMany

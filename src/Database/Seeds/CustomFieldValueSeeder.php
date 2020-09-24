@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Config;
 use Voice\CustomFields\App\CustomField;
 use Voice\CustomFields\App\CustomFieldValue;
 use Voice\CustomFields\App\RemoteType;
-use Voice\CustomFields\App\SelectType;
+use Voice\CustomFields\App\SelectionType;
 use Voice\CustomFields\App\Traits\FindsTraits;
 
 class CustomFieldValueSeeder extends Seeder
@@ -106,7 +106,7 @@ class CustomFieldValueSeeder extends Seeder
 
     protected function getType($selectable)
     {
-        if ($selectable instanceof SelectType) {
+        if ($selectable instanceof SelectionType) {
             return [$selectable->type->name, $selectable->values->random(1)->first()->value];
         } else if ($selectable instanceof RemoteType) {
             return ['string', null];

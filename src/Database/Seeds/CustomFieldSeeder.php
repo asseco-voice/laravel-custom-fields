@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Config;
 use Voice\CustomFields\App\CustomField;
 use Voice\CustomFields\App\PlainType;
 use Voice\CustomFields\App\RemoteType;
-use Voice\CustomFields\App\SelectType;
+use Voice\CustomFields\App\SelectionType;
 use Voice\CustomFields\App\Traits\FindsTraits;
 use Voice\CustomFields\App\Validation;
 
@@ -31,7 +31,7 @@ class CustomFieldSeeder extends Seeder
         $types = CustomField::types();
 
         $plainTypes = PlainType::all('id', 'name');
-        $selectTypes = SelectType::all('id');
+        $selectionTypes = SelectionType::all('id');
         $remoteTypes = RemoteType::all('id');
 
         $validations = Validation::all('id');
@@ -44,7 +44,7 @@ class CustomFieldSeeder extends Seeder
                 $typeName = array_rand($types);
                 $typeClass = $types[$typeName];
 
-                $typeValue = $this->getTypeValue($typeClass, $typeName, $plainTypes, $selectTypes, $remoteTypes);
+                $typeValue = $this->getTypeValue($typeClass, $typeName, $plainTypes, $selectionTypes, $remoteTypes);
 
                 $data[] = [
                     'selectable_type' => $typeClass,
@@ -64,13 +64,13 @@ class CustomFieldSeeder extends Seeder
 
     }
 
-    protected function getTypeValue(string $typeClass, string $typeName, Collection $plainTypes, Collection $selectTypes, Collection $remoteTypes)
+    protected function getTypeValue(string $typeClass, string $typeName, Collection $plainTypes, Collection $selectionTypes, Collection $remoteTypes)
     {
         switch ($typeClass) {
             case RemoteType::class:
                 return $remoteTypes->random(1)->first()->id;
-            case SelectType::class:
-                return $selectTypes->random(1)->first()->id;
+            case SelectionType::class:
+                return $selectionTypes->random(1)->first()->id;
             default:
                 return $plainTypes->where('name', $typeName)->first()->id;
         }

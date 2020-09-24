@@ -7,6 +7,7 @@ use Voice\CustomFields\App\Http\Controllers\FormController;
 use Voice\CustomFields\App\Http\Controllers\PlainCustomFieldController;
 use Voice\CustomFields\App\Http\Controllers\RelationController;
 use Voice\CustomFields\App\Http\Controllers\RemoteCustomFieldController;
+use Voice\CustomFields\App\Http\Controllers\SelectionCustomFieldController;
 use Voice\CustomFields\App\Http\Controllers\TypeController;
 use Voice\CustomFields\App\Http\Controllers\ValidationController;
 use Voice\CustomFields\App\PlainType;
@@ -42,7 +43,7 @@ Route::prefix('api')
                     ->name('plain.store');
 
                 Route::apiResource('remote', RemoteCustomFieldController::class)->only(['index', 'store']);
-                // Route::apiResource('select', SelectCustomFieldController::class);
+                Route::apiResource('selection', SelectionCustomFieldController::class)->only(['index', 'store']);
 
 
                 Route::apiResource('validations', ValidationController::class);

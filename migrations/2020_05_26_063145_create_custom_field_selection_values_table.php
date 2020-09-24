@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCustomFieldSelectTypesTable extends Migration
+class CreateCustomFieldSelectionValuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateCustomFieldSelectTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('custom_field_select_types', function (Blueprint $table) {
+        Schema::create('custom_field_selection_values', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('plain_type_id')->constrained('custom_field_plain_types')->onDelete('cascade');
-            $table->boolean('multiselect')->default(false);
+            $table->foreignId('selection_type_id')->constrained('custom_field_selection_types')->onDelete('cascade');
+            $table->string('label')->nullable();
+            $table->string('value');
 
             $table->timestamps();
         });
@@ -30,6 +31,6 @@ class CreateCustomFieldSelectTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('custom_field_select_types');
+        Schema::dropIfExists('custom_field_selection_values');
     }
 }
