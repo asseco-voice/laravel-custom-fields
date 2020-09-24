@@ -26,9 +26,10 @@ class CustomField extends Model
         return $this->morphTo();
     }
 
-    public function scopePlain(Builder $query)
+    public function scopePlain(Builder $query, string $subType = null)
     {
-        return $query->whereHasMorph('selectable', PlainType::subTypes());
+        $selectable = $subType ? PlainType::getSubTypeClass($subType) : PlainType::subTypes();
+        return $query->whereHasMorph('selectable', $selectable);
     }
 
     public function scopeRemote(Builder $query)

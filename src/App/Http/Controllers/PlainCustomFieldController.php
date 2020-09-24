@@ -20,43 +20,36 @@ class PlainCustomFieldController extends Controller
     public function __construct()
     {
         $this->mappings = Config::get('asseco-custom-fields.type_mappings.plain');
-
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @param string|null $type
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(string $type = null): JsonResponse
     {
-        return Response::json(CustomField::plain()->get());
+        return Response::json(CustomField::plain($type)->get());
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     * @param string $type
      * @return JsonResponse
+     * @throws Exception
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request, string $type): JsonResponse
     {
-        // TODO: baci u form request
-        if (!$request->has('type')) {
-            throw new Exception("No type provided");
-        }
-
-        if (!array_key_exists($request->get('type'), $this->mappings)) {
-            throw new Exception("Wrong type provided");
-        }
-
         /**
-         * @var $type Model
+         * @var $typeModel Model
          */
-        $type = $this->mappings[$request->get('type')];
+        $typeModel = $this->mappings[$type];
 
         $data = $request->except('type');
-        $data = array_merge_recursive($data, ['selectable_type' => $type, 'selectable_id' => $type::query()->first('id')->id]);
+        $data = array_merge_recursive($data, ['selectable_type' => $typeModel, 'selectable_id' => $typeModel::query()->first('id')->id]);
 
         $customField = CustomField::query()->create($data);
 

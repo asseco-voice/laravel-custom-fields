@@ -9,6 +9,7 @@ use Voice\CustomFields\App\Http\Controllers\RelationController;
 use Voice\CustomFields\App\Http\Controllers\RemoteCustomFieldController;
 use Voice\CustomFields\App\Http\Controllers\TypeController;
 use Voice\CustomFields\App\Http\Controllers\ValidationController;
+use Voice\CustomFields\App\PlainType;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,24 +22,35 @@ use Voice\CustomFields\App\Http\Controllers\ValidationController;
 |
 */
 
-Route::prefix('api/custom-fields')
+Route::prefix('api')
     ->middleware('api')
-    ->name('custom-fields.')
     ->group(function () {
 
-        Route::get('types', [TypeController::class, 'index'])->name('types');
+        Route::apiResource('custom-fields', CustomFieldController::class);
 
-        Route::apiResource('plain', PlainCustomFieldController::class);
-        Route::apiResource('remote', RemoteCustomFieldController::class);
-//        Route::apiResource('select', SelectCustomFieldController::class);
+        Route::prefix('custom-field')
+            ->name('custom-field.')
+            ->group(function () {
+                Route::get('types', [TypeController::class, 'index'])->name('types.index');
 
-        Route::apiResource('validations', ValidationController::class);
-        Route::apiResource('relations', RelationController::class);
-        Route::apiResource('values', CustomFieldValueController::class);
+                Route::get('plain/{type?}', [PlainCustomFieldController::class, 'index'])
+                    ->where('type', PlainType::getRegexSubTypes())
+                    ->name('plain.index');
 
-        Route::apiResource('forms', FormController::class);
+                Route::post('plain/{type}', [PlainCustomFieldController::class, 'store'])
+                    ->where('type', PlainType::getRegexSubTypes())
+                    ->name('plain.store');
 
-        Route::apiResource('/', CustomFieldController::class);
+                Route::apiResource('remote', RemoteCustomFieldController::class);
+                // Route::apiResource('select', SelectCustomFieldController::class);
 
+
+                Route::apiResource('validations', ValidationController::class);
+                Route::apiResource('relations', RelationController::class);
+                Route::apiResource('values', CustomFieldValueController::class);
+
+                Route::apiResource('forms', FormController::class);
+
+            });
     });
 
