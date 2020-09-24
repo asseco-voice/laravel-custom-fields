@@ -23,4 +23,9 @@ class RemoteType extends Model
     {
         return 'remote';
     }
+
+    public function setBodyAttribute($value)
+    {
+        $this->attributes['body'] = json_encode($value);
+    }
 }

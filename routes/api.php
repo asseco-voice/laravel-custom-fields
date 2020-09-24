@@ -41,7 +41,7 @@ Route::prefix('api')
                     ->where('type', PlainType::getRegexSubTypes())
                     ->name('plain.store');
 
-                Route::apiResource('remote', RemoteCustomFieldController::class);
+                Route::apiResource('remote', RemoteCustomFieldController::class)->only(['index', 'store']);
                 // Route::apiResource('select', SelectCustomFieldController::class);
 
 

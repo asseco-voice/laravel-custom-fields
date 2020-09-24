@@ -48,11 +48,11 @@ class PlainCustomFieldController extends Controller
          */
         $typeModel = $this->mappings[$type];
 
-        $data = $request->except('type');
-        $data = array_merge_recursive($data, ['selectable_type' => $typeModel, 'selectable_id' => $typeModel::query()->first('id')->id]);
+        $selectableData = [
+            'selectable_type' => $typeModel,
+            'selectable_id'   => $typeModel::query()->first('id')->id
+        ];
 
-        $customField = CustomField::query()->create($data);
-
-        return Response::json($customField);
+        return Response::json(CustomField::query()->create($request->merge($selectableData)->except('type')));
     }
 }
