@@ -4,10 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Voice\CustomFields\App\Http\Controllers\CustomFieldController;
 use Voice\CustomFields\App\Http\Controllers\CustomFieldValueController;
 use Voice\CustomFields\App\Http\Controllers\FormController;
-use Voice\CustomFields\App\Http\Controllers\PlainTypeController;
+use Voice\CustomFields\App\Http\Controllers\PlainCustomFieldController;
 use Voice\CustomFields\App\Http\Controllers\RelationController;
-use Voice\CustomFields\App\Http\Controllers\RemoteTypeController;
-use Voice\CustomFields\App\Http\Controllers\SelectTypeController;
+use Voice\CustomFields\App\Http\Controllers\RemoteCustomFieldController;
 use Voice\CustomFields\App\Http\Controllers\TypeController;
 use Voice\CustomFields\App\Http\Controllers\ValidationController;
 
@@ -22,22 +21,24 @@ use Voice\CustomFields\App\Http\Controllers\ValidationController;
 |
 */
 
-Route::prefix('api')
+Route::prefix('api/custom-fields')
     ->middleware('api')
+    ->name('custom-fields.')
     ->group(function () {
 
-        Route::apiResource('custom-fields', CustomFieldController::class);
+        Route::get('types', [TypeController::class, 'index'])->name('types');
 
-        Route::get('custom-field-types', [TypeController::class, 'index']);
-        Route::apiResource('custom-field-plain-types', PlainTypeController::class);
-        Route::apiResource('custom-field-remote-types', RemoteTypeController::class);
-        Route::apiResource('custom-field-select-types', SelectTypeController::class);
+        Route::apiResource('plain', PlainCustomFieldController::class);
+        Route::apiResource('remote', RemoteCustomFieldController::class);
+//        Route::apiResource('select', SelectCustomFieldController::class);
 
-        Route::apiResource('custom-field-validations', ValidationController::class);
-        Route::apiResource('custom-field-relations', RelationController::class);
-        Route::apiResource('custom-field-values', CustomFieldValueController::class);
+        Route::apiResource('validations', ValidationController::class);
+        Route::apiResource('relations', RelationController::class);
+        Route::apiResource('values', CustomFieldValueController::class);
 
         Route::apiResource('forms', FormController::class);
+
+        Route::apiResource('/', CustomFieldController::class);
 
     });
 

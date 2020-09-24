@@ -28,7 +28,7 @@ class CustomFieldSeeder extends Seeder
 
         $models = $this->getModelsWithTrait($traitPath);
 
-        $types = Config::get('asseco-custom-fields.type_mappings');
+        $types = CustomField::types();
 
         $plainTypes = PlainType::all('id', 'name');
         $selectTypes = SelectType::all('id');

@@ -24,9 +24,9 @@ class RemoteTypeSeeder extends Seeder
             $data[] = [
                 'url'        => $faker->url,
                 'method'     => $faker->randomElement($methods),
-                'parameters' => $faker->sentence,
-                'created_at'  => $now,
-                'updated_at'  => $now
+                'body'       => $faker->sentence,
+                'created_at' => $now,
+                'updated_at' => $now
             ];
         }
 

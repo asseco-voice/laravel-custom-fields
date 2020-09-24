@@ -18,8 +18,6 @@ class TypeController extends Controller
      */
     public function index(): JsonResponse
     {
-        $types = Config::get('asseco-custom-fields.type_mappings');
-
-        return Response::json(array_keys($types));
+        return Response::json(Config::get('asseco-custom-fields.type_mappings'));
     }
 }

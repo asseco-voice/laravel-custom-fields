@@ -26,13 +26,15 @@ return [
     'trait_path'  => 'Voice\CustomFields\App\Traits\Customizable',
 
     'type_mappings' => [
-        'string'  => StringType::class,
-        'integer' => IntegerType::class,
-        'float'   => FloatType::class,
-        'date'    => DateType::class,
-        'text'    => TextType::class,
-        'boolean' => BooleanType::class,
-        'remote'  => RemoteType::class,
-        'select'  => SelectType::class,
+        'plain'  => [
+            'string'  => StringType::class,
+            'integer' => IntegerType::class,
+            'float'   => FloatType::class,
+            'date'    => DateType::class,
+            'text'    => TextType::class,
+            'boolean' => BooleanType::class,
+        ],
+        'remote' => RemoteType::class,
+        'select' => SelectType::class,
     ],
 ];

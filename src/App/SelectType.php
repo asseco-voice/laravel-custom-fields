@@ -14,6 +14,7 @@ class SelectType extends Model
     protected $table   = 'custom_field_select_types';
     protected $guarded = ['id'];
     protected $hidden  = ['created_at', 'updated_at'];
+    protected $appends = ['name'];
 
     public function customFields(): MorphMany
     {
@@ -28,5 +29,10 @@ class SelectType extends Model
     public function values(): HasMany
     {
         return $this->hasMany(SelectValue::class);
+    }
+
+    public function getNameAttribute()
+    {
+        return 'select';
     }
 }

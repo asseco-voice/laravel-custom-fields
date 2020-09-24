@@ -15,15 +15,10 @@ class PlainTypeSeeder extends Seeder
     {
         $now = Carbon::now();
 
-        $types = Config::get('asseco-custom-fields.type_mappings');
+        $types = Config::get('asseco-custom-fields.type_mappings.plain');
 
         $data = [];
         foreach ($types as $typeName => $typeClass) {
-
-            if (!is_subclass_of($typeClass, PlainType::class)) {
-                continue;
-            }
-
             $data[] = [
                 'name'       => $typeName,
                 'created_at' => $now,
