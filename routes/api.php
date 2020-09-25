@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Voice\CustomFields\App\Http\Controllers\CustomFieldController;
 use Voice\CustomFields\App\Http\Controllers\CustomFieldValueController;
 use Voice\CustomFields\App\Http\Controllers\FormController;
+use Voice\CustomFields\App\Http\Controllers\ModelController;
 use Voice\CustomFields\App\Http\Controllers\PlainCustomFieldController;
 use Voice\CustomFields\App\Http\Controllers\RelationController;
 use Voice\CustomFields\App\Http\Controllers\RemoteCustomFieldController;
@@ -23,6 +24,8 @@ use Voice\CustomFields\App\PlainType;
 |
 */
 
+Route::pattern('plainType', PlainType::getRegexSubTypes());
+
 Route::prefix('api')
     ->middleware('api')
     ->group(function () {
@@ -32,19 +35,17 @@ Route::prefix('api')
         Route::prefix('custom-field')
             ->name('custom-field.')
             ->group(function () {
+
                 Route::get('types', [TypeController::class, 'index'])->name('types.index');
+                Route::get('models', [ModelController::class, 'index'])->name('models.index');
 
-                Route::get('plain/{type?}', [PlainCustomFieldController::class, 'index'])
-                    ->where('type', PlainType::getRegexSubTypes())
-                    ->name('plain.index');
-
-                Route::post('plain/{type}', [PlainCustomFieldController::class, 'store'])
-                    ->where('type', PlainType::getRegexSubTypes())
-                    ->name('plain.store');
+                Route::get('plain/{plainType?}', [PlainCustomFieldController::class, 'index'])->name('plain.index');
+                Route::post('plain/{plainType}', [PlainCustomFieldController::class, 'store'])->name('plain.store');
 
                 Route::apiResource('remote', RemoteCustomFieldController::class)->only(['index', 'store']);
-                Route::apiResource('selection', SelectionCustomFieldController::class)->only(['index', 'store']);
 
+                Route::get('selection/{plainType?}', [SelectionCustomFieldController::class, 'index'])->name('selection.index');
+                Route::post('selection/{plainType}', [SelectionCustomFieldController::class, 'store'])->name('selection.store');
 
                 Route::apiResource('validations', ValidationController::class);
                 Route::apiResource('relations', RelationController::class);

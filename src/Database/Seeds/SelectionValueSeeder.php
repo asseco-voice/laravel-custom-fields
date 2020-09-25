@@ -30,6 +30,7 @@ class SelectionValueSeeder extends Seeder
                 $data[] = [
                     'selection_type_id' => $selectionType->id,
                     'label'             => $faker->word,
+                    'preselect'         => $faker->boolean(10),
                     'value'             => $this->getTypeValue($selectionType, $faker),
                     'created_at'        => $now,
                     'updated_at'        => $now

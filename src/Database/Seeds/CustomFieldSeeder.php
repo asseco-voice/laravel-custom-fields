@@ -51,6 +51,7 @@ class CustomFieldSeeder extends Seeder
                     'selectable_id'   => $typeValue,
                     'name'            => implode(' ', $faker->words(5)),
                     'label'           => $faker->word,
+                    'placeholder'     => $faker->word,
                     'model'           => $faker->randomElement($models),
                     'required'        => $faker->boolean(10),
                     'validation_id'   => $validations->random(1)->first()->id,

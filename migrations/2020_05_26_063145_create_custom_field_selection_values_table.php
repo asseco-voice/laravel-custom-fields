@@ -19,6 +19,7 @@ class CreateCustomFieldSelectionValuesTable extends Migration
             $table->foreignId('selection_type_id')->constrained('custom_field_selection_types')->onDelete('cascade');
             $table->string('label')->nullable();
             $table->string('value');
+            $table->boolean('preselect')->default(false);
 
             $table->timestamps();
         });
