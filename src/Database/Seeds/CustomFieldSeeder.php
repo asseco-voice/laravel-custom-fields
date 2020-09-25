@@ -62,7 +62,6 @@ class CustomFieldSeeder extends Seeder
 
             CustomField::query()->insert($data);
         }
-
     }
 
     protected function getTypeValue(string $typeClass, string $typeName, Collection $plainTypes, Collection $selectionTypes, Collection $remoteTypes)

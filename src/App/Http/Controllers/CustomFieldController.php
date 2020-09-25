@@ -31,10 +31,6 @@ class CustomFieldController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-//        $request->merge([
-//            'definition' => json_encode($request->definition),
-//        ]);
-
         $customField = CustomField::query()->create($request->all());
 
         return Response::json($customField);
