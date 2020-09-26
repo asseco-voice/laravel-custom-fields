@@ -28,4 +28,9 @@ class RemoteType extends Model
     {
         $this->attributes['body'] = json_encode($value);
     }
+
+    public function setMappingsAttribute($value)
+    {
+        $this->attributes['mappings'] = json_encode($value);
+    }
 }

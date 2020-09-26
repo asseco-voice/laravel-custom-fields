@@ -28,7 +28,8 @@ non-production environments.
 A single custom field can be one of 3 types:
 
 - ``Plain`` - standard single-value properties like int/string/date etc.
-- ``Remote`` - multiple values which can be fetched from an arbitrary endpoint.
+- ``Remote`` - multiple values which can be fetched from an arbitrary endpoint. Mappings can be provided in `localKey => remoteKey` format 
+to provide display helpers for front end. 
 - ``Selection`` - provide a set of predefined values from which you can select one or many.  
 
 It can have:

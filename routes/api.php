@@ -8,6 +8,7 @@ use Voice\CustomFields\App\Http\Controllers\ModelController;
 use Voice\CustomFields\App\Http\Controllers\PlainCustomFieldController;
 use Voice\CustomFields\App\Http\Controllers\RelationController;
 use Voice\CustomFields\App\Http\Controllers\RemoteCustomFieldController;
+use Voice\CustomFields\App\Http\Controllers\RemoteValuesController;
 use Voice\CustomFields\App\Http\Controllers\SelectionCustomFieldController;
 use Voice\CustomFields\App\Http\Controllers\TypeController;
 use Voice\CustomFields\App\Http\Controllers\ValidationController;
@@ -43,6 +44,7 @@ Route::prefix('api')
                 Route::post('plain/{plainType}', [PlainCustomFieldController::class, 'store'])->name('plain.store');
 
                 Route::apiResource('remote', RemoteCustomFieldController::class)->only(['index', 'store']);
+                Route::get('remote-values', [RemoteValuesController::class, 'show']);
 
                 Route::get('selection/{plainType?}', [SelectionCustomFieldController::class, 'index'])->name('selection.index');
                 Route::post('selection/{plainType}', [SelectionCustomFieldController::class, 'store'])->name('selection.store');

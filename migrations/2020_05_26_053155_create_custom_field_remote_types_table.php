@@ -21,6 +21,8 @@ class CreateCustomFieldRemoteTypesTable extends Migration
             $table->text('body')->nullable();
             $table->text('headers')->nullable();
 
+            $table->json('mappings')->nullable();
+
             $table->timestamps();
         });
     }
