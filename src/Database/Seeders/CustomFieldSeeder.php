@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\Database\Seeds;
+namespace Voice\CustomFields\Database\Seeders;
 
 use Carbon\Carbon;
 use Faker\Factory;
@@ -29,11 +29,9 @@ class CustomFieldSeeder extends Seeder
         $models = $this->getModelsWithTrait($traitPath);
 
         $types = CustomField::types();
-
         $plainTypes = PlainType::all('id', 'name');
         $selectionTypes = SelectionType::all('id');
         $remoteTypes = RemoteType::all('id');
-
         $validations = Validation::all('id');
 
         $amount = 200;

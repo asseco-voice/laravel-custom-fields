@@ -2,32 +2,32 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\Database\Seeds;
+namespace Voice\CustomFields\Database\Seeders;
 
 use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
-use Voice\CustomFields\App\Validation;
+use Voice\CustomFields\App\Form;
 
-class ValidationSeeder extends Seeder
+class FormSeeder extends Seeder
 {
     public function run(): void
     {
         $faker = Factory::create();
-        $amount = 200;
-        $data = [];
-
+        $amount = 100;
         $now = Carbon::now();
 
+        $data = [];
         for ($i = 0; $i < $amount; $i++) {
+
             $data[] = [
                 'name'       => implode(' ', $faker->words(5)),
-                'validation' => '/some_regex/',
+                'definition' => json_encode(["test" => "test"]),
                 'created_at' => $now,
                 'updated_at' => $now
             ];
         }
 
-        Validation::query()->insert($data);
+        Form::query()->insert($data);
     }
 }

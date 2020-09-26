@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\Database\Seeds;
+namespace Voice\CustomFields\Database\Seeders;
 
 use Carbon\Carbon;
 use Faker\Factory;

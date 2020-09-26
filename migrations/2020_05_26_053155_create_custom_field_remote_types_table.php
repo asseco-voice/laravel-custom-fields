@@ -19,6 +19,7 @@ class CreateCustomFieldRemoteTypesTable extends Migration
             $table->string('url');
             $table->enum('method', ['GET', 'POST', 'PUT']);
             $table->text('body')->nullable();
+            $table->text('headers')->nullable();
 
             $table->timestamps();
         });

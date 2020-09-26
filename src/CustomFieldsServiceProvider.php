@@ -23,6 +23,6 @@ class CustomFieldsServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->publishes([__DIR__ . '/../config/asseco-custom-fields.php' => config_path('asseco-custom-fields.php'),]);
+        $this->publishes([__DIR__ . '/../config/asseco-custom-fields.php' => config_path('asseco-custom-fields.php')]);
     }
 }

@@ -8,6 +8,7 @@ use Voice\CustomFields\App\PlainTypes\StringType;
 use Voice\CustomFields\App\PlainTypes\TextType;
 use Voice\CustomFields\App\RemoteType;
 use Voice\CustomFields\App\SelectionType;
+use Voice\CustomFields\App\Traits\Customizable;
 
 return [
     /**
@@ -23,7 +24,7 @@ return [
     /**
      * Namespace to Customizable trait
      */
-    'trait_path'  => 'Voice\CustomFields\App\Traits\Customizable',
+    'trait_path'  => Customizable::class,
 
     'type_mappings' => [
         'plain'     => [
