@@ -41,8 +41,8 @@ class CustomFieldSeeder extends Seeder
 
                 $typeName = array_rand($types);
                 $typeClass = $types[$typeName];
-
                 $typeValue = $this->getTypeValue($typeClass, $typeName, $plainTypes, $selectionTypes, $remoteTypes);
+                $shouldValidate = $this->shouldValidate(CustomField::getMappingColumn($typeClass::find($typeValue)));
 
                 $data[] = [
                     'selectable_type' => $typeClass,
@@ -52,7 +52,7 @@ class CustomFieldSeeder extends Seeder
                     'placeholder'     => $faker->word,
                     'model'           => $faker->randomElement($models),
                     'required'        => $faker->boolean(10),
-                    'validation_id'   => $validations->random(1)->first()->id,
+                    'validation_id'   => $shouldValidate ? $validations->random(1)->first()->id : null,
                     'created_at'      => $now,
                     'updated_at'      => $now
                 ];
@@ -72,5 +72,10 @@ class CustomFieldSeeder extends Seeder
             default:
                 return $plainTypes->where('name', $typeName)->first()->id;
         }
+    }
+
+    private function shouldValidate($column)
+    {
+        return in_array($column, ['string', 'text']);
     }
 }

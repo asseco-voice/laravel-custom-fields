@@ -22,7 +22,8 @@ class ValidationSeeder extends Seeder
         for ($i = 0; $i < $amount; $i++) {
             $data[] = [
                 'name'       => implode(' ', $faker->words(5)),
-                'validation' => '/some_regex/',
+                'regex'      => '/some_regex/',
+                'generic'    => $faker->boolean(10),
                 'created_at' => $now,
                 'updated_at' => $now
             ];

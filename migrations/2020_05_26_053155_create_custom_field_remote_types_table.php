@@ -16,6 +16,8 @@ class CreateCustomFieldRemoteTypesTable extends Migration
         Schema::create('custom_field_remote_types', function (Blueprint $table) {
             $table->id();
 
+            $table->foreignId('plain_type_id')->constrained('custom_field_plain_types')->onDelete('cascade');
+
             $table->string('url');
             $table->enum('method', ['GET', 'POST', 'PUT']);
             $table->text('body')->nullable();

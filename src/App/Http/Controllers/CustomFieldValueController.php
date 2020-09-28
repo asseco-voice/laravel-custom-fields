@@ -31,6 +31,8 @@ class CustomFieldValueController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        CustomFieldValue::validate($request);
+
         $customFieldValue = CustomFieldValue::query()->create($request->all());
 
         return Response::json($customFieldValue);

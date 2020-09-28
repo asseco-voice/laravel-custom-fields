@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Voice\CustomFields\App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class RemoteType extends Model
+class RemoteType extends ParentType
 {
     protected $table   = 'custom_field_remote_types';
     protected $guarded = ['id'];

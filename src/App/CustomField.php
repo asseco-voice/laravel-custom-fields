@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
+use Voice\CustomFields\App\Contracts\Mappable;
 
 class CustomField extends Model
 {
@@ -83,5 +84,16 @@ class CustomField extends Model
         $other = Arr::except(Config::get('asseco-custom-fields.type_mappings'), 'plain');
 
         return array_merge_recursive($plain, $other);
+    }
+
+    public static function getMappingColumn(Model $selectable): string
+    {
+        if ($selectable instanceof Mappable) {
+            return $selectable->mapToColumn();
+        } else if ($selectable instanceof ParentType) {
+            return $selectable->subTypeClassPath();
+        }
+
+        return 'string';
     }
 }

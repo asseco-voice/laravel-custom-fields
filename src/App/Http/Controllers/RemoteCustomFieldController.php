@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\CustomField;
+use Voice\CustomFields\App\PlainType;
 
 class RemoteCustomFieldController extends Controller
 {
@@ -59,7 +60,12 @@ class RemoteCustomFieldController extends Controller
                 'selectable_id'   => $remoteType->id
             ];
 
-            return CustomField::query()->create($request->merge($selectableData)->except('remote'));
+            // Force casting remote types to string unless we decide on different implementation.
+            $plainTypeId = PlainType::query()->where('name', 'string')->firstOrFail()->id;
+
+            return CustomField::query()->create(
+                $request->merge($selectableData)->merge(['plain_type_id' => $plainTypeId])->except('remote')
+            );
         });
 
         return Response::json($customField->load('selectable'));
