@@ -58,6 +58,8 @@ class CustomFieldValueController extends Controller
      */
     public function update(Request $request, CustomFieldValue $customFieldValue): JsonResponse
     {
+        CustomFieldValue::validate($request);
+
         $isUpdated = $customFieldValue->update($request->all());
 
         return Response::json($isUpdated ? 'true' : 'false');

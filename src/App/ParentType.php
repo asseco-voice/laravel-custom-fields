@@ -6,8 +6,8 @@ namespace Voice\CustomFields\App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
+use Voice\CustomFields\App\PlainTypes\StringType;
 
 abstract class ParentType extends Model
 {
@@ -18,6 +18,13 @@ abstract class ParentType extends Model
 
     public function subTypeClassPath(): string
     {
-        return Arr::get(Config::get('asseco-custom-fields.type_mappings'), $this->type->name, 'string');
+        $plainTypes = Config::get('asseco-custom-fields.type_mappings.plain');
+        $typeName = $this->type->name;
+
+        if (array_key_exists($typeName, $plainTypes)) {
+            return $plainTypes[$typeName];
+        }
+
+        return StringType::class;
     }
 }

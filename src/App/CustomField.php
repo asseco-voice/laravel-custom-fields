@@ -19,6 +19,8 @@ class CustomField extends Model
 {
     use SoftDeletes;
 
+    public const EDIT_LOCK = ['selectable_type', 'selectable_id', 'model'];
+
     protected $guarded = ['id'];
     protected $hidden  = ['created_at', 'updated_at'];
 
@@ -89,9 +91,13 @@ class CustomField extends Model
     public static function getMappingColumn(Model $selectable): string
     {
         if ($selectable instanceof Mappable) {
-            return $selectable->mapToColumn();
+            return $selectable::mapToColumn();
         } else if ($selectable instanceof ParentType) {
-            return $selectable->subTypeClassPath();
+            /**
+             * @var $mappable Mappable
+             */
+            $mappable = $selectable->subTypeClassPath();
+            return $mappable::mapToColumn();
         }
 
         return 'string';

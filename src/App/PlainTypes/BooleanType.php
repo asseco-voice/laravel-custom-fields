@@ -17,7 +17,7 @@ class BooleanType extends PlainType implements Mappable
         });
     }
 
-    public function mapToColumn(): string
+    public static function mapToColumn(): string
     {
         return 'boolean';
     }
