@@ -41,7 +41,7 @@ class CustomFieldValue extends Model
             ->with(['validation', 'selectable'])
             ->findOrFail($request->get('custom_field_id'));
 
-        $mapToColumn = CustomField::getMappingColumn($customField);
+        $mapToColumn = CustomField::getMappingColumn($customField->selectable);
 
         throw_if(!$request->has($mapToColumn), new Exception("Attribute '$mapToColumn' needs to be provided."));
 
