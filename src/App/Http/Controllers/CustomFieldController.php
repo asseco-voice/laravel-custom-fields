@@ -56,7 +56,7 @@ class CustomFieldController extends Controller
      */
     public function update(Request $request, CustomField $customField): JsonResponse
     {
-        $isUpdated = $customField->update($request->except(CustomField::EDIT_LOCK));
+        $isUpdated = $customField->update($request->except(CustomField::LOCKED_FOR_EDITING));
 
         return Response::json($isUpdated ? 'true' : 'false');
     }

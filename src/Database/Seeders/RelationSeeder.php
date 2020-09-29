@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Voice\CustomFields\Database\Seeders;
 
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Voice\CustomFields\App\CustomField;
 use Voice\CustomFields\App\Relation;
@@ -13,20 +12,15 @@ class RelationSeeder extends Seeder
 {
     public function run(): void
     {
-        $now = Carbon::now();
-        $customField = CustomField::all('id');
+        $customFields = CustomField::all('id');
 
-        $amount = 200;
-        $data = [];
-        for ($i = 0; $i < $amount; $i++) {
-            $data[] = [
-                'parent_id'  => $customField->random(1)->first()->id,
-                'child_id'   => $customField->random(1)->first()->id,
-                'created_at' => $now,
-                'updated_at' => $now
-            ];
-        }
+        $relations = Relation::factory()->count(200)->make()
+            ->each(function (Relation $relation) use ($customFields) {
+                $relation->timestamps = false;
+                $relation->parent_id = $customFields->random(1)->first()->id;
+                $relation->child_id = $customFields->random(1)->first()->id;
+            })->toArray();
 
-        Relation::query()->insert($data);
+        Relation::query()->insert($relations);
     }
 }

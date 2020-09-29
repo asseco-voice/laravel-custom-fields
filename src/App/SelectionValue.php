@@ -4,14 +4,22 @@ declare(strict_types=1);
 
 namespace Voice\CustomFields\App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Voice\CustomFields\Database\Factories\SelectionValueFactory;
 
 class SelectionValue extends Model
 {
-    protected $table = 'custom_field_selection_values';
+    use HasFactory;
+
+    protected $table   = 'custom_field_selection_values';
     protected $guarded = ['id'];
-    protected $hidden = ['created_at', 'updated_at'];
+
+    protected static function newFactory()
+    {
+        return SelectionValueFactory::new();
+    }
 
     public function selectionType(): BelongsTo
     {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Voice\CustomFields\App;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,15 +15,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Voice\CustomFields\App\Contracts\Mappable;
+use Voice\CustomFields\Database\Factories\CustomFieldFactory;
 
 class CustomField extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
-    public const EDIT_LOCK = ['selectable_type', 'selectable_id', 'model'];
+    public const LOCKED_FOR_EDITING = ['selectable_type', 'selectable_id', 'model'];
 
     protected $guarded = ['id'];
-    protected $hidden  = ['created_at', 'updated_at'];
+
+    protected static function newFactory()
+    {
+        return CustomFieldFactory::new();
+    }
 
     public function selectable(): MorphTo
     {

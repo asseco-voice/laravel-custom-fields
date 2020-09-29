@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace Voice\CustomFields\App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Voice\CustomFields\Database\Factories\RelationFactory;
 
 class Relation extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
-    protected $table = 'custom_field_relations';
+    protected $table   = 'custom_field_relations';
     protected $guarded = ['id'];
-    protected $hidden = ['created_at', 'updated_at'];
+
+    protected static function newFactory()
+    {
+        return RelationFactory::new();
+    }
 }

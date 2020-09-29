@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Voice\CustomFields\Database\Seeders;
 
-use Carbon\Carbon;
-use Faker\Factory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
@@ -18,6 +16,7 @@ use Voice\CustomFields\App\RemoteType;
 use Voice\CustomFields\App\SelectionType;
 use Voice\CustomFields\App\Traits\FindsTraits;
 use Voice\CustomFields\App\Validation;
+use Voice\CustomFields\App\Value;
 
 class CustomFieldSeeder extends Seeder
 {
@@ -25,10 +24,7 @@ class CustomFieldSeeder extends Seeder
 
     public function run(): void
     {
-        $now = Carbon::now();
-        $faker = Factory::create();
         $traitPath = Config::get('asseco-custom-fields.trait_path');
-
         $models = $this->getModelsWithTrait($traitPath);
 
         $types = CustomField::types();
@@ -37,31 +33,23 @@ class CustomFieldSeeder extends Seeder
         $remoteTypes = RemoteType::all('id');
         $validations = Validation::all('id');
 
-        $amount = 200;
-        for ($j = 0; $j < 10; $j++) {
-            $data = [];
-            for ($i = 0; $i < $amount; $i++) {
+        for ($j = 0; $j < 20; $j++) {
 
-                $typeName = array_rand($types);
-                $typeClass = $types[$typeName];
-                $typeValue = $this->getTypeValue($typeClass, $typeName, $plainTypes, $selectionTypes, $remoteTypes);
-                $shouldValidate = $this->shouldValidate($typeClass::find($typeValue));
+            $customFields = CustomField::factory()->count(10)->make()
+                ->each(function (CustomField $customField) use ($types, $plainTypes, $selectionTypes, $remoteTypes, $validations, $models) {
+                    $typeName = array_rand($types);
+                    $typeClass = $types[$typeName];
+                    $typeValue = $this->getTypeValue($typeClass, $typeName, $plainTypes, $selectionTypes, $remoteTypes);
+                    $shouldValidate = $this->shouldValidate($typeClass::find($typeValue));
 
-                $data[] = [
-                    'selectable_type' => $typeClass,
-                    'selectable_id'   => $typeValue,
-                    'name'            => implode(' ', $faker->words(5)),
-                    'label'           => $faker->word,
-                    'placeholder'     => $faker->word,
-                    'model'           => $faker->randomElement($models),
-                    'required'        => $faker->boolean(10),
-                    'validation_id'   => $shouldValidate ? $validations->random(1)->first()->id : null,
-                    'created_at'      => $now,
-                    'updated_at'      => $now
-                ];
-            }
+                    $customField->timestamps = false;
+                    $customField->selectable_type = $typeClass;
+                    $customField->selectable_id = $typeValue;
+                    $customField->model = $models[array_rand($models)];
+                    $customField->validation_id = $shouldValidate ? $validations->random(1)->first()->id : null;
+                })->toArray();
 
-            CustomField::query()->insert($data);
+            CustomField::query()->insert($customFields);
         }
     }
 
@@ -79,7 +67,7 @@ class CustomFieldSeeder extends Seeder
 
     private function shouldValidate(Model $model)
     {
-        $column = Mappable::DEFAULT_COLUMN;
+        $column = Value::FALLBACK_VALUE_COLUMN;
 
         if ($model instanceof Mappable) {
             $column = $model::mapToValueColumn();

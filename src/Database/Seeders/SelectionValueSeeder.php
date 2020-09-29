@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Voice\CustomFields\Database\Seeders;
 
-use Carbon\Carbon;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Database\Seeder;
@@ -15,30 +14,30 @@ class SelectionValueSeeder extends Seeder
 {
     public function run(): void
     {
-        $now = Carbon::now();
         $faker = Factory::create();
         $amount = 50;
         $selectionTypes = SelectionType::with('type')->get();
 
-        $data = [];
+        $selectionValues = [];
         for ($i = 0; $i < $amount; $i++) {
 
+            // Have random number of values set for a single type
             $random = rand(3, 10);
 
-            for ($j = 0; $j < $random; $j++) {
-                $selectionType = $selectionTypes->random(1)->first();
-                $data[] = [
-                    'selection_type_id' => $selectionType->id,
-                    'label'             => $faker->word,
-                    'preselect'         => $faker->boolean(10),
-                    'value'             => $this->getTypeValue($selectionType, $faker),
-                    'created_at'        => $now,
-                    'updated_at'        => $now
-                ];
-            }
+            $selectionValues = array_merge_recursive($selectionValues,
+                SelectionValue::factory()->count($random)->make()
+                    ->each(function (SelectionValue $selectionValue) use ($selectionTypes, $faker) {
+                        $selectionType = $selectionTypes->random(1)->first();
+
+                        $selectionValue->timestamps = false;
+                        $selectionValue->selection_type_id = $selectionType->id;
+                        $selectionValue->value = $this->getTypeValue($selectionType, $faker);
+                    })->toArray()
+            );
+
+            SelectionValue::query()->insert($selectionValues);
         }
 
-        SelectionValue::query()->insert($data);
     }
 
     protected function getTypeValue(SelectionType $selectionType, Generator $faker)

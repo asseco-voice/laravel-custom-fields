@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace Voice\CustomFields\App;
 
 use Exception;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Http\Request;
+use Voice\CustomFields\Database\Factories\ValueFactory;
 
 class Value extends Model
 {
+    use HasFactory;
+
     /**
      * Columns which are classified as value columns
      */
@@ -24,7 +28,11 @@ class Value extends Model
 
     protected $table   = 'custom_field_values';
     protected $guarded = ['id'];
-    protected $hidden  = ['created_at', 'updated_at'];
+
+    protected static function newFactory()
+    {
+        return ValueFactory::new();
+    }
 
     public function model(): MorphTo
     {
@@ -71,7 +79,7 @@ class Value extends Model
 
         $mapToColumn = $customField->getMappingColumn();
 
-        if($request->has($mapToColumn)){
+        if ($request->has($mapToColumn)) {
             $customField->validate($request->get($mapToColumn));
         }
     }

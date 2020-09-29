@@ -3,15 +3,23 @@
 
 namespace Voice\CustomFields\App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
+use Voice\CustomFields\Database\Factories\PlainTypeFactory;
 
 class PlainType extends Model
 {
+    use HasFactory;
+
     protected $table   = 'custom_field_plain_types';
     protected $guarded = ['id'];
-    protected $hidden  = ['created_at', 'updated_at'];
+
+    protected static function newFactory()
+    {
+        return PlainTypeFactory::new();
+    }
 
     public static function subTypes()
     {
