@@ -47,7 +47,7 @@ class CustomField extends Model
 
     public function values(): HasMany
     {
-        return $this->hasMany(CustomFieldValue::class);
+        return $this->hasMany(Value::class);
     }
 
     public function forms(): BelongsToMany

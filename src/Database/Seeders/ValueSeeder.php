@@ -10,12 +10,12 @@ use Faker\Generator;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Config;
 use Voice\CustomFields\App\CustomField;
-use Voice\CustomFields\App\CustomFieldValue;
+use Voice\CustomFields\App\Value;
 use Voice\CustomFields\App\RemoteType;
 use Voice\CustomFields\App\SelectionType;
 use Voice\CustomFields\App\Traits\FindsTraits;
 
-class CustomFieldValueSeeder extends Seeder
+class ValueSeeder extends Seeder
 {
     use FindsTraits;
 
@@ -38,7 +38,7 @@ class CustomFieldValueSeeder extends Seeder
             $data[] = $this->generateData($customField, $now, $model, $faker);
         }
 
-        CustomFieldValue::query()->insert($data);
+        Value::query()->insert($data);
     }
 
     protected function generateData(CustomField $customField, Carbon $now, string $model, Generator $faker): array

@@ -25,7 +25,7 @@ class CustomFieldPackageSeeder extends Seeder
                 CustomFieldSeeder::class,
                 RelationSeeder::class,
 
-                CustomFieldValueSeeder::class,
+                ValueSeeder::class,
 
                 FormSeeder::class,
                 CustomFieldFormSeeder::class

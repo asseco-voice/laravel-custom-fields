@@ -9,9 +9,9 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use Voice\CustomFields\App\CustomFieldValue;
+use Voice\CustomFields\App\Value;
 
-class CustomFieldValueController extends Controller
+class ValueController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class CustomFieldValueController extends Controller
      */
     public function index(): JsonResponse
     {
-        return Response::json(CustomFieldValue::all());
+        return Response::json(Value::all());
     }
 
     /**
@@ -31,36 +31,36 @@ class CustomFieldValueController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        CustomFieldValue::validate($request);
+        Value::validate($request);
 
-        $customFieldValue = CustomFieldValue::query()->create($request->all());
+        $value = Value::query()->create($request->all());
 
-        return Response::json($customFieldValue);
+        return Response::json($value);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param CustomFieldValue $customFieldValue
+     * @param Value $value
      * @return JsonResponse
      */
-    public function show(CustomFieldValue $customFieldValue): JsonResponse
+    public function show(Value $value): JsonResponse
     {
-        return Response::json($customFieldValue);
+        return Response::json($value);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param CustomFieldValue $customFieldValue
+     * @param Value $value
      * @return JsonResponse
      */
-    public function update(Request $request, CustomFieldValue $customFieldValue): JsonResponse
+    public function update(Request $request, Value $value): JsonResponse
     {
-        CustomFieldValue::validate($request);
+        Value::validate($request);
 
-        $isUpdated = $customFieldValue->update($request->all());
+        $isUpdated = $value->update($request->all());
 
         return Response::json($isUpdated ? 'true' : 'false');
     }
@@ -68,13 +68,13 @@ class CustomFieldValueController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param CustomFieldValue $customFieldValue
+     * @param Value $value
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(CustomFieldValue $customFieldValue): JsonResponse
+    public function destroy(Value $value): JsonResponse
     {
-        $isDeleted = $customFieldValue->delete();
+        $isDeleted = $value->delete();
 
         return Response::json($isDeleted ? 'true' : 'false');
     }

@@ -10,8 +10,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Http\Request;
 
-class CustomFieldValue extends Model
+class Value extends Model
 {
+    protected $table   = 'custom_field_values';
     protected $guarded = ['id'];
     protected $hidden  = ['created_at', 'updated_at'];
 
