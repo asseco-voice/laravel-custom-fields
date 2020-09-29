@@ -60,6 +60,11 @@ class CustomField extends Model
         return $this->belongsTo(Validation::class);
     }
 
+    public function validate($input): void
+    {
+        optional($this->validation)->validate($input);
+    }
+
     public function children(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -88,18 +93,20 @@ class CustomField extends Model
         return array_merge_recursive($plain, $other);
     }
 
-    public static function getMappingColumn(Model $selectable): string
+    public function getMappingColumn(): string
     {
+        $selectable = $this->selectable;
+
         if ($selectable instanceof Mappable) {
-            return $selectable::mapToColumn();
+            return $selectable::mapToValueColumn();
         } else if ($selectable instanceof ParentType) {
             /**
              * @var $mappable Mappable
              */
             $mappable = $selectable->subTypeClassPath();
-            return $mappable::mapToColumn();
+            return $mappable::mapToValueColumn();
         }
 
-        return 'string';
+        return Value::FALLBACK_VALUE_COLUMN;
     }
 }

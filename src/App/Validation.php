@@ -22,7 +22,7 @@ class Validation extends Model
         return $this->hasMany(CustomField::class);
     }
 
-    public function validate($input)
+    public function validate($input): void
     {
         $pattern = $this->regex;
 

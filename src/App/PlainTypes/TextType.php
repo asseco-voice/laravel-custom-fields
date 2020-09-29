@@ -17,7 +17,7 @@ class TextType extends PlainType implements Mappable
         });
     }
 
-    public static function mapToColumn(): string
+    public static function mapToValueColumn(): string
     {
         return 'text';
     }

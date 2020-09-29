@@ -7,9 +7,12 @@ namespace Voice\CustomFields\Database\Seeders;
 use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Config;
+use Voice\CustomFields\App\Contracts\Mappable;
 use Voice\CustomFields\App\CustomField;
+use Voice\CustomFields\App\ParentType;
 use Voice\CustomFields\App\PlainType;
 use Voice\CustomFields\App\RemoteType;
 use Voice\CustomFields\App\SelectionType;
@@ -42,7 +45,7 @@ class CustomFieldSeeder extends Seeder
                 $typeName = array_rand($types);
                 $typeClass = $types[$typeName];
                 $typeValue = $this->getTypeValue($typeClass, $typeName, $plainTypes, $selectionTypes, $remoteTypes);
-                $shouldValidate = $this->shouldValidate(CustomField::getMappingColumn($typeClass::find($typeValue)));
+                $shouldValidate = $this->shouldValidate($typeClass::find($typeValue));
 
                 $data[] = [
                     'selectable_type' => $typeClass,
@@ -74,8 +77,20 @@ class CustomFieldSeeder extends Seeder
         }
     }
 
-    private function shouldValidate($column)
+    private function shouldValidate(Model $model)
     {
+        $column = Mappable::DEFAULT_COLUMN;
+
+        if ($model instanceof Mappable) {
+            $column = $model::mapToValueColumn();
+        } else if ($model instanceof ParentType) {
+            /**
+             * @var $mappable Mappable
+             */
+            $mappable = $model->subTypeClassPath();
+            $column = $mappable::mapToValueColumn();
+        }
+
         return in_array($column, ['string', 'text']);
     }
 }

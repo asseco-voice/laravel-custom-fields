@@ -17,7 +17,7 @@ class IntegerType extends PlainType implements Mappable
         });
     }
 
-    public static function mapToColumn(): string
+    public static function mapToValueColumn(): string
     {
         return 'integer';
     }

@@ -31,7 +31,7 @@ class ValueController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        Value::validate($request);
+        Value::validateCreate($request);
 
         $value = Value::query()->create($request->all());
 
@@ -58,7 +58,7 @@ class ValueController extends Controller
      */
     public function update(Request $request, Value $value): JsonResponse
     {
-        Value::validate($request);
+        Value::validateUpdate($request, $value);
 
         $isUpdated = $value->update($request->all());
 
