@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Voice\CustomFields\Database\Seeders;
 
-use Carbon\Carbon;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Config;
 use Voice\CustomFields\App\CustomField;
-use Voice\CustomFields\App\Value;
 use Voice\CustomFields\App\RemoteType;
 use Voice\CustomFields\App\SelectionType;
 use Voice\CustomFields\App\Traits\FindsTraits;
+use Voice\CustomFields\App\Value;
 
 class ValueSeeder extends Seeder
 {
@@ -23,46 +22,30 @@ class ValueSeeder extends Seeder
 
     public function run(): void
     {
-        $now = Carbon::now();
         $faker = Factory::create();
         $traitPath = Config::get('asseco-custom-fields.trait_path');
 
         $models = $this->getModelsWithTrait($traitPath);
         $customFields = CustomField::with('selectable')->get();
 
-        $data = [];
-        $amount = 500;
-        for ($i = 0; $i < $amount; $i++) {
-            $customField = $customFields->random(1)->first();
-            $model = $models[array_rand($models)];
-            $data[] = $this->generateData($customField, $now, $model, $faker);
-        }
+        $values = Value::factory()->count(500)->make()
+            ->each(function (Value $value) use ($customFields, $models, $faker) {
+                $customField = $customFields->random(1)->first();
+                $model = $models[array_rand($models)];
+                $selectable = $customField->selectable;
+                [$type, $typeValue] = $this->getType($selectable);
+                $fakeValue = $this->fakeValueFromType($type, $typeValue, $faker);
 
-        Value::query()->insert($data);
-    }
+                $value->timestamps = false;
+                $value->model_type = $model;
+                $value->model_id = $this->getCached($model);
+                $value->custom_field_id = $customField->id;
+                $value->{$type} = $fakeValue;
 
-    protected function generateData(CustomField $customField, Carbon $now, string $model, Generator $faker): array
-    {
-        $initial = $this->initialData($customField->id, $model, $now);
+            })->toArray();
 
-        return $this->switchTypes($customField, $faker, $initial);
-    }
 
-    protected function initialData(int $customFieldId, string $model, Carbon $now): array
-    {
-        return [
-            'model_type'      => $model,
-            'model_id'        => $this->getCached($model),
-            'custom_field_id' => $customFieldId,
-            'created_at'      => $now,
-            'updated_at'      => $now,
-            'integer'         => null,
-            'float'           => null,
-            'date'            => null,
-            'text'            => null,
-            'boolean'         => null,
-            'string'          => null,
-        ];
+        Value::query()->insert($values);
     }
 
     protected function getCached(string $model): int
@@ -75,35 +58,6 @@ class ValueSeeder extends Seeder
         return $cached[array_rand($cached)];
     }
 
-    protected function switchTypes(CustomField $customField, Generator $faker, array $data): array
-    {
-        $selectable = $customField->selectable;
-
-        [$type, $value] = $this->getType($selectable);
-
-        switch ($type) {
-            case 'integer':
-                $data['integer'] = $value ?: $faker->randomNumber();
-                break;
-            case 'float':
-                $data['float'] = $value ?: $faker->randomFloat();
-                break;
-            case 'date':
-                $data['date'] = $value ?: $faker->date();
-                break;
-            case 'text':
-                $data['text'] = $value ?: $faker->sentence;
-                break;
-            case 'boolean':
-                $data['boolean'] = $value ?: $faker->boolean;
-                break;
-            default:
-                $data['string'] = $value ?: $faker->word;
-                break;
-        }
-        return $data;
-    }
-
     protected function getType($selectable)
     {
         if ($selectable instanceof SelectionType) {
@@ -112,6 +66,24 @@ class ValueSeeder extends Seeder
             return ['string', null];
         } else {
             return [$selectable->name, null];
+        }
+    }
+
+    protected function fakeValueFromType($type, $value, Generator $faker)
+    {
+        switch ($type) {
+            case 'integer':
+                return $value ?: $faker->randomNumber();
+            case 'float':
+                return $value ?: $faker->randomFloat();
+            case 'date':
+                return $value ?: $faker->date();
+            case 'text':
+                return $value ?: $faker->sentence;
+            case 'boolean':
+                return $value ?: $faker->boolean;
+            default:
+                return $value ?: $faker->word;
         }
     }
 
