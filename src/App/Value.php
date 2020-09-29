@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Http\Request;
+use Throwable;
 use Voice\CustomFields\Database\Factories\ValueFactory;
 
 class Value extends Model
@@ -54,6 +55,10 @@ class Value extends Model
         return $this->customField->validation();
     }
 
+    /**
+     * @param Request $request
+     * @throws Throwable
+     */
     public static function validateCreate(Request $request): void
     {
         /**
@@ -65,22 +70,46 @@ class Value extends Model
 
         $mapToColumn = $customField->getMappingColumn();
 
+        self::filterByAllowedColumn($mapToColumn, $request);
+
         throw_if(!$request->has($mapToColumn), new Exception("Attribute '$mapToColumn' needs to be provided."));
 
         $customField->validate($request->get($mapToColumn));
     }
 
-    public static function validateUpdate(Request $request, Value $value): void
+    /**
+     * @param Request $request
+     * @throws Throwable
+     */
+    public function validateUpdate(Request $request): void
     {
         /**
          * @var $customField CustomField
          */
-        $customField = $value->customField->load(['validation', 'selectable']);
+        $customField = $this->customField->load(['validation', 'selectable']);
 
         $mapToColumn = $customField->getMappingColumn();
 
+        self::filterByAllowedColumn($mapToColumn, $request);
+
         if ($request->has($mapToColumn)) {
             $customField->validate($request->get($mapToColumn));
+        }
+    }
+
+    /**
+     * @param string $mapToColumn
+     * @param Request $request
+     * @throws Throwable
+     */
+    protected static function filterByAllowedColumn(string $mapToColumn, Request $request): void
+    {
+        foreach (self::VALUE_COLUMNS as $column) {
+            if ($column === $mapToColumn) {
+                continue;
+            }
+
+            throw_if($request->has($column), new Exception("Attribute '$column' is not allowed for this custom field, use '$mapToColumn' instead."));
         }
     }
 }

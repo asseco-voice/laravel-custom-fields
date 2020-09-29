@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use Throwable;
 use Voice\CustomFields\App\Value;
 
 class ValueController extends Controller
@@ -28,6 +29,7 @@ class ValueController extends Controller
      *
      * @param Request $request
      * @return JsonResponse
+     * @throws Throwable
      */
     public function store(Request $request): JsonResponse
     {
@@ -55,10 +57,11 @@ class ValueController extends Controller
      * @param Request $request
      * @param Value $value
      * @return JsonResponse
+     * @throws Throwable
      */
     public function update(Request $request, Value $value): JsonResponse
     {
-        Value::validateUpdate($request, $value);
+        $value->validateUpdate($request);
 
         $isUpdated = $value->update($request->all());
 
