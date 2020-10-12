@@ -30,4 +30,9 @@ class Form extends Model
     {
         $this->attributes['definition'] = json_encode($value);
     }
+
+    public function getDefinitionAttribute($value)
+    {
+        return json_decode($value, true);
+    }
 }
