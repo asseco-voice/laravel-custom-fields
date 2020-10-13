@@ -14,7 +14,7 @@ class SelectionValue extends Model
     use HasFactory;
 
     protected $table   = 'custom_field_selection_values';
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected static function newFactory()
     {

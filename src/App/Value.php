@@ -28,7 +28,7 @@ class Value extends Model
     public const FALLBACK_VALUE_COLUMN = 'string';
 
     protected $table   = 'custom_field_values';
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected static function newFactory()
     {

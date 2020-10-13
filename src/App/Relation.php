@@ -14,7 +14,7 @@ class Relation extends Model
     use SoftDeletes, HasFactory;
 
     protected $table   = 'custom_field_relations';
-    protected $guarded = ['id'];
+    protected $fillable = ['parent_id', 'child_id'];
 
     protected static function newFactory()
     {

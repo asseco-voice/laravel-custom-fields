@@ -14,7 +14,7 @@ class Form extends Model
 {
     use SoftDeletes, HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['custom_field_id', 'form_id'];
 
     protected static function newFactory()
     {

@@ -14,7 +14,7 @@ class PlainType extends Model
     use HasFactory;
 
     protected $table   = 'custom_field_plain_types';
-    protected $guarded = ['id'];
+    protected $fillable = ['name'];
 
     protected static function newFactory()
     {
