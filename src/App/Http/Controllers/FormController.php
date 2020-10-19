@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\Form;
 
+/**
+ * @group Custom Field Forms
+ */
 class FormController extends Controller
 {
     /**

@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\Validation;
 
+/**
+ * @group Custom Field Validations
+ */
 class ValidationController extends Controller
 {
     /**

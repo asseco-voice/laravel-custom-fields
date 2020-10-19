@@ -44,7 +44,7 @@ Route::prefix('api')
                 Route::post('plain/{plain_type}', [PlainCustomFieldController::class, 'store'])->name('plain.store');
 
                 Route::apiResource('remote', RemoteCustomFieldController::class)->only(['index', 'store']);
-                Route::get('remote-values', [RemoteValuesController::class, 'show']);
+                Route::get('remote-values/{remote_type}', [RemoteValuesController::class, 'show']);
 
                 Route::get('selection/{plain_type?}', [SelectionCustomFieldController::class, 'index'])->name('selection.index');
                 Route::post('selection/{plain_type}', [SelectionCustomFieldController::class, 'store'])->name('selection.store');

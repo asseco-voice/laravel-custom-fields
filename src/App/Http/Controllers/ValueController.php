@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Response;
 use Throwable;
 use Voice\CustomFields\App\Value;
 
+/**
+ * @group Custom Field Values
+ */
 class ValueController extends Controller
 {
     /**

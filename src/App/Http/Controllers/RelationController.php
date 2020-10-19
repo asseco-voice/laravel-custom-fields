@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\Relation;
 
+/**
+ * @group Custom Field Relations
+ */
 class RelationController extends Controller
 {
     /**

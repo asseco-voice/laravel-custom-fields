@@ -17,6 +17,9 @@ use Voice\CustomFields\App\CustomField;
 use Voice\CustomFields\App\PlainType;
 use Voice\CustomFields\App\SelectionValue;
 
+/**
+ * @model CustomField
+ */
 class SelectionCustomFieldController extends Controller
 {
     protected string $selectionClass;
@@ -29,15 +32,24 @@ class SelectionCustomFieldController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @path plain_type string One of the plain types (string, text, integer, float, date, boolean)
+     * @multiple true
+     *
+     * @param string|null $type
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(string $type = null): JsonResponse
     {
-        return Response::json(CustomField::selection()->get());
+        return Response::json(CustomField::selection($type)->get());
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @path plain_type string One of the plain types (string, text, integer, float, date, boolean)
+     * @except selectable_type selectable_id
+     * @append selection SelectionType
+     * @append values SelectionValue
      *
      * @param Request $request
      * @param string $type
@@ -66,7 +78,9 @@ class SelectionCustomFieldController extends Controller
                 'multiselect'   => $multiselect,
             ]);
 
-            foreach ($selectionData['values'] as $value) {
+            $selectionValues = $request->get('values');
+
+            foreach ($selectionValues as $value) {
                 SelectionValue::query()->create(array_merge_recursive($value, ['selection_type_id' => $selectionType->id]))->toArray();
             }
 

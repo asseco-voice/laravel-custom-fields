@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\CustomField;
 use Voice\CustomFields\App\PlainType;
 
+/**
+ * @group Remote Custom Fields
+ * @model CustomField
+ */
 class RemoteCustomFieldController extends Controller
 {
     protected string $remoteClass;
@@ -36,6 +40,9 @@ class RemoteCustomFieldController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @except selectable_type selectable_id
+     * @append remote RemoteType
      *
      * @param Request $request
      * @return JsonResponse

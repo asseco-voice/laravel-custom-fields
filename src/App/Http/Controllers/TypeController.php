@@ -9,10 +9,18 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Response;
 
+/**
+ * @group Custom Field Type-Class Mappings
+ */
 class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @response
+     * plain array[string] true
+     * remote string
+     * selection string
      *
      * @return JsonResponse
      */

@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\Traits\FindsTraits;
 
+/**
+ * @group Customizable Models
+ */
 class ModelController extends Controller
 {
     use FindsTraits;
@@ -17,6 +20,7 @@ class ModelController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @response model array[string]
      * @return JsonResponse
      */
     public function index(): JsonResponse

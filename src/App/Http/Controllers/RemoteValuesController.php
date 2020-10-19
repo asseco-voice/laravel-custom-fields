@@ -12,6 +12,9 @@ use Voice\CustomFields\App\CustomField;
 use Voice\CustomFields\App\RemoteType;
 use Voice\CustomFields\App\Traits\TransformsOutput;
 
+/**
+ * @group Fetch Remote Custom Field Values
+ */
 class RemoteValuesController extends Controller
 {
     use TransformsOutput;
