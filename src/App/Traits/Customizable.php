@@ -11,6 +11,6 @@ trait Customizable
 {
     public function customFieldValues(): MorphMany
     {
-        return $this->morphMany(Value::class, 'customizable');
+        return $this->morphMany(Value::class, 'model');
     }
 }
