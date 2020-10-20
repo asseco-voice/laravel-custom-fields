@@ -12,7 +12,7 @@ class RemoteType extends ParentType
 {
     use HasFactory;
 
-    protected $table   = 'custom_field_remote_types';
+    protected $table = 'custom_field_remote_types';
     protected $guarded = ['id', 'created_at', 'updated_at'];
     protected $appends = ['name'];
 

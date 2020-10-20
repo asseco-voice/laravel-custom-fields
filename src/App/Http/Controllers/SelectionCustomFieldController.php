@@ -59,11 +59,10 @@ class SelectionCustomFieldController extends Controller
     public function store(Request $request, string $type): JsonResponse
     {
         if (!$request->has('selection')) {
-            throw new Exception("Selection data needs to be provided");
+            throw new Exception('Selection data needs to be provided');
         }
 
         $customField = DB::transaction(function () use ($request, $type) {
-
             $selectionData = $request->get('selection');
 
             $multiselect = Arr::get($selectionData, 'multiselect', false);
@@ -86,7 +85,7 @@ class SelectionCustomFieldController extends Controller
 
             $selectableData = [
                 'selectable_type' => $this->selectionClass,
-                'selectable_id'   => $selectionType->id
+                'selectable_id'   => $selectionType->id,
             ];
 
             return CustomField::query()->create($request->merge($selectableData)->except('selection'));

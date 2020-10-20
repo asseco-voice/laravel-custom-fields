@@ -51,7 +51,7 @@ class RemoteCustomFieldController extends Controller
     public function store(Request $request): JsonResponse
     {
         if (!$request->has('remote')) {
-            throw new Exception("Remote data needs to be provided");
+            throw new Exception('Remote data needs to be provided');
         }
 
         $customField = DB::transaction(function () use ($request) {
@@ -64,7 +64,7 @@ class RemoteCustomFieldController extends Controller
 
             $selectableData = [
                 'selectable_type' => $this->remoteClass,
-                'selectable_id'   => $remoteType->id
+                'selectable_id'   => $remoteType->id,
             ];
 
             // Force casting remote types to string unless we decide on different implementation.

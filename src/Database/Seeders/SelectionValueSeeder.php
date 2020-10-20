@@ -37,7 +37,6 @@ class SelectionValueSeeder extends Seeder
 
             SelectionValue::query()->insert($selectionValues);
         }
-
     }
 
     protected function getTypeValue(SelectionType $selectionType, Generator $faker)

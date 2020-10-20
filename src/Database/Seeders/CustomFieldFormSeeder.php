@@ -16,7 +16,6 @@ class CustomFieldFormSeeder extends Seeder
         $customFields = CustomField::all();
 
         foreach ($forms as $form) {
-
             $rand = rand(1, 10);
 
             $ids = [];

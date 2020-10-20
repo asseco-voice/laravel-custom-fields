@@ -14,7 +14,6 @@ trait FindsTraits
         $models = [];
 
         foreach ($paths as $path => $namespace) {
-
             $files = scandir($path);
 
             foreach ($files as $file) {

@@ -41,9 +41,7 @@ class ValueSeeder extends Seeder
                 $value->model_id = $this->getCached($model);
                 $value->custom_field_id = $customField->id;
                 $value->{$type} = $fakeValue;
-
             })->toArray();
-
 
         Value::query()->insert($values);
     }
@@ -55,6 +53,7 @@ class ValueSeeder extends Seeder
         }
 
         $cached = $this->cached[$model];
+
         return $cached[array_rand($cached)];
     }
 
@@ -62,7 +61,7 @@ class ValueSeeder extends Seeder
     {
         if ($selectable instanceof SelectionType) {
             return [$selectable->type->name, $selectable->values->random(1)->first()->value];
-        } else if ($selectable instanceof RemoteType) {
+        } elseif ($selectable instanceof RemoteType) {
             return ['string', null];
         } else {
             return [$selectable->name, null];
@@ -86,6 +85,4 @@ class ValueSeeder extends Seeder
                 return $value ?: $faker->word;
         }
     }
-
-
 }

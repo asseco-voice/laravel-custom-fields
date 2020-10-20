@@ -59,7 +59,7 @@ class PlainCustomFieldController extends Controller
 
         $selectableData = [
             'selectable_type' => $typeModel,
-            'selectable_id'   => $typeModel::query()->first('id')->id
+            'selectable_id'   => $typeModel::query()->first('id')->id,
         ];
 
         return Response::json(CustomField::query()->create($request->merge($selectableData)->except('type')));

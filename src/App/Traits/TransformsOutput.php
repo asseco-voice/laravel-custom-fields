@@ -30,13 +30,12 @@ trait TransformsOutput
         $data = [];
 
         foreach ($mappings as $localKey => $remoteKey) {
-
-            if(!array_key_exists($remoteKey, $item)){
+            if (!array_key_exists($remoteKey, $item)) {
                 continue;
             }
 
             $data = array_merge_recursive($data, [
-                $localKey => $item[$remoteKey]
+                $localKey => $item[$remoteKey],
             ]);
         }
 
