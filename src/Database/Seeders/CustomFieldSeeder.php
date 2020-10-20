@@ -34,7 +34,6 @@ class CustomFieldSeeder extends Seeder
         $validations = Validation::all('id');
 
         for ($j = 0; $j < 20; $j++) {
-
             $customFields = CustomField::factory()->count(10)->make()
                 ->each(function (CustomField $customField) use ($types, $plainTypes, $selectionTypes, $remoteTypes, $validations, $models) {
                     $typeName = array_rand($types);
@@ -71,7 +70,7 @@ class CustomFieldSeeder extends Seeder
 
         if ($model instanceof Mappable) {
             $column = $model::mapToValueColumn();
-        } else if ($model instanceof ParentType) {
+        } elseif ($model instanceof ParentType) {
             /**
              * @var $mappable Mappable
              */

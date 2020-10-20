@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Voice\CustomFields\App\Http\Controllers\CustomFieldController;
-use Voice\CustomFields\App\Http\Controllers\ValueController;
 use Voice\CustomFields\App\Http\Controllers\FormController;
 use Voice\CustomFields\App\Http\Controllers\ModelController;
 use Voice\CustomFields\App\Http\Controllers\PlainCustomFieldController;
@@ -12,6 +11,7 @@ use Voice\CustomFields\App\Http\Controllers\RemoteValuesController;
 use Voice\CustomFields\App\Http\Controllers\SelectionCustomFieldController;
 use Voice\CustomFields\App\Http\Controllers\TypeController;
 use Voice\CustomFields\App\Http\Controllers\ValidationController;
+use Voice\CustomFields\App\Http\Controllers\ValueController;
 use Voice\CustomFields\App\PlainType;
 
 /*
@@ -30,13 +30,11 @@ Route::pattern('plain_type', PlainType::getRegexSubTypes());
 Route::prefix('api')
     ->middleware('api')
     ->group(function () {
-
         Route::apiResource('custom-fields', CustomFieldController::class);
 
         Route::prefix('custom-field')
             ->name('custom-field.')
             ->group(function () {
-
                 Route::get('types', [TypeController::class, 'index'])->name('types.index');
                 Route::get('models', [ModelController::class, 'index'])->name('models.index');
 
@@ -54,7 +52,5 @@ Route::prefix('api')
                 Route::apiResource('values', ValueController::class);
 
                 Route::apiResource('forms', FormController::class);
-
             });
     });
-

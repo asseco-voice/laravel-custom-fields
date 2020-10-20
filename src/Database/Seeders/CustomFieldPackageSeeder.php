@@ -28,7 +28,7 @@ class CustomFieldPackageSeeder extends Seeder
                 ValueSeeder::class,
 
                 FormSeeder::class,
-                CustomFieldFormSeeder::class
+                CustomFieldFormSeeder::class,
             ]);
         }
     }

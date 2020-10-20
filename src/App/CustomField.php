@@ -38,6 +38,7 @@ class CustomField extends Model
     public function scopePlain(Builder $query, string $subType = null)
     {
         $selectable = $subType ? PlainType::getSubTypeClass($subType) : PlainType::subTypes();
+
         return $query->whereHasMorph('selectable', $selectable);
     }
 
@@ -105,11 +106,12 @@ class CustomField extends Model
 
         if ($selectable instanceof Mappable) {
             return $selectable::mapToValueColumn();
-        } else if ($selectable instanceof ParentType) {
+        } elseif ($selectable instanceof ParentType) {
             /**
              * @var $mappable Mappable
              */
             $mappable = $selectable->subTypeClassPath();
+
             return $mappable::mapToValueColumn();
         }
 

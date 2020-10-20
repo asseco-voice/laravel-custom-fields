@@ -18,16 +18,16 @@ class Value extends Model
     use HasFactory;
 
     /**
-     * Columns which are classified as value columns
+     * Columns which are classified as value columns.
      */
     public const VALUE_COLUMNS = ['string', 'integer', 'float', 'date', 'text', 'boolean'];
 
     /**
-     * Fallback column if a concrete value column can't be extracted
+     * Fallback column if a concrete value column can't be extracted.
      */
     public const FALLBACK_VALUE_COLUMN = 'string';
 
-    protected $table   = 'custom_field_values';
+    protected $table = 'custom_field_values';
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected static function newFactory()

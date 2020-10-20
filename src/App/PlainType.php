@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Voice\CustomFields\App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +12,7 @@ class PlainType extends Model
 {
     use HasFactory;
 
-    protected $table   = 'custom_field_plain_types';
+    protected $table = 'custom_field_plain_types';
     protected $fillable = ['name'];
 
     protected static function newFactory()

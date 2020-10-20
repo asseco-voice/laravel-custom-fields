@@ -15,7 +15,7 @@ class Validation extends Model
 {
     use SoftDeletes, HasFactory;
 
-    protected $table   = 'custom_field_validations';
+    protected $table = 'custom_field_validations';
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
 
     protected static function newFactory()
