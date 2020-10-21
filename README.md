@@ -1,4 +1,4 @@
-<p align="center"><a href="https://see.asseco.com" target="_blank"><img src="https://github.com/asseco-voice/art/blob/c5331628a9b5990b40a7ce46db01416599c4d7f6/asseco_logo.png" width="500"></a></p>
+<p align="center"><a href="https://see.asseco.com" target="_blank"><img src="https://github.com/asseco-voice/art/blob/main/evil_logo.png" width="500"></a></p>
 
 # Custom fields
 
