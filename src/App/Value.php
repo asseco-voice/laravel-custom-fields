@@ -45,16 +45,6 @@ class Value extends Model
         return $this->belongsTo(CustomField::class);
     }
 
-    public function selectable(): MorphTo
-    {
-        return $this->customField->selectable();
-    }
-
-    public function validation(): BelongsTo
-    {
-        return $this->customField->validation();
-    }
-
     /**
      * @param Request $request
      * @throws Throwable
