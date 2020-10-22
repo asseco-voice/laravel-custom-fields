@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Voice\CustomFields\Database\Factories\FormFactory;
 use Log;
+use Voice\CustomFields\Database\Factories\FormFactory;
 
 class Form extends Model
 {
@@ -40,15 +40,13 @@ class Form extends Model
     public static function validate(Form $form, $form_data)
     {
         $outputValue = [];
-        foreach($form->customFields as $formKey => $formValue)
-        {
+        foreach ($form->customFields as $formKey => $formValue) {
             if (isset($form_data[$formValue['name']])) {
                 $type = $formValue->getMappingColumn();
                 preg_all_match('/' . $formValue->validation->regex . '/', $form_data[$formValue['name']], $matches);
                 //$form_data[$formValue['name']] = $matches[0];
 
-                switch($type)
-                {
+                switch ($type) {
                     case 'string':
                         $outputValue[$formValue['name']] = [
                             'type' => $type,
@@ -88,14 +86,15 @@ class Form extends Model
                         ];
                         break;
                 }
-            } else if ($formValue->required) {
-                throw new Exception("This field is required: " . $formValue['name'] . "!");
+            } elseif ($formValue->required) {
+                throw new Exception('This field is required: ' . $formValue['name'] . '!');
             } else {
                 continue;
             }
         }
 
         Log::debug($outputValue);
+
         return $outputValue;
     }
 }
