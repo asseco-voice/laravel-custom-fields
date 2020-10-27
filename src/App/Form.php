@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Log;
 use Voice\CustomFields\Database\Factories\FormFactory;
 
 class Form extends Model
@@ -37,64 +36,22 @@ class Form extends Model
         return json_decode($value, true);
     }
 
-    public static function validate(Form $form, $form_data)
+    public function validate($formData): void
     {
-        $outputValue = [];
-        foreach ($form->customFields as $formKey => $formValue) {
-            if (isset($form_data[$formValue['name']])) {
-                $type = $formValue->getMappingColumn();
-                preg_all_match('/' . $formValue->validation->regex . '/', $form_data[$formValue['name']], $matches);
-                //$form_data[$formValue['name']] = $matches[0];
+        /**
+         * @var $customField CustomField
+         */
+        foreach ($this->customFields as $customField) {
 
-                switch ($type) {
-                    case 'string':
-                        $outputValue[$formValue['name']] = [
-                            'type' => $type,
-                            'value' => $form_data[$formValue['name']],
-                        ];
-                        break;
-                    case 'text':
-                        $outputValue[$formValue['name']] = [
-                            'type' => 'string',
-                            'value' => $form_data[$formValue['name']],
-                        ];
-                        break;
-                    case 'integer':
-                    //case 'long':
-                        $outputValue[$formValue['name']] = [
-                            'type' => $type,
-                            'value' => $form_data[$formValue['name']],
-                        ];
-                        break;
-                    case 'float':
-                    //case 'double':
-                        $outputValue[$formValue['name']] = [
-                            'type' => 'double',
-                            'value' => $form_data[$formValue['name']],
-                        ];
-                        break;
-                    case 'date':
-                        $outputValue[$formValue['name']] = [
-                            'type' => $type,
-                            'value' => $form_data[$formValue['name']],
-                        ];
-                        break;
-                    case 'boolean':
-                        $outputValue[$formValue['name']] = [
-                            'type' => $type,
-                            'value' => $form_data[$formValue['name']],
-                        ];
-                        break;
+            if (!isset($formData[$customField->name])) {
+                if ($customField->required) {
+                    throw new \Exception('This field is required: ' . $customField->name . '!');
+                } else {
+                    continue;
                 }
-            } elseif ($formValue->required) {
-                throw new Exception('This field is required: ' . $formValue['name'] . '!');
-            } else {
-                continue;
             }
+
+            $customField->validate($formData[$customField->name]);
         }
-
-        Log::debug($outputValue);
-
-        return $outputValue;
     }
 }
