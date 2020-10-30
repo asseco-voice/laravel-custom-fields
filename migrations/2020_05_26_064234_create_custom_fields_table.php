@@ -23,7 +23,7 @@ class CreateCustomFieldsTable extends Migration
             $table->morphs('selectable');
             $table->string('model');
             $table->boolean('required')->default(0);
-            $table->foreignId('validation_id')->nullable()->constrained('custom_field_validations')->onDelete('cascade');
+            $table->foreignId('validation_id')->nullable()->constrained('custom_field_validations')->onDelete('set null');
 
             $table->timestamps();
             $table->softDeletes();
