@@ -41,19 +41,53 @@ class Form extends Model
      * @param $formData
      * @throws Exception
      */
-    public function validate($formData): void
+    public function validate(array $formData): void
     {
         /**
          * @var $customField CustomField
          */
         foreach ($this->customFields as $customField) {
-            $notSetButRequired = !isset($formData[$customField->name]) && $customField->required;
 
-            if ($notSetButRequired) {
+            if ($this->notSetButRequired($customField, $formData)) {
                 throw new Exception("The '$customField->name' field is required!");
             }
 
             $customField->validate($formData[$customField->name]);
+        }
+    }
+
+    protected function notSetButRequired(CustomField $customField, array $formData): bool
+    {
+        return !array_key_exists($customField->name, $formData) && $customField->required;
+    }
+
+    /**
+     * @param array $formData
+     * @param string $modelType
+     * @param int $modelId
+     * @throws Exception
+     */
+    public function createValues(array $formData, string $modelType, int $modelId)
+    {
+        /**
+         * @var $customField CustomField
+         */
+        foreach ($this->customFields as $customField) {
+            if (!array_key_exists($customField->name, $formData)) {
+                continue;
+            }
+
+            if (!array_key_exists('value', $formData[$customField->name])) {
+                throw new Exception("Form data for '$customField->name' is missing a value.");
+            }
+
+            $type = $customField->getMappingColumn();
+
+            $customField->values()->updateOrCreate([
+                'model_type' => $modelType,
+                'model_id'   => $modelId,
+                $type        => $formData[$customField->name]['value'],
+            ]);
         }
     }
 }
