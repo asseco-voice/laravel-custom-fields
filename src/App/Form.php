@@ -47,7 +47,6 @@ class Form extends Model
          * @var $customField CustomField
          */
         foreach ($this->customFields as $customField) {
-
             $notSetButRequired = !isset($formData[$customField->name]) && $customField->required;
 
             if ($notSetButRequired) {
