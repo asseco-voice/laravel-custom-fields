@@ -16,7 +16,7 @@ class CreateCustomFieldValuesTable extends Migration
         Schema::create('custom_field_values', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('custom_field_id')->constrained()->onDelete('cascade');
+            $table->foreignId('custom_field_id')->constrained()->cascadeOnDelete();
             $table->morphs('model');
             $table->string('string', 255)->nullable();
             $table->integer('integer')->nullable();

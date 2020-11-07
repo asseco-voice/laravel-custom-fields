@@ -16,8 +16,8 @@ class CreateCustomFieldFormTable extends Migration
         Schema::create('custom_field_form', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('custom_field_id')->constrained()->onDelete('cascade');
-            $table->foreignId('form_id')->constrained()->onDelete('cascade');
+            $table->foreignId('custom_field_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('form_id')->constrained()->cascadeOnDelete();
 
             $table->timestamps();
         });

@@ -16,7 +16,7 @@ class CreateCustomFieldSelectionValuesTable extends Migration
         Schema::create('custom_field_selection_values', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('selection_type_id')->constrained('custom_field_selection_types')->onDelete('cascade');
+            $table->foreignId('selection_type_id')->constrained('custom_field_selection_types')->cascadeOnDelete();
             $table->string('label')->nullable();
             $table->string('value');
             $table->boolean('preselect')->default(false);

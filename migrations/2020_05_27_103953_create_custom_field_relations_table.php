@@ -16,8 +16,8 @@ class CreateCustomFieldRelationsTable extends Migration
         Schema::create('custom_field_relations', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('parent_id')->constrained('custom_fields')->onDelete('cascade');
-            $table->foreignId('child_id')->constrained('custom_fields')->onDelete('cascade');
+            $table->foreignId('parent_id')->constrained('custom_fields')->cascadeOnDelete();
+            $table->foreignId('child_id')->constrained('custom_fields')->cascadeOnDelete();
 
             $table->timestamps();
         });
