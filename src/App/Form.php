@@ -47,7 +47,6 @@ class Form extends Model
          * @var $customField CustomField
          */
         foreach ($this->customFields as $customField) {
-
             if ($this->notSetButRequired($customField, $formData)) {
                 throw new Exception("The '$customField->name' field is required!");
             }
