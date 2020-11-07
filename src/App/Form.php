@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Voice\CustomFields\App;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -42,12 +43,11 @@ class Form extends Model
          * @var $customField CustomField
          */
         foreach ($this->customFields as $customField) {
-            if (!isset($formData[$customField->name])) {
-                if ($customField->required) {
-                    throw new \Exception('This field is required: ' . $customField->name . '!');
-                } else {
-                    continue;
-                }
+
+            $notSetButRequired = !isset($formData[$customField->name]) && $customField->required;
+
+            if ($notSetButRequired) {
+                throw new Exception('This field is required: ' . $customField->name . '!');
             }
 
             $customField->validate($formData[$customField->name]);
