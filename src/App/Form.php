@@ -37,6 +37,10 @@ class Form extends Model
         return json_decode($value, true);
     }
 
+    /**
+     * @param $formData
+     * @throws Exception
+     */
     public function validate($formData): void
     {
         /**
@@ -47,7 +51,7 @@ class Form extends Model
             $notSetButRequired = !isset($formData[$customField->name]) && $customField->required;
 
             if ($notSetButRequired) {
-                throw new Exception('This field is required: ' . $customField->name . '!');
+                throw new Exception("The '$customField->name' field is required!");
             }
 
             $customField->validate($formData[$customField->name]);
