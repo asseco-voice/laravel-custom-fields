@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\Form;
 
 /**
@@ -23,7 +22,7 @@ class FormController extends Controller
      */
     public function index(): JsonResponse
     {
-        return Response::json(Form::all());
+        return response()->json(Form::all());
     }
 
     /**
@@ -36,7 +35,7 @@ class FormController extends Controller
     {
         $form = Form::query()->create($request->all());
 
-        return Response::json($form);
+        return response()->json($form->refresh());
     }
 
     /**
@@ -47,7 +46,7 @@ class FormController extends Controller
      */
     public function show(Form $form): JsonResponse
     {
-        return Response::json($form);
+        return response()->json($form);
     }
 
     /**
@@ -59,9 +58,9 @@ class FormController extends Controller
      */
     public function update(Request $request, Form $form): JsonResponse
     {
-        $isUpdated = $form->update($request->all());
+        $form->update($request->all());
 
-        return Response::json($isUpdated ? 'true' : 'false');
+        return response()->json($form->refresh());
     }
 
     /**
@@ -75,6 +74,6 @@ class FormController extends Controller
     {
         $isDeleted = $form->delete();
 
-        return Response::json($isDeleted ? 'true' : 'false');
+        return response()->json($isDeleted ? 'true' : 'false');
     }
 }

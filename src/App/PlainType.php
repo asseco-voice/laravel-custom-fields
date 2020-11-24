@@ -13,6 +13,7 @@ class PlainType extends Model
     use HasFactory;
 
     protected $table = 'custom_field_plain_types';
+
     protected $fillable = ['name'];
 
     protected static function newFactory()
@@ -22,7 +23,7 @@ class PlainType extends Model
 
     public static function subTypes()
     {
-        return Config::get('asseco-custom-fields.type_mappings.plain');
+        return config('asseco-custom-fields.type_mappings.plain');
     }
 
     public static function getSubTypeClass(string $type)

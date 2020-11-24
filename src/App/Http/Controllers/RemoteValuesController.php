@@ -7,7 +7,6 @@ namespace Voice\CustomFields\App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\CustomField;
 use Voice\CustomFields\App\RemoteType;
 use Voice\CustomFields\App\Traits\TransformsOutput;
@@ -36,6 +35,6 @@ class RemoteValuesController extends Controller
 
         $transformed = $this->transform($response->json(), json_decode($remoteType->mappings, true));
 
-        return Response::json($transformed);
+        return response()->json($transformed);
     }
 }

@@ -16,7 +16,7 @@ abstract class ParentType extends Model
 
     public function subTypeClassPath(): string
     {
-        $plainTypes = Config::get('asseco-custom-fields.type_mappings.plain');
+        $plainTypes = config('asseco-custom-fields.type_mappings.plain');
         $typeName = $this->type->name;
 
         if (array_key_exists($typeName, $plainTypes)) {

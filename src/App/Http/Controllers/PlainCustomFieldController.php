@@ -22,7 +22,7 @@ class PlainCustomFieldController extends Controller
 
     public function __construct()
     {
-        $this->mappings = Config::get('asseco-custom-fields.type_mappings.plain');
+        $this->mappings = config('asseco-custom-fields.type_mappings.plain');
     }
 
     /**
@@ -36,7 +36,7 @@ class PlainCustomFieldController extends Controller
      */
     public function index(string $type = null): JsonResponse
     {
-        return Response::json(CustomField::plain($type)->get());
+        return response()->json(CustomField::plain($type)->get());
     }
 
     /**
@@ -62,6 +62,8 @@ class PlainCustomFieldController extends Controller
             'selectable_id'   => $typeModel::query()->first('id')->id,
         ];
 
-        return Response::json(CustomField::query()->create($request->merge($selectableData)->except('type')));
+        $customField = CustomField::query()->create($request->merge($selectableData)->except('type'));
+
+        return response()->json($customField->refresh());
     }
 }

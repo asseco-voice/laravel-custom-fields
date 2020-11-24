@@ -3,7 +3,6 @@
 namespace Voice\CustomFields\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Date;
 use Voice\CustomFields\App\Relation;
 
 class RelationFactory extends Factory
@@ -25,8 +24,8 @@ class RelationFactory extends Factory
         return [
             'parent_id'  => null,
             'child_id'   => null,
-            'created_at' => Date::now(),
-            'updated_at' => Date::now(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

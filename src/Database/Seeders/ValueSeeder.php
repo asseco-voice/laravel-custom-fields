@@ -23,7 +23,7 @@ class ValueSeeder extends Seeder
     public function run(): void
     {
         $faker = Factory::create();
-        $traitPath = Config::get('asseco-custom-fields.trait_path');
+        $traitPath = config('asseco-custom-fields.trait_path');
 
         $models = $this->getModelsWithTrait($traitPath);
         $customFields = CustomField::with('selectable')->get();

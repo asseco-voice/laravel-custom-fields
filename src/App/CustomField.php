@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Config;
 use Voice\CustomFields\App\Contracts\Mappable;
 use Voice\CustomFields\Database\Factories\CustomFieldFactory;
 
@@ -74,28 +73,22 @@ class CustomField extends Model
 
     public function children(): BelongsToMany
     {
-        return $this->belongsToMany(
-            CustomField::class,
-            'custom_field_relations',
-            'parent_id',
-            'child_id')
+        return $this->belongsToMany(CustomField::class,
+            'custom_field_relations', 'parent_id', 'child_id')
             ->withTimestamps();
     }
 
     public function parent(): BelongsToMany
     {
-        return $this->belongsToMany(
-            CustomField::class,
-            'custom_field_relations',
-            'child_id',
-            'parent_id')
+        return $this->belongsToMany(CustomField::class,
+            'custom_field_relations', 'child_id', 'parent_id')
             ->withTimestamps();
     }
 
     public static function types()
     {
-        $plain = Config::get('asseco-custom-fields.type_mappings.plain');
-        $other = Arr::except(Config::get('asseco-custom-fields.type_mappings'), 'plain');
+        $plain = config('asseco-custom-fields.type_mappings.plain');
+        $other = Arr::except(config('asseco-custom-fields.type_mappings'), 'plain');
 
         return array_merge_recursive($plain, $other);
     }

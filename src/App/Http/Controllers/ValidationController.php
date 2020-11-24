@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\Validation;
 
 /**
@@ -23,7 +22,7 @@ class ValidationController extends Controller
      */
     public function index(): JsonResponse
     {
-        return Response::json(Validation::all());
+        return response()->json(Validation::all());
     }
 
     /**
@@ -36,45 +35,45 @@ class ValidationController extends Controller
     {
         $customFieldValidation = Validation::query()->create($request->all());
 
-        return Response::json($customFieldValidation);
+        return response()->json($customFieldValidation->refresh());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Validation $customFieldValidation
+     * @param Validation $validation
      * @return JsonResponse
      */
-    public function show(Validation $customFieldValidation): JsonResponse
+    public function show(Validation $validation): JsonResponse
     {
-        return Response::json($customFieldValidation);
+        return response()->json($validation);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Validation $customFieldValidation
+     * @param Validation $validation
      * @return JsonResponse
      */
-    public function update(Request $request, Validation $customFieldValidation): JsonResponse
+    public function update(Request $request, Validation $validation): JsonResponse
     {
-        $isUpdated = $customFieldValidation->update($request->all());
+        $validation->update($request->all());
 
-        return Response::json($isUpdated ? 'true' : 'false');
+        return response()->json($validation->refresh());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Validation $customFieldValidation
+     * @param Validation $validation
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(Validation $customFieldValidation): JsonResponse
+    public function destroy(Validation $validation): JsonResponse
     {
-        $isDeleted = $customFieldValidation->delete();
+        $isDeleted = $validation->delete();
 
-        return Response::json($isDeleted ? 'true' : 'false');
+        return response()->json($isDeleted ? 'true' : 'false');
     }
 }

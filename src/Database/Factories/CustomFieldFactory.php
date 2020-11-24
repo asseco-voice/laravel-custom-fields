@@ -3,7 +3,6 @@
 namespace Voice\CustomFields\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Date;
 use Voice\CustomFields\App\CustomField;
 
 class CustomFieldFactory extends Factory
@@ -31,8 +30,8 @@ class CustomFieldFactory extends Factory
             'model'           => null,
             'required'        => $this->faker->boolean(10),
             'validation_id'   => null,
-            'created_at'      => Date::now(),
-            'updated_at'      => Date::now(),
+            'created_at'      => now(),
+            'updated_at'      => now(),
         ];
     }
 }

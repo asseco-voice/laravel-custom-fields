@@ -3,7 +3,6 @@
 namespace Voice\CustomFields\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Date;
 use Voice\CustomFields\App\SelectionType;
 
 class SelectionTypeFactory extends Factory
@@ -25,8 +24,8 @@ class SelectionTypeFactory extends Factory
         return [
             'plain_type_id' => null,
             'multiselect'   => $this->faker->boolean,
-            'created_at'    => Date::now(),
-            'updated_at'    => Date::now(),
+            'created_at'    => now(),
+            'updated_at'    => now(),
         ];
     }
 }

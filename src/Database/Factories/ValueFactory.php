@@ -3,7 +3,6 @@
 namespace Voice\CustomFields\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Date;
 use Voice\CustomFields\App\Value;
 
 class ValueFactory extends Factory
@@ -32,8 +31,8 @@ class ValueFactory extends Factory
             'text'            => null,
             'boolean'         => null,
             'string'          => null,
-            'created_at'      => Date::now(),
-            'updated_at'      => Date::now(),
+            'created_at'      => now(),
+            'updated_at'      => now(),
         ];
     }
 }

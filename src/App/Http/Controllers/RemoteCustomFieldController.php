@@ -9,7 +9,6 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\CustomField;
@@ -25,7 +24,7 @@ class RemoteCustomFieldController extends Controller
 
     public function __construct()
     {
-        $this->remoteClass = Config::get('asseco-custom-fields.type_mappings.remote');
+        $this->remoteClass = config('asseco-custom-fields.type_mappings.remote');
     }
 
     /**
@@ -35,7 +34,7 @@ class RemoteCustomFieldController extends Controller
      */
     public function index(): JsonResponse
     {
-        return Response::json(CustomField::remote()->get());
+        return response()->json(CustomField::remote()->get());
     }
 
     /**
@@ -75,6 +74,6 @@ class RemoteCustomFieldController extends Controller
             );
         });
 
-        return Response::json($customField->load('selectable'));
+        return response()->json($customField->load('selectable'));
     }
 }

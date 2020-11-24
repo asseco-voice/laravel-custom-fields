@@ -3,7 +3,6 @@
 namespace Voice\CustomFields\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Date;
 use Voice\CustomFields\App\Form;
 
 class FormFactory extends Factory
@@ -25,8 +24,8 @@ class FormFactory extends Factory
         return [
             'name'       => implode(' ', $this->faker->words(5)),
             'definition' => json_encode(['test' => 'test']),
-            'created_at' => Date::now(),
-            'updated_at' => Date::now(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
