@@ -10,9 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\CustomField;
 use Voice\CustomFields\App\PlainType;
 use Voice\CustomFields\App\SelectionValue;
@@ -26,7 +24,7 @@ class SelectionCustomFieldController extends Controller
 
     public function __construct()
     {
-        $this->selectionClass = Config::get('asseco-custom-fields.type_mappings.selection');
+        $this->selectionClass = config('asseco-custom-fields.type_mappings.selection');
     }
 
     /**
@@ -40,7 +38,7 @@ class SelectionCustomFieldController extends Controller
      */
     public function index(string $type = null): JsonResponse
     {
-        return Response::json(CustomField::selection($type)->get());
+        return response()->json(CustomField::selection($type)->get());
     }
 
     /**
@@ -91,6 +89,6 @@ class SelectionCustomFieldController extends Controller
             return CustomField::query()->create($request->merge($selectableData)->except('selection'));
         });
 
-        return Response::json($customField->load('selectable.values'));
+        return response()->json($customField->load('selectable.values'));
     }
 }

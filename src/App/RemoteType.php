@@ -13,8 +13,15 @@ class RemoteType extends ParentType
     use HasFactory;
 
     protected $table = 'custom_field_remote_types';
+
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
     protected $appends = ['name'];
+
+    protected $casts = [
+        'body'     => 'array',
+        'mappings' => 'array',
+    ];
 
     protected static function newFactory()
     {
@@ -29,15 +36,5 @@ class RemoteType extends ParentType
     public function getNameAttribute()
     {
         return 'remote';
-    }
-
-    public function setBodyAttribute($value)
-    {
-        $this->attributes['body'] = json_encode($value);
-    }
-
-    public function setMappingsAttribute($value)
-    {
-        $this->attributes['mappings'] = json_encode($value);
     }
 }

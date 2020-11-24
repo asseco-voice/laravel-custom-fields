@@ -26,8 +26,8 @@ class ValidationFactory extends Factory
             'name'       => implode(' ', $this->faker->words(5)),
             'regex'      => 'some_regex',
             'generic'    => $this->faker->boolean(10),
-            'created_at' => Date::now(),
-            'updated_at' => Date::now(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

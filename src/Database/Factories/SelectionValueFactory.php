@@ -27,8 +27,8 @@ class SelectionValueFactory extends Factory
             'label'             => $this->faker->word,
             'preselect'         => $this->faker->boolean(10),
             'value'             => null,
-            'created_at'        => Date::now(),
-            'updated_at'        => Date::now(),
+            'created_at'        => now(),
+            'updated_at'        => now(),
         ];
     }
 }

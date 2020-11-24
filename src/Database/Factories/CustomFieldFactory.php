@@ -31,8 +31,8 @@ class CustomFieldFactory extends Factory
             'model'           => null,
             'required'        => $this->faker->boolean(10),
             'validation_id'   => null,
-            'created_at'      => Date::now(),
-            'updated_at'      => Date::now(),
+            'created_at'      => now(),
+            'updated_at'      => now(),
         ];
     }
 }

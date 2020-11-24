@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use Voice\CustomFields\App\CustomField;
 
 class CustomFieldController extends Controller
@@ -20,7 +19,7 @@ class CustomFieldController extends Controller
      */
     public function index(): JsonResponse
     {
-        return Response::json(CustomField::all());
+        return response()->json(CustomField::all());
     }
 
     /**
@@ -33,7 +32,7 @@ class CustomFieldController extends Controller
     {
         $customField = CustomField::query()->create($request->all());
 
-        return Response::json($customField);
+        return response()->json($customField->refresh());
     }
 
     /**
@@ -44,7 +43,7 @@ class CustomFieldController extends Controller
      */
     public function show(CustomField $customField): JsonResponse
     {
-        return Response::json($customField);
+        return response()->json($customField);
     }
 
     /**
@@ -56,9 +55,9 @@ class CustomFieldController extends Controller
      */
     public function update(Request $request, CustomField $customField): JsonResponse
     {
-        $isUpdated = $customField->update($request->except(CustomField::LOCKED_FOR_EDITING));
+        $customField->update($request->except(CustomField::LOCKED_FOR_EDITING));
 
-        return Response::json($isUpdated ? 'true' : 'false');
+        return response()->json($customField->refresh());
     }
 
     /**
@@ -72,6 +71,6 @@ class CustomFieldController extends Controller
     {
         $isDeleted = $customField->delete();
 
-        return Response::json($isDeleted ? 'true' : 'false');
+        return response()->json($isDeleted ? 'true' : 'false');
     }
 }

@@ -25,8 +25,8 @@ class FormFactory extends Factory
         return [
             'name'       => implode(' ', $this->faker->words(5)),
             'definition' => json_encode(['test' => 'test']),
-            'created_at' => Date::now(),
-            'updated_at' => Date::now(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

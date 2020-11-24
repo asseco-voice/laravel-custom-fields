@@ -11,9 +11,10 @@ use Voice\CustomFields\Database\Factories\RelationFactory;
 
 class Relation extends Model
 {
-    use SoftDeletes, HasFactory;
+    use HasFactory;
 
     protected $table = 'custom_field_relations';
+
     protected $fillable = ['parent_id', 'child_id'];
 
     protected static function newFactory()

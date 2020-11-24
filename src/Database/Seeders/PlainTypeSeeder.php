@@ -12,7 +12,7 @@ class PlainTypeSeeder extends Seeder
 {
     public function run(): void
     {
-        $types = Config::get('asseco-custom-fields.type_mappings.plain');
+        $types = config('asseco-custom-fields.type_mappings.plain');
 
         $plainTypes = [];
         foreach ($types as $typeName => $typeClass) {

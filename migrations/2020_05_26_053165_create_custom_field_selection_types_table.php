@@ -16,7 +16,7 @@ class CreateCustomFieldSelectionTypesTable extends Migration
         Schema::create('custom_field_selection_types', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('plain_type_id')->constrained('custom_field_plain_types')->cascadeOnDelete();
+            $table->foreignId('plain_type_id')->constrained('custom_field_plain_types');
             $table->boolean('multiselect')->default(false);
 
             $table->timestamps();

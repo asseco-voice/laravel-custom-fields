@@ -24,7 +24,7 @@ class CustomFieldSeeder extends Seeder
 
     public function run(): void
     {
-        $traitPath = Config::get('asseco-custom-fields.trait_path');
+        $traitPath = config('asseco-custom-fields.trait_path');
         $models = $this->getModelsWithTrait($traitPath);
 
         $types = CustomField::types();

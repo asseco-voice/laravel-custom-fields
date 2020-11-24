@@ -25,8 +25,8 @@ class SelectionTypeFactory extends Factory
         return [
             'plain_type_id' => null,
             'multiselect'   => $this->faker->boolean,
-            'created_at'    => Date::now(),
-            'updated_at'    => Date::now(),
+            'created_at'    => now(),
+            'updated_at'    => now(),
         ];
     }
 }

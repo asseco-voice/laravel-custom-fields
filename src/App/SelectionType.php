@@ -14,7 +14,9 @@ class SelectionType extends ParentType
     use HasFactory;
 
     protected $table = 'custom_field_selection_types';
+
     protected $fillable = ['plain_type_id', 'multiselect'];
+
     protected $appends = ['name'];
 
     protected static function newFactory()

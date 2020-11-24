@@ -27,8 +27,8 @@ class RemoteTypeFactory extends Factory
             'url'           => $this->faker->url,
             'method'        => null,
             'body'          => $this->faker->sentence,
-            'created_at'    => Date::now(),
-            'updated_at'    => Date::now(),
+            'created_at'    => now(),
+            'updated_at'    => now(),
         ];
     }
 }

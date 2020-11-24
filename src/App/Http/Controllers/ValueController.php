@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use Throwable;
 use Voice\CustomFields\App\Value;
 
@@ -24,7 +23,7 @@ class ValueController extends Controller
      */
     public function index(): JsonResponse
     {
-        return Response::json(Value::all());
+        return response()->json(Value::all());
     }
 
     /**
@@ -40,7 +39,7 @@ class ValueController extends Controller
 
         $value = Value::query()->create($request->all());
 
-        return Response::json($value);
+        return response()->json($value->refresh());
     }
 
     /**
@@ -51,7 +50,7 @@ class ValueController extends Controller
      */
     public function show(Value $value): JsonResponse
     {
-        return Response::json($value);
+        return response()->json($value);
     }
 
     /**
@@ -66,9 +65,9 @@ class ValueController extends Controller
     {
         $value->validateUpdate($request);
 
-        $isUpdated = $value->update($request->all());
+        $value->update($request->all());
 
-        return Response::json($isUpdated ? 'true' : 'false');
+        return response()->json($value->refresh());
     }
 
     /**
@@ -82,6 +81,6 @@ class ValueController extends Controller
     {
         $isDeleted = $value->delete();
 
-        return Response::json($isDeleted ? 'true' : 'false');
+        return response()->json($isDeleted ? 'true' : 'false');
     }
 }

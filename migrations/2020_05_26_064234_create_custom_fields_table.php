@@ -16,7 +16,6 @@ class CreateCustomFieldsTable extends Migration
         Schema::create('custom_fields', function (Blueprint $table) {
             $table->id();
 
-//            $table->string('tenant_id', 30)->nullable();
             $table->string('name')->unique('cf_name');
             $table->string('label', 255);
             $table->string('placeholder')->nullable();
