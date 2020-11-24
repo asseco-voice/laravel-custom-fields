@@ -6,7 +6,6 @@ namespace Voice\CustomFields\App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Voice\CustomFields\Database\Factories\RelationFactory;
 
 class Relation extends Model
