@@ -2,9 +2,8 @@
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Date;
 use Asseco\CustomFields\App\Validation;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ValidationFactory extends Factory
 {

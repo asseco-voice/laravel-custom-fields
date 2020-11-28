@@ -2,10 +2,10 @@
 
 namespace Asseco\CustomFields\App;
 
+use Asseco\CustomFields\App\PlainTypes\StringType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Config;
-use Asseco\CustomFields\App\PlainTypes\StringType;
 
 abstract class ParentType extends Model
 {

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App;
 
+use Asseco\CustomFields\Database\Factories\FormFactory;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Asseco\CustomFields\Database\Factories\FormFactory;
 
 class Form extends Model
 {
@@ -47,7 +47,6 @@ class Form extends Model
          * @var $customField CustomField
          */
         foreach ($this->customFields as $customField) {
-
             if ($this->notSetButRequired($customField, $formData)) {
                 throw new Exception("The '$customField->name' field is required!");
             }

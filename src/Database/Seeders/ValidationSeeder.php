@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use Asseco\CustomFields\App\Validation;
+use Illuminate\Database\Seeder;
 
 class ValidationSeeder extends Seeder
 {

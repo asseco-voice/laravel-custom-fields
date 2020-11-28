@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App;
 
+use Asseco\CustomFields\Database\Factories\RemoteTypeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Asseco\CustomFields\Database\Factories\RemoteTypeFactory;
 
 class RemoteType extends ParentType
 {

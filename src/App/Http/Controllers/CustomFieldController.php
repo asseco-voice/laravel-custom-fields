@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Asseco\CustomFields\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Asseco\CustomFields\App\CustomField;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Asseco\CustomFields\App\CustomField;
 
 class CustomFieldController extends Controller
 {

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App;
 
+use Asseco\CustomFields\Database\Factories\SelectionValueFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Asseco\CustomFields\Database\Factories\SelectionValueFactory;
 
 class SelectionValue extends Model
 {

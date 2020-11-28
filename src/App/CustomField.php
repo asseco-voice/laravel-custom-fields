@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App;
 
+use Asseco\CustomFields\App\Contracts\Mappable;
+use Asseco\CustomFields\Database\Factories\CustomFieldFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,8 +15,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
-use Asseco\CustomFields\App\Contracts\Mappable;
-use Asseco\CustomFields\Database\Factories\CustomFieldFactory;
 
 class CustomField extends Model
 {
