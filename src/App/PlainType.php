@@ -2,11 +2,11 @@
 
 namespace Asseco\CustomFields\App;
 
+use Asseco\CustomFields\Database\Factories\PlainTypeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
-use Asseco\CustomFields\Database\Factories\PlainTypeFactory;
 
 class PlainType extends Model
 {

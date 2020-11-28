@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Asseco\CustomFields\App\Http\Controllers\CustomFieldController;
 use Asseco\CustomFields\App\Http\Controllers\FormController;
 use Asseco\CustomFields\App\Http\Controllers\ModelController;
@@ -13,6 +12,7 @@ use Asseco\CustomFields\App\Http\Controllers\TypeController;
 use Asseco\CustomFields\App\Http\Controllers\ValidationController;
 use Asseco\CustomFields\App\Http\Controllers\ValueController;
 use Asseco\CustomFields\App\PlainType;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

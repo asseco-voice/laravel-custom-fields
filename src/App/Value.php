@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App;
 
+use Asseco\CustomFields\Database\Factories\ValueFactory;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Http\Request;
 use Throwable;
-use Asseco\CustomFields\Database\Factories\ValueFactory;
 
 class Value extends Model
 {

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App;
 
+use Asseco\CustomFields\Database\Factories\SelectionTypeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Asseco\CustomFields\Database\Factories\SelectionTypeFactory;
 
 class SelectionType extends ParentType
 {

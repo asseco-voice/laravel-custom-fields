@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
+use Asseco\CustomFields\App\SelectionType;
+use Asseco\CustomFields\App\SelectionValue;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Database\Seeder;
-use Asseco\CustomFields\App\SelectionType;
-use Asseco\CustomFields\App\SelectionValue;
 
 class SelectionValueSeeder extends Seeder
 {

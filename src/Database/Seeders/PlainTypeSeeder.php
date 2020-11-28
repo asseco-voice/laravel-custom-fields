@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
+use Asseco\CustomFields\App\PlainType;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Config;
-use Asseco\CustomFields\App\PlainType;
 
 class PlainTypeSeeder extends Seeder
 {

@@ -2,9 +2,8 @@
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Date;
 use Asseco\CustomFields\App\SelectionType;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SelectionTypeFactory extends Factory
 {

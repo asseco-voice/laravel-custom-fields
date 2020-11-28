@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use Asseco\CustomFields\App\PlainType;
 use Asseco\CustomFields\App\RemoteType;
+use Illuminate\Database\Seeder;
 
 class RemoteTypeSeeder extends Seeder
 {

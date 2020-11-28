@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\PlainTypes;
 
-use Illuminate\Database\Eloquent\Builder;
 use Asseco\CustomFields\App\Contracts\Mappable;
 use Asseco\CustomFields\App\PlainType;
+use Illuminate\Database\Eloquent\Builder;
 
 class StringType extends PlainType implements Mappable
 {
