@@ -1,14 +1,14 @@
 <?php
 
-use Voice\CustomFields\App\PlainTypes\BooleanType;
-use Voice\CustomFields\App\PlainTypes\DateType;
-use Voice\CustomFields\App\PlainTypes\FloatType;
-use Voice\CustomFields\App\PlainTypes\IntegerType;
-use Voice\CustomFields\App\PlainTypes\StringType;
-use Voice\CustomFields\App\PlainTypes\TextType;
-use Voice\CustomFields\App\RemoteType;
-use Voice\CustomFields\App\SelectionType;
-use Voice\CustomFields\App\Traits\Customizable;
+use Asseco\CustomFields\App\PlainTypes\BooleanType;
+use Asseco\CustomFields\App\PlainTypes\DateType;
+use Asseco\CustomFields\App\PlainTypes\FloatType;
+use Asseco\CustomFields\App\PlainTypes\IntegerType;
+use Asseco\CustomFields\App\PlainTypes\StringType;
+use Asseco\CustomFields\App\PlainTypes\TextType;
+use Asseco\CustomFields\App\RemoteType;
+use Asseco\CustomFields\App\SelectionType;
+use Asseco\CustomFields\App\Traits\Customizable;
 
 return [
     /**

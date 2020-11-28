@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\App\PlainTypes;
+namespace Asseco\CustomFields\App\PlainTypes;
 
 use Illuminate\Database\Eloquent\Builder;
-use Voice\CustomFields\App\Contracts\Mappable;
-use Voice\CustomFields\App\PlainType;
+use Asseco\CustomFields\App\Contracts\Mappable;
+use Asseco\CustomFields\App\PlainType;
 
 class TextType extends PlainType implements Mappable
 {

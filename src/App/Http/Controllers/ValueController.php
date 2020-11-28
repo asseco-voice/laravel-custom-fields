@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\App\Http\Controllers;
+namespace Asseco\CustomFields\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Throwable;
-use Voice\CustomFields\App\Value;
+use Asseco\CustomFields\App\Value;
 
 /**
  * @group Custom Field Values

@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\Database\Seeders;
+namespace Asseco\CustomFields\Database\Seeders;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Config;
-use Voice\CustomFields\App\Contracts\Mappable;
-use Voice\CustomFields\App\CustomField;
-use Voice\CustomFields\App\ParentType;
-use Voice\CustomFields\App\PlainType;
-use Voice\CustomFields\App\RemoteType;
-use Voice\CustomFields\App\SelectionType;
-use Voice\CustomFields\App\Traits\FindsTraits;
-use Voice\CustomFields\App\Validation;
-use Voice\CustomFields\App\Value;
+use Asseco\CustomFields\App\Contracts\Mappable;
+use Asseco\CustomFields\App\CustomField;
+use Asseco\CustomFields\App\ParentType;
+use Asseco\CustomFields\App\PlainType;
+use Asseco\CustomFields\App\RemoteType;
+use Asseco\CustomFields\App\SelectionType;
+use Asseco\CustomFields\App\Traits\FindsTraits;
+use Asseco\CustomFields\App\Validation;
+use Asseco\CustomFields\App\Value;
 
 class CustomFieldSeeder extends Seeder
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields;
+namespace Asseco\CustomFields;
 
 use Illuminate\Support\ServiceProvider;
 

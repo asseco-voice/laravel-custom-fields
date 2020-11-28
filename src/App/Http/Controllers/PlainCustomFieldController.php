@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\App\Http\Controllers;
+namespace Asseco\CustomFields\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Exception;
@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Response;
-use Voice\CustomFields\App\CustomField;
+use Asseco\CustomFields\App\CustomField;
 
 /**
  * @model CustomField

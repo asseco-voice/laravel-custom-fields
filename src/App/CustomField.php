@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\App;
+namespace Asseco\CustomFields\App;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,8 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
-use Voice\CustomFields\App\Contracts\Mappable;
-use Voice\CustomFields\Database\Factories\CustomFieldFactory;
+use Asseco\CustomFields\App\Contracts\Mappable;
+use Asseco\CustomFields\Database\Factories\CustomFieldFactory;
 
 class CustomField extends Model
 {

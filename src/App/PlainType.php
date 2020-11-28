@@ -1,12 +1,12 @@
 <?php
 
-namespace Voice\CustomFields\App;
+namespace Asseco\CustomFields\App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
-use Voice\CustomFields\Database\Factories\PlainTypeFactory;
+use Asseco\CustomFields\Database\Factories\PlainTypeFactory;
 
 class PlainType extends Model
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\App\Traits;
+namespace Asseco\CustomFields\App\Traits;
 
 trait TransformsOutput
 {

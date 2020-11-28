@@ -1,11 +1,11 @@
 <?php
 
-namespace Voice\CustomFields\App;
+namespace Asseco\CustomFields\App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Config;
-use Voice\CustomFields\App\PlainTypes\StringType;
+use Asseco\CustomFields\App\PlainTypes\StringType;
 
 abstract class ParentType extends Model
 {

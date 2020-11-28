@@ -1,10 +1,10 @@
 <?php
 
-namespace Voice\CustomFields\Database\Factories;
+namespace Asseco\CustomFields\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Date;
-use Voice\CustomFields\App\SelectionType;
+use Asseco\CustomFields\App\SelectionType;
 
 class SelectionTypeFactory extends Factory
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\Database\Seeders;
+namespace Asseco\CustomFields\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Voice\CustomFields\App\CustomField;
-use Voice\CustomFields\App\Relation;
+use Asseco\CustomFields\App\CustomField;
+use Asseco\CustomFields\App\Relation;
 
 class RelationSeeder extends Seeder
 {

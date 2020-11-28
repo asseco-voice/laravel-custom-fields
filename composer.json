@@ -13,13 +13,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Voice\\CustomFields\\": "src/"
+            "Asseco\\CustomFields\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Voice\\CustomFields\\CustomFieldsServiceProvider"
+                "Asseco\\CustomFields\\CustomFieldsServiceProvider"
             ]
         }
     }

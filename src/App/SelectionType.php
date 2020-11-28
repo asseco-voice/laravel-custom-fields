@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\App;
+namespace Asseco\CustomFields\App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Voice\CustomFields\Database\Factories\SelectionTypeFactory;
+use Asseco\CustomFields\Database\Factories\SelectionTypeFactory;
 
 class SelectionType extends ParentType
 {

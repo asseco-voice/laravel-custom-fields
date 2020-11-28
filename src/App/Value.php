@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\App;
+namespace Asseco\CustomFields\App;
 
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Http\Request;
 use Throwable;
-use Voice\CustomFields\Database\Factories\ValueFactory;
+use Asseco\CustomFields\Database\Factories\ValueFactory;
 
 class Value extends Model
 {

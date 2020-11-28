@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\App;
+namespace Asseco\CustomFields\App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Voice\CustomFields\Database\Factories\RemoteTypeFactory;
+use Asseco\CustomFields\Database\Factories\RemoteTypeFactory;
 
 class RemoteType extends ParentType
 {

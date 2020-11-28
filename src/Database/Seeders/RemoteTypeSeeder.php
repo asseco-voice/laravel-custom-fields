@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\Database\Seeders;
+namespace Asseco\CustomFields\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Voice\CustomFields\App\PlainType;
-use Voice\CustomFields\App\RemoteType;
+use Asseco\CustomFields\App\PlainType;
+use Asseco\CustomFields\App\RemoteType;
 
 class RemoteTypeSeeder extends Seeder
 {

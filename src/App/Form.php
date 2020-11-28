@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\App;
+namespace Asseco\CustomFields\App;
 
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Voice\CustomFields\Database\Factories\FormFactory;
+use Asseco\CustomFields\Database\Factories\FormFactory;
 
 class Form extends Model
 {

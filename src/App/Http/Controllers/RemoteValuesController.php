@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\App\Http\Controllers;
+namespace Asseco\CustomFields\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
-use Voice\CustomFields\App\CustomField;
-use Voice\CustomFields\App\RemoteType;
-use Voice\CustomFields\App\Traits\TransformsOutput;
+use Asseco\CustomFields\App\CustomField;
+use Asseco\CustomFields\App\RemoteType;
+use Asseco\CustomFields\App\Traits\TransformsOutput;
 
 /**
  * @group Fetch Remote Custom Field Values

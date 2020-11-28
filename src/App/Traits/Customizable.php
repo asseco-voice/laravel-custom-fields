@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\App\Traits;
+namespace Asseco\CustomFields\App\Traits;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Voice\CustomFields\App\Value;
+use Asseco\CustomFields\App\Value;
 
 trait Customizable
 {
