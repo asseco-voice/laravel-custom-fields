@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\App\Http\Controllers;
+namespace Asseco\CustomFields\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Asseco\CustomFields\App\Validation;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Voice\CustomFields\App\Validation;
 
 /**
  * @group Custom Field Validations

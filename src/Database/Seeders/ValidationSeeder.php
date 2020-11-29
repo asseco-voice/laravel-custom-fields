@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\Database\Seeders;
+namespace Asseco\CustomFields\Database\Seeders;
 
+use Asseco\CustomFields\App\Validation;
 use Illuminate\Database\Seeder;
-use Voice\CustomFields\App\Validation;
 
 class ValidationSeeder extends Seeder
 {

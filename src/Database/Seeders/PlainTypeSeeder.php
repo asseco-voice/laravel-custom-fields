@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\Database\Seeders;
+namespace Asseco\CustomFields\Database\Seeders;
 
+use Asseco\CustomFields\App\PlainType;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Config;
-use Voice\CustomFields\App\PlainType;
 
 class PlainTypeSeeder extends Seeder
 {

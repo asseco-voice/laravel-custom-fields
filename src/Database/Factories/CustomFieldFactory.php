@@ -1,9 +1,9 @@
 <?php
 
-namespace Voice\CustomFields\Database\Factories;
+namespace Asseco\CustomFields\Database\Factories;
 
+use Asseco\CustomFields\App\CustomField;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Voice\CustomFields\App\CustomField;
 
 class CustomFieldFactory extends Factory
 {

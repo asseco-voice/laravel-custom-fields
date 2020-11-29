@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\App;
+namespace Asseco\CustomFields\App;
 
+use Asseco\CustomFields\Database\Factories\RelationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Voice\CustomFields\Database\Factories\RelationFactory;
 
 class Relation extends Model
 {

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\App\Http\Controllers;
+namespace Asseco\CustomFields\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Asseco\CustomFields\App\CustomField;
+use Asseco\CustomFields\App\PlainType;
+use Asseco\CustomFields\App\SelectionValue;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use Voice\CustomFields\App\CustomField;
-use Voice\CustomFields\App\PlainType;
-use Voice\CustomFields\App\SelectionValue;
 
 /**
  * @model CustomField

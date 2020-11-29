@@ -1,9 +1,9 @@
 <?php
 
-namespace Voice\CustomFields\Database\Factories;
+namespace Asseco\CustomFields\Database\Factories;
 
+use Asseco\CustomFields\App\Validation;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Voice\CustomFields\App\Validation;
 
 class ValidationFactory extends Factory
 {

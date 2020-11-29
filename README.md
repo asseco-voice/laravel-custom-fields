@@ -19,7 +19,7 @@ In order to use this repository the following must be done:
 
 1. Each model which requires custom field support MUST use ``Customizable`` trait. 
 1. Run ``php artisan migrate`` to migrate package tables
-1. Run ``php artisan db:seed --class="Voice\CustomFields\Database\Seeders\PlainTypeSeeder"``
+1. Run ``php artisan db:seed --class="Asseco\CustomFields\Database\Seeders\PlainTypeSeeder"``
 to seed mandatory data only. 
 1. You may include ``CustomFieldPackageSeeder`` within your ``DatabaseSeeder``
 seeders and have it seed mandatory data in all environments or seed all other dummy data in

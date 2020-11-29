@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\Database\Seeders;
+namespace Asseco\CustomFields\Database\Seeders;
 
+use Asseco\CustomFields\App\SelectionType;
+use Asseco\CustomFields\App\SelectionValue;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Database\Seeder;
-use Voice\CustomFields\App\SelectionType;
-use Voice\CustomFields\App\SelectionValue;
 
 class SelectionValueSeeder extends Seeder
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Voice\CustomFields\App\Contracts;
+namespace Asseco\CustomFields\App\Contracts;
 
 interface Mappable
 {

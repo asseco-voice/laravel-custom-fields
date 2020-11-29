@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Voice\CustomFields\Database\Seeders;
+namespace Asseco\CustomFields\Database\Seeders;
 
+use Asseco\CustomFields\App\CustomField;
+use Asseco\CustomFields\App\RemoteType;
+use Asseco\CustomFields\App\SelectionType;
+use Asseco\CustomFields\App\Traits\FindsTraits;
+use Asseco\CustomFields\App\Value;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Config;
-use Voice\CustomFields\App\CustomField;
-use Voice\CustomFields\App\RemoteType;
-use Voice\CustomFields\App\SelectionType;
-use Voice\CustomFields\App\Traits\FindsTraits;
-use Voice\CustomFields\App\Value;
 
 class ValueSeeder extends Seeder
 {
