@@ -63,7 +63,8 @@ class Value extends Model
 
         self::filterByAllowedColumn($mapToColumn, $request);
 
-        throw_if(!$request->has($mapToColumn), new Exception("Attribute '$mapToColumn' needs to be provided."));
+        throw_if(!$request->has($mapToColumn) || empty($request->get($mapToColumn)),
+            new Exception("Attribute '$mapToColumn' needs to be provided."));
 
         $customField->validate($request->get($mapToColumn));
     }
