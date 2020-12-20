@@ -36,9 +36,20 @@ class SelectionCustomFieldController extends Controller
      * @param string|null $type
      * @return JsonResponse
      */
-    public function index(string $type = null): JsonResponse
+    public function index(): JsonResponse
     {
-        return response()->json(CustomField::selection($type)->get());
+        return response()->json(CustomField::selection()->get());
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function show(int $id): JsonResponse
+    {
+        return response()->json(CustomField::selection()->findOrFail($id)->load('selectable.values'));
     }
 
     /**

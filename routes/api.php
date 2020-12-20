@@ -8,6 +8,7 @@ use Asseco\CustomFields\App\Http\Controllers\RelationController;
 use Asseco\CustomFields\App\Http\Controllers\RemoteCustomFieldController;
 use Asseco\CustomFields\App\Http\Controllers\RemoteValuesController;
 use Asseco\CustomFields\App\Http\Controllers\SelectionCustomFieldController;
+use Asseco\CustomFields\App\Http\Controllers\SelectionValueController;
 use Asseco\CustomFields\App\Http\Controllers\TypeController;
 use Asseco\CustomFields\App\Http\Controllers\ValidationController;
 use Asseco\CustomFields\App\Http\Controllers\ValueController;
@@ -44,8 +45,11 @@ Route::prefix('api')
                 Route::apiResource('remote', RemoteCustomFieldController::class)->only(['index', 'store']);
                 Route::get('remote-values/{remote_type}', [RemoteValuesController::class, 'show'])->name('remote-values.show');
 
-                Route::get('selection/{plain_type?}', [SelectionCustomFieldController::class, 'index'])->name('selection.index');
+                Route::get('selection', [SelectionCustomFieldController::class, 'index'])->name('selection.index');
+                Route::get('selection/{selection}', [SelectionCustomFieldController::class, 'show'])->name('selection.show');
                 Route::post('selection/{plain_type}', [SelectionCustomFieldController::class, 'store'])->name('selection.store');
+
+                Route::apiResource('selection-values', SelectionValueController::class);
 
                 Route::apiResource('validations', ValidationController::class);
                 Route::apiResource('relations', RelationController::class);

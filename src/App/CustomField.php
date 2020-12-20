@@ -46,7 +46,7 @@ class CustomField extends Model
         return $query->whereHasMorph('selectable', [RemoteType::class]);
     }
 
-    public function scopeSelection(Builder $query, string $subType = null)
+    public function scopeSelection(Builder $query)
     {
         return $query->whereHasMorph('selectable', [SelectionType::class]);
     }
