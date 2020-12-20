@@ -52,7 +52,7 @@ class Form extends Model
                 throw new Exception("The '$customField->name' field is required!");
             }
 
-            if (! isset($formData[$customField->name])) {
+            if (!isset($formData[$customField->name])) {
                 continue;
             }
 
