@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 
 class Form extends Model
 {
@@ -51,6 +52,10 @@ class Form extends Model
                 throw new Exception("The '$customField->name' field is required!");
             }
 
+            if (!isset($formData[$customField->name])) {
+                continue;
+            }
+
             $customField->validate($formData[$customField->name]);
         }
     }
@@ -76,16 +81,12 @@ class Form extends Model
                 continue;
             }
 
-            if (!array_key_exists('value', $formData[$customField->name])) {
-                throw new Exception("Form data for '$customField->name' is missing a value.");
-            }
-
             $type = $customField->getMappingColumn();
 
             $customField->values()->updateOrCreate([
                 'model_type' => $modelType,
                 'model_id'   => $modelId,
-                $type        => $formData[$customField->name]['value'],
+                $type        => Arr::get($formData, $customField->name),
             ]);
         }
     }
