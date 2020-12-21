@@ -38,7 +38,7 @@ class FormController extends Controller
          */
         $form = Form::query()->create($request->except('custom_fields'));
 
-        if($request->has('custom_fields')){
+        if ($request->has('custom_fields')) {
             $form->customFields()->sync($request->get('custom_fields'));
         }
 
@@ -67,7 +67,7 @@ class FormController extends Controller
     {
         $form->update($request->except('custom_fields'));
 
-        if($request->has('custom_fields')){
+        if ($request->has('custom_fields')) {
             $form->customFields()->sync($request->get('custom_fields'));
         }
 
