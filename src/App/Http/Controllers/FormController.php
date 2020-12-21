@@ -33,7 +33,14 @@ class FormController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        /**
+         * @var $form Form
+         */
         $form = Form::query()->create($request->all());
+
+        if($request->has('custom_fields')){
+            $form->customFields()->sync($request->get('custom_fields'));
+        }
 
         return response()->json($form->refresh());
     }
@@ -59,6 +66,10 @@ class FormController extends Controller
     public function update(Request $request, Form $form): JsonResponse
     {
         $form->update($request->all());
+
+        if($request->has('custom_fields')){
+            $form->customFields()->sync($request->get('custom_fields'));
+        }
 
         return response()->json($form->refresh());
     }
