@@ -46,6 +46,11 @@ class Value extends Model
         return $this->belongsTo(CustomField::class);
     }
 
+    public function getValueAttribute()
+    {
+        return $this->{$this->customField->getMappingColumn()};
+    }
+
     /**
      * @param Request $request
      * @throws Throwable
