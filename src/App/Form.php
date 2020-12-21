@@ -16,7 +16,7 @@ class Form extends Model
 {
     use SoftDeletes, HasFactory;
 
-    protected $fillable = ['tenant_id', 'name', 'definition', 'action_url',];
+    protected $fillable = ['tenant_id', 'name', 'definition', 'action_url'];
 
     protected static function newFactory()
     {
