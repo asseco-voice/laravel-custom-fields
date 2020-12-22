@@ -44,21 +44,23 @@ class Form extends Model
     {
         $components = Arr::get($this->definition, 'components', []);
 
-        $this->extractCustomFields($components);
+        if ($components > 0) {
+            $this->extractCustomFields($components[0]);
+        }
     }
 
     protected function extractCustomFields(array $components): void
     {
-        $key = Arr::get($components, 'key');
+        foreach ($components as $componentKey => $component) {
+            if ($componentKey === 'key') {
+                $this->relateCustomField($component);
+            }
 
-        if ($key) {
-            $this->relateCustomField($key);
-        }
+            if (!is_array($component)) {
+                continue;
+            }
 
-        $innerComponents = Arr::get($components, 'components', []);
-
-        foreach ($innerComponents as $innerComponent) {
-            $this->extractCustomFields($innerComponent);
+            $this->extractCustomFields($component);
         }
     }
 
