@@ -60,12 +60,10 @@ class Form extends Model
             }
         }
 
-        $innerComponents = Arr::get($components, 'components');
+        $innerComponents = Arr::get($components, 'components', []);
 
-        if ($innerComponents) {
-            foreach ($innerComponents as $innerComponent) {
-                $this->extractCustomFields($innerComponent);
-            }
+        foreach ($innerComponents as $innerComponent) {
+            $this->extractCustomFields($innerComponent);
         }
     }
 
