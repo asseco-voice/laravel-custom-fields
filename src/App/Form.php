@@ -18,6 +18,57 @@ class Form extends Model
 
     protected $fillable = ['tenant_id', 'name', 'definition', 'action_url'];
 
+    protected array $ignoredFormComponents = [
+        'htmlelement',
+        'content',
+        'columns',
+        'fieldset',
+        'panel',
+        'well',
+        'button',
+    ];
+
+    protected static function booted()
+    {
+        static::created(function (self $form) {
+            $form->extractCustomFieldsFromDefinition();
+        });
+
+        static::updated(function (self $form) {
+            $form->customFields()->sync([]);
+            $form->extractCustomFieldsFromDefinition();
+        });
+    }
+
+    protected function extractCustomFieldsFromDefinition()
+    {
+        $components = Arr::get($this->definition, 'components', []);
+
+        $this->extractCustomFields($components);
+    }
+
+    protected function extractCustomFields(array $components): void
+    {
+        $key = Arr::get($components, 'key');
+
+        if (!in_array($key, $this->ignoredFormComponents)) {
+
+            $customField = CustomField::query()->where('name', $key)->first();
+
+            if ($customField) {
+                $this->customFields()->attach($customField->id);
+            }
+        }
+
+        $innerComponents = Arr::get($components, 'components');
+
+        if ($innerComponents) {
+            foreach ($innerComponents as $innerComponent) {
+                $this->extractCustomFields($innerComponent);
+            }
+        }
+    }
+
     protected static function newFactory()
     {
         return FormFactory::new();
