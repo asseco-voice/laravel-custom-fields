@@ -31,6 +31,8 @@ class Value extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    protected $appends = ['value'];
+
     protected static function newFactory()
     {
         return ValueFactory::new();
@@ -48,7 +50,13 @@ class Value extends Model
 
     public function getValueAttribute()
     {
-        return $this->{$this->customField->getMappingColumn()};
+        foreach (self::VALUE_COLUMNS as $valueColumn) {
+            if(isset($this->{$valueColumn})){
+                return $this->{$valueColumn};
+            }
+        }
+
+        return null;
     }
 
     /**
