@@ -35,7 +35,7 @@ class Form extends Model
         });
 
         static::updated(function (self $form) {
-            $form->customFields()->sync([]);
+            $form->customFields()->detach();
             $form->relateCustomFieldsFromDefinition();
         });
     }
