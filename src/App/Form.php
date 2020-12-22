@@ -51,7 +51,9 @@ class Form extends Model
     {
         $key = Arr::get($components, 'key');
 
-        $this->relateCustomField($key);
+        if ($key) {
+            $this->relateCustomField($key);
+        }
 
         $innerComponents = Arr::get($components, 'components', []);
 
