@@ -51,7 +51,7 @@ class Value extends Model
     public function getValueAttribute()
     {
         foreach (self::VALUE_COLUMNS as $valueColumn) {
-            if(isset($this->{$valueColumn})){
+            if (isset($this->{$valueColumn})) {
                 return $this->{$valueColumn};
             }
         }
