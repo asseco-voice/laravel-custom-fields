@@ -111,7 +111,7 @@ class Form extends Model
                 continue;
             }
 
-            $customField->validate($formData[$customField->name]);
+            // $customField->validate($formData[$customField->name]);
         }
     }
 
