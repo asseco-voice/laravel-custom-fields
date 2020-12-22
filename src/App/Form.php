@@ -31,16 +31,16 @@ class Form extends Model
     protected static function booted()
     {
         static::created(function (self $form) {
-            $form->extractCustomFieldsFromDefinition();
+            $form->relateCustomFieldsFromDefinition();
         });
 
         static::updated(function (self $form) {
             $form->customFields()->sync([]);
-            $form->extractCustomFieldsFromDefinition();
+            $form->relateCustomFieldsFromDefinition();
         });
     }
 
-    protected function extractCustomFieldsFromDefinition()
+    protected function relateCustomFieldsFromDefinition()
     {
         $components = Arr::get($this->definition, 'components', []);
 
@@ -51,18 +51,25 @@ class Form extends Model
     {
         $key = Arr::get($components, 'key');
 
-        if (!in_array($key, $this->ignoredFormComponents)) {
-            $customField = CustomField::query()->where('name', $key)->first();
-
-            if ($customField) {
-                $this->customFields()->attach($customField->id);
-            }
-        }
+        $this->relateCustomField($key);
 
         $innerComponents = Arr::get($components, 'components', []);
 
         foreach ($innerComponents as $innerComponent) {
             $this->extractCustomFields($innerComponent);
+        }
+    }
+
+    protected function relateCustomField(string $key): void
+    {
+        if (in_array($key, $this->ignoredFormComponents)) {
+            return;
+        }
+
+        $customField = CustomField::query()->where('name', $key)->first();
+
+        if ($customField) {
+            $this->customFields()->attach($customField->id);
         }
     }
 
