@@ -52,7 +52,6 @@ class Form extends Model
         $key = Arr::get($components, 'key');
 
         if (!in_array($key, $this->ignoredFormComponents)) {
-
             $customField = CustomField::query()->where('name', $key)->first();
 
             if ($customField) {
