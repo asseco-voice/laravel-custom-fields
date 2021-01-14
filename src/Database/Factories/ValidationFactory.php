@@ -2,7 +2,7 @@
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Asseco\CustomFields\App\Validation;
+use Asseco\CustomFields\App\Models\Validation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ValidationFactory extends Factory

@@ -2,7 +2,7 @@
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Asseco\CustomFields\App\Relation;
+use Asseco\CustomFields\App\Models\Relation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RelationFactory extends Factory

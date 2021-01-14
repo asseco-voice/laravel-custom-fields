@@ -1,12 +1,11 @@
 <?php
 
-namespace Asseco\CustomFields\App;
+namespace Asseco\CustomFields\App\Models;
 
 use Asseco\CustomFields\Database\Factories\PlainTypeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Config;
 
 class PlainType extends Model
 {
@@ -21,17 +20,17 @@ class PlainType extends Model
         return PlainTypeFactory::new();
     }
 
-    public static function subTypes()
+    public static function subTypes(): array
     {
         return config('asseco-custom-fields.type_mappings.plain');
     }
 
-    public static function getSubTypeClass(string $type)
+    public static function getSubTypeClass(string $type): string
     {
-        return Arr::get(self::subTypes(), $type, null);
+        return Arr::get(self::subTypes(), $type);
     }
 
-    public static function getRegexSubTypes()
+    public static function getRegexSubTypes(): string
     {
         return implode('|', array_keys(self::subTypes()));
     }

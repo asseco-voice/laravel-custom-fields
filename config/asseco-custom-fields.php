@@ -6,8 +6,8 @@ use Asseco\CustomFields\App\PlainTypes\FloatType;
 use Asseco\CustomFields\App\PlainTypes\IntegerType;
 use Asseco\CustomFields\App\PlainTypes\StringType;
 use Asseco\CustomFields\App\PlainTypes\TextType;
-use Asseco\CustomFields\App\RemoteType;
-use Asseco\CustomFields\App\SelectionType;
+use Asseco\CustomFields\App\Models\RemoteType;
+use Asseco\CustomFields\App\Models\SelectionType;
 use Asseco\CustomFields\App\Traits\Customizable;
 
 return [

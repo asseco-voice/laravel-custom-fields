@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
-use Asseco\CustomFields\App\PlainType;
-use Asseco\CustomFields\App\RemoteType;
+use Asseco\CustomFields\App\Models\PlainType;
+use Asseco\CustomFields\App\Models\RemoteType;
 use Illuminate\Database\Seeder;
 
 class RemoteTypeSeeder extends Seeder

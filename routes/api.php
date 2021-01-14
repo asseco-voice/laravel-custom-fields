@@ -12,7 +12,7 @@ use Asseco\CustomFields\App\Http\Controllers\SelectionValueController;
 use Asseco\CustomFields\App\Http\Controllers\TypeController;
 use Asseco\CustomFields\App\Http\Controllers\ValidationController;
 use Asseco\CustomFields\App\Http\Controllers\ValueController;
-use Asseco\CustomFields\App\PlainType;
+use Asseco\CustomFields\App\Models\PlainType;
 use Illuminate\Support\Facades\Route;
 
 /*

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Asseco\CustomFields\App;
+namespace Asseco\CustomFields\App\Models;
 
 use Asseco\CustomFields\Database\Factories\SelectionValueFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

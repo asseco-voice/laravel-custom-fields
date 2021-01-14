@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Asseco\CustomFields\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Asseco\CustomFields\App\CustomField;
-use Asseco\CustomFields\App\RemoteType;
+use Asseco\CustomFields\App\Models\CustomField;
+use Asseco\CustomFields\App\Models\RemoteType;
 use Asseco\CustomFields\App\Traits\TransformsOutput;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;

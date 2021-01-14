@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
-use Asseco\CustomFields\App\PlainType;
-use Asseco\CustomFields\App\SelectionType;
+use Asseco\CustomFields\App\Models\PlainType;
+use Asseco\CustomFields\App\Models\SelectionType;
 use Illuminate\Database\Seeder;
 
 class SelectionTypeSeeder extends Seeder

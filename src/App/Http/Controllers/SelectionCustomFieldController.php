@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Asseco\CustomFields\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Asseco\CustomFields\App\CustomField;
-use Asseco\CustomFields\App\PlainType;
-use Asseco\CustomFields\App\SelectionValue;
+use Asseco\CustomFields\App\Models\CustomField;
+use Asseco\CustomFields\App\Models\PlainType;
+use Asseco\CustomFields\App\Models\SelectionValue;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;

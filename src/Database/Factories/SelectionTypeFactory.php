@@ -2,7 +2,7 @@
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Asseco\CustomFields\App\SelectionType;
+use Asseco\CustomFields\App\Models\SelectionType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SelectionTypeFactory extends Factory

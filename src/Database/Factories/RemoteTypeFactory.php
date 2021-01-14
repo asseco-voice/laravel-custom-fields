@@ -2,7 +2,7 @@
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Asseco\CustomFields\App\RemoteType;
+use Asseco\CustomFields\App\Models\RemoteType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RemoteTypeFactory extends Factory

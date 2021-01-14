@@ -1,6 +1,6 @@
 <?php
 
-namespace Asseco\CustomFields\App;
+namespace Asseco\CustomFields\App\Models;
 
 use Asseco\CustomFields\App\PlainTypes\StringType;
 use Illuminate\Database\Eloquent\Model;

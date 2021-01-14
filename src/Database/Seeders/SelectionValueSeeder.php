@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
-use Asseco\CustomFields\App\SelectionType;
-use Asseco\CustomFields\App\SelectionValue;
+use Asseco\CustomFields\App\Models\SelectionType;
+use Asseco\CustomFields\App\Models\SelectionValue;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Database\Seeder;

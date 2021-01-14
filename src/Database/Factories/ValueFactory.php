@@ -2,7 +2,7 @@
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Asseco\CustomFields\App\Value;
+use Asseco\CustomFields\App\Models\Value;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ValueFactory extends Factory

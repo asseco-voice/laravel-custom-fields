@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
-use Asseco\CustomFields\App\Form;
+use Asseco\CustomFields\App\Models\Form;
 use Illuminate\Database\Seeder;
 
 class FormSeeder extends Seeder

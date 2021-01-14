@@ -5,18 +5,17 @@ declare(strict_types=1);
 namespace Asseco\CustomFields\Database\Seeders;
 
 use Asseco\CustomFields\App\Contracts\Mappable;
-use Asseco\CustomFields\App\CustomField;
-use Asseco\CustomFields\App\ParentType;
-use Asseco\CustomFields\App\PlainType;
-use Asseco\CustomFields\App\RemoteType;
-use Asseco\CustomFields\App\SelectionType;
+use Asseco\CustomFields\App\Models\CustomField;
+use Asseco\CustomFields\App\Models\ParentType;
+use Asseco\CustomFields\App\Models\PlainType;
+use Asseco\CustomFields\App\Models\RemoteType;
+use Asseco\CustomFields\App\Models\SelectionType;
 use Asseco\CustomFields\App\Traits\FindsTraits;
-use Asseco\CustomFields\App\Validation;
-use Asseco\CustomFields\App\Value;
+use Asseco\CustomFields\App\Models\Validation;
+use Asseco\CustomFields\App\Models\Value;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Config;
 
 class CustomFieldSeeder extends Seeder
 {
