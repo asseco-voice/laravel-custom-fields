@@ -24,7 +24,7 @@ class RemoteTypeFactory extends Factory
         return [
             'plain_type_id' => null,
             'url'           => $this->faker->url,
-            'method'        => null,
+            'method'        => $this->faker->randomElement(['GET', 'POST', 'PUT']),
             'body'          => $this->faker->sentence,
             'created_at'    => now(),
             'updated_at'    => now(),

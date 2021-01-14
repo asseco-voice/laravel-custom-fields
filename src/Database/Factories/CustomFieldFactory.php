@@ -22,12 +22,12 @@ class CustomFieldFactory extends Factory
     public function definition()
     {
         return [
-            'selectable_type' => null,
-            'selectable_id'   => null,
+            'selectable_type' => $this->faker->word,
+            'selectable_id'   => $this->faker->randomNumber(),
             'name'            => implode(' ', $this->faker->words(5)),
             'label'           => $this->faker->word,
             'placeholder'     => $this->faker->word,
-            'model'           => null,
+            'model'           => $this->faker->word,
             'required'        => $this->faker->boolean(10),
             'validation_id'   => null,
             'created_at'      => now(),

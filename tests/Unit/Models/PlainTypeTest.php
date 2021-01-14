@@ -4,11 +4,7 @@ namespace Asseco\CustomFields\Tests\Unit\Models;
 
 use Asseco\CustomFields\App\Contracts\Mappable;
 use Asseco\CustomFields\App\Models\PlainType;
-use Asseco\CustomFields\App\PlainTypes\DateType;
-use Asseco\CustomFields\App\PlainTypes\FloatType;
-use Asseco\CustomFields\App\PlainTypes\IntegerType;
-use Asseco\CustomFields\App\PlainTypes\StringType;
-use Asseco\CustomFields\App\PlainTypes\TextType;
+use Asseco\CustomFields\Database\Factories\PlainTypeFactory;
 use Asseco\CustomFields\Tests\TestCase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -35,44 +31,18 @@ class PlainTypeTest extends TestCase
         return $plainMappings;
     }
 
-    /** @test */
-    public function returns_string_class()
+    /**
+     * @test
+     * @depends has_basic_sub_types
+     * @param array $plainMappings
+     */
+    public function sub_types_have_registered_classes(array $plainMappings)
     {
-        $class = PlainType::getSubTypeClass('string');
+        foreach ($plainMappings as $typeName => $typeClass) {
+            $class = PlainType::getSubTypeClass($typeName);
 
-        $this->assertEquals(StringType::class, $class);
-    }
-
-    /** @test */
-    public function returns_integer_class()
-    {
-        $class = PlainType::getSubTypeClass('integer');
-
-        $this->assertEquals(IntegerType::class, $class);
-    }
-
-    /** @test */
-    public function returns_float_class()
-    {
-        $class = PlainType::getSubTypeClass('float');
-
-        $this->assertEquals(FloatType::class, $class);
-    }
-
-    /** @test */
-    public function returns_date_class()
-    {
-        $class = PlainType::getSubTypeClass('date');
-
-        $this->assertEquals(DateType::class, $class);
-    }
-
-    /** @test */
-    public function returns_text_class()
-    {
-        $class = PlainType::getSubTypeClass('text');
-
-        $this->assertEquals(TextType::class, $class);
+            $this->assertEquals($typeClass, $class);
+        }
     }
 
     /** @test */
@@ -88,7 +58,7 @@ class PlainTypeTest extends TestCase
      * @depends has_basic_sub_types
      * @param $basicSubTypes
      */
-    public function returns_regex_format_for_sub_types(array $basicSubTypes)
+    public function returns_pipe_delimited_sub_types(array $basicSubTypes)
     {
         $regexSubTypes = PlainType::getRegexSubTypes();
 
@@ -119,5 +89,11 @@ class PlainTypeTest extends TestCase
 
             $this->assertEquals($plainType->id, $subType->id);
         }
+    }
+
+    /** @test */
+    public function has_factory()
+    {
+        $this->assertInstanceOf(PlainTypeFactory::class, PlainType::factory());
     }
 }
