@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asseco\CustomFields\Tests\Unit\Models;
 
 use Asseco\CustomFields\App\Models\Relation;
