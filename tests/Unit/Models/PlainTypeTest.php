@@ -75,7 +75,6 @@ class PlainTypeTest extends TestCase
         PlainType::factory()->count(5)->create();
 
         foreach ($basicSubTypes as $typeName => $typeClass) {
-
             $plainType = PlainType::factory()->create(['name' => $typeName]);
             $instance = new $typeClass;
 
