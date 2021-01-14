@@ -25,7 +25,7 @@ class SelectionValueFactory extends Factory
             'selection_type_id' => null,
             'label'             => $this->faker->word,
             'preselect'         => $this->faker->boolean(10),
-            'value'             => null,
+            'value'             => $this->faker->word,
             'created_at'        => now(),
             'updated_at'        => now(),
         ];

@@ -16,11 +16,7 @@ class RemoteTypeTest extends TestCase
     /** @test */
     public function can_fetch_related_custom_fields()
     {
-        $plainType = PlainType::factory()->create();
-
-        $remoteType = RemoteType::factory()->create([
-            'plain_type_id' => $plainType->id,
-        ]);
+        $remoteType = $this->createRemoteType();
 
         $customField = CustomField::factory()->create([
             'selectable_type' => RemoteType::class,
@@ -42,5 +38,12 @@ class RemoteTypeTest extends TestCase
     public function has_factory()
     {
         $this->assertInstanceOf(RemoteTypeFactory::class, RemoteType::factory());
+    }
+
+    protected function createRemoteType()
+    {
+        return RemoteType::factory()->create([
+            'plain_type_id' => PlainType::factory()->create()->id,
+        ]);
     }
 }
