@@ -16,6 +16,12 @@ class ValidationTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
+    public function has_factory()
+    {
+        $this->assertInstanceOf(ValidationFactory::class, Validation::factory());
+    }
+
+    /** @test */
     public function can_fetch_related_custom_fields()
     {
         $validation = Validation::factory()->create();
@@ -57,11 +63,5 @@ class ValidationTest extends TestCase
         ]);
 
         $validation->validate('abc');
-    }
-
-    /** @test */
-    public function has_factory()
-    {
-        $this->assertInstanceOf(ValidationFactory::class, Validation::factory());
     }
 }

@@ -17,6 +17,12 @@ class SelectionTypeTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
+    public function has_factory()
+    {
+        $this->assertInstanceOf(SelectionTypeFactory::class, SelectionType::factory());
+    }
+
+    /** @test */
     public function can_fetch_related_custom_fields()
     {
         $selectionType = $this->createSelectionType();
@@ -47,12 +53,6 @@ class SelectionTypeTest extends TestCase
         $remoteType = SelectionType::factory()->make();
 
         $this->assertEquals('selection', $remoteType->name);
-    }
-
-    /** @test */
-    public function has_factory()
-    {
-        $this->assertInstanceOf(SelectionTypeFactory::class, SelectionType::factory());
     }
 
     protected function createSelectionType()

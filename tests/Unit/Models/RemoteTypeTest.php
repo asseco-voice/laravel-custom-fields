@@ -16,6 +16,12 @@ class RemoteTypeTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
+    public function has_factory()
+    {
+        $this->assertInstanceOf(RemoteTypeFactory::class, RemoteType::factory());
+    }
+
+    /** @test */
     public function can_fetch_related_custom_fields()
     {
         $remoteType = $this->createRemoteType();
@@ -34,12 +40,6 @@ class RemoteTypeTest extends TestCase
         $remoteType = RemoteType::factory()->make();
 
         $this->assertEquals('remote', $remoteType->name);
-    }
-
-    /** @test */
-    public function has_factory()
-    {
-        $this->assertInstanceOf(RemoteTypeFactory::class, RemoteType::factory());
     }
 
     protected function createRemoteType()

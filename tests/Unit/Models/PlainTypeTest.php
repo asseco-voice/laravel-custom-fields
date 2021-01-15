@@ -17,6 +17,12 @@ class PlainTypeTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
+    public function has_factory()
+    {
+        $this->assertInstanceOf(PlainTypeFactory::class, PlainType::factory());
+    }
+
+    /** @test */
     public function has_basic_sub_types()
     {
         $plainMappings = PlainType::subTypes();
@@ -90,11 +96,5 @@ class PlainTypeTest extends TestCase
 
             $this->assertEquals($plainType->id, $subType->id);
         }
-    }
-
-    /** @test */
-    public function has_factory()
-    {
-        $this->assertInstanceOf(PlainTypeFactory::class, PlainType::factory());
     }
 }

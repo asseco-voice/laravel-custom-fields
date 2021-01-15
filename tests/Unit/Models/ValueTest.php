@@ -15,6 +15,12 @@ class ValueTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
+    public function has_factory()
+    {
+        $this->assertInstanceOf(ValueFactory::class, Value::factory());
+    }
+
+    /** @test */
     public function can_fetch_related_custom_field()
     {
         $customField = CustomField::factory()->create();
@@ -54,11 +60,5 @@ class ValueTest extends TestCase
 
         // 'string' is defined before 'integer' in Value::VALUE_COLUMNS
         $this->assertEquals('something', $value->value);
-    }
-
-    /** @test */
-    public function has_factory()
-    {
-        $this->assertInstanceOf(ValueFactory::class, Value::factory());
     }
 }

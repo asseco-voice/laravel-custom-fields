@@ -16,6 +16,12 @@ class SelectionValueTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
+    public function has_factory()
+    {
+        $this->assertInstanceOf(SelectionValueFactory::class, SelectionValue::factory());
+    }
+
+    /** @test */
     public function can_fetch_selection_type()
     {
         $selectionType = SelectionType::factory()->create([
@@ -27,11 +33,5 @@ class SelectionValueTest extends TestCase
         ]);
 
         $this->assertEquals($selectionValue->id, $selectionType->values->first()->id);
-    }
-
-    /** @test */
-    public function has_factory()
-    {
-        $this->assertInstanceOf(SelectionValueFactory::class, SelectionValue::factory());
     }
 }
