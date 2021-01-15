@@ -18,5 +18,4 @@ class FormTest extends TestCase
     {
         $this->assertInstanceOf(FormFactory::class, Form::factory());
     }
-
 }
