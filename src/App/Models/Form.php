@@ -125,7 +125,6 @@ class Form extends Model
          * @var $customField CustomField
          */
         foreach ($this->customFields as $customField) {
-
             $formCustomField = Arr::get($formData, $customField->name);
 
             if (!$formCustomField) {
