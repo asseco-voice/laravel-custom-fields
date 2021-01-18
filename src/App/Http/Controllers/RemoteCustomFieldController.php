@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Asseco\CustomFields\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Asseco\CustomFields\App\Http\Requests\CustomFieldRequest;
 use Asseco\CustomFields\App\Models\CustomField;
 use Asseco\CustomFields\App\Models\PlainType;
 use Exception;
@@ -46,7 +47,7 @@ class RemoteCustomFieldController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function store(Request $request): JsonResponse
+    public function store(CustomFieldRequest $request): JsonResponse
     {
         if (!$request->has('remote')) {
             throw new Exception('Remote data needs to be provided');

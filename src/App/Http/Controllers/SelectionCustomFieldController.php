@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Asseco\CustomFields\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Asseco\CustomFields\App\Http\Requests\CustomFieldRequest;
 use Asseco\CustomFields\App\Models\CustomField;
 use Asseco\CustomFields\App\Models\PlainType;
 use Asseco\CustomFields\App\Models\SelectionValue;
@@ -65,7 +66,7 @@ class SelectionCustomFieldController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function store(Request $request, string $type): JsonResponse
+    public function store(CustomFieldRequest $request, string $type): JsonResponse
     {
         if (!$request->has('selection')) {
             throw new Exception('Selection data needs to be provided');

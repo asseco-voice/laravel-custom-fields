@@ -24,7 +24,7 @@ class CustomFieldFactory extends Factory
         return [
             'selectable_type' => $this->faker->word,
             'selectable_id'   => $this->faker->randomNumber(),
-            'name'            => implode(' ', $this->faker->words(5)),
+            'name'            => implode('_', $this->faker->words(5)),
             'label'           => $this->faker->word,
             'placeholder'     => $this->faker->word,
             'model'           => $this->faker->word,

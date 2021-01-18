@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Asseco\CustomFields\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Asseco\CustomFields\App\Http\Requests\CustomFieldRequest;
 use Asseco\CustomFields\App\Models\CustomField;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -28,7 +29,7 @@ class CustomFieldController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(CustomFieldRequest $request): JsonResponse
     {
         $customField = CustomField::query()->create($request->all());
 
@@ -53,7 +54,7 @@ class CustomFieldController extends Controller
      * @param CustomField $customField
      * @return JsonResponse
      */
-    public function update(Request $request, CustomField $customField): JsonResponse
+    public function update(CustomFieldRequest $request, CustomField $customField): JsonResponse
     {
         $customField->update($request->except(CustomField::LOCKED_FOR_EDITING));
 

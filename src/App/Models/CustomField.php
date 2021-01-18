@@ -6,6 +6,7 @@ namespace Asseco\CustomFields\App\Models;
 
 use Asseco\CustomFields\App\Contracts\Mappable;
 use Asseco\CustomFields\Database\Factories\CustomFieldFactory;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,6 +28,14 @@ class CustomField extends Model
     protected static function newFactory()
     {
         return CustomFieldFactory::new();
+    }
+
+    protected static function booted()
+    {
+        static::creating(function (self $customField) {
+            throw_if(preg_match('/\s/', $customField->name),
+                new Exception('Custom field name must not contain spaces.'));
+        });
     }
 
     public function selectable(): MorphTo
