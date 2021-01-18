@@ -68,7 +68,12 @@ class CustomField extends Model
 
     public function validate($input): void
     {
-        optional($this->validation)->validate($input);
+        /**
+         * @var $validation Validation
+         */
+        $validation = optional($this->validation);
+
+        $validation->validate($input);
     }
 
     public function children(): BelongsToMany

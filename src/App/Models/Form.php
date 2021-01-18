@@ -28,15 +28,22 @@ class Form extends Model
         'button',
     ];
 
+    protected $casts = [
+        'definition' => 'array',
+    ];
+
     protected static function booted()
     {
         static::created(function (self $form) {
             $form->relateCustomFieldsFromDefinition();
+            $form->refresh();
         });
 
         static::updated(function (self $form) {
             $form->customFields()->detach();
+            $form->refresh();
             $form->relateCustomFieldsFromDefinition();
+            $form->refresh();
         });
     }
 
@@ -44,9 +51,7 @@ class Form extends Model
     {
         $components = Arr::get($this->definition, 'components', []);
 
-        if ($components > 0) {
-            $this->extractCustomFields($components[0]);
-        }
+        $this->extractCustomFields($components);
     }
 
     protected function extractCustomFields(array $components): void
@@ -87,18 +92,8 @@ class Form extends Model
         return $this->belongsToMany(CustomField::class)->withTimestamps();
     }
 
-    public function setDefinitionAttribute($value)
-    {
-        $this->attributes['definition'] = json_encode($value);
-    }
-
-    public function getDefinitionAttribute($value)
-    {
-        return json_decode($value, true);
-    }
-
     /**
-     * @param $formData
+     * @param array $formData
      * @throws Exception
      */
     public function validate(array $formData): void
@@ -124,19 +119,16 @@ class Form extends Model
         return !array_key_exists($customField->name, $formData) && $customField->required;
     }
 
-    /**
-     * @param array $formData
-     * @param string $modelType
-     * @param int $modelId
-     * @throws Exception
-     */
     public function createValues(array $formData, string $modelType, int $modelId)
     {
         /**
          * @var $customField CustomField
          */
         foreach ($this->customFields as $customField) {
-            if (!array_key_exists($customField->name, $formData)) {
+
+            $formCustomField = Arr::get($formData, $customField->name);
+
+            if (!$formCustomField) {
                 continue;
             }
 
@@ -145,8 +137,9 @@ class Form extends Model
             $customField->values()->updateOrCreate([
                 'model_type' => $modelType,
                 'model_id'   => $modelId,
-                $type        => Arr::get($formData, $customField->name),
-            ]);
+            ],
+                [$type => $formCustomField]
+            );
         }
     }
 }
