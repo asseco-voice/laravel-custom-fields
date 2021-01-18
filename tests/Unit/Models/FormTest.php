@@ -51,7 +51,7 @@ class FormTest extends TestCase
             'definition' => [
                 'components' => [
                     ['key' => 'cf1'],
-                    ['key' => 'cf2']
+                    ['key' => 'cf2'],
                 ],
             ],
         ]);
@@ -67,8 +67,8 @@ class FormTest extends TestCase
                 'components' => [
                     'components' => [
                         ['key' => 'cf1'],
-                        ['key' => 'cf2']
-                    ]
+                        ['key' => 'cf2'],
+                    ],
                 ],
             ],
         ]);
@@ -84,8 +84,8 @@ class FormTest extends TestCase
                 'components' => [
                     ['key' => 'cf1'],
                     'components' => [
-                        ['key' => 'cf2']
-                    ]
+                        ['key' => 'cf2'],
+                    ],
                 ],
             ],
         ]);
@@ -100,7 +100,7 @@ class FormTest extends TestCase
             'definition' => [
                 'components' => [
                     ['key' => 'cf1'],
-                    ['key' => 'cf123']
+                    ['key' => 'cf123'],
                 ],
             ],
         ]);
