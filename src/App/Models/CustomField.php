@@ -124,4 +124,14 @@ class CustomField extends Model
 
         return Value::FALLBACK_VALUE_COLUMN;
     }
+
+    public function shortFormat($value): array
+    {
+        $this->load('selectable');
+
+        return [$this->name => [
+            'type'  => $this->selectable->name,
+            'value' => $value,
+        ]];
+    }
 }

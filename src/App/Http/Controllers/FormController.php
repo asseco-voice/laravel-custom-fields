@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Asseco\CustomFields\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Asseco\CustomFields\App\Http\Requests\FormRequest;
 use Asseco\CustomFields\App\Models\Form;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -31,7 +32,7 @@ class FormController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(FormRequest $request): JsonResponse
     {
         /**
          * @var $form Form
@@ -59,7 +60,7 @@ class FormController extends Controller
      * @param Form $form
      * @return JsonResponse
      */
-    public function update(Request $request, Form $form): JsonResponse
+    public function update(FormRequest $request, Form $form): JsonResponse
     {
         $form->update($request->all());
 
@@ -78,5 +79,12 @@ class FormController extends Controller
         $isDeleted = $form->delete();
 
         return response()->json($isDeleted ? 'true' : 'false');
+    }
+
+    public function validateAgainstCustomInput(Request $request, $formName)
+    {
+        $form = Form::query()->where('name', $formName)->firstOrFail();
+
+        return response()->json($form->validate($request->all()));
     }
 }

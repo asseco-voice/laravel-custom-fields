@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Throwable;
 
 class Value extends Model
@@ -129,13 +128,9 @@ class Value extends Model
     {
         $this->load('customField.selectable');
 
-        $fullArray = $this->toArray();
-
-        return [
-            Arr::get($fullArray, 'custom_field.name') => [
-                'type'  => Arr::get($fullArray, 'custom_field.selectable.name'),
-                'value' => $this->value,
-            ],
-        ];
+        return [$this->customField->name => [
+            'type'  => $this->customField->selectable->name,
+            'value' => $this->value,
+        ]];
     }
 }

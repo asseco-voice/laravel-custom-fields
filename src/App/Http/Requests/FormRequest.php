@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Foundation\Http\FormRequest as LaravelFormRequest;
 
-class CustomFieldRequest extends FormRequest
+class FormRequest extends LaravelFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -38,7 +38,7 @@ class CustomFieldRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.regex' => 'Custom field name must not contain spaces.',
+            'name.regex' => 'Form name must not contain spaces.',
         ];
     }
 }

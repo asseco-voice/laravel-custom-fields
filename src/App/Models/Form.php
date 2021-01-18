@@ -34,6 +34,11 @@ class Form extends Model
 
     protected static function booted()
     {
+        static::creating(function (self $customField) {
+            throw_if(preg_match('/\s/', $customField->name),
+                new Exception('Form name must not contain spaces.'));
+        });
+
         static::created(function (self $form) {
             $form->relateCustomFieldsFromDefinition();
             $form->refresh();
@@ -94,10 +99,13 @@ class Form extends Model
 
     /**
      * @param array $formData
+     * @return array
      * @throws Exception
      */
-    public function validate(array $formData): void
+    public function validate(array $formData): array
     {
+        $validatedFields = [];
+
         /**
          * @var $customField CustomField
          */
@@ -111,7 +119,10 @@ class Form extends Model
             }
 
             $customField->validate($formData[$customField->name]);
+            $validatedFields[] = $customField->shortFormat($formData[$customField->name]);
         }
+
+        return $validatedFields;
     }
 
     protected function notSetButRequired(CustomField $customField, array $formData): bool

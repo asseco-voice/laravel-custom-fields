@@ -55,6 +55,7 @@ Route::prefix('api')
                 Route::apiResource('relations', RelationController::class);
                 Route::apiResource('values', ValueController::class);
 
+                Route::post('forms/{form_name}/validate', [FormController::class, 'validateAgainstCustomInput'])->name('forms.validate');
                 Route::apiResource('forms', FormController::class);
             });
     });
