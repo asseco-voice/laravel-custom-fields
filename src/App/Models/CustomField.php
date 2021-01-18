@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 
 class CustomField extends Model
 {
@@ -127,6 +128,11 @@ class CustomField extends Model
 
     public function shortFormat($value): array
     {
+        if (!class_exists($this->selectable_type)) {
+            Log::error("Custom field $this->name has an invalid selectable class.");
+            return [];
+        }
+
         $this->load('selectable');
 
         return [$this->name => [
