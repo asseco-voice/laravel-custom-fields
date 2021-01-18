@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Asseco\CustomFields\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Asseco\CustomFields\App\CustomField;
-use Asseco\CustomFields\App\PlainType;
+use Asseco\CustomFields\App\Http\Requests\CustomFieldRequest;
+use Asseco\CustomFields\App\Models\CustomField;
+use Asseco\CustomFields\App\Models\PlainType;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Response;
 
 /**
  * @group Remote Custom Fields
@@ -47,7 +47,7 @@ class RemoteCustomFieldController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function store(Request $request): JsonResponse
+    public function store(CustomFieldRequest $request): JsonResponse
     {
         if (!$request->has('remote')) {
             throw new Exception('Remote data needs to be provided');

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
-use Asseco\CustomFields\App\CustomField;
-use Asseco\CustomFields\App\Relation;
+use Asseco\CustomFields\App\Models\CustomField;
+use Asseco\CustomFields\App\Models\Relation;
 use Illuminate\Database\Seeder;
 
 class RelationSeeder extends Seeder

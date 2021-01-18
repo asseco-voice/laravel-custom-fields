@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
-use Asseco\CustomFields\App\CustomField;
-use Asseco\CustomFields\App\RemoteType;
-use Asseco\CustomFields\App\SelectionType;
+use Asseco\CustomFields\App\Models\CustomField;
+use Asseco\CustomFields\App\Models\RemoteType;
+use Asseco\CustomFields\App\Models\SelectionType;
+use Asseco\CustomFields\App\Models\Value;
 use Asseco\CustomFields\App\Traits\FindsTraits;
-use Asseco\CustomFields\App\Value;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Config;
 
 class ValueSeeder extends Seeder
 {

@@ -2,7 +2,7 @@
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Asseco\CustomFields\App\Form;
+use Asseco\CustomFields\App\Models\Form;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FormFactory extends Factory
@@ -22,7 +22,7 @@ class FormFactory extends Factory
     public function definition()
     {
         return [
-            'name'       => implode(' ', $this->faker->words(5)),
+            'name'       => implode('_', $this->faker->words(5)),
             'definition' => json_encode(['test' => 'test']),
             'created_at' => now(),
             'updated_at' => now(),

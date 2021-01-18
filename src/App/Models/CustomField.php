@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Asseco\CustomFields\App;
+namespace Asseco\CustomFields\App\Models;
 
 use Asseco\CustomFields\App\Contracts\Mappable;
 use Asseco\CustomFields\Database\Factories\CustomFieldFactory;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 
 class CustomField extends Model
 {
@@ -27,6 +29,14 @@ class CustomField extends Model
     protected static function newFactory()
     {
         return CustomFieldFactory::new();
+    }
+
+    protected static function booted()
+    {
+        static::creating(function (self $customField) {
+            throw_if(preg_match('/\s/', $customField->name),
+                new Exception('Custom field name must not contain spaces.'));
+        });
     }
 
     public function selectable(): MorphTo
@@ -68,7 +78,12 @@ class CustomField extends Model
 
     public function validate($input): void
     {
-        optional($this->validation)->validate($input);
+        /**
+         * @var $validation Validation
+         */
+        $validation = optional($this->validation);
+
+        $validation->validate($input);
     }
 
     public function children(): BelongsToMany
@@ -109,5 +124,21 @@ class CustomField extends Model
         }
 
         return Value::FALLBACK_VALUE_COLUMN;
+    }
+
+    public function shortFormat($value): array
+    {
+        if (!class_exists($this->selectable_type)) {
+            Log::error("Custom field $this->name has an invalid selectable class.");
+
+            return [];
+        }
+
+        $this->load('selectable');
+
+        return [$this->name => [
+            'type'  => $this->selectable->name,
+            'value' => $value,
+        ]];
     }
 }

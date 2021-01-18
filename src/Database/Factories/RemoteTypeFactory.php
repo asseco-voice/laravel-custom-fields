@@ -2,7 +2,7 @@
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Asseco\CustomFields\App\RemoteType;
+use Asseco\CustomFields\App\Models\RemoteType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RemoteTypeFactory extends Factory
@@ -24,8 +24,13 @@ class RemoteTypeFactory extends Factory
         return [
             'plain_type_id' => null,
             'url'           => $this->faker->url,
-            'method'        => null,
-            'body'          => $this->faker->sentence,
+            'method'        => $this->faker->randomElement(['GET', 'POST', 'PUT']),
+            'body'          => '{"test":"test"}',
+            'mappings'      => json_encode(
+                array_combine(
+                    $this->faker->words(5),
+                    $this->faker->words(5),
+                )),
             'created_at'    => now(),
             'updated_at'    => now(),
         ];

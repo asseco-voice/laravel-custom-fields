@@ -2,7 +2,7 @@
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Asseco\CustomFields\App\Value;
+use Asseco\CustomFields\App\Models\Value;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ValueFactory extends Factory
@@ -22,8 +22,8 @@ class ValueFactory extends Factory
     public function definition()
     {
         return [
-            'model_type'      => null,
-            'model_id'        => null,
+            'model_type'      => $this->faker->word,
+            'model_id'        => $this->faker->randomNumber(),
             'custom_field_id' => null,
             'integer'         => null,
             'float'           => null,

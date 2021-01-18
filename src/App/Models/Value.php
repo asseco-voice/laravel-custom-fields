@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Asseco\CustomFields\App;
+namespace Asseco\CustomFields\App\Models;
 
+use Asseco\CustomFields\App\Collections\ValueCollection;
 use Asseco\CustomFields\Database\Factories\ValueFactory;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,6 +37,11 @@ class Value extends Model
     protected static function newFactory()
     {
         return ValueFactory::new();
+    }
+
+    public function newCollection(array $models = [])
+    {
+        return new ValueCollection($models);
     }
 
     public function model(): MorphTo
@@ -116,5 +122,15 @@ class Value extends Model
 
             throw_if($request->has($column), new Exception("Attribute '$column' is not allowed for this custom field, use '$mapToColumn' instead."));
         }
+    }
+
+    public function shortFormat(): array
+    {
+        $this->load('customField.selectable');
+
+        return [$this->customField->name => [
+            'type'  => $this->customField->selectable->name,
+            'value' => $this->value,
+        ]];
     }
 }

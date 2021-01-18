@@ -2,7 +2,7 @@
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Asseco\CustomFields\App\PlainType;
+use Asseco\CustomFields\App\Models\PlainType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PlainTypeFactory extends Factory
@@ -22,7 +22,7 @@ class PlainTypeFactory extends Factory
     public function definition()
     {
         return [
-            'name'       => null,
+            'name'       => implode(' ', $this->faker->words(5)),
             'created_at' => now(),
             'updated_at' => now(),
         ];

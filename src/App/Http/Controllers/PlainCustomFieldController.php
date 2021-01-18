@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Asseco\CustomFields\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Asseco\CustomFields\App\CustomField;
+use Asseco\CustomFields\App\Http\Requests\CustomFieldRequest;
+use Asseco\CustomFields\App\Models\CustomField;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Response;
 
 /**
  * @model CustomField
@@ -50,7 +49,7 @@ class PlainCustomFieldController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function store(Request $request, string $type): JsonResponse
+    public function store(CustomFieldRequest $request, string $type): JsonResponse
     {
         /**
          * @var $typeModel Model
