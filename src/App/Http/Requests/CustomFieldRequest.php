@@ -26,8 +26,19 @@ class CustomFieldRequest extends FormRequest
     public function rules()
     {
         return [
-            // Reject name if it contains spaces
             'name' => 'required|string|regex:/^[^\s]*$/i',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.regex' => 'Custom field name must not contain spaces.',
         ];
     }
 }
