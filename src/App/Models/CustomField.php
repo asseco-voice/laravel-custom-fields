@@ -130,6 +130,7 @@ class CustomField extends Model
     {
         if (!class_exists($this->selectable_type)) {
             Log::error("Custom field $this->name has an invalid selectable class.");
+
             return [];
         }
 
