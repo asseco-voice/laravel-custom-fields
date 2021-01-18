@@ -135,7 +135,7 @@ class Value extends Model
             Arr::get($fullArray, 'custom_field.name') => [
                 'type'  => Arr::get($fullArray, 'custom_field.selectable.name'),
                 'value' => $this->value,
-            ]
+            ],
         ];
     }
 }
