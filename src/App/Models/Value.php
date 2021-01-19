@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Models;
 
-use Asseco\CustomFields\App\Collections\ValueCollection;
 use Asseco\CustomFields\Database\Factories\ValueFactory;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
