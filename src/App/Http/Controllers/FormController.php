@@ -83,6 +83,9 @@ class FormController extends Controller
 
     public function validateAgainstCustomInput(Request $request, $formName)
     {
+        /**
+         * @var $form Form
+         */
         $form = Form::query()->where('name', $formName)->firstOrFail();
 
         return response()->json($form->validate($request->all()));

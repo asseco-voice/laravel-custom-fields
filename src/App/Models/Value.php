@@ -39,11 +39,6 @@ class Value extends Model
         return ValueFactory::new();
     }
 
-    public function newCollection(array $models = [])
-    {
-        return new ValueCollection($models);
-    }
-
     public function model(): MorphTo
     {
         return $this->morphTo();
@@ -122,10 +117,5 @@ class Value extends Model
 
             throw_if($request->has($column), new Exception("Attribute '$column' is not allowed for this custom field, use '$mapToColumn' instead."));
         }
-    }
-
-    public function shortFormat(): array
-    {
-        return $this->customField->shortFormat($this->value);
     }
 }

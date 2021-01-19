@@ -302,7 +302,6 @@ class CustomFieldTest extends TestCase
         ];
 
         $this->assertEquals($expected, $customField->shortFormat($value->value));
-        $this->assertEquals($expected, $value->shortFormat());
     }
 
     /** @test */
@@ -329,6 +328,5 @@ class CustomFieldTest extends TestCase
         ];
 
         $this->assertEquals($expected, $customField->shortFormat($value->value));
-        $this->assertEquals($expected, $value->shortFormat());
     }
 }
