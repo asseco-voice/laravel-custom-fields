@@ -78,7 +78,7 @@ class Value extends Model
             ->with(['validation', 'selectable'])
             ->findOrFail($request->get('custom_field_id'));
 
-        $mapToColumn = $customField->getMappingColumn();
+        $mapToColumn = $customField->getValueColumn();
 
         self::filterByAllowedColumn($mapToColumn, $request);
 
@@ -99,7 +99,7 @@ class Value extends Model
          */
         $customField = $this->customField->load(['validation', 'selectable']);
 
-        $mapToColumn = $customField->getMappingColumn();
+        $mapToColumn = $customField->getValueColumn();
 
         self::filterByAllowedColumn($mapToColumn, $request);
 
@@ -126,11 +126,6 @@ class Value extends Model
 
     public function shortFormat(): array
     {
-        $this->load('customField.selectable');
-
-        return [$this->customField->name => [
-            'type'  => $this->customField->selectable->name,
-            'value' => $this->value,
-        ]];
+        return $this->customField->shortFormat($this->value);
     }
 }

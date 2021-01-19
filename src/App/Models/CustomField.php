@@ -44,19 +44,19 @@ class CustomField extends Model
         return $this->morphTo();
     }
 
-    public function scopePlain(Builder $query, string $subType = null)
+    public function scopePlain(Builder $query, string $subType = null): Builder
     {
         $selectable = $subType ? PlainType::getSubTypeClass($subType) : PlainType::subTypes();
 
         return $query->whereHasMorph('selectable', $selectable);
     }
 
-    public function scopeRemote(Builder $query)
+    public function scopeRemote(Builder $query): Builder
     {
         return $query->whereHasMorph('selectable', [RemoteType::class]);
     }
 
-    public function scopeSelection(Builder $query)
+    public function scopeSelection(Builder $query): Builder
     {
         return $query->whereHasMorph('selectable', [SelectionType::class]);
     }
@@ -108,8 +108,12 @@ class CustomField extends Model
         return array_merge_recursive($plain, $other);
     }
 
-    public function getMappingColumn(): string
+    public function getValueColumn(): string
     {
+        if (!class_exists($this->selectable_type)) {
+            return Value::FALLBACK_VALUE_COLUMN;
+        }
+
         $selectable = $this->selectable;
 
         if ($selectable instanceof Mappable) {
@@ -128,15 +132,16 @@ class CustomField extends Model
 
     public function shortFormat($value): array
     {
+        $type = null;
+
         if (!class_exists($this->selectable_type)) {
-            Log::error("Custom field $this->name has an invalid selectable class.");
-            return [];
+            Log::info("Custom field $this->name has an invalid selectable class, falling back to " . Value::FALLBACK_VALUE_COLUMN);
+
+            $type = Value::FALLBACK_VALUE_COLUMN;
         }
 
-        $this->load('selectable');
-
         return [$this->name => [
-            'type'  => $this->selectable->name,
+            'type'  => $type ?: $this->selectable->name,
             'value' => $value,
         ]];
     }

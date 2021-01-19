@@ -142,7 +142,7 @@ class Form extends Model
                 continue;
             }
 
-            $type = $customField->getMappingColumn();
+            $type = $customField->getValueColumn();
 
             $customField->values()->updateOrCreate([
                 'model_type' => $modelType,
