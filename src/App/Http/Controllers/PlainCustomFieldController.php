@@ -43,7 +43,7 @@ class PlainCustomFieldController extends Controller
      * @path plain_type string One of the plain types (string, text, integer, float, date, boolean)
      * @except selectable_type selectable_id
      *
-     * @param Request $request
+     * @param CustomFieldRequest $request
      * @param string $type
      * @return JsonResponse
      * @throws Exception

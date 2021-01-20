@@ -25,7 +25,7 @@ class CustomFieldController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param CustomFieldRequest $request
      * @return JsonResponse
      */
     public function store(CustomFieldRequest $request): JsonResponse
@@ -49,7 +49,7 @@ class CustomFieldController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param CustomFieldRequest $request
      * @param CustomField $customField
      * @return JsonResponse
      */

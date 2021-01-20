@@ -42,7 +42,7 @@ class RemoteCustomFieldController extends Controller
      * @except selectable_type selectable_id
      * @append remote RemoteType
      *
-     * @param Request $request
+     * @param CustomFieldRequest $request
      * @return JsonResponse
      * @throws Exception
      */

@@ -60,7 +60,7 @@ class SelectionCustomFieldController extends Controller
      * @append selection SelectionType
      * @append values SelectionValue
      *
-     * @param Request $request
+     * @param CustomFieldRequest $request
      * @param string $type
      * @return JsonResponse
      * @throws Exception

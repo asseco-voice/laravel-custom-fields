@@ -28,7 +28,7 @@ class FormController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param FormRequest $request
      * @return JsonResponse
      */
     public function store(FormRequest $request): JsonResponse
@@ -55,7 +55,7 @@ class FormController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param FormRequest $request
      * @param Form $form
      * @return JsonResponse
      */
