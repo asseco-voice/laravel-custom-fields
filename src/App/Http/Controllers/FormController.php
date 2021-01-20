@@ -34,7 +34,7 @@ class FormController extends Controller
     public function store(FormRequest $request): JsonResponse
     {
         /**
-         * @var $form Form
+         * @var Form $form
          */
         $form = Form::query()->create($request->all());
 
