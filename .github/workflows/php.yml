@@ -58,44 +58,12 @@ jobs:
         uses: chindit/actions-phpstan@1.0.1
         with:
           # Arguments to add to PHPStan CLI
-          arguments: --level 8 src
+          arguments: --level 7 src
 
       - name: PHPUnit (php-actions)
         uses: php-actions/phpunit@v2
         with:
           # What version of PHPUnit to use
-          version: latest
+          version: 9.4
           # What version of PHP to use
-          php_version: latest
-          # Space separated list of extensions to configure with the PHP build
-          php_extensions: # optional
-          # Configuration file location
-          configuration: # optional
-          # JUnit output file location
-          log_junit: # optional
-          # JUnit output file location
-          log_teamcity: # optional
-          # JUnit output file location
-          testdox_html: # optional
-          # JUnit output file location
-          testdox_text: # optional
-          # JUnit output file location
-          testdox_xml: # optional
-          # Memory limit
-          memory_limit: # optional
-          # Path to bootstrap file
-          bootstrap: # optional
-          # Filter which tests to run
-          filter: # optional
-          # Specify a testsuite to run
-          testsuite: # optional
-          # Only runs tests from the specified group(s)
-          group: # optional
-          # Exclude tests from the specified group(s)
-          exclude_group: # optional
-          # Only search for test in files with specified suffix(es)
-          test_suffix: Test.php,.phpt
-          # Path to directory to whitelist for code coverage analysis
-          whitelist: # optional
-          # Extra arguments to pass to the phpunit binary
-          args: # optional
+          php_version: 7.4
