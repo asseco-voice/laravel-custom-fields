@@ -1,0 +1,93 @@
+name: PHP Composer
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Run phpcs, phpmd and report with reviewdog
+        uses: lifulltechvn/laravel-app-reviewdog-action@v1
+        with:
+          # GITHUB_TOKEN.
+          github_token:
+          # Reporter of reviewdog command [github-pr-check,github-pr-review].
+          reporter: # optional, default is github-pr-check
+          # Report level for reviewdog [info,warning,error]
+          level: # optional, default is error
+          # Arguments to pass to phpcs
+          phpcs_args: # optional, default is .
+          # Arguments to pass to phpmd
+          phpmd_args: # optional, default is .
+          # The subdirectory to execute the action in.
+          directory: # optional, default is .
+
+      - name: PHP STatic ANalyser (phpstan)
+        uses: chindit/actions-phpstan@1.0.1
+        with:
+          # Arguments to add to PHPStan CLI
+          arguments: # optional, default is
+
+      - name: PHPUnit (php-actions)
+        uses: php-actions/phpunit@v2
+        with:
+          # What version of PHPUnit to use
+          version: # optional, default is latest
+          # What version of PHP to use
+          php_version: # optional, default is latest
+          # Space separated list of extensions to configure with the PHP build
+          php_extensions: # optional
+          # Configuration file location
+          configuration: # optional
+          # JUnit output file location
+          log_junit: # optional
+          # JUnit output file location
+          log_teamcity: # optional
+          # JUnit output file location
+          testdox_html: # optional
+          # JUnit output file location
+          testdox_text: # optional
+          # JUnit output file location
+          testdox_xml: # optional
+          # Memory limit
+          memory_limit: # optional
+          # Path to bootstrap file
+          bootstrap: # optional
+          # Filter which tests to run
+          filter: # optional
+          # Specify a testsuite to run
+          testsuite: # optional
+          # Only runs tests from the specified group(s)
+          group: # optional
+          # Exclude tests from the specified group(s)
+          exclude_group: # optional
+          # Only search for test in files with specified suffix(es)
+          test_suffix: # optional, default is Test.php,.phpt
+          # Path to directory to whitelist for code coverage analysis
+          whitelist: # optional
+          # Extra arguments to pass to the phpunit binary
+          args: # optional
