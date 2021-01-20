@@ -2,7 +2,7 @@ name: PHP Composer
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, dev, feature/** ]
   pull_request:
     branches: [ master ]
 
@@ -39,6 +39,10 @@ jobs:
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-progress --no-suggest
 
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        run:
+          vendor/phpunit/phpunit/phpunit
+
       - name: Run phpcs, phpmd and report with reviewdog
         uses: lifulltechvn/laravel-app-reviewdog-action@v1
         with:
@@ -58,7 +62,7 @@ jobs:
         uses: chindit/actions-phpstan@1.0.1
         with:
           # Arguments to add to PHPStan CLI
-          arguments: --level 5 src
+          arguments: --level 4 src
 
       - name: PHPUnit (php-actions)
         uses: php-actions/phpunit@v2
