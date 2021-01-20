@@ -1,16 +1,18 @@
-name: Bump version based on PR label - major, feature, bug
 on:
   push:
     branches:
       - master
+
 jobs:
-  build:
+  check_pr_labels_job:
     runs-on: ubuntu-latest
+    name: A job to check the PR labels contain given labels
     steps:
-      - uses: actions/checkout@v2
-      - uses: PssbleTrngle/VersionManagment@v2
-        id: version
-        with:
-            token: ${{secrets.GITHUB_TOKEN}}
-            fallback: v0.1.0
-            prefix: v
+    - name: Check PR labels action step
+      id: check_pr_labels
+      uses: shioyang/check-pr-labels-on-push-action@v1.0.3
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        labels: '["enhancement"]'
+    - name: See result
+      run: echo "${{ steps.check_pr_labels.outputs.result }}"
