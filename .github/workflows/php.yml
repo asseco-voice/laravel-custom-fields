@@ -62,7 +62,7 @@ jobs:
         uses: chindit/actions-phpstan@1.0.1
         with:
           # Arguments to add to PHPStan CLI
-          arguments: --level 4 src
+          arguments: --level 3 src
 
       - name: PHPUnit (php-actions)
         uses: php-actions/phpunit@v2
