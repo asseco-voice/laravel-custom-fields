@@ -4,15 +4,17 @@ on:
       - master
 
 jobs:
-  check_pr_labels_job:
-    runs-on: ubuntu-latest
-    name: A job to check the PR labels contain given labels
+  build:
+    runs-on: Ubuntu-20.04
+
     steps:
-    - name: Check PR labels action step
-      id: check_pr_labels
-      uses: shioyang/check-pr-labels-on-push-action@v1.0.3
+    - name:  'Automated Version Bump'
+      uses:  'phips28/gh-action-bump-version@master'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        labels: '["enhancement"]'
-    - name: See result
-      run: echo "${{ steps.check_pr_labels.outputs.result }}"
+        minor-wording:  'add,Adds,new'
+        major-wording:  'MAJOR,cut-major'
+        patch-wording:  'patch,fixes'     # Providing patch-wording will override commits
+                                          # defaulting to a patch bump.
+        rc-wording:     'RELEASE,alpha'
