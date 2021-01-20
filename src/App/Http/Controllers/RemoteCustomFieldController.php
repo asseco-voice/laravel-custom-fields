@@ -55,7 +55,7 @@ class RemoteCustomFieldController extends Controller
         $customField = DB::transaction(function () use ($request) {
 
             /**
-             * @var $remoteTypeModel Model
+             * @var Model $remoteTypeModel
              */
             $remoteTypeModel = $this->remoteClass;
             $remoteType = $remoteTypeModel::query()->create($request->get('remote'));

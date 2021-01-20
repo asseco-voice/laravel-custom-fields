@@ -107,7 +107,7 @@ class Form extends Model
         $validatedFields = [];
 
         /**
-         * @var $customField CustomField
+         * @var CustomField $customField
          */
         foreach ($this->customFields as $customField) {
             if ($this->notSetButRequired($customField, $formData)) {
@@ -133,7 +133,7 @@ class Form extends Model
     public function createValues(array $formData, string $modelType, int $modelId)
     {
         /**
-         * @var $customField CustomField
+         * @var CustomField $customField
          */
         foreach ($this->customFields as $customField) {
             $formCustomField = Arr::get($formData, $customField->name);

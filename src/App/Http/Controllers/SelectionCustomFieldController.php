@@ -78,7 +78,7 @@ class SelectionCustomFieldController extends Controller
             $plainTypeId = PlainType::query()->where('name', $type)->firstOrFail()->id;
 
             /**
-             * @var $selectionTypeModel Model
+             * @var Model $selectionTypeModel
              */
             $selectionTypeModel = $this->selectionClass;
             $selectionType = $selectionTypeModel::query()->create([

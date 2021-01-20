@@ -26,7 +26,7 @@ class RemoteValuesController extends Controller
     public function show(RemoteType $remoteType): JsonResponse
     {
         /**
-         * @var $response \Illuminate\Http\Client\Response
+         * @var \Illuminate\Http\Client\Response $response
          */
         $response = Http::withHeaders($remoteType->headers ?: [])
             ->withBody($remoteType->body, 'application/json')

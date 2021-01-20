@@ -51,7 +51,7 @@ class PlainCustomFieldController extends Controller
     public function store(CustomFieldRequest $request, string $type): JsonResponse
     {
         /**
-         * @var $typeModel Model
+         * @var Model $typeModel
          */
         $typeModel = $this->mappings[$type];
 
