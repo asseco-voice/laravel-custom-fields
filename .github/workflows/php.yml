@@ -58,7 +58,7 @@ jobs:
         uses: chindit/actions-phpstan@1.0.1
         with:
           # Arguments to add to PHPStan CLI
-          arguments: /src
+          arguments: src
 
       - name: PHPUnit (php-actions)
         uses: php-actions/phpunit@v2
