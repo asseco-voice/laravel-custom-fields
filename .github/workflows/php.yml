@@ -42,32 +42,31 @@ jobs:
       - name: Run phpcs, phpmd and report with reviewdog
         uses: lifulltechvn/laravel-app-reviewdog-action@v1
         with:
-          # GITHUB_TOKEN.
-          github_token:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           # Reporter of reviewdog command [github-pr-check,github-pr-review].
-          reporter: # optional, default is github-pr-check
+          reporter: github-pr-check
           # Report level for reviewdog [info,warning,error]
-          level: # optional, default is error
+          level: error
           # Arguments to pass to phpcs
-          phpcs_args: # optional, default is .
+          phpcs_args: .
           # Arguments to pass to phpmd
-          phpmd_args: # optional, default is .
+          phpmd_args: .
           # The subdirectory to execute the action in.
-          directory: # optional, default is .
+          directory: .
 
       - name: PHP STatic ANalyser (phpstan)
         uses: chindit/actions-phpstan@1.0.1
         with:
           # Arguments to add to PHPStan CLI
-          arguments: # optional, default is
+          arguments: /src
 
       - name: PHPUnit (php-actions)
         uses: php-actions/phpunit@v2
         with:
           # What version of PHPUnit to use
-          version: # optional, default is latest
+          version: latest
           # What version of PHP to use
-          php_version: # optional, default is latest
+          php_version: latest
           # Space separated list of extensions to configure with the PHP build
           php_extensions: # optional
           # Configuration file location
@@ -95,7 +94,7 @@ jobs:
           # Exclude tests from the specified group(s)
           exclude_group: # optional
           # Only search for test in files with specified suffix(es)
-          test_suffix: # optional, default is Test.php,.phpt
+          test_suffix: Test.php,.phpt
           # Path to directory to whitelist for code coverage analysis
           whitelist: # optional
           # Extra arguments to pass to the phpunit binary
