@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: Ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v2
@@ -39,35 +39,12 @@ jobs:
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-progress --no-suggest
 
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
+      - name: Execute PHPUnit tests
         run:
           vendor/phpunit/phpunit/phpunit
-
-      - name: Run phpcs, phpmd and report with reviewdog
-        uses: lifulltechvn/laravel-app-reviewdog-action@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # Reporter of reviewdog command [github-pr-check,github-pr-review].
-          reporter: github-pr-check
-          # Report level for reviewdog [info,warning,error]
-          level: error
-          # Arguments to pass to phpcs
-          phpcs_args: .
-          # Arguments to pass to phpmd
-          phpmd_args: .
-          # The subdirectory to execute the action in.
-          directory: .
 
       - name: PHP STatic ANalyser (phpstan)
         uses: chindit/actions-phpstan@1.0.1
         with:
           # Arguments to add to PHPStan CLI
           arguments: --level 0 src
-
-      - name: PHPUnit (php-actions)
-        uses: php-actions/phpunit@v2
-        with:
-          # What version of PHPUnit to use
-          version: 9.4
-          # What version of PHP to use
-          php_version: 7.4
