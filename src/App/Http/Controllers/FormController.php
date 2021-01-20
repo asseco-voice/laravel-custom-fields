@@ -83,7 +83,7 @@ class FormController extends Controller
     public function validateAgainstCustomInput(Request $request, $formName)
     {
         /**
-         * @var $form Form
+         * @var Form $form
          */
         $form = Form::query()->where('name', $formName)->firstOrFail();
 
