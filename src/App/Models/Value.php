@@ -66,7 +66,7 @@ class Value extends Model
     public static function validateCreate(Request $request): void
     {
         /**
-         * @var $customField CustomField
+         * @var CustomField $customField
          */
         $customField = CustomField::query()
             ->with(['validation', 'selectable'])
@@ -89,7 +89,7 @@ class Value extends Model
     public function validateUpdate(Request $request): void
     {
         /**
-         * @var $customField CustomField
+         * @var CustomField $customField
          */
         $customField = $this->customField->load(['validation', 'selectable']);
 

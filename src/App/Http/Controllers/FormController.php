@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Asseco\CustomFields\App\Http\Requests\FormRequest;
 use Asseco\CustomFields\App\Models\Form;
 use Exception;
@@ -29,13 +28,13 @@ class FormController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param FormRequest $request
      * @return JsonResponse
      */
     public function store(FormRequest $request): JsonResponse
     {
         /**
-         * @var $form Form
+         * @var Form $form
          */
         $form = Form::query()->create($request->all());
 
@@ -56,7 +55,7 @@ class FormController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param FormRequest $request
      * @param Form $form
      * @return JsonResponse
      */
@@ -84,7 +83,7 @@ class FormController extends Controller
     public function validateAgainstCustomInput(Request $request, $formName)
     {
         /**
-         * @var $form Form
+         * @var Form $form
          */
         $form = Form::query()->where('name', $formName)->firstOrFail();
 
