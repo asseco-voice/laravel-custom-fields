@@ -1,6 +1,6 @@
 <p align="center"><a href="https://see.asseco.com" target="_blank"><img src="https://github.com/asseco-voice/art/blob/main/evil_logo.png" width="500"></a></p>
 
-<p align="center">![Build](https://github.com/asseco-voice/laravel-custom-fields/workflows/PR%20pipeline/badge.svg) ![StyleCI](https://github.styleci.io/repos/276032098/shield?style=plastic) </p>
+![Build](https://github.com/asseco-voice/laravel-custom-fields/workflows/PR%20pipeline/badge.svg)
 
 # Custom fields
 
