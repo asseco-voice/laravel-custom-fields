@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
-use Asseco\CustomFields\App\Models\CustomField;
 use Asseco\CustomFields\App\Models\RemoteType;
 use Asseco\CustomFields\App\Traits\TransformsOutput;
 use Illuminate\Http\Client\Response;
