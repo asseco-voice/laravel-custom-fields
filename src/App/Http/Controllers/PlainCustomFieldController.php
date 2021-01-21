@@ -9,7 +9,6 @@ use Asseco\CustomFields\App\Models\CustomField;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 /**
  * @model CustomField
