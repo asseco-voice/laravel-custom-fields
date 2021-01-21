@@ -1,4 +1,4 @@
-name: PHP Composer
+name: PR pipeline
 
 on:
   pull_request:
