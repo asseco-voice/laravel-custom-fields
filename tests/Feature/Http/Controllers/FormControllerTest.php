@@ -46,7 +46,7 @@ class FormControllerTest extends TestCase
             ->postJson(route('custom-field.forms.store'), $request)
             ->assertJsonFragment([
                 'id'   => 1,
-                'name' => $request['name']
+                'name' => $request['name'],
             ]);
 
         $this->assertCount(1, Form::all());
@@ -74,7 +74,7 @@ class FormControllerTest extends TestCase
         $this
             ->putJson(route('custom-field.forms.update', $form->id), $request)
             ->assertJsonFragment([
-                'name' => $request['name']
+                'name' => $request['name'],
             ]);
 
         $this->assertEquals($request['name'], $form->refresh()->name);

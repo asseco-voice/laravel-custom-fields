@@ -34,7 +34,7 @@ class ValidationControllerTest extends TestCase
             ->postJson(route('custom-field.validations.store'), $request)
             ->assertJsonFragment([
                 'id'   => 1,
-                'name' => $request['name']
+                'name' => $request['name'],
             ]);
 
         $this->assertCount(1, Validation::all());
@@ -62,7 +62,7 @@ class ValidationControllerTest extends TestCase
         $this
             ->putJson(route('custom-field.validations.update', $validation->id), $request)
             ->assertJsonFragment([
-                'name' => $request['name']
+                'name' => $request['name'],
             ]);
 
         $this->assertEquals($request['name'], $validation->refresh()->name);
