@@ -35,7 +35,7 @@ class RelationControllerTest extends TestCase
             ->assertJsonFragment([
                 'id'        => 1,
                 'parent_id' => strval($request['parent_id']),
-                'child_id'  => strval($request['child_id'])
+                'child_id'  => strval($request['child_id']),
             ]);
 
         $this->assertCount(1, Relation::all());
@@ -65,7 +65,7 @@ class RelationControllerTest extends TestCase
             ->putJson(route('custom-field.relations.update', $relation->id), $request)
             ->assertJsonFragment([
                 'child_id'  => strval($request['child_id']),
-                'parent_id' => strval($request['parent_id'])
+                'parent_id' => strval($request['parent_id']),
             ]);
 
         $relation->refresh();
