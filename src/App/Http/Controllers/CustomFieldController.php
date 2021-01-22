@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Asseco\CustomFields\App\Http\Requests\CustomFieldRequest;
 use Asseco\CustomFields\App\Models\CustomField;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CustomFieldController extends Controller
 {
@@ -26,7 +24,7 @@ class CustomFieldController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param CustomFieldRequest $request
      * @return JsonResponse
      */
     public function store(CustomFieldRequest $request): JsonResponse
@@ -50,7 +48,7 @@ class CustomFieldController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param CustomFieldRequest $request
      * @param CustomField $customField
      * @return JsonResponse
      */

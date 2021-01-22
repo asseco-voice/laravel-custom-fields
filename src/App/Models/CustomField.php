@@ -79,7 +79,7 @@ class CustomField extends Model
     public function validate($input): void
     {
         /**
-         * @var $validation Validation
+         * @var Validation $validation
          */
         $validation = optional($this->validation);
 
@@ -120,7 +120,7 @@ class CustomField extends Model
             return $selectable::mapToValueColumn();
         } elseif ($selectable instanceof ParentType) {
             /**
-             * @var $mappable Mappable
+             * @var Mappable $mappable
              */
             $mappable = $selectable->subTypeClassPath();
 

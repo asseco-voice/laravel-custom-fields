@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Asseco\CustomFields\App\Http\Requests\CustomFieldRequest;
 use Asseco\CustomFields\App\Models\CustomField;
 use Asseco\CustomFields\App\Models\PlainType;
@@ -12,7 +11,6 @@ use Asseco\CustomFields\App\Models\SelectionValue;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
@@ -61,7 +59,7 @@ class SelectionCustomFieldController extends Controller
      * @append selection SelectionType
      * @append values SelectionValue
      *
-     * @param Request $request
+     * @param CustomFieldRequest $request
      * @param string $type
      * @return JsonResponse
      * @throws Exception
@@ -79,7 +77,7 @@ class SelectionCustomFieldController extends Controller
             $plainTypeId = PlainType::query()->where('name', $type)->firstOrFail()->id;
 
             /**
-             * @var $selectionTypeModel Model
+             * @var Model $selectionTypeModel
              */
             $selectionTypeModel = $this->selectionClass;
             $selectionType = $selectionTypeModel::query()->create([

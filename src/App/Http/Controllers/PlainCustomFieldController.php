@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Asseco\CustomFields\App\Http\Requests\CustomFieldRequest;
 use Asseco\CustomFields\App\Models\CustomField;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 /**
  * @model CustomField
@@ -44,7 +42,7 @@ class PlainCustomFieldController extends Controller
      * @path plain_type string One of the plain types (string, text, integer, float, date, boolean)
      * @except selectable_type selectable_id
      *
-     * @param Request $request
+     * @param CustomFieldRequest $request
      * @param string $type
      * @return JsonResponse
      * @throws Exception
@@ -52,7 +50,7 @@ class PlainCustomFieldController extends Controller
     public function store(CustomFieldRequest $request, string $type): JsonResponse
     {
         /**
-         * @var $typeModel Model
+         * @var Model $typeModel
          */
         $typeModel = $this->mappings[$type];
 

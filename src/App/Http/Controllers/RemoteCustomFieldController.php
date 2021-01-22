@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Asseco\CustomFields\App\Http\Requests\CustomFieldRequest;
 use Asseco\CustomFields\App\Models\CustomField;
 use Asseco\CustomFields\App\Models\PlainType;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -43,7 +41,7 @@ class RemoteCustomFieldController extends Controller
      * @except selectable_type selectable_id
      * @append remote RemoteType
      *
-     * @param Request $request
+     * @param CustomFieldRequest $request
      * @return JsonResponse
      * @throws Exception
      */
@@ -56,7 +54,7 @@ class RemoteCustomFieldController extends Controller
         $customField = DB::transaction(function () use ($request) {
 
             /**
-             * @var $remoteTypeModel Model
+             * @var Model $remoteTypeModel
              */
             $remoteTypeModel = $this->remoteClass;
             $remoteType = $remoteTypeModel::query()->create($request->get('remote'));

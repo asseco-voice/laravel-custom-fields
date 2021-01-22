@@ -71,7 +71,7 @@ class CustomFieldSeeder extends Seeder
             $column = $model::mapToValueColumn();
         } elseif ($model instanceof ParentType) {
             /**
-             * @var $mappable Mappable
+             * @var Mappable $mappable
              */
             $mappable = $model->subTypeClassPath();
             $column = $mappable::mapToValueColumn();
