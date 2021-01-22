@@ -29,9 +29,11 @@ use Illuminate\Support\Facades\Route;
 Route::pattern('plain_type', PlainType::getRegexSubTypes());
 
 Route::prefix('api')->middleware('api')->group(function () {
+
     Route::apiResource('custom-fields', CustomFieldController::class);
 
     Route::prefix('custom-field')->name('custom-field.')->group(function () {
+
         Route::get('types', [TypeController::class, 'index'])->name('types.index');
         Route::get('models', [ModelController::class, 'index'])->name('models.index');
 
