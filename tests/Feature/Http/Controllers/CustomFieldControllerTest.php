@@ -46,7 +46,7 @@ class CustomFieldControllerTest extends TestCase
             ->postJson(route('custom-fields.store'), $request)
             ->assertJsonFragment([
                 'id'   => 1,
-                'name' => $request['name']
+                'name' => $request['name'],
             ]);
 
         $this->assertCount(1, CustomField::all());
@@ -74,7 +74,7 @@ class CustomFieldControllerTest extends TestCase
         $this
             ->putJson(route('custom-fields.update', $customField->id), $request)
             ->assertJsonFragment([
-                'name' => $request['name']
+                'name' => $request['name'],
             ]);
 
         $this->assertEquals($request['name'], $customField->refresh()->name);

@@ -34,7 +34,7 @@ class SelectionValueControllerTest extends TestCase
             ->postJson(route('custom-field.selection-values.store'), $request)
             ->assertJsonFragment([
                 'id'   => 1,
-                'label' => $request['label']
+                'label' => $request['label'],
             ]);
 
         $this->assertCount(1, SelectionValue::all());
@@ -62,7 +62,7 @@ class SelectionValueControllerTest extends TestCase
         $this
             ->putJson(route('custom-field.selection-values.update', $selectionValue->id), $request)
             ->assertJsonFragment([
-                'label' => $request['label']
+                'label' => $request['label'],
             ]);
 
         $this->assertEquals($request['label'], $selectionValue->refresh()->label);
