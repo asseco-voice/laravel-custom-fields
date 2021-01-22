@@ -42,7 +42,7 @@ class ValueControllerTest extends TestCase
             'string' => 'test value',
         ])->toArray();
 
-        $this->withoutExceptionHandling()
+        $this
             ->postJson(route('custom-field.values.store'), $request)
             ->assertJsonFragment([
                 'id'   => 1,
@@ -65,19 +65,28 @@ class ValueControllerTest extends TestCase
     /** @test */
     public function can_update_value()
     {
-        $value = Value::factory()->create();
+        $selectable = PlainType::factory()->create(['name' => 'string']);
+        $customField = CustomField::factory()->create([
+            'selectable_type' => StringType::class,
+            'selectable_id'   => $selectable->id,
+        ]);
+
+        $value = Value::factory()->create([
+            'custom_field_id' => $customField->id,
+            'string' => 'test value',
+        ]);
 
         $request = [
-            'text' => 'updated_value',
+            'string' => 'updated_value',
         ];
 
-        $this
+        $this->withoutExceptionHandling()
             ->putJson(route('custom-field.values.update', $value->id), $request)
             ->assertJsonFragment([
-                'text' => $request['text']
+                'string' => $request['string']
             ]);
 
-        $this->assertEquals($request['text'], $value->refresh()->text);
+        $this->assertEquals($request['string'], $value->refresh()->string);
     }
 
     /** @test */
