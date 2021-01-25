@@ -39,17 +39,74 @@ class ValueControllerTest extends TestCase
 
         $request = Value::factory()->make([
             'custom_field_id' => $customField->id,
-            'string' => 'test value',
+            'string'          => 'test value',
         ])->toArray();
 
         $this
             ->postJson(route('custom-field.values.store'), $request)
             ->assertJsonFragment([
-                'id'   => 1,
+                'id'     => 1,
                 'string' => $request['string'],
             ]);
 
         $this->assertCount(1, Value::all());
+    }
+
+    /** @test */
+    public function fails_creating_if_value_has_no_valid_custom_field_relation()
+    {
+        // This way, CustomField ID will be random, not existing
+        $request = Value::factory()->make()->toArray();
+
+        $this
+            ->postJson(route('custom-field.values.store'), $request)
+            ->assertStatus(404);
+
+        $this->assertCount(0, Value::all());
+    }
+
+    /** @test */
+    public function fails_creating_if_value_has_inadequate_value_types()
+    {
+        $selectable = PlainType::factory()->create(['name' => 'string']);
+        $customField = CustomField::factory()->create([
+            'selectable_type' => StringType::class,
+            'selectable_id'   => $selectable->id,
+        ]);
+
+        // Value is defined as 'string', so no other types should be provided
+        $request = Value::factory()->make([
+            'custom_field_id' => $customField->id,
+            'string'          => 'test value',
+            'text'            => 'should not be provided',
+        ])->toArray();
+
+        $this
+            ->postJson(route('custom-field.values.store'), $request)
+            ->assertStatus(500);
+
+        $this->assertCount(0, Value::all());
+    }
+
+    /** @test */
+    public function fails_creating_if_value_has_missing_value_types()
+    {
+        $selectable = PlainType::factory()->create(['name' => 'string']);
+        $customField = CustomField::factory()->create([
+            'selectable_type' => StringType::class,
+            'selectable_id'   => $selectable->id,
+        ]);
+
+        // 'string' is required, but missing
+        $request = Value::factory()->make([
+            'custom_field_id' => $customField->id,
+        ])->toArray();
+
+        $this
+            ->postJson(route('custom-field.values.store'), $request)
+            ->assertStatus(500);
+
+        $this->assertCount(0, Value::all());
     }
 
     /** @test */
@@ -73,7 +130,7 @@ class ValueControllerTest extends TestCase
 
         $value = Value::factory()->create([
             'custom_field_id' => $customField->id,
-            'string' => 'test value',
+            'string'          => 'test value',
         ]);
 
         $request = [
@@ -87,6 +144,29 @@ class ValueControllerTest extends TestCase
             ]);
 
         $this->assertEquals($request['string'], $value->refresh()->string);
+    }
+
+    /** @test */
+    public function fails_updating_if_value_has_inadequate_value_types()
+    {
+        $selectable = PlainType::factory()->create(['name' => 'string']);
+        $customField = CustomField::factory()->create([
+            'selectable_type' => StringType::class,
+            'selectable_id'   => $selectable->id,
+        ]);
+
+        $value = Value::factory()->create([
+            'custom_field_id' => $customField->id,
+            'string'          => 'test value',
+        ]);
+
+        $request = [
+            'text' => 'should not be provided',
+        ];
+
+        $this
+            ->putJson(route('custom-field.values.update', $value->id), $request)
+            ->assertStatus(500);
     }
 
     /** @test */
