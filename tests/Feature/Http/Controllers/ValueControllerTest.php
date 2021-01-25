@@ -140,7 +140,7 @@ class ValueControllerTest extends TestCase
         $this
             ->putJson(route('custom-field.values.update', $value->id), $request)
             ->assertJsonFragment([
-                'string' => $request['string']
+                'string' => $request['string'],
             ]);
 
         $this->assertEquals($request['string'], $value->refresh()->string);
