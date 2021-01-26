@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Asseco\CustomFields\Tests\Feature;
+namespace Asseco\CustomFields\Tests\Feature\Http\Controllers;
 
 use Asseco\CustomFields\App\Models\CustomField;
 use Asseco\CustomFields\Tests\TestCase;
