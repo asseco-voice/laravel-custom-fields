@@ -99,6 +99,4 @@ class SelectionCustomFieldControllerTest extends TestCase
         $this->assertCount(1, CustomField::all());
         $this->assertCount(5, SelectionValue::all());
     }
-
-
 }
