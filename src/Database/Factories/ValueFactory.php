@@ -24,7 +24,7 @@ class ValueFactory extends Factory
         return [
             'model_type'      => $this->faker->word,
             'model_id'        => $this->faker->randomNumber(),
-            'custom_field_id' => null,
+            'custom_field_id' => $this->faker->randomNumber(),
             'integer'         => null,
             'float'           => null,
             'date'            => null,

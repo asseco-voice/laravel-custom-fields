@@ -85,10 +85,10 @@ class SelectionCustomFieldController extends Controller
                 'multiselect'   => $multiselect,
             ]);
 
-            $selectionValues = $request->get('values');
+            $selectionValues = $request->get('values', []);
 
             foreach ($selectionValues as $value) {
-                SelectionValue::query()->create(array_merge_recursive($value, ['selection_type_id' => $selectionType->id]))->toArray();
+                SelectionValue::query()->create(array_merge($value, ['selection_type_id' => $selectionType->id]))->toArray();
             }
 
             $selectableData = [
