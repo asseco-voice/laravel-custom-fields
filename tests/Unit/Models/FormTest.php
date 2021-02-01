@@ -365,13 +365,13 @@ class FormTest extends TestCase
         ]);
 
         $expected = [
-            "cf1" => [
-                "type"  => "string",
-                "value" => "ABC"
+            'cf1' => [
+                'type'  => 'string',
+                'value' => 'ABC'
             ],
-            "cf2" => [
-                "type"  => "string",
-                "value" => "ABC"
+            'cf2' => [
+                'type'  => 'string',
+                'value' => 'ABC'
             ]
         ];
 
