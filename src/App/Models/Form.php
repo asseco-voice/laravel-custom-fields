@@ -119,7 +119,9 @@ class Form extends Model
             }
 
             $customField->validate($formData[$customField->name]);
-            $validatedFields[] = $customField->shortFormat($formData[$customField->name]);
+
+            $validatedFields = array_merge(
+                $validatedFields, $customField->shortFormat($formData[$customField->name]));
         }
 
         return $validatedFields;
