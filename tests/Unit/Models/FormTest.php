@@ -367,14 +367,14 @@ class FormTest extends TestCase
         $expected = [
             'cf1' => [
                 'type'  => 'string',
-                'value' => 'ABC'
+                'value' => 'ABC',
             ],
             'cf2' => [
                 'type'  => 'string',
-                'value' => 'ABC'
-            ]
+                'value' => 'ABC',
+            ],
         ];
 
-        $this->assertEquals($expected, $form->validate(['cf1' => 'ABC', 'cf2' => 'ABC',]));
+        $this->assertEquals($expected, $form->validate(['cf1' => 'ABC', 'cf2' => 'ABC']));
     }
 }
