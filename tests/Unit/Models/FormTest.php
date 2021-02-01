@@ -348,4 +348,33 @@ class FormTest extends TestCase
 
         Form::factory()->create(['name' => 'not a valid name']);
     }
+
+    /** @test */
+    public function returns_short_format_for_validated_fields()
+    {
+        /**
+         * @var $form Form
+         */
+        $form = Form::factory()->create([
+            'definition' => [
+                'components' => [
+                    ['key' => 'cf1'],
+                    ['key' => 'cf2'],
+                ],
+            ],
+        ]);
+
+        $expected = [
+            'cf1' => [
+                'type'  => 'string',
+                'value' => 'ABC',
+            ],
+            'cf2' => [
+                'type'  => 'string',
+                'value' => 'ABC',
+            ],
+        ];
+
+        $this->assertEquals($expected, $form->validate(['cf1' => 'ABC', 'cf2' => 'ABC']));
+    }
 }
