@@ -9,4 +9,6 @@ interface Mappable
      * @return string
      */
     public static function mapToValueColumn(): string;
+
+    public static function bla();
 }
