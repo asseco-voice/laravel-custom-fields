@@ -22,7 +22,7 @@ class SelectionValueFactory extends Factory
     public function definition()
     {
         return [
-            'selection_type_id' => null,
+            'selection_type_id' => $this->faker->randomNumber(),
             'label'             => $this->faker->word,
             'preselect'         => $this->faker->boolean(10),
             'value'             => $this->faker->word,

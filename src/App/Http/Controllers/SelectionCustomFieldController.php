@@ -11,7 +11,6 @@ use Asseco\CustomFields\App\Models\SelectionValue;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
@@ -86,10 +85,10 @@ class SelectionCustomFieldController extends Controller
                 'multiselect'   => $multiselect,
             ]);
 
-            $selectionValues = $request->get('values');
+            $selectionValues = $request->get('values', []);
 
             foreach ($selectionValues as $value) {
-                SelectionValue::query()->create(array_merge_recursive($value, ['selection_type_id' => $selectionType->id]))->toArray();
+                SelectionValue::query()->create(array_merge($value, ['selection_type_id' => $selectionType->id]))->toArray();
             }
 
             $selectableData = [

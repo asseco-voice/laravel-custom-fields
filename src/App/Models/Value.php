@@ -72,14 +72,14 @@ class Value extends Model
             ->with(['validation', 'selectable'])
             ->findOrFail($request->get('custom_field_id'));
 
-        $mapToColumn = $customField->getValueColumn();
+        $valueColumn = $customField->getValueColumn();
 
-        self::filterByAllowedColumn($mapToColumn, $request);
+        self::filterByAllowedColumn($valueColumn, $request);
 
-        throw_if(!$request->has($mapToColumn) || empty($request->get($mapToColumn)),
-            new Exception("Attribute '$mapToColumn' needs to be provided."));
+        throw_if(!$request->has($valueColumn) || empty($request->get($valueColumn)),
+            new Exception("Attribute '$valueColumn' needs to be provided."));
 
-        $customField->validate($request->get($mapToColumn));
+        $customField->validate($request->get($valueColumn));
     }
 
     /**
@@ -103,18 +103,20 @@ class Value extends Model
     }
 
     /**
-     * @param string $mapToColumn
+     * @param string $valueColumn
      * @param Request $request
      * @throws Throwable
      */
-    protected static function filterByAllowedColumn(string $mapToColumn, Request $request): void
+    protected static function filterByAllowedColumn(string $valueColumn, Request $request): void
     {
         foreach (self::VALUE_COLUMNS as $column) {
-            if ($column === $mapToColumn) {
+            if ($column === $valueColumn) {
                 continue;
             }
 
-            throw_if($request->has($column), new Exception("Attribute '$column' is not allowed for this custom field, use '$mapToColumn' instead."));
+            $requestHasDisallowedColumn = $request->has($column) && $request->get($column);
+
+            throw_if($requestHasDisallowedColumn, new Exception("Attribute '$column' is not allowed for this custom field, use '$valueColumn' instead."));
         }
     }
 }

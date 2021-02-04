@@ -7,6 +7,7 @@ namespace Asseco\CustomFields\App\Http\Controllers;
 use Asseco\CustomFields\App\Models\CustomField;
 use Asseco\CustomFields\App\Models\RemoteType;
 use Asseco\CustomFields\App\Traits\TransformsOutput;
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
@@ -20,14 +21,12 @@ class RemoteValuesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param CustomField $remoteType
+     * @param RemoteType $remoteType
      * @return JsonResponse
      */
     public function show(RemoteType $remoteType): JsonResponse
     {
-        /**
-         * @var \Illuminate\Http\Client\Response $response
-         */
+
         $response = Http::withHeaders($remoteType->headers ?: [])
             ->withBody($remoteType->body, 'application/json')
             ->{$remoteType->method}($remoteType->url);
