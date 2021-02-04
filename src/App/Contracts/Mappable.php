@@ -10,5 +10,5 @@ interface Mappable
      */
     public static function mapToValueColumn(): string;
 
-    public static function bla();
+    public static function bla(): string;
 }
