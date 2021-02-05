@@ -14,8 +14,9 @@ class RelationSeeder extends Seeder
     {
         $customFields = CustomField::all('id');
 
-        if($customFields->isEmpty()){
+        if ($customFields->isEmpty()) {
             echo 'No custom fields available, skipping...';
+
             return;
         }
 
