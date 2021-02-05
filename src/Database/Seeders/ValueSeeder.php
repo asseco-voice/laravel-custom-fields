@@ -27,8 +27,9 @@ class ValueSeeder extends Seeder
         $models = $this->getModelsWithTrait($traitPath);
         $customFields = CustomField::with('selectable')->get();
 
-        if($customFields->isEmpty()){
+        if ($customFields->isEmpty()) {
             echo 'No custom fields available, skipping...';
+
             return;
         }
 
