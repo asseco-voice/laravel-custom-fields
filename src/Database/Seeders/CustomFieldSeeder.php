@@ -27,6 +27,8 @@ class CustomFieldSeeder extends Seeder
         $models = $this->getModelsWithTrait($traitPath);
 
         if (!$models) {
+            echo "No models with Customizable trait available, skipping...\n";
+
             return;
         }
 
