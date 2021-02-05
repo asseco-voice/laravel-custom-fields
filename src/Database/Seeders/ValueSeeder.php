@@ -46,7 +46,7 @@ class ValueSeeder extends Seeder
                 $value->model_id = $this->getCached($model);
                 $value->custom_field_id = $customField->id;
                 $value->{$type} = $fakeValue;
-            })->toArray();
+            })->makeHidden('value')->toArray();
 
         Value::query()->insert($values);
     }
