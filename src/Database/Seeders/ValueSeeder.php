@@ -27,6 +27,11 @@ class ValueSeeder extends Seeder
         $models = $this->getModelsWithTrait($traitPath);
         $customFields = CustomField::with('selectable')->get();
 
+        if($customFields->isEmpty()){
+            echo 'No custom fields available, skipping...';
+            return;
+        }
+
         $values = Value::factory()->count(500)->make()
             ->each(function (Value $value) use ($customFields, $models, $faker) {
                 $customField = $customFields->random(1)->first();

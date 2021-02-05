@@ -14,6 +14,11 @@ class RelationSeeder extends Seeder
     {
         $customFields = CustomField::all('id');
 
+        if($customFields->isEmpty()){
+            echo 'No custom fields available, skipping...';
+            return;
+        }
+
         $relations = Relation::factory()->count(200)->make()
             ->each(function (Relation $relation) use ($customFields) {
                 $relation->timestamps = false;
