@@ -17,6 +17,7 @@ class CustomFieldFormSeeder extends Seeder
 
         if($customFields->isEmpty()){
             echo "No custom fields available, skipping...\n";
+
             return;
         }
 
