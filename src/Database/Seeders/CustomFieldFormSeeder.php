@@ -15,6 +15,12 @@ class CustomFieldFormSeeder extends Seeder
         $forms = Form::all();
         $customFields = CustomField::all();
 
+        if ($customFields->isEmpty()) {
+            echo "No custom fields available, skipping...\n";
+
+            return;
+        }
+
         foreach ($forms as $form) {
             $rand = rand(1, 10);
 

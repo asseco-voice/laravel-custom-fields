@@ -26,6 +26,12 @@ class CustomFieldSeeder extends Seeder
         $traitPath = config('asseco-custom-fields.trait_path');
         $models = $this->getModelsWithTrait($traitPath);
 
+        if (!$models) {
+            echo "No models with Customizable trait available, skipping...\n";
+
+            return;
+        }
+
         $types = CustomField::types();
         $plainTypes = PlainType::all('id', 'name');
         $selectionTypes = SelectionType::all('id');
