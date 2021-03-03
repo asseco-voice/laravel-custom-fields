@@ -3,7 +3,7 @@
     "description": "Laravel support for custom fields",
     "license": "MIT",
     "require": {
-        "php": "^7.4",
+        "php": "^7.4 || ^8.0",
         "laravel/framework": "^8.0"
     },
     "require-dev": {
