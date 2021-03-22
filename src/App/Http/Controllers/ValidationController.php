@@ -8,7 +8,6 @@ use Asseco\CustomFields\App\Http\Requests\ValidationRequest;
 use Asseco\CustomFields\App\Models\Validation;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 /**
  * @group Custom Field Validations

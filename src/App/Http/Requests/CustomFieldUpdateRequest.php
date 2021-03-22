@@ -10,7 +10,7 @@ use Illuminate\Support\Arr;
 class CustomFieldUpdateRequest extends FormRequest
 {
     /**
-     * These fields should never be allowed to update
+     * These fields should never be allowed to update.
      */
     public const LOCKED_FOR_EDITING = ['selectable_type', 'selectable_id', 'model'];
 

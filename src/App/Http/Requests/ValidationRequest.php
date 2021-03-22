@@ -34,7 +34,7 @@ class ValidationRequest extends FormRequest
     }
 
     /**
-     * Dynamically set validator from 'required' to 'sometimes' if resource is being updated
+     * Dynamically set validator from 'required' to 'sometimes' if resource is being updated.
      *
      * @param Validator $validator
      */

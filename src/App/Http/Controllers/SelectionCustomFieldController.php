@@ -68,7 +68,6 @@ class SelectionCustomFieldController extends Controller
 
         /** @var CustomField $customField */
         $customField = DB::transaction(function () use ($data, $type) {
-
             $selectionData = Arr::get($data, 'selection', []);
             $multiselect = Arr::get($selectionData, 'multiselect', false);
             $plainTypeId = PlainType::query()->where('name', $type)->firstOrFail()->id;
