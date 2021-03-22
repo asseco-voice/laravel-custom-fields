@@ -55,7 +55,7 @@ class RemoteCustomFieldControllerTest extends TestCase
 
         $this
             ->postJson(route('custom-field.remote.store'), $request)
-            ->assertStatus(500);
+            ->assertStatus(422);
     }
 
     /** @test */
@@ -65,12 +65,13 @@ class RemoteCustomFieldControllerTest extends TestCase
 
         $request['remote'] = RemoteType::factory()->make([
             'plain_type_id' => PlainType::factory()->create(['name' => 'string'])->id,
+            'body'          => [],
+            'mappings'      => [],
         ])->toArray();
 
         $this
             ->postJson(route('custom-field.remote.store'), $request)
             ->assertJsonFragment([
-                'id'   => 1,
                 'name' => $request['name'],
             ]);
 

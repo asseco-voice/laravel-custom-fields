@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
+use Asseco\CustomFields\App\Http\Requests\SelectionValueRequest;
 use Asseco\CustomFields\App\Models\SelectionValue;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 /**
  * @group Custom Field Relations
@@ -27,12 +27,12 @@ class SelectionValueController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param SelectionValueRequest $request
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(SelectionValueRequest $request): JsonResponse
     {
-        $selectionValue = SelectionValue::query()->create($request->all());
+        $selectionValue = SelectionValue::query()->create($request->validated());
 
         return response()->json($selectionValue->refresh());
     }
@@ -51,13 +51,13 @@ class SelectionValueController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param SelectionValueRequest $request
      * @param SelectionValue $selectionValue
      * @return JsonResponse
      */
-    public function update(Request $request, SelectionValue $selectionValue): JsonResponse
+    public function update(SelectionValueRequest $request, SelectionValue $selectionValue): JsonResponse
     {
-        $selectionValue->update($request->all());
+        $selectionValue->update($request->validated());
 
         return response()->json($selectionValue->refresh());
     }

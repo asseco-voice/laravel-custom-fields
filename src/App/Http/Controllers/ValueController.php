@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
+use Asseco\CustomFields\App\Http\Requests\ValueRequest;
 use Asseco\CustomFields\App\Models\Value;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Throwable;
 
 /**
@@ -28,15 +28,15 @@ class ValueController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param ValueRequest $request
      * @return JsonResponse
      * @throws Throwable
      */
-    public function store(Request $request): JsonResponse
+    public function store(ValueRequest $request): JsonResponse
     {
         Value::validateCreate($request);
 
-        $value = Value::query()->create($request->all());
+        $value = Value::query()->create($request->validated());
 
         return response()->json($value->refresh());
     }
@@ -55,16 +55,16 @@ class ValueController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param ValueRequest $request
      * @param Value $value
      * @return JsonResponse
      * @throws Throwable
      */
-    public function update(Request $request, Value $value): JsonResponse
+    public function update(ValueRequest $request, Value $value): JsonResponse
     {
         $value->validateUpdate($request);
 
-        $value->update($request->all());
+        $value->update($request->validated());
 
         return response()->json($value->refresh());
     }

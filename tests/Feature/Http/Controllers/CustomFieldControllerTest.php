@@ -45,7 +45,6 @@ class CustomFieldControllerTest extends TestCase
         $this
             ->postJson(route('custom-fields.store'), $request)
             ->assertJsonFragment([
-                'id'   => 1,
                 'name' => $request['name'],
             ]);
 
@@ -55,11 +54,13 @@ class CustomFieldControllerTest extends TestCase
     /** @test */
     public function can_return_custom_field_by_id()
     {
-        CustomField::factory()->count(5)->create();
+        $customFields = CustomField::factory()->count(5)->create();
+
+        $customFieldId = $customFields->random()->id;
 
         $this
-            ->getJson(route('custom-fields.show', 3))
-            ->assertJsonFragment(['id' => 3]);
+            ->getJson(route('custom-fields.show', $customFieldId))
+            ->assertJsonFragment(['id' => $customFieldId]);
     }
 
     /** @test */

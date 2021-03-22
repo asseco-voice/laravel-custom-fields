@@ -40,12 +40,13 @@ class FormControllerTest extends TestCase
     /** @test */
     public function creates_form()
     {
-        $request = Form::factory()->make()->toArray();
+        $request = Form::factory()->make([
+            'definition' => ['a' => 'b'],
+        ])->toArray();
 
         $this
             ->postJson(route('custom-field.forms.store'), $request)
             ->assertJsonFragment([
-                'id'   => 1,
                 'name' => $request['name'],
             ]);
 
@@ -55,11 +56,13 @@ class FormControllerTest extends TestCase
     /** @test */
     public function can_return_form_by_id()
     {
-        Form::factory()->count(5)->create();
+        $forms = Form::factory()->count(5)->create();
+
+        $formId = $forms->random()->id;
 
         $this
-            ->getJson(route('custom-field.forms.show', 3))
-            ->assertJsonFragment(['id' => 3]);
+            ->getJson(route('custom-field.forms.show', $formId))
+            ->assertJsonFragment(['id' => $formId]);
     }
 
     /** @test */

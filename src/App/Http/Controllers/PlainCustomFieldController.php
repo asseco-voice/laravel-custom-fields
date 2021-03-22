@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
-use Asseco\CustomFields\App\Http\Requests\CustomFieldRequest;
+use Asseco\CustomFields\App\Http\Requests\PlainCustomFieldRequest;
 use Asseco\CustomFields\App\Models\CustomField;
-use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 
@@ -42,24 +41,23 @@ class PlainCustomFieldController extends Controller
      * @path plain_type string One of the plain types (string, text, integer, float, date, boolean)
      * @except selectable_type selectable_id
      *
-     * @param CustomFieldRequest $request
+     * @param PlainCustomFieldRequest $request
      * @param string $type
      * @return JsonResponse
-     * @throws Exception
      */
-    public function store(CustomFieldRequest $request, string $type): JsonResponse
+    public function store(PlainCustomFieldRequest $request, string $type): JsonResponse
     {
-        /**
-         * @var Model $typeModel
-         */
+        $data = $request->validated();
+
+        /** @var Model $typeModel */
         $typeModel = $this->mappings[$type];
 
         $selectableData = [
             'selectable_type' => $typeModel,
-            'selectable_id'   => $typeModel::query()->first('id')->id,
+            'selectable_id'   => $typeModel::query()->firstOrFail('id')->id,
         ];
 
-        $customField = CustomField::query()->create($request->merge($selectableData)->except('type'));
+        $customField = CustomField::query()->create(array_merge($data, $selectableData));
 
         return response()->json($customField->refresh());
     }

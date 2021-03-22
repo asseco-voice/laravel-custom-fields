@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Asseco\CustomFields\App\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Foundation\Http\FormRequest as LaravelFormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-class FormRequest extends LaravelFormRequest
+class ValidationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,22 +27,9 @@ class FormRequest extends LaravelFormRequest
     public function rules()
     {
         return [
-            'tenant_id'  => 'nullable',
-            'name'       => 'required|string|regex:/^[^\s]*$/i|unique:forms,name' . ($this->form ? ',' . $this->form->id : null),
-            'definition' => 'required|array',
-            'action_url' => 'nullable|string',
-        ];
-    }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'name.regex' => 'Form name must not contain spaces.',
+            'name'    => 'required|string|max:150|unique:custom_field_validations,name' . ($this->validation ? ',' . $this->validation->id : null),
+            'regex'   => 'nullable|string|max:255',
+            'generic' => 'boolean',
         ];
     }
 
@@ -53,10 +40,10 @@ class FormRequest extends LaravelFormRequest
      */
     public function withValidator(Validator $validator)
     {
-        $requiredOnCreate = ['name', 'definition'];
+        $requiredOnCreate = ['name'];
 
         $validator->sometimes($requiredOnCreate, 'sometimes', function () {
-            return $this->form !== null;
+            return $this->validation !== null;
         });
     }
 }

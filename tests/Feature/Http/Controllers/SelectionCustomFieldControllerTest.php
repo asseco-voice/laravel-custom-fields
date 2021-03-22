@@ -50,16 +50,6 @@ class SelectionCustomFieldControllerTest extends TestCase
     }
 
     /** @test */
-    public function rejects_creating_selection_custom_field_without_selection_parameters()
-    {
-        $request = CustomField::factory()->make()->toArray();
-
-        $this
-            ->postJson(route('custom-field.selection.store', 'string'), $request)
-            ->assertStatus(500);
-    }
-
-    /** @test */
     public function creates_selection_custom_field()
     {
         $request = CustomField::factory()->make()->toArray();

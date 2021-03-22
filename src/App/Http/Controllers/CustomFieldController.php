@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
-use Asseco\CustomFields\App\Http\Requests\CustomFieldRequest;
+use Asseco\CustomFields\App\Http\Requests\CustomFieldCreateRequest;
+use Asseco\CustomFields\App\Http\Requests\CustomFieldUpdateRequest;
 use Asseco\CustomFields\App\Models\CustomField;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -24,12 +25,12 @@ class CustomFieldController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CustomFieldRequest $request
+     * @param CustomFieldCreateRequest $request
      * @return JsonResponse
      */
-    public function store(CustomFieldRequest $request): JsonResponse
+    public function store(CustomFieldCreateRequest $request): JsonResponse
     {
-        $customField = CustomField::query()->create($request->all());
+        $customField = CustomField::query()->create($request->validated());
 
         return response()->json($customField->refresh());
     }
@@ -48,13 +49,13 @@ class CustomFieldController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CustomFieldRequest $request
+     * @param CustomFieldCreateRequest $request
      * @param CustomField $customField
      * @return JsonResponse
      */
-    public function update(CustomFieldRequest $request, CustomField $customField): JsonResponse
+    public function update(CustomFieldUpdateRequest $request, CustomField $customField): JsonResponse
     {
-        $customField->update($request->except(CustomField::LOCKED_FOR_EDITING));
+        $customField->update($request->validated());
 
         return response()->json($customField->refresh());
     }

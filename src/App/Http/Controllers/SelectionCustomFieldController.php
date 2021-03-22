@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
-use Asseco\CustomFields\App\Http\Requests\CustomFieldRequest;
+use Asseco\CustomFields\App\Http\Requests\SelectionCustomFieldRequest;
 use Asseco\CustomFields\App\Models\CustomField;
 use Asseco\CustomFields\App\Models\PlainType;
 use Asseco\CustomFields\App\Models\SelectionValue;
-use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
@@ -59,20 +58,18 @@ class SelectionCustomFieldController extends Controller
      * @append selection SelectionType
      * @append values SelectionValue
      *
-     * @param CustomFieldRequest $request
+     * @param SelectionCustomFieldRequest $request
      * @param string $type
      * @return JsonResponse
-     * @throws Exception
      */
-    public function store(CustomFieldRequest $request, string $type): JsonResponse
+    public function store(SelectionCustomFieldRequest $request, string $type): JsonResponse
     {
-        if (!$request->has('selection')) {
-            throw new Exception('Selection data needs to be provided');
-        }
+        $data = $request->validated();
 
-        $customField = DB::transaction(function () use ($request, $type) {
-            $selectionData = $request->get('selection');
+        /** @var CustomField $customField */
+        $customField = DB::transaction(function () use ($data, $type) {
 
+            $selectionData = Arr::get($data, 'selection', []);
             $multiselect = Arr::get($selectionData, 'multiselect', false);
             $plainTypeId = PlainType::query()->where('name', $type)->firstOrFail()->id;
 
@@ -85,10 +82,12 @@ class SelectionCustomFieldController extends Controller
                 'multiselect'   => $multiselect,
             ]);
 
-            $selectionValues = $request->get('values', []);
+            $selectionValues = Arr::get($data, 'values', []);
 
             foreach ($selectionValues as $value) {
-                SelectionValue::query()->create(array_merge($value, ['selection_type_id' => $selectionType->id]))->toArray();
+                SelectionValue::query()->create(
+                    array_merge($value, ['selection_type_id' => $selectionType->id])
+                );
             }
 
             $selectableData = [
@@ -96,9 +95,11 @@ class SelectionCustomFieldController extends Controller
                 'selectable_id'   => $selectionType->id,
             ];
 
-            return CustomField::query()->create($request->merge($selectableData)->except('selection'));
+            $cfData = Arr::except($data, ['selection', 'values']);
+
+            return CustomField::query()->create(array_merge($cfData, $selectableData));
         });
 
-        return response()->json($customField->load('selectable.values'));
+        return response()->json($customField->refresh()->load('selectable.values'));
     }
 }

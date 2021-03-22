@@ -19,8 +19,8 @@ class CreateCustomFieldRemoteTypesTable extends Migration
             $table->foreignId('plain_type_id')->constrained('custom_field_plain_types');
             $table->string('url');
             $table->enum('method', ['GET', 'POST', 'PUT']);
-            $table->text('body')->nullable();
-            $table->text('headers')->nullable();
+            $table->json('body')->nullable();
+            $table->json('headers')->nullable();
             $table->json('mappings')->nullable();
 
             $table->timestamps();

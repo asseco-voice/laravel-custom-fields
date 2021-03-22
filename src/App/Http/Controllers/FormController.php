@@ -33,10 +33,7 @@ class FormController extends Controller
      */
     public function store(FormRequest $request): JsonResponse
     {
-        /**
-         * @var Form $form
-         */
-        $form = Form::query()->create($request->all());
+        $form = Form::query()->create($request->validated());
 
         return response()->json($form->refresh());
     }
@@ -61,7 +58,7 @@ class FormController extends Controller
      */
     public function update(FormRequest $request, Form $form): JsonResponse
     {
-        $form->update($request->all());
+        $form->update($request->validated());
 
         return response()->json($form->refresh());
     }
@@ -80,6 +77,12 @@ class FormController extends Controller
         return response()->json($isDeleted ? 'true' : 'false');
     }
 
+    /**
+     * @param Request $request
+     * @param $formName
+     * @return JsonResponse
+     * @throws Exception
+     */
     public function validateAgainstCustomInput(Request $request, $formName)
     {
         /**

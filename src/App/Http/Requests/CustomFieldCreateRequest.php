@@ -6,7 +6,7 @@ namespace Asseco\CustomFields\App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CustomFieldRequest extends FormRequest
+class CustomFieldCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,14 @@ class CustomFieldRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'sometimes|string|regex:/^[^\s]*$/i',
+            'name'            => 'required|string|regex:/^[^\s]*$/i|unique:custom_fields,name' . ($this->custom_field ? ',' . $this->custom_field->id : null),
+            'label'           => 'required|string|max:255',
+            'placeholder'     => 'nullable|string',
+            'selectable_type' => 'required',
+            'selectable_id'   => 'required',
+            'model'           => 'required|string',
+            'required'        => 'boolean',
+            'validation_id'   => 'nullable|exists:custom_field_validations',
         ];
     }
 
