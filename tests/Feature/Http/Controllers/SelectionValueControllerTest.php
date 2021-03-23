@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Tests\Feature\Http\Controllers;
 
+use Asseco\CustomFields\App\Models\PlainType;
+use Asseco\CustomFields\App\Models\SelectionType;
 use Asseco\CustomFields\App\Models\SelectionValue;
 use Asseco\CustomFields\Tests\TestCase;
 
@@ -28,12 +30,19 @@ class SelectionValueControllerTest extends TestCase
     /** @test */
     public function creates_selection_value()
     {
-        $request = SelectionValue::factory()->make()->toArray();
+        $plain = PlainType::factory()->create();
+
+        $type = SelectionType::factory()->create([
+            'plain_type_id' => $plain->id,
+        ]);
+
+        $request = SelectionValue::factory()->make([
+            'selection_type_id' => $type->id,
+        ])->toArray();
 
         $this
             ->postJson(route('custom-field.selection-values.store'), $request)
             ->assertJsonFragment([
-                'id'   => 1,
                 'label' => $request['label'],
             ]);
 
@@ -43,17 +52,27 @@ class SelectionValueControllerTest extends TestCase
     /** @test */
     public function can_return_selection_value_by_id()
     {
-        SelectionValue::factory()->count(5)->create();
+        $selectionValues = SelectionValue::factory()->count(5)->create();
+
+        $selectionValueId = $selectionValues->random()->id;
 
         $this
-            ->getJson(route('custom-field.selection-values.show', 3))
-            ->assertJsonFragment(['id' => 3]);
+            ->getJson(route('custom-field.selection-values.show', $selectionValueId))
+            ->assertJsonFragment(['id' => $selectionValueId]);
     }
 
     /** @test */
     public function can_update_selection_value()
     {
-        $selectionValue = SelectionValue::factory()->create();
+        $plain = PlainType::factory()->create();
+
+        $type = SelectionType::factory()->create([
+            'plain_type_id' => $plain->id,
+        ]);
+
+        $selectionValue = SelectionValue::factory()->create([
+            'selection_type_id' => $type->id,
+        ]);
 
         $request = [
             'label' => 'updated_label',

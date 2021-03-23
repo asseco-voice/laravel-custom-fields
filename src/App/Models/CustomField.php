@@ -22,8 +22,6 @@ class CustomField extends Model
 {
     use SoftDeletes, HasFactory;
 
-    public const LOCKED_FOR_EDITING = ['selectable_type', 'selectable_id', 'model'];
-
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
 
     protected static function newFactory()

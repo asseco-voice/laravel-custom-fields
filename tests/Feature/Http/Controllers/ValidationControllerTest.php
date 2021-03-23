@@ -33,7 +33,6 @@ class ValidationControllerTest extends TestCase
         $this
             ->postJson(route('custom-field.validations.store'), $request)
             ->assertJsonFragment([
-                'id'   => 1,
                 'name' => $request['name'],
             ]);
 
@@ -43,11 +42,13 @@ class ValidationControllerTest extends TestCase
     /** @test */
     public function can_return_validation_by_id()
     {
-        Validation::factory()->count(5)->create();
+        $validations = Validation::factory()->count(5)->create();
+
+        $validationId = $validations->random()->id;
 
         $this
-            ->getJson(route('custom-field.validations.show', 3))
-            ->assertJsonFragment(['id' => 3]);
+            ->getJson(route('custom-field.validations.show', $validationId))
+            ->assertJsonFragment(['id' => $validationId]);
     }
 
     /** @test */

@@ -45,7 +45,6 @@ class ValueControllerTest extends TestCase
         $this
             ->postJson(route('custom-field.values.store'), $request)
             ->assertJsonFragment([
-                'id'     => 1,
                 'string' => $request['string'],
             ]);
 
@@ -60,7 +59,7 @@ class ValueControllerTest extends TestCase
 
         $this
             ->postJson(route('custom-field.values.store'), $request)
-            ->assertStatus(404);
+            ->assertStatus(422);
 
         $this->assertCount(0, Value::all());
     }

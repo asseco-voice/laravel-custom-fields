@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Tests\Feature\Http\Controllers;
 
+use Asseco\CustomFields\App\Models\CustomField;
 use Asseco\CustomFields\App\Models\Relation;
 use Asseco\CustomFields\Tests\TestCase;
 
@@ -28,14 +29,12 @@ class RelationControllerTest extends TestCase
     /** @test */
     public function creates_relation()
     {
-        $request = Relation::factory()->make()->toArray();
+        $customFields = CustomField::factory()->count(2)->create();
 
         $this
-            ->postJson(route('custom-field.relations.store'), $request)
-            ->assertJsonFragment([
-                'id'        => 1,
-                'parent_id' => strval($request['parent_id']),
-                'child_id'  => strval($request['child_id']),
+            ->postJson(route('custom-field.relations.store'), [
+                'parent_id' => $customFields->first()->id,
+                'child_id'  => $customFields->last()->id,
             ]);
 
         $this->assertCount(1, Relation::all());
@@ -54,24 +53,39 @@ class RelationControllerTest extends TestCase
     /** @test */
     public function can_update_relation()
     {
-        $relation = Relation::factory()->create();
+        $customFields = CustomField::factory()->count(5)->create();
 
-        $request = [
-            'child_id'  => now()->timestamp,
-            'parent_id' => now()->timestamp,
-        ];
+        $cf1 = $customFields->first()->id;
+        $cf2 = $customFields->last()->id;
+
+        $relation = Relation::factory()->create([
+            'parent_id' => $cf1,
+            'child_id'  => $cf2,
+        ]);
+
+        $random1 = $customFields->whereNotIn('id', [$cf1, $cf2])->random()->id;
+        $random2 = $customFields->whereNotIn('id', [$cf1, $cf2, $random1])->random()->id;
 
         $this
-            ->putJson(route('custom-field.relations.update', $relation->id), $request)
+            ->putJson(route('custom-field.relations.update', $relation->id), [
+                'parent_id' => strval($random1),
+            ])
             ->assertJsonFragment([
-                'child_id'  => strval($request['child_id']),
-                'parent_id' => strval($request['parent_id']),
+                'parent_id' => strval($random1),
+            ]);
+
+        $this
+            ->putJson(route('custom-field.relations.update', $relation->id), [
+                'child_id' => strval($random2),
+            ])
+            ->assertJsonFragment([
+                'child_id' => strval($random2),
             ]);
 
         $relation->refresh();
 
-        $this->assertEquals($request['child_id'], $relation->child_id);
-        $this->assertEquals($request['child_id'], $relation->parent_id);
+        $this->assertEquals($random1, $relation->parent_id);
+        $this->assertEquals($random2, $relation->child_id);
     }
 
     /** @test */

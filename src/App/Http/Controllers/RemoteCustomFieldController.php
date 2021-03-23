@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
-use Asseco\CustomFields\App\Http\Requests\CustomFieldRequest;
+use Asseco\CustomFields\App\Http\Requests\RemoteCustomFieldRequest;
 use Asseco\CustomFields\App\Models\CustomField;
 use Asseco\CustomFields\App\Models\PlainType;
-use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -41,23 +41,21 @@ class RemoteCustomFieldController extends Controller
      * @except selectable_type selectable_id
      * @append remote RemoteType
      *
-     * @param CustomFieldRequest $request
+     * @param RemoteCustomFieldRequest $request
      * @return JsonResponse
-     * @throws Exception
      */
-    public function store(CustomFieldRequest $request): JsonResponse
+    public function store(RemoteCustomFieldRequest $request): JsonResponse
     {
-        if (!$request->has('remote')) {
-            throw new Exception('Remote data needs to be provided');
-        }
+        $data = $request->validated();
 
-        $customField = DB::transaction(function () use ($request) {
+        /** @var CustomField $customField */
+        $customField = DB::transaction(function () use ($data) {
 
             /**
              * @var Model $remoteTypeModel
              */
             $remoteTypeModel = $this->remoteClass;
-            $remoteType = $remoteTypeModel::query()->create($request->get('remote'));
+            $remoteType = $remoteTypeModel::query()->create(Arr::get($data, 'remote'));
 
             $selectableData = [
                 'selectable_type' => $this->remoteClass,
@@ -67,11 +65,13 @@ class RemoteCustomFieldController extends Controller
             // Force casting remote types to string unless we decide on different implementation.
             $plainTypeId = PlainType::query()->where('name', 'string')->firstOrFail()->id;
 
+            $cfData = Arr::except($data, 'remote');
+
             return CustomField::query()->create(
-                $request->merge($selectableData)->merge(['plain_type_id' => $plainTypeId])->except('remote')
+                array_merge($cfData, $selectableData, ['plain_type_id' => $plainTypeId])
             );
         });
 
-        return response()->json($customField->load('selectable'));
+        return response()->json($customField->refresh()->load('selectable'));
     }
 }

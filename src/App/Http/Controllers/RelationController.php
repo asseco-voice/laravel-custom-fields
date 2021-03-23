@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
+use Asseco\CustomFields\App\Http\Requests\RelationRequest;
 use Asseco\CustomFields\App\Models\Relation;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 /**
  * @group Custom Field Relations
@@ -27,12 +27,12 @@ class RelationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param RelationRequest $request
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(RelationRequest $request): JsonResponse
     {
-        $relation = Relation::query()->create($request->all());
+        $relation = Relation::query()->create($request->validated());
 
         return response()->json($relation->refresh());
     }
@@ -51,13 +51,13 @@ class RelationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param RelationRequest $request
      * @param Relation $relation
      * @return JsonResponse
      */
-    public function update(Request $request, Relation $relation): JsonResponse
+    public function update(RelationRequest $request, Relation $relation): JsonResponse
     {
-        $relation->update($request->all());
+        $relation->update($request->validated());
 
         return response()->json($relation->refresh());
     }

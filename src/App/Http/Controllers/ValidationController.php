@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
+use Asseco\CustomFields\App\Http\Requests\ValidationRequest;
 use Asseco\CustomFields\App\Models\Validation;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 /**
  * @group Custom Field Validations
@@ -27,12 +27,12 @@ class ValidationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param ValidationRequest $request
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(ValidationRequest $request): JsonResponse
     {
-        $customFieldValidation = Validation::query()->create($request->all());
+        $customFieldValidation = Validation::query()->create($request->validated());
 
         return response()->json($customFieldValidation->refresh());
     }
@@ -51,13 +51,13 @@ class ValidationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param ValidationRequest $request
      * @param Validation $validation
      * @return JsonResponse
      */
-    public function update(Request $request, Validation $validation): JsonResponse
+    public function update(ValidationRequest $request, Validation $validation): JsonResponse
     {
-        $validation->update($request->all());
+        $validation->update($request->validated());
 
         return response()->json($validation->refresh());
     }
