@@ -36,7 +36,7 @@ class CustomFieldUpdateRequest extends FormRequest
             'label'         => 'sometimes|string|max:255',
             'placeholder'   => 'nullable|string',
             'required'      => 'boolean',
-            'validation_id' => 'exists:custom_field_validations',
+            'validation_id' => 'nullable|exists:custom_field_validations',
         ];
 
         return Arr::except($rules, self::LOCKED_FOR_EDITING);
