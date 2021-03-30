@@ -49,7 +49,7 @@ class CustomFieldController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CustomFieldCreateRequest $request
+     * @param CustomFieldUpdateRequest $request
      * @param CustomField $customField
      * @return JsonResponse
      */
