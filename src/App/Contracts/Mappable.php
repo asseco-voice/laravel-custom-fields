@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asseco\CustomFields\App\Contracts;
 
 interface Mappable
