@@ -13,4 +13,27 @@ trait Customizable
     {
         return $this->morphMany(Value::class, 'model');
     }
+
+    /**
+     * Append custom field key-value pairs to event. Key is CF name, value is exact value.
+     *
+     * @param array|null $customFieldValues
+     * @return array
+     */
+    public function flattenCustomFieldValues(?array $customFieldValues = null): array
+    {
+        $values = $customFieldValues ?: $this->customFieldValues->load('customField');
+
+        $mapped = [];
+
+        foreach ($values as $value) {
+            if (!$value instanceof Value) {
+                continue;
+            }
+
+            $mapped[$value->customField->name] = $value->value;
+        }
+
+        return $mapped;
+    }
 }
