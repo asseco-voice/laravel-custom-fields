@@ -27,7 +27,6 @@ trait Customizable
         $mapped = [];
 
         foreach ($values as $value) {
-
             if (!$value instanceof Value) {
                 continue;
             }
