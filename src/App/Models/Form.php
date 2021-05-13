@@ -132,8 +132,10 @@ class Form extends Model
         return !array_key_exists($customField->name, $formData) && $customField->required;
     }
 
-    public function createValues(array $formData, string $modelType, int $modelId)
+    public function createValues(array $formData, string $modelType, int $modelId): array
     {
+        $values = [];
+
         /**
          * @var CustomField $customField
          */
@@ -146,12 +148,14 @@ class Form extends Model
 
             $type = $customField->getValueColumn();
 
-            $customField->values()->updateOrCreate([
+            $values[] = $customField->values()->updateOrCreate([
                 'model_type' => $modelType,
                 'model_id'   => $modelId,
             ],
                 [$type => $formCustomField]
             );
         }
+
+        return $values;
     }
 }
