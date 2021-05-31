@@ -7,7 +7,6 @@ namespace Asseco\CustomFields\App\Models;
 use Asseco\CustomFields\App\PlainTypes\StringType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Config;
 
 abstract class ParentType extends Model
 {
