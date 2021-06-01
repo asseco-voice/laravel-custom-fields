@@ -32,6 +32,8 @@ class CustomFieldFactory extends Factory
             'model'           => $this->faker->word,
             'required'        => $this->faker->boolean(10),
             'validation_id'   => null,
+            'group'           => null,
+            'order'           => null,
             'created_at'      => now(),
             'updated_at'      => now(),
         ];

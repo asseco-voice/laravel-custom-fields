@@ -34,6 +34,8 @@ class CustomFieldCreateRequest extends FormRequest
             'model'           => 'required|string',
             'required'        => 'boolean',
             'validation_id'   => 'nullable|exists:custom_field_validations,id',
+            'group'           => 'nullable|string',
+            'order'           => 'nullable|integer',
         ];
     }
 

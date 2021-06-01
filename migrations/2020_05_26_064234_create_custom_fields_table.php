@@ -23,6 +23,8 @@ class CreateCustomFieldsTable extends Migration
             $table->string('model');
             $table->boolean('required')->default(0);
             $table->foreignId('validation_id')->nullable()->constrained('custom_field_validations')->nullOnDelete();
+            $table->string('group')->nullable();
+            $table->integer('order')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

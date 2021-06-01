@@ -32,6 +32,8 @@ class SelectionCustomFieldRequest extends FormRequest
             'model'                 => 'required|string',
             'required'              => 'boolean',
             'validation_id'         => 'nullable|exists:custom_field_validations',
+            'group'                 => 'nullable|string',
+            'order'                 => 'nullable|integer',
             'selection'             => 'array',
             'selection.multiselect' => 'boolean',
             'values'                => 'array',

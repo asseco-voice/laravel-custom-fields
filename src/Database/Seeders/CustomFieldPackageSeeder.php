@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Asseco\CustomFields\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Config;
 
 class CustomFieldPackageSeeder extends Seeder
 {
