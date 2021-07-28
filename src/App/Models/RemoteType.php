@@ -30,7 +30,7 @@ class RemoteType extends ParentType
 
     public function customFields(): MorphMany
     {
-        return $this->morphMany(CustomField::class, 'selectable');
+        return $this->morphMany(get_class(app('cf-custom-field')), 'selectable');
     }
 
     public function getNameAttribute()

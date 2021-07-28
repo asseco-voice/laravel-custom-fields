@@ -15,10 +15,12 @@ use Illuminate\Http\JsonResponse;
 class PlainCustomFieldController extends Controller
 {
     protected array $mappings;
+    protected CustomField $customField;
 
     public function __construct()
     {
         $this->mappings = config('asseco-custom-fields.type_mappings.plain');
+        $this->customField = app('cf-custom-field');
     }
 
     /**
@@ -32,7 +34,7 @@ class PlainCustomFieldController extends Controller
      */
     public function index(string $type = null): JsonResponse
     {
-        return response()->json(CustomField::plain($type)->get());
+        return response()->json($this->customField::plain($type)->get());
     }
 
     /**
@@ -57,7 +59,7 @@ class PlainCustomFieldController extends Controller
             'selectable_id'   => $typeModel::query()->firstOrFail('id')->id,
         ];
 
-        $customField = CustomField::query()->create(array_merge($data, $selectableData));
+        $customField = $this->customField::query()->create(array_merge($data, $selectableData));
 
         return response()->json($customField->refresh());
     }

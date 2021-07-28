@@ -12,7 +12,7 @@ abstract class ParentType extends Model
 {
     public function type(): BelongsTo
     {
-        return $this->belongsTo(PlainType::class, 'plain_type_id');
+        return $this->belongsTo(get_class(app('cf-plain-type')), 'plain_type_id');
     }
 
     public function subTypeClassPath(): string

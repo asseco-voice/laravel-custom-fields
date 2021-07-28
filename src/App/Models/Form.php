@@ -80,7 +80,9 @@ class Form extends Model
             return;
         }
 
-        $customField = CustomField::query()->where('name', $key)->first();
+        /** @var CustomField $customFieldClass */
+        $customFieldClass = app('cf-custom-field');
+        $customField = $customFieldClass::query()->where('name', $key)->first();
 
         if ($customField) {
             $this->customFields()->attach($customField->id);
@@ -94,7 +96,7 @@ class Form extends Model
 
     public function customFields(): BelongsToMany
     {
-        return $this->belongsToMany(CustomField::class)->withTimestamps();
+        return $this->belongsToMany(get_class(app('cf-custom-field')))->withTimestamps();
     }
 
     /**

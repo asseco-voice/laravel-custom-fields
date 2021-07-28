@@ -18,12 +18,15 @@ class CreateCustomFieldValuesTable extends Migration
 
             $table->foreignId('custom_field_id')->constrained()->cascadeOnDelete();
             $table->morphs('model');
+
             $table->string('string', 255)->nullable();
             $table->integer('integer')->nullable();
             $table->float('float', 18, 6)->nullable();
-            $table->date('date')->nullable();
             $table->text('text')->nullable();
             $table->boolean('boolean')->nullable();
+            $table->datetime('datetime')->nullable();
+            $table->date('date')->nullable();
+            $table->time('time')->nullable();
 
             $table->timestamps();
         });

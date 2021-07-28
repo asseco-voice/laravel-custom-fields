@@ -11,7 +11,7 @@ trait Customizable
 {
     public function customFieldValues(): MorphMany
     {
-        return $this->morphMany(Value::class, 'model');
+        return $this->morphMany(get_class(app('cf-value')), 'model');
     }
 
     /**

@@ -14,6 +14,13 @@ use Illuminate\Http\JsonResponse;
  */
 class RelationController extends Controller
 {
+    protected Relation $relation;
+
+    public function __construct()
+    {
+        $this->relation = app('cf-relation');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +28,7 @@ class RelationController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(Relation::all());
+        return response()->json($this->relation::all());
     }
 
     /**
@@ -32,7 +39,7 @@ class RelationController extends Controller
      */
     public function store(RelationRequest $request): JsonResponse
     {
-        $relation = Relation::query()->create($request->validated());
+        $relation = $this->relation::query()->create($request->validated());
 
         return response()->json($relation->refresh());
     }

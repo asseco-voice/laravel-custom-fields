@@ -26,7 +26,7 @@ class Validation extends Model
 
     public function customFields(): HasMany
     {
-        return $this->hasMany(CustomField::class);
+        return $this->hasMany(get_class(app('cf-custom-field')));
     }
 
     public function validate($input): void

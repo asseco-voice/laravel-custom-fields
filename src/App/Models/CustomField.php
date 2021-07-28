@@ -18,6 +18,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * @method static Builder plain(string $subType = null)
+ * @method static Builder remote()
+ * @method static Builder selection()
+ *
+ * Class CustomField
+ * @package Asseco\CustomFields\App\Models
+ */
 class CustomField extends Model
 {
     use SoftDeletes, HasFactory;
@@ -44,34 +52,37 @@ class CustomField extends Model
 
     public function scopePlain(Builder $query, string $subType = null): Builder
     {
-        $selectable = $subType ? PlainType::getSubTypeClass($subType) : PlainType::subTypes();
+        /** @var PlainType $plainType */
+        $plainType = app('cf-plain-type');
+
+        $selectable = $subType ? $plainType::getSubTypeClass($subType) : $plainType::subTypes();
 
         return $query->whereHasMorph('selectable', $selectable);
     }
 
     public function scopeRemote(Builder $query): Builder
     {
-        return $query->whereHasMorph('selectable', [RemoteType::class]);
+        return $query->whereHasMorph('selectable', [get_class(app('cf-remote-type'))]);
     }
 
     public function scopeSelection(Builder $query): Builder
     {
-        return $query->whereHasMorph('selectable', [SelectionType::class]);
+        return $query->whereHasMorph('selectable', [get_class(app('cf-selection-type'))]);
     }
 
     public function values(): HasMany
     {
-        return $this->hasMany(Value::class);
+        return $this->hasMany(get_class(app('cf-value')));
     }
 
     public function forms(): BelongsToMany
     {
-        return $this->belongsToMany(Form::class)->withTimestamps();
+        return $this->belongsToMany(get_class(app('cf-form')))->withTimestamps();
     }
 
     public function validation(): BelongsTo
     {
-        return $this->belongsTo(Validation::class);
+        return $this->belongsTo(get_class(app('cf-validation')));
     }
 
     public function validate($input): void
@@ -86,14 +97,14 @@ class CustomField extends Model
 
     public function children(): BelongsToMany
     {
-        return $this->belongsToMany(CustomField::class,
+        return $this->belongsToMany(get_class(app('cf-custom-field')),
             'custom_field_relations', 'parent_id', 'child_id')
             ->withTimestamps();
     }
 
     public function parent(): BelongsToMany
     {
-        return $this->belongsToMany(CustomField::class,
+        return $this->belongsToMany(get_class(app('cf-custom-field')),
             'custom_field_relations', 'child_id', 'parent_id')
             ->withTimestamps();
     }
@@ -108,8 +119,11 @@ class CustomField extends Model
 
     public function getValueColumn(): string
     {
+        /** @var Value $value */
+        $value = app('cf-value');
+
         if (!class_exists($this->selectable_type)) {
-            return Value::FALLBACK_VALUE_COLUMN;
+            return $value::FALLBACK_VALUE_COLUMN;
         }
 
         $selectable = $this->selectable;
@@ -125,17 +139,20 @@ class CustomField extends Model
             return $mappable::mapToValueColumn();
         }
 
-        return Value::FALLBACK_VALUE_COLUMN;
+        return $value::FALLBACK_VALUE_COLUMN;
     }
 
     public function shortFormat($value): array
     {
+        /** @var Value $cfValue */
+        $cfValue = app('cf-value');
+
         $type = null;
 
         if (!class_exists($this->selectable_type)) {
-            Log::info("Custom field $this->name has an invalid selectable class, falling back to " . Value::FALLBACK_VALUE_COLUMN);
+            Log::info("Custom field $this->name has an invalid selectable class, falling back to " . $cfValue::FALLBACK_VALUE_COLUMN);
 
-            $type = Value::FALLBACK_VALUE_COLUMN;
+            $type = $cfValue::FALLBACK_VALUE_COLUMN;
         }
 
         return [$this->name => [

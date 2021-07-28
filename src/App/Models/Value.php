@@ -20,7 +20,9 @@ class Value extends Model
     /**
      * Columns which are classified as value columns.
      */
-    public const VALUE_COLUMNS = ['string', 'integer', 'float', 'date', 'text', 'boolean'];
+    public const VALUE_COLUMNS = [
+        'string', 'integer', 'float', 'text', 'boolean', 'datetime', 'date', 'time'
+    ];
 
     /**
      * Fallback column if a concrete value column can't be extracted.
@@ -45,7 +47,7 @@ class Value extends Model
 
     public function customField(): BelongsTo
     {
-        return $this->belongsTo(CustomField::class);
+        return $this->belongsTo(get_class(app('cf-custom-field')));
     }
 
     public function getValueAttribute()
@@ -65,10 +67,12 @@ class Value extends Model
      */
     public static function validateCreate(Request $request): void
     {
+        /** @var CustomField $customFieldClass */
+        $customFieldClass = app('cf-custom-field');
         /**
          * @var CustomField $customField
          */
-        $customField = CustomField::query()
+        $customField = $customFieldClass::query()
             ->with(['validation', 'selectable'])
             ->findOrFail($request->get('custom_field_id'));
 

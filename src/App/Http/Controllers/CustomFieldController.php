@@ -12,6 +12,13 @@ use Illuminate\Http\JsonResponse;
 
 class CustomFieldController extends Controller
 {
+    protected CustomField $customField;
+
+    public function __construct()
+    {
+        $this->customField = app('cf-custom-field');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +26,7 @@ class CustomFieldController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(CustomField::all());
+        return response()->json($this->customField::all());
     }
 
     /**
@@ -30,7 +37,7 @@ class CustomFieldController extends Controller
      */
     public function store(CustomFieldCreateRequest $request): JsonResponse
     {
-        $customField = CustomField::query()->create($request->validated());
+        $customField = $this->customField::query()->create($request->validated());
 
         return response()->json($customField->refresh());
     }

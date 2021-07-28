@@ -6,7 +6,6 @@ use Asseco\CustomFields\App\Http\Controllers\ModelController;
 use Asseco\CustomFields\App\Http\Controllers\PlainCustomFieldController;
 use Asseco\CustomFields\App\Http\Controllers\RelationController;
 use Asseco\CustomFields\App\Http\Controllers\RemoteCustomFieldController;
-use Asseco\CustomFields\App\Http\Controllers\RemoteValuesController;
 use Asseco\CustomFields\App\Http\Controllers\SelectionCustomFieldController;
 use Asseco\CustomFields\App\Http\Controllers\SelectionValueController;
 use Asseco\CustomFields\App\Http\Controllers\TypeController;
@@ -26,7 +25,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::pattern('plain_type', PlainType::getRegexSubTypes());
+/** @var PlainType $plainType */
+$plainType = app('cf-plain-type');
+
+Route::pattern('plain_type', $plainType::getRegexSubTypes());
 
 Route::prefix('api')->middleware('api')->group(function () {
     Route::apiResource('custom-fields', CustomFieldController::class);
@@ -39,10 +41,9 @@ Route::prefix('api')->middleware('api')->group(function () {
         Route::post('plain/{plain_type}', [PlainCustomFieldController::class, 'store'])->name('plain.store');
 
         Route::apiResource('remote', RemoteCustomFieldController::class)->only(['index', 'store']);
-        Route::get('remote-values/{remote_type}', [RemoteValuesController::class, 'show'])->name('remote-values.show');
+        Route::get('remote/{remote_type}/resolve', [RemoteCustomFieldController::class, 'resolve'])->name('remote.resolve');
 
         Route::get('selection', [SelectionCustomFieldController::class, 'index'])->name('selection.index');
-        Route::get('selection/{selection}', [SelectionCustomFieldController::class, 'show'])->name('selection.show');
         Route::post('selection/{plain_type}', [SelectionCustomFieldController::class, 'store'])->name('selection.store');
 
         Route::apiResource('selection-values', SelectionValueController::class);

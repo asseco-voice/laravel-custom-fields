@@ -15,6 +15,13 @@ use Illuminate\Http\Request;
  */
 class FormController extends Controller
 {
+    protected Form $form;
+
+    public function __construct()
+    {
+        $this->form = app('cf-form');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +29,7 @@ class FormController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(Form::all());
+        return response()->json($this->form::all());
     }
 
     /**
@@ -33,7 +40,7 @@ class FormController extends Controller
      */
     public function store(FormRequest $request): JsonResponse
     {
-        $form = Form::query()->create($request->validated());
+        $form = $this->form::query()->create($request->validated());
 
         return response()->json($form->refresh());
     }
@@ -88,7 +95,7 @@ class FormController extends Controller
         /**
          * @var Form $form
          */
-        $form = Form::query()->where('name', $formName)->firstOrFail();
+        $form = $this->form::query()->where('name', $formName)->firstOrFail();
 
         return response()->json($form->validate($request->all()));
     }
