@@ -21,7 +21,7 @@ class Value extends Model
      * Columns which are classified as value columns.
      */
     public const VALUE_COLUMNS = [
-        'string', 'integer', 'float', 'text', 'boolean', 'datetime', 'date', 'time'
+        'string', 'integer', 'float', 'text', 'boolean', 'datetime', 'date', 'time',
     ];
 
     /**

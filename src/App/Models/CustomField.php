@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Log;
  * @method static Builder selection()
  *
  * Class CustomField
- * @package Asseco\CustomFields\App\Models
  */
 class CustomField extends Model
 {
