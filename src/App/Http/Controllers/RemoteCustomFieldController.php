@@ -7,10 +7,14 @@ namespace Asseco\CustomFields\App\Http\Controllers;
 use Asseco\CustomFields\App\Http\Requests\RemoteCustomFieldRequest;
 use Asseco\CustomFields\App\Models\CustomField;
 use Asseco\CustomFields\App\Models\PlainType;
+use Asseco\CustomFields\App\Models\RemoteType;
+use Asseco\CustomFields\App\Traits\TransformsOutput;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 /**
  * @group Remote Custom Fields
@@ -18,11 +22,15 @@ use Illuminate\Support\Facades\DB;
  */
 class RemoteCustomFieldController extends Controller
 {
+    use TransformsOutput;
+
     protected string $remoteClass;
+    protected CustomField $customField;
 
     public function __construct()
     {
         $this->remoteClass = config('asseco-custom-fields.type_mappings.remote');
+        $this->customField = app('cf-custom-field');
     }
 
     /**
@@ -32,7 +40,7 @@ class RemoteCustomFieldController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(CustomField::remote()->get());
+        return response()->json($this->customField::remote()->get());
     }
 
     /**
@@ -63,15 +71,37 @@ class RemoteCustomFieldController extends Controller
             ];
 
             // Force casting remote types to string unless we decide on different implementation.
-            $plainTypeId = PlainType::query()->where('name', 'string')->firstOrFail()->id;
+            /** @var PlainType $plainType */
+            $plainType = app('cf-plain-type');
+            $plainTypeId = $plainType::query()->where('name', 'string')->firstOrFail()->id;
 
             $cfData = Arr::except($data, 'remote');
 
-            return CustomField::query()->create(
+            return $this->customField::query()->create(
                 array_merge($cfData, $selectableData, ['plain_type_id' => $plainTypeId])
             );
         });
 
         return response()->json($customField->refresh()->load('selectable'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param RemoteType $remoteType
+     * @return JsonResponse
+     */
+    public function resolve(RemoteType $remoteType): JsonResponse
+    {
+        /**
+         * @var Response $response
+         */
+        $response = Http::withHeaders($remoteType->headers ?: [])
+            ->withBody($remoteType->body, 'application/json')
+            ->{$remoteType->method}($remoteType->url);
+
+        $transformed = $this->transform($response->json(), json_decode($remoteType->mappings, true));
+
+        return response()->json($transformed);
     }
 }

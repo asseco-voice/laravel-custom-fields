@@ -14,6 +14,13 @@ use Illuminate\Http\JsonResponse;
  */
 class ValidationController extends Controller
 {
+    protected Validation $validation;
+
+    public function __construct()
+    {
+        $this->validation = app('cf-validation');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +28,7 @@ class ValidationController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(Validation::all());
+        return response()->json($this->validation::all());
     }
 
     /**
@@ -32,7 +39,7 @@ class ValidationController extends Controller
      */
     public function store(ValidationRequest $request): JsonResponse
     {
-        $customFieldValidation = Validation::query()->create($request->validated());
+        $customFieldValidation = $this->validation::query()->create($request->validated());
 
         return response()->json($customFieldValidation->refresh());
     }

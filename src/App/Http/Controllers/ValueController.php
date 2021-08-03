@@ -15,6 +15,13 @@ use Throwable;
  */
 class ValueController extends Controller
 {
+    protected Value $value;
+
+    public function __construct()
+    {
+        $this->value = app('cf-value');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +29,7 @@ class ValueController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(Value::all());
+        return response()->json($this->value::all());
     }
 
     /**
@@ -34,9 +41,9 @@ class ValueController extends Controller
      */
     public function store(ValueRequest $request): JsonResponse
     {
-        Value::validateCreate($request);
+        $this->value::validateCreate($request);
 
-        $value = Value::query()->create($request->validated());
+        $value = $this->value::query()->create($request->validated());
 
         return response()->json($value->refresh());
     }

@@ -24,6 +24,6 @@ class SelectionValue extends Model
 
     public function selectionType(): BelongsTo
     {
-        return $this->belongsTo(SelectionType::class);
+        return $this->belongsTo(get_class(app('cf-selection-type')));
     }
 }

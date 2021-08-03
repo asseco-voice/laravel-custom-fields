@@ -19,6 +19,8 @@ class TypeController extends Controller
      * remote string
      * selection string
      *
+     * @operationId CustomFieldTypes
+     *
      * @return JsonResponse
      */
     public function index(): JsonResponse

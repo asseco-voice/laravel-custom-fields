@@ -26,12 +26,12 @@ class SelectionType extends ParentType
 
     public function customFields(): MorphMany
     {
-        return $this->morphMany(CustomField::class, 'selectable');
+        return $this->morphMany(get_class(app('cf-custom-field')), 'selectable');
     }
 
     public function values(): HasMany
     {
-        return $this->hasMany(SelectionValue::class);
+        return $this->hasMany(get_class(app('cf-selection-value')));
     }
 
     public function getNameAttribute()

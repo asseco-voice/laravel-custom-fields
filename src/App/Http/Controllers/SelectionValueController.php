@@ -14,6 +14,13 @@ use Illuminate\Http\JsonResponse;
  */
 class SelectionValueController extends Controller
 {
+    protected SelectionValue $selectionValue;
+
+    public function __construct()
+    {
+        $this->selectionValue = app('cf-selection-value');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +28,7 @@ class SelectionValueController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(SelectionValue::all());
+        return response()->json($this->selectionValue::all());
     }
 
     /**
@@ -32,7 +39,7 @@ class SelectionValueController extends Controller
      */
     public function store(SelectionValueRequest $request): JsonResponse
     {
-        $selectionValue = SelectionValue::query()->create($request->validated());
+        $selectionValue = $this->selectionValue::query()->create($request->validated());
 
         return response()->json($selectionValue->refresh());
     }

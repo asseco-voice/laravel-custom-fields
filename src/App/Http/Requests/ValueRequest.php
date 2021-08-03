@@ -33,9 +33,11 @@ class ValueRequest extends FormRequest
             'string'          => 'nullable|string|max:255',
             'integer'         => 'nullable|integer',
             'float'           => 'nullable|numeric',
-            'date'            => 'nullable|string',
             'text'            => 'nullable|string',
             'boolean'         => 'nullable|boolean',
+            'datetime'        => 'nullable|string',
+            'date'            => 'nullable|string',
+            'time'            => 'nullable|string',
         ];
     }
 
