@@ -14,13 +14,6 @@ class CustomFieldsServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/asseco-custom-fields.php', 'asseco-custom-fields');
-        $this->bindClasses();
-
-        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
-
-        if (config('asseco-custom-fields.runs_migrations')) {
-            $this->loadMigrationsFrom(__DIR__ . '/../migrations');
-        }
     }
 
     /**
@@ -28,6 +21,14 @@ class CustomFieldsServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->bindClasses();
+
+        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
+
+        if (config('asseco-custom-fields.runs_migrations')) {
+            $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+        }
+
         $this->publishes([
             __DIR__ . '/../migrations' => database_path('migrations'),
         ], 'asseco-custom-fields');
