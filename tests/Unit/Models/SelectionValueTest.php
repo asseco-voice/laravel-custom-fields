@@ -14,7 +14,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 class SelectionValueTest extends TestCase
 {
     use DatabaseMigrations;
-    
+
     protected PlainType $plainType;
     protected SelectionType $selectionType;
     protected SelectionValue $selectionValue;

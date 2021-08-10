@@ -15,7 +15,6 @@ class RemoteTypeTest extends TestCase
 {
     use DatabaseMigrations;
 
-
     protected CustomField $customField;
     protected PlainType $plainType;
     protected RemoteType $remoteType;

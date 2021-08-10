@@ -7,7 +7,6 @@ namespace Asseco\CustomFields\App\Http\Controllers;
 use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\App\Contracts\PlainType;
 use Asseco\CustomFields\App\Contracts\SelectionValue;
-use Asseco\CustomFields\App\Contracts\Value;
 use Asseco\CustomFields\App\Http\Requests\SelectionCustomFieldRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
@@ -90,6 +89,7 @@ class SelectionCustomFieldController extends Controller
             ];
 
             $cfData = Arr::except($data, ['selection', 'values']);
+
             return $this->customField::query()->create(array_merge($cfData, $selectableData));
         });
 

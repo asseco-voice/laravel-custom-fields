@@ -24,7 +24,7 @@ class ValueTest extends TestCase
         $this->customField = app(CustomField::class);
         $this->value = app(Value::class);
     }
-    
+
     /** @test */
     public function has_factory()
     {

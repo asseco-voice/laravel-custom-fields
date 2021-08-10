@@ -15,7 +15,6 @@ class CreateCustomFieldPlainTypesTable extends Migration
     public function up()
     {
         Schema::create('custom_field_plain_types', function (Blueprint $table) {
-
             if (config('asseco-custom-fields.migrations.uuid')) {
                 $table->uuid('id')->primary();
             } else {
