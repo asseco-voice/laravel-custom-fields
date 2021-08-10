@@ -82,7 +82,10 @@ class CustomFieldSeeder extends Seeder
 
     private function shouldValidate(Model $model)
     {
-        $column = Value::FALLBACK_VALUE_COLUMN;
+        /** @var Value $value */
+        $value = app(Value::class);
+
+        $column = $value::FALLBACK_VALUE_COLUMN;
 
         if ($model instanceof Mappable) {
             $column = $model::mapToValueColumn();
