@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
+use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\App\Http\Requests\PlainCustomFieldRequest;
-use Asseco\CustomFields\App\Models\CustomField;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 
@@ -14,13 +14,13 @@ use Illuminate\Http\JsonResponse;
  */
 class PlainCustomFieldController extends Controller
 {
-    protected array $mappings;
     protected CustomField $customField;
+    protected array $mappings;
 
-    public function __construct()
+    public function __construct(CustomField $customField)
     {
-        $this->mappings = config('asseco-custom-fields.type_mappings.plain');
-        $this->customField = app('cf-custom-field');
+        $this->customField = $customField;
+        $this->mappings = config('asseco-custom-fields.plain_types');
     }
 
     /**

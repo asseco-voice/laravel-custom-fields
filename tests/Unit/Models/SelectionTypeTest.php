@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Tests\Unit\Models;
 
-use Asseco\CustomFields\App\Models\CustomField;
-use Asseco\CustomFields\App\Models\PlainType;
-use Asseco\CustomFields\App\Models\SelectionType;
-use Asseco\CustomFields\App\Models\SelectionValue;
+use Asseco\CustomFields\App\Contracts\CustomField;
+use Asseco\CustomFields\App\Contracts\PlainType;
+use Asseco\CustomFields\App\Contracts\SelectionType;
+use Asseco\CustomFields\App\Contracts\SelectionValue;
 use Asseco\CustomFields\Database\Factories\SelectionTypeFactory;
 use Asseco\CustomFields\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -16,10 +16,25 @@ class SelectionTypeTest extends TestCase
 {
     use DatabaseMigrations;
 
+    protected CustomField $customField;
+    protected PlainType $plainType;
+    protected SelectionType $selectionType;
+    protected SelectionValue $selectionValue;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->customField = app(CustomField::class);
+        $this->plainType = app(PlainType::class);
+        $this->selectionType = app(SelectionType::class);
+        $this->selectionValue = app(SelectionValue::class);
+    }
+
     /** @test */
     public function has_factory()
     {
-        $this->assertInstanceOf(SelectionTypeFactory::class, SelectionType::factory());
+        $this->assertInstanceOf(SelectionTypeFactory::class, $this->selectionType::factory());
     }
 
     /** @test */
@@ -27,8 +42,8 @@ class SelectionTypeTest extends TestCase
     {
         $selectionType = $this->createSelectionType();
 
-        $customField = CustomField::factory()->create([
-            'selectable_type' => SelectionType::class,
+        $customField = $this->customField::factory()->create([
+            'selectable_type' => get_class($this->selectionType),
             'selectable_id'   => $selectionType->id,
         ]);
 
@@ -40,7 +55,7 @@ class SelectionTypeTest extends TestCase
     {
         $selectionType = $this->createSelectionType();
 
-        $selectionValue = SelectionValue::factory()->create([
+        $selectionValue = $this->selectionValue::factory()->create([
             'selection_type_id' => $selectionType->id,
         ]);
 
@@ -50,15 +65,15 @@ class SelectionTypeTest extends TestCase
     /** @test */
     public function appends_name_attribute()
     {
-        $remoteType = SelectionType::factory()->make();
+        $remoteType = $this->selectionType::factory()->make();
 
         $this->assertEquals('selection', $remoteType->name);
     }
 
     protected function createSelectionType()
     {
-        return SelectionType::factory()->create([
-            'plain_type_id' => PlainType::factory()->create()->id,
+        return $this->selectionType::factory()->create([
+            'plain_type_id' => $this->plainType::factory()->create()->id,
         ]);
     }
 }

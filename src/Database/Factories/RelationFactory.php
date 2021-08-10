@@ -9,12 +9,10 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RelationFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Relation::class;
+    public function modelName()
+    {
+        return config('asseco-custom-fields.models.relation');
+    }
 
     /**
      * Define the model's default state.

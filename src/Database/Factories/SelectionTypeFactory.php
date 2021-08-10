@@ -9,12 +9,10 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SelectionTypeFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = SelectionType::class;
+    public function modelName()
+    {
+        return config('asseco-custom-fields.models.selection_type');
+    }
 
     /**
      * Define the model's default state.

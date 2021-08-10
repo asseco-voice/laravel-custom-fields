@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Models;
 
+use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\Database\Factories\FormFactory;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 
-class Form extends Model
+class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
 {
-    use SoftDeletes, HasFactory;
+    use HasFactory;
 
     protected $fillable = ['tenant_id', 'name', 'definition', 'action_url'];
 
@@ -31,6 +31,11 @@ class Form extends Model
     protected $casts = [
         'definition' => 'array',
     ];
+
+    protected static function newFactory()
+    {
+        return FormFactory::new();
+    }
 
     protected static function booted()
     {
@@ -81,7 +86,7 @@ class Form extends Model
         }
 
         /** @var CustomField $customFieldClass */
-        $customFieldClass = app('cf-custom-field');
+        $customFieldClass = app(CustomField::class);
         $customField = $customFieldClass::query()->where('name', $key)->first();
 
         if ($customField) {
@@ -89,14 +94,9 @@ class Form extends Model
         }
     }
 
-    protected static function newFactory()
-    {
-        return FormFactory::new();
-    }
-
     public function customFields(): BelongsToMany
     {
-        return $this->belongsToMany(get_class(app('cf-custom-field')))->withTimestamps();
+        return $this->belongsToMany(get_class(app(CustomField::class)))->withTimestamps();
     }
 
     /**

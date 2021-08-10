@@ -1,5 +1,6 @@
 <?php
 
+use Asseco\BlueprintAudit\App\MigrationMethodPicker;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,10 +15,15 @@ class CreateCustomFieldValuesTable extends Migration
     public function up()
     {
         Schema::create('custom_field_values', function (Blueprint $table) {
-            $table->id();
-
-            $table->foreignId('custom_field_id')->constrained()->cascadeOnDelete();
-            $table->morphs('model');
+            if (config('asseco-custom-fields.migrations.uuid')) {
+                $table->uuid('id')->primary();
+                $table->foreignUuid('custom_field_id')->constrained()->cascadeOnDelete();
+                $table->uuidMorphs('model');
+            } else {
+                $table->id();
+                $table->foreignId('custom_field_id')->constrained()->cascadeOnDelete();
+                $table->morphs('model');
+            }
 
             $table->string('string', 255)->nullable();
             $table->integer('integer')->nullable();
@@ -28,7 +34,7 @@ class CreateCustomFieldValuesTable extends Migration
             $table->date('date')->nullable();
             $table->time('time')->nullable();
 
-            $table->timestamps();
+            MigrationMethodPicker::pick($table, config('asseco-custom-fields.migrations.timestamps'));
         });
     }
 

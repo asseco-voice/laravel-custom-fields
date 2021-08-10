@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Models;
 
+use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\Database\Factories\ValidationFactory;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Validation extends Model
+class Validation extends Model implements \Asseco\CustomFields\App\Contracts\Validation
 {
-    use SoftDeletes, HasFactory;
+    use HasFactory;
 
     protected $table = 'custom_field_validations';
 
@@ -26,7 +26,7 @@ class Validation extends Model
 
     public function customFields(): HasMany
     {
-        return $this->hasMany(get_class(app('cf-custom-field')));
+        return $this->hasMany(get_class(app(CustomField::class)));
     }
 
     public function validate($input): void

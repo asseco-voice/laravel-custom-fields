@@ -4,14 +4,29 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Tests\Feature\Http\Controllers;
 
-use Asseco\CustomFields\App\Models\CustomField;
-use Asseco\CustomFields\App\Models\PlainType;
-use Asseco\CustomFields\App\Models\SelectionType;
-use Asseco\CustomFields\App\Models\SelectionValue;
+use Asseco\CustomFields\App\Contracts\CustomField;
+use Asseco\CustomFields\App\Contracts\PlainType;
+use Asseco\CustomFields\App\Contracts\SelectionType;
+use Asseco\CustomFields\App\Contracts\SelectionValue;
 use Asseco\CustomFields\Tests\TestCase;
 
 class SelectionCustomFieldControllerTest extends TestCase
 {
+    protected CustomField $customField;
+    protected PlainType $plainType;
+    protected SelectionType $selectionType;
+    protected SelectionValue $selectionValue;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->customField = app(CustomField::class);
+        $this->plainType = app(PlainType::class);
+        $this->selectionType = app(SelectionType::class);
+        $this->selectionValue = app(SelectionValue::class);
+    }
+
     /** @test */
     public function returns_only_selection_custom_fields()
     {
@@ -19,28 +34,28 @@ class SelectionCustomFieldControllerTest extends TestCase
             ->getJson(route('custom-field.selection.index'))
             ->assertJsonCount(0);
 
-        $selectionType = SelectionType::factory()->create([
-            'plain_type_id' => PlainType::factory()->create(['name' => 'string'])->id,
+        $selectionType = $this->selectionType::factory()->create([
+            'plain_type_id' => $this->plainType::factory()->create(['name' => 'string'])->id,
         ]);
 
-        CustomField::factory()->create([
-            'selectable_type' => SelectionType::class,
+        $this->customField::factory()->create([
+            'selectable_type' => get_class($this->selectionType),
             'selectable_id'   => $selectionType->id,
         ]);
 
-        CustomField::factory()->count(5)->create();
+        $this->customField::factory()->count(5)->create();
 
         $this
             ->getJson(route('custom-field.selection.index'))
             ->assertJsonCount(1);
 
-        $this->assertCount(6, CustomField::all());
+        $this->assertCount(6, $this->customField::all());
     }
 
     /** @test */
     public function rejects_creating_selection_custom_field_with_invalid_name()
     {
-        $request = CustomField::factory()->make([
+        $request = $this->customField::factory()->make([
             'name' => 'invalid name',
         ])->toArray();
 
@@ -52,10 +67,10 @@ class SelectionCustomFieldControllerTest extends TestCase
     /** @test */
     public function creates_selection_custom_field()
     {
-        $request = CustomField::factory()->make()->toArray();
+        $request = $this->customField::factory()->make()->toArray();
 
-        $request['selection'] = SelectionType::factory()->make([
-            'plain_type_id' => PlainType::factory()->create(['name' => 'string'])->id,
+        $request['selection'] = $this->selectionType::factory()->make([
+            'plain_type_id' => $this->plainType::factory()->create(['name' => 'string'])->id,
         ])->toArray();
 
         $this
@@ -65,19 +80,19 @@ class SelectionCustomFieldControllerTest extends TestCase
                 'name' => $request['name'],
             ]);
 
-        $this->assertCount(1, CustomField::all());
+        $this->assertCount(1, $this->customField::all());
     }
 
     /** @test */
     public function creates_selection_custom_field_with_values()
     {
-        $request = CustomField::factory()->make()->toArray();
+        $request = $this->customField::factory()->make()->toArray();
 
-        $request['selection'] = SelectionType::factory()->make([
-            'plain_type_id' => PlainType::factory()->create(['name' => 'string'])->id,
+        $request['selection'] = $this->selectionType::factory()->make([
+            'plain_type_id' => $this->plainType::factory()->create(['name' => 'string'])->id,
         ])->toArray();
 
-        $request['values'] = SelectionValue::factory()->count(5)->make()->toArray();
+        $request['values'] = $this->selectionValue::factory()->count(5)->make()->toArray();
 
         $this
             ->postJson(route('custom-field.selection.store', 'string'), $request)
@@ -86,7 +101,7 @@ class SelectionCustomFieldControllerTest extends TestCase
                 'name' => $request['name'],
             ]);
 
-        $this->assertCount(1, CustomField::all());
-        $this->assertCount(5, SelectionValue::all());
+        $this->assertCount(1, $this->customField::all());
+        $this->assertCount(5, $this->selectionValue::all());
     }
 }

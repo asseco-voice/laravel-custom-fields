@@ -4,7 +4,14 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Models;
 
+use Asseco\CustomFields\App\Contracts\CustomField as CustomFieldContract;
+use Asseco\CustomFields\App\Contracts\Form;
 use Asseco\CustomFields\App\Contracts\Mappable;
+use Asseco\CustomFields\App\Contracts\PlainType;
+use Asseco\CustomFields\App\Contracts\RemoteType;
+use Asseco\CustomFields\App\Contracts\SelectionType;
+use Asseco\CustomFields\App\Contracts\Validation;
+use Asseco\CustomFields\App\Contracts\Value;
 use Asseco\CustomFields\Database\Factories\CustomFieldFactory;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,8 +21,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -25,9 +30,9 @@ use Illuminate\Support\Facades\Log;
  *
  * Class CustomField
  */
-class CustomField extends Model
+class CustomField extends Model implements CustomFieldContract
 {
-    use SoftDeletes, HasFactory;
+    use HasFactory;
 
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
 
@@ -52,7 +57,7 @@ class CustomField extends Model
     public function scopePlain(Builder $query, string $subType = null): Builder
     {
         /** @var PlainType $plainType */
-        $plainType = app('cf-plain-type');
+        $plainType = app(PlainType::class);
 
         $selectable = $subType ? $plainType::getSubTypeClass($subType) : $plainType::subTypes();
 
@@ -61,27 +66,27 @@ class CustomField extends Model
 
     public function scopeRemote(Builder $query): Builder
     {
-        return $query->whereHasMorph('selectable', [get_class(app('cf-remote-type'))]);
+        return $query->whereHasMorph('selectable', [get_class(app(RemoteType::class))]);
     }
 
     public function scopeSelection(Builder $query): Builder
     {
-        return $query->whereHasMorph('selectable', [get_class(app('cf-selection-type'))]);
+        return $query->whereHasMorph('selectable', [get_class(app(SelectionType::class))]);
     }
 
     public function values(): HasMany
     {
-        return $this->hasMany(get_class(app('cf-value')));
+        return $this->hasMany(get_class(app(Value::class)));
     }
 
     public function forms(): BelongsToMany
     {
-        return $this->belongsToMany(get_class(app('cf-form')))->withTimestamps();
+        return $this->belongsToMany(get_class(app(Form::class)))->withTimestamps();
     }
 
     public function validation(): BelongsTo
     {
-        return $this->belongsTo(get_class(app('cf-validation')));
+        return $this->belongsTo(get_class(app(Validation::class)));
     }
 
     public function validate($input): void
@@ -96,22 +101,25 @@ class CustomField extends Model
 
     public function children(): BelongsToMany
     {
-        return $this->belongsToMany(get_class(app('cf-custom-field')),
+        return $this->belongsToMany(get_class(app(CustomFieldContract::class)),
             'custom_field_relations', 'parent_id', 'child_id')
             ->withTimestamps();
     }
 
     public function parent(): BelongsToMany
     {
-        return $this->belongsToMany(get_class(app('cf-custom-field')),
+        return $this->belongsToMany(get_class(app(CustomFieldContract::class)),
             'custom_field_relations', 'child_id', 'parent_id')
             ->withTimestamps();
     }
 
     public static function types()
     {
-        $plain = config('asseco-custom-fields.type_mappings.plain');
-        $other = Arr::except(config('asseco-custom-fields.type_mappings'), 'plain');
+        $plain = config('asseco-custom-fields.plain_types');
+        $other = [
+            'remote'    => app(RemoteType::class),
+            'selection' => app(SelectionType::class),
+        ];
 
         return array_merge_recursive($plain, $other);
     }
@@ -119,7 +127,7 @@ class CustomField extends Model
     public function getValueColumn(): string
     {
         /** @var Value $value */
-        $value = app('cf-value');
+        $value = app(Value::class);
 
         if (!class_exists($this->selectable_type)) {
             return $value::FALLBACK_VALUE_COLUMN;
@@ -144,7 +152,7 @@ class CustomField extends Model
     public function shortFormat($value): array
     {
         /** @var Value $cfValue */
-        $cfValue = app('cf-value');
+        $cfValue = app(Value::class);
 
         $type = null;
 

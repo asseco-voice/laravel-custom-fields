@@ -8,7 +8,7 @@ use Asseco\CustomFields\Database\Factories\RelationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Relation extends Model
+class Relation extends Model implements \Asseco\CustomFields\App\Contracts\Relation
 {
     use HasFactory;
 

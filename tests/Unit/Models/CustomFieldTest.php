@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Tests\Unit\Models;
 
-use Asseco\CustomFields\App\Models\CustomField;
-use Asseco\CustomFields\App\Models\PlainType;
-use Asseco\CustomFields\App\Models\Relation;
-use Asseco\CustomFields\App\Models\RemoteType;
-use Asseco\CustomFields\App\Models\SelectionType;
-use Asseco\CustomFields\App\Models\Value;
+use Asseco\CustomFields\App\Contracts\CustomField;
+use Asseco\CustomFields\App\Contracts\PlainType;
+use Asseco\CustomFields\App\Contracts\Relation;
+use Asseco\CustomFields\App\Contracts\RemoteType;
+use Asseco\CustomFields\App\Contracts\SelectionType;
+use Asseco\CustomFields\App\Contracts\Value;
 use Asseco\CustomFields\App\PlainTypes\BooleanType;
 use Asseco\CustomFields\App\PlainTypes\DateType;
 use Asseco\CustomFields\App\PlainTypes\FloatType;
@@ -25,16 +25,35 @@ class CustomFieldTest extends TestCase
 {
     use DatabaseMigrations;
 
+    protected CustomField $customField;
+    protected PlainType $plainType;
+    protected Relation $relation;
+    protected RemoteType $remoteType;
+    protected SelectionType $selectionType;
+    protected Value $value;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->customField = app(CustomField::class);
+        $this->plainType = app(PlainType::class);
+        $this->relation = app(Relation::class);
+        $this->remoteType = app(RemoteType::class);
+        $this->selectionType = app(SelectionType::class);
+        $this->value = app(Value::class);
+    }
+
     /** @test */
     public function has_factory()
     {
-        $this->assertInstanceOf(CustomFieldFactory::class, CustomField::factory());
+        $this->assertInstanceOf(CustomFieldFactory::class, $this->customField::factory());
     }
 
     /** @test */
     public function accepts_valid_custom_field_names()
     {
-        CustomField::factory()->create(['name' => 'valid_name']);
+        $this->customField::factory()->create(['name' => 'valid_name']);
 
         $this->assertTrue(true);
     }
@@ -44,67 +63,67 @@ class CustomFieldTest extends TestCase
     {
         $this->expectException(Exception::class);
 
-        CustomField::factory()->create(['name' => 'not a valid name']);
+        $this->customField::factory()->create(['name' => 'not a valid name']);
     }
 
     /** @test */
     public function filters_out_plain_types()
     {
-        $plainType1 = PlainType::factory()->create(['name' => 'string']);
-        $plainType2 = PlainType::factory()->create(['name' => 'boolean']);
+        $plainType1 = $this->plainType::factory()->create(['name' => 'string']);
+        $plainType2 = $this->plainType::factory()->create(['name' => 'boolean']);
 
-        CustomField::factory()->create([
+        $this->customField::factory()->create([
             'selectable_type' => StringType::class,
             'selectable_id'   => $plainType1->id,
         ]);
-        CustomField::factory()->create([
+        $this->customField::factory()->create([
             'selectable_type' => BooleanType::class,
             'selectable_id'   => $plainType2->id,
         ]);
 
-        CustomField::factory()->create(['selectable_type' => 'NotAPlainType::class']);
+        $this->customField::factory()->create(['selectable_type' => 'NotA$this->plainType::class']);
 
-        $this->assertEquals(2, CustomField::plain()->get()->count());
+        $this->assertEquals(2, $this->customField::plain()->get()->count());
     }
 
     /** @test */
     public function filters_out_remote_types()
     {
-        $plainType1 = PlainType::factory()->create(['name' => 'string']);
+        $plainType1 = $this->plainType::factory()->create(['name' => 'string']);
 
-        RemoteType::factory()->count(2)->create([
+        $this->remoteType::factory()->count(2)->create([
             'plain_type_id' => $plainType1->id,
         ]);
 
-        CustomField::factory()->create(['selectable_type' => RemoteType::class, 'selectable_id' => 1]);
-        CustomField::factory()->create(['selectable_type' => RemoteType::class, 'selectable_id' => 2]);
+        $this->customField::factory()->create(['selectable_type' => get_class($this->remoteType), 'selectable_id' => 1]);
+        $this->customField::factory()->create(['selectable_type' => get_class($this->remoteType), 'selectable_id' => 2]);
 
-        CustomField::factory()->create(['selectable_type' => 'NotARemoteType::class']);
+        $this->customField::factory()->create(['selectable_type' => 'NotA$this->remoteType::class']);
 
-        $this->assertEquals(2, CustomField::remote()->get()->count());
+        $this->assertEquals(2, $this->customField::remote()->get()->count());
     }
 
     /** @test */
     public function filters_out_selection_types()
     {
-        $plainType1 = PlainType::factory()->create(['name' => 'string']);
+        $plainType1 = $this->plainType::factory()->create(['name' => 'string']);
 
-        SelectionType::factory()->count(2)->create([
+        $this->selectionType::factory()->count(2)->create([
             'plain_type_id' => $plainType1->id,
         ]);
 
-        CustomField::factory()->create(['selectable_type' => SelectionType::class, 'selectable_id' => 1]);
-        CustomField::factory()->create(['selectable_type' => SelectionType::class, 'selectable_id' => 2]);
+        $this->customField::factory()->create(['selectable_type' => get_class($this->selectionType), 'selectable_id' => 1]);
+        $this->customField::factory()->create(['selectable_type' => get_class($this->selectionType), 'selectable_id' => 2]);
 
-        CustomField::factory()->create(['selectable_type' => 'NotASelectionType::class']);
+        $this->customField::factory()->create(['selectable_type' => 'NotASelectionType::class']);
 
-        $this->assertEquals(2, CustomField::selection()->get()->count());
+        $this->assertEquals(2, $this->customField::selection()->get()->count());
     }
 
     /** @test */
     public function will_not_validate_if_validation_not_present()
     {
-        $customField1 = CustomField::factory()->create();
+        $customField1 = $this->customField::factory()->create();
 
         $customField1->validate(['test' => 'test']);
 
@@ -114,39 +133,39 @@ class CustomFieldTest extends TestCase
     /** @test */
     public function has_child_relations()
     {
-        CustomField::factory()->count(5)->create();
+        $this->customField::factory()->count(5)->create();
 
         /**
          * @var $customField CustomField
          */
-        $customField = CustomField::query()->first();
+        $customField = $this->customField::query()->first();
 
         $customField->children()->attach([2, 3, 4, 5]);
 
         $this->assertEquals(4, $customField->children->count());
-        $this->assertEquals(4, Relation::all()->count());
+        $this->assertEquals(4, $this->relation::all()->count());
     }
 
     /** @test */
     public function has_parent_relations()
     {
-        CustomField::factory()->count(5)->create();
+        $this->customField::factory()->count(5)->create();
 
         /**
          * @var $customField CustomField
          */
-        $customField = CustomField::query()->first();
+        $customField = $this->customField::query()->first();
 
         $customField->parent()->attach([2, 3, 4, 5]);
 
         $this->assertEquals(4, $customField->parent->count());
-        $this->assertEquals(4, Relation::all()->count());
+        $this->assertEquals(4, $this->relation::all()->count());
     }
 
     /** @test */
     public function flattens_registered_types()
     {
-        $types = CustomField::types();
+        $types = $this->customField::types();
 
         $this->assertArrayHasKey('string', $types);
         $this->assertArrayHasKey('integer', $types);
@@ -161,19 +180,19 @@ class CustomFieldTest extends TestCase
     /** @test */
     public function returns_appropriate_value_column()
     {
-        $plainType1 = PlainType::factory()->create(['name' => 'string']);
-        $plainType2 = PlainType::factory()->create(['name' => 'integer']);
-        $plainType3 = PlainType::factory()->create(['name' => 'float']);
-        $plainType4 = PlainType::factory()->create(['name' => 'date']);
-        $plainType5 = PlainType::factory()->create(['name' => 'text']);
-        $plainType6 = PlainType::factory()->create(['name' => 'boolean']);
+        $plainType1 = $this->plainType::factory()->create(['name' => 'string']);
+        $plainType2 = $this->plainType::factory()->create(['name' => 'integer']);
+        $plainType3 = $this->plainType::factory()->create(['name' => 'float']);
+        $plainType4 = $this->plainType::factory()->create(['name' => 'date']);
+        $plainType5 = $this->plainType::factory()->create(['name' => 'text']);
+        $plainType6 = $this->plainType::factory()->create(['name' => 'boolean']);
 
         // Plain types
 
         /**
          * @var $customField1 CustomField
          */
-        $customField1 = CustomField::factory()->create([
+        $customField1 = $this->customField::factory()->create([
             'selectable_type' => StringType::class,
             'selectable_id'   => $plainType1->id,
         ]);
@@ -183,7 +202,7 @@ class CustomFieldTest extends TestCase
         /**
          * @var $customField2 CustomField
          */
-        $customField2 = CustomField::factory()->create([
+        $customField2 = $this->customField::factory()->create([
             'selectable_type' => IntegerType::class,
             'selectable_id'   => $plainType2->id,
         ]);
@@ -193,7 +212,7 @@ class CustomFieldTest extends TestCase
         /**
          * @var $customField3 CustomField
          */
-        $customField3 = CustomField::factory()->create([
+        $customField3 = $this->customField::factory()->create([
             'selectable_type' => FloatType::class,
             'selectable_id'   => $plainType3->id,
         ]);
@@ -203,7 +222,7 @@ class CustomFieldTest extends TestCase
         /**
          * @var $customField4 CustomField
          */
-        $customField4 = CustomField::factory()->create([
+        $customField4 = $this->customField::factory()->create([
             'selectable_type' => DateType::class,
             'selectable_id'   => $plainType4->id,
         ]);
@@ -213,7 +232,7 @@ class CustomFieldTest extends TestCase
         /**
          * @var $customField5 CustomField
          */
-        $customField5 = CustomField::factory()->create([
+        $customField5 = $this->customField::factory()->create([
             'selectable_type' => TextType::class,
             'selectable_id'   => $plainType5->id,
         ]);
@@ -223,7 +242,7 @@ class CustomFieldTest extends TestCase
         /**
          * @var $customField6 CustomField
          */
-        $customField6 = CustomField::factory()->create([
+        $customField6 = $this->customField::factory()->create([
             'selectable_type' => BooleanType::class,
             'selectable_id'   => $plainType6->id,
         ]);
@@ -231,30 +250,30 @@ class CustomFieldTest extends TestCase
         $this->assertEquals('boolean', $customField6->getValueColumn());
 
         // Remote type
-        $remoteType = RemoteType::factory()->create([
+        $remoteType = $this->remoteType::factory()->create([
             'plain_type_id' => $plainType3->id,
         ]);
 
         /**
          * @var $customField7 CustomField
          */
-        $customField7 = CustomField::factory()->create([
-            'selectable_type' => RemoteType::class,
+        $customField7 = $this->customField::factory()->create([
+            'selectable_type' => get_class($this->remoteType),
             'selectable_id'   => $remoteType->id,
         ]);
 
         $this->assertEquals('float', $customField7->getValueColumn());
 
         // Selection type
-        $selectionType = SelectionType::factory()->create([
+        $selectionType = $this->selectionType::factory()->create([
             'plain_type_id' => $plainType5->id,
         ]);
 
         /**
          * @var $customField8 CustomField
          */
-        $customField8 = CustomField::factory()->create([
-            'selectable_type' => SelectionType::class,
+        $customField8 = $this->customField::factory()->create([
+            'selectable_type' => get_class($this->selectionType),
             'selectable_id'   => $selectionType->id,
         ]);
 
@@ -267,7 +286,7 @@ class CustomFieldTest extends TestCase
         /**
          * @var $customField CustomField
          */
-        $customField = CustomField::factory()->create();
+        $customField = $this->customField::factory()->create();
 
         $this->assertEquals('string', $customField->getValueColumn());
     }
@@ -275,28 +294,28 @@ class CustomFieldTest extends TestCase
     /** @test */
     public function provides_short_format()
     {
-        $plainType = PlainType::factory()->create(['name' => 'string']);
+        $plainType = $this->plainType::factory()->create(['name' => 'string']);
 
         /**
          * @var $customField CustomField
          */
-        $customField = CustomField::factory()->create([
-            'name' => 'cf1',
+        $customField = $this->customField::factory()->create([
+            'name'            => 'cf1',
             'selectable_type' => StringType::class,
-            'selectable_id' => $plainType->id,
+            'selectable_id'   => $plainType->id,
         ]);
 
         /**
          * @var $value Value
          */
-        $value = Value::factory()->create([
+        $value = $this->value::factory()->create([
             'custom_field_id' => $customField->id,
-            'string' => 'some value',
+            'string'          => 'some value',
         ]);
 
         $expected = [
             'cf1' => [
-                'type' => 'string',
+                'type'  => 'string',
                 'value' => 'some value',
             ],
         ];
@@ -310,19 +329,19 @@ class CustomFieldTest extends TestCase
         /**
          * @var $customField CustomField
          */
-        $customField = CustomField::factory()->create(['name' => 'cf1']);
+        $customField = $this->customField::factory()->create(['name' => 'cf1']);
 
         /**
          * @var $value Value
          */
-        $value = Value::factory()->create([
+        $value = $this->value::factory()->create([
             'custom_field_id' => $customField->id,
-            'string' => 'some value',
+            'string'          => 'some value',
         ]);
 
         $expected = [
             'cf1' => [
-                'type' => 'string',
+                'type'  => 'string',
                 'value' => 'some value',
             ],
         ];

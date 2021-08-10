@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
-use Asseco\CustomFields\App\Models\CustomField;
-use Asseco\CustomFields\App\Models\RemoteType;
-use Asseco\CustomFields\App\Models\SelectionType;
-use Asseco\CustomFields\App\Models\Value;
+use Asseco\CustomFields\App\Contracts\CustomField;
+use Asseco\CustomFields\App\Contracts\RemoteType;
+use Asseco\CustomFields\App\Contracts\SelectionType;
+use Asseco\CustomFields\App\Contracts\Value;
 use Asseco\CustomFields\App\Traits\FindsTraits;
 use Faker\Factory;
 use Faker\Generator;
@@ -21,11 +21,16 @@ class ValueSeeder extends Seeder
 
     public function run(): void
     {
+        /** @var CustomField $customField */
+        $customField = app(CustomField::class);
+        /** @var Value $value */
+        $value = app(Value::class);
+
         $faker = Factory::create();
         $traitPath = config('asseco-custom-fields.trait_path');
 
         $models = $this->getModelsWithTrait($traitPath);
-        $customFields = CustomField::with('selectable')->get();
+        $customFields = $customField::with('selectable')->get();
 
         if ($customFields->isEmpty()) {
             echo "No custom fields available, skipping...\n";
@@ -33,7 +38,7 @@ class ValueSeeder extends Seeder
             return;
         }
 
-        $values = Value::factory()->count(500)->make()
+        $values = $value::factory()->count(500)->make()
             ->each(function (Value $value) use ($customFields, $models, $faker) {
                 $customField = $customFields->random(1)->first();
                 $model = $models[array_rand($models)];
@@ -48,7 +53,7 @@ class ValueSeeder extends Seeder
                 $value->{$type} = $fakeValue;
             })->makeHidden('value')->toArray();
 
-        Value::query()->insert($values);
+        $value::query()->insert($values);
     }
 
     protected function getCached(string $model): int

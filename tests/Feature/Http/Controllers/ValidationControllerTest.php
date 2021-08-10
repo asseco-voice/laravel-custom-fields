@@ -4,11 +4,20 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Tests\Feature\Http\Controllers;
 
-use Asseco\CustomFields\App\Models\Validation;
+use Asseco\CustomFields\App\Contracts\Validation;
 use Asseco\CustomFields\Tests\TestCase;
 
 class ValidationControllerTest extends TestCase
 {
+    protected Validation $validation;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->validation = app(Validation::class);
+    }
+
     /** @test */
     public function can_fetch_all_validations()
     {
@@ -16,19 +25,19 @@ class ValidationControllerTest extends TestCase
             ->getJson(route('custom-field.validations.index'))
             ->assertJsonCount(0);
 
-        Validation::factory()->count(5)->create();
+        $this->validation::factory()->count(5)->create();
 
         $this
             ->getJson(route('custom-field.validations.index'))
             ->assertJsonCount(5);
 
-        $this->assertCount(5, Validation::all());
+        $this->assertCount(5, $this->validation::all());
     }
 
     /** @test */
     public function creates_validation()
     {
-        $request = Validation::factory()->make()->toArray();
+        $request = $this->validation::factory()->make()->toArray();
 
         $this
             ->postJson(route('custom-field.validations.store'), $request)
@@ -36,13 +45,13 @@ class ValidationControllerTest extends TestCase
                 'name' => $request['name'],
             ]);
 
-        $this->assertCount(1, Validation::all());
+        $this->assertCount(1, $this->validation::all());
     }
 
     /** @test */
     public function can_return_validation_by_id()
     {
-        $validations = Validation::factory()->count(5)->create();
+        $validations = $this->validation::factory()->count(5)->create();
 
         $validationId = $validations->random()->id;
 
@@ -54,7 +63,7 @@ class ValidationControllerTest extends TestCase
     /** @test */
     public function can_update_validation()
     {
-        $validation = Validation::factory()->create();
+        $validation = $this->validation::factory()->create();
 
         $request = [
             'name' => 'updated_name',
@@ -72,14 +81,14 @@ class ValidationControllerTest extends TestCase
     /** @test */
     public function can_delete_validation()
     {
-        $validation = Validation::factory()->create();
+        $validation = $this->validation::factory()->create();
 
-        $this->assertCount(1, Validation::all());
+        $this->assertCount(1, $this->validation::all());
 
         $this
             ->deleteJson(route('custom-field.validations.destroy', $validation->id))
             ->assertOk();
 
-        $this->assertCount(0, Validation::all());
+        $this->assertCount(0, $this->validation::all());
     }
 }

@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
-use Asseco\CustomFields\App\Models\CustomField;
-use Asseco\CustomFields\App\Models\Relation;
+use Asseco\CustomFields\App\Contracts\CustomField;
+use Asseco\CustomFields\App\Contracts\Relation;
 use Illuminate\Database\Seeder;
 
 class RelationSeeder extends Seeder
 {
     public function run(): void
     {
-        $customFields = CustomField::all('id');
+        /** @var CustomField $customField */
+        $customField = app(CustomField::class);
+        /** @var Relation $relation */
+        $relation = app(Relation::class);
+
+        $customFields = $customField::all('id');
 
         if ($customFields->isEmpty()) {
             echo "No custom fields available, skipping...\n";
@@ -20,13 +25,13 @@ class RelationSeeder extends Seeder
             return;
         }
 
-        $relations = Relation::factory()->count(200)->make()
+        $relations = $relation::factory()->count(200)->make()
             ->each(function (Relation $relation) use ($customFields) {
                 $relation->timestamps = false;
                 $relation->parent_id = $customFields->random(1)->first()->id;
                 $relation->child_id = $customFields->random(1)->first()->id;
             })->toArray();
 
-        Relation::query()->insert($relations);
+        $relation::query()->insert($relations);
     }
 }

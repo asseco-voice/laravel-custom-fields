@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
+use Asseco\CustomFields\App\Contracts\Validation as ValidationContract;
 use Asseco\CustomFields\App\Http\Requests\ValidationRequest;
 use Asseco\CustomFields\App\Models\Validation;
 use Exception;
@@ -14,11 +15,11 @@ use Illuminate\Http\JsonResponse;
  */
 class ValidationController extends Controller
 {
-    protected Validation $validation;
+    protected ValidationContract $validation;
 
-    public function __construct()
+    public function __construct(ValidationContract $validation)
     {
-        $this->validation = app('cf-validation');
+        $this->validation = $validation;
     }
 
     /**

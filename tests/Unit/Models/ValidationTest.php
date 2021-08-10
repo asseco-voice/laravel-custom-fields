@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Tests\Unit\Models;
 
-use Asseco\CustomFields\App\Models\CustomField;
-use Asseco\CustomFields\App\Models\Validation;
+use Asseco\CustomFields\App\Contracts\CustomField;
+use Asseco\CustomFields\App\Contracts\Validation;
 use Asseco\CustomFields\Database\Factories\ValidationFactory;
 use Asseco\CustomFields\Tests\TestCase;
 use Exception;
@@ -15,18 +15,29 @@ class ValidationTest extends TestCase
 {
     use DatabaseMigrations;
 
+    protected CustomField $customField;
+    protected Validation $validation;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->customField = app(CustomField::class);
+        $this->validation = app(Validation::class);
+    }
+
     /** @test */
     public function has_factory()
     {
-        $this->assertInstanceOf(ValidationFactory::class, Validation::factory());
+        $this->assertInstanceOf(ValidationFactory::class, $this->validation::factory());
     }
 
     /** @test */
     public function can_fetch_related_custom_fields()
     {
-        $validation = Validation::factory()->create();
+        $validation = $this->validation::factory()->create();
 
-        $customField = CustomField::factory()->create([
+        $customField = $this->customField::factory()->create([
             'validation_id' => $validation->id,
         ]);
 
@@ -36,7 +47,7 @@ class ValidationTest extends TestCase
     /** @test */
     public function validates_regex()
     {
-        $validation = Validation::factory()->create([
+        $validation = $this->validation::factory()->create([
             'regex' => '[A-Z]',
         ]);
 
@@ -46,7 +57,7 @@ class ValidationTest extends TestCase
     /** @test */
     public function validates_exact_regex()
     {
-        $validation = Validation::factory()->create([
+        $validation = $this->validation::factory()->create([
             'regex' => '123 abc',
         ]);
 
@@ -58,7 +69,7 @@ class ValidationTest extends TestCase
     {
         $this->expectException(Exception::class);
 
-        $validation = Validation::factory()->create([
+        $validation = $this->validation::factory()->create([
             'regex' => '[A-Z]',
         ]);
 

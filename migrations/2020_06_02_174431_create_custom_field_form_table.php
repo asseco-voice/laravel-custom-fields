@@ -16,8 +16,13 @@ class CreateCustomFieldFormTable extends Migration
         Schema::create('custom_field_form', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('custom_field_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('form_id')->constrained()->cascadeOnDelete();
+            if (config('asseco-custom-fields.migrations.uuid')) {
+                $table->foreignUuid('custom_field_id')->constrained()->cascadeOnDelete();
+                $table->foreignUuid('form_id')->constrained()->cascadeOnDelete();
+            } else {
+                $table->foreignId('custom_field_id')->constrained()->cascadeOnDelete();
+                $table->foreignId('form_id')->constrained()->cascadeOnDelete();
+            }
 
             $table->timestamps();
         });

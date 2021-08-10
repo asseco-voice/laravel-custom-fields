@@ -4,14 +4,25 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Tests\Feature\Http\Controllers;
 
-use Asseco\CustomFields\App\Models\CustomField;
-use Asseco\CustomFields\App\Models\PlainType;
+use Asseco\CustomFields\App\Contracts\CustomField;
+use Asseco\CustomFields\App\Contracts\PlainType;
 use Asseco\CustomFields\App\PlainTypes\BooleanType;
 use Asseco\CustomFields\App\PlainTypes\StringType;
 use Asseco\CustomFields\Tests\TestCase;
 
 class PlainCustomFieldControllerTest extends TestCase
 {
+    protected CustomField $customField;
+    protected PlainType $plainType;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->customField = app(CustomField::class);
+        $this->plainType = app(PlainType::class);
+    }
+
     /** @test */
     public function returns_only_plain_custom_fields()
     {
@@ -19,31 +30,31 @@ class PlainCustomFieldControllerTest extends TestCase
             ->getJson(route('custom-field.plain.index'))
             ->assertJsonCount(0);
 
-        $plainType1 = PlainType::factory()->create(['name' => 'string']);
-        $plainType2 = PlainType::factory()->create(['name' => 'boolean']);
+        $plainType1 = $this->plainType::factory()->create(['name' => 'string']);
+        $plainType2 = $this->plainType::factory()->create(['name' => 'boolean']);
 
-        CustomField::factory()->create([
+        $this->customField::factory()->create([
             'selectable_type' => StringType::class,
             'selectable_id'   => $plainType1->id,
         ]);
-        CustomField::factory()->create([
+        $this->customField::factory()->create([
             'selectable_type' => BooleanType::class,
             'selectable_id'   => $plainType2->id,
         ]);
 
-        CustomField::factory()->count(5)->create();
+        $this->customField::factory()->count(5)->create();
 
         $this
             ->getJson(route('custom-field.plain.index'))
             ->assertJsonCount(2);
 
-        $this->assertCount(7, CustomField::all());
+        $this->assertCount(7, $this->customField::all());
     }
 
     /** @test */
     public function rejects_creating_plain_custom_field_with_invalid_name()
     {
-        $request = CustomField::factory()->make([
+        $request = $this->customField::factory()->make([
             'name' => 'invalid name',
         ])->toArray();
 
@@ -55,9 +66,9 @@ class PlainCustomFieldControllerTest extends TestCase
     /** @test */
     public function creates_plain_custom_field()
     {
-        PlainType::factory()->create(['name' => 'string']);
+        $this->plainType::factory()->create(['name' => 'string']);
 
-        $request = CustomField::factory()->make()->toArray();
+        $request = $this->customField::factory()->make()->toArray();
 
         $this
             ->postJson(route('custom-field.plain.store', 'string'), $request)
@@ -66,6 +77,6 @@ class PlainCustomFieldControllerTest extends TestCase
                 'name' => $request['name'],
             ]);
 
-        $this->assertCount(1, CustomField::all());
+        $this->assertCount(1, $this->customField::all());
     }
 }

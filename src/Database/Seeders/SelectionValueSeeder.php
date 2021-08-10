@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
-use Asseco\CustomFields\App\Models\SelectionType;
-use Asseco\CustomFields\App\Models\SelectionValue;
+use Asseco\CustomFields\App\Contracts\SelectionType;
+use Asseco\CustomFields\App\Contracts\SelectionValue;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Database\Seeder;
@@ -14,9 +14,14 @@ class SelectionValueSeeder extends Seeder
 {
     public function run(): void
     {
+        /** @var SelectionType $selectionType */
+        $selectionType = app(SelectionType::class);
+        /** @var SelectionValue $selectionValue */
+        $selectionValue = app(SelectionValue::class);
+
         $faker = Factory::create();
         $amount = 50;
-        $selectionTypes = SelectionType::with('type')->get();
+        $selectionTypes = $selectionType::with('type')->get();
 
         $selectionValues = [];
         for ($i = 0; $i < $amount; $i++) {
@@ -25,7 +30,7 @@ class SelectionValueSeeder extends Seeder
             $random = rand(3, 10);
 
             $selectionValues = array_merge_recursive($selectionValues,
-                SelectionValue::factory()->count($random)->make()
+                $selectionValue::factory()->count($random)->make()
                     ->each(function (SelectionValue $selectionValue) use ($selectionTypes, $faker) {
                         $selectionType = $selectionTypes->random(1)->first();
 
@@ -35,7 +40,7 @@ class SelectionValueSeeder extends Seeder
                     })->toArray()
             );
 
-            SelectionValue::query()->insert($selectionValues);
+            $selectionValue::query()->insert($selectionValues);
         }
     }
 

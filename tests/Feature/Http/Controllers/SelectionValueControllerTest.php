@@ -4,13 +4,26 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Tests\Feature\Http\Controllers;
 
-use Asseco\CustomFields\App\Models\PlainType;
-use Asseco\CustomFields\App\Models\SelectionType;
-use Asseco\CustomFields\App\Models\SelectionValue;
+use Asseco\CustomFields\App\Contracts\PlainType;
+use Asseco\CustomFields\App\Contracts\SelectionType;
+use Asseco\CustomFields\App\Contracts\SelectionValue;
 use Asseco\CustomFields\Tests\TestCase;
 
 class SelectionValueControllerTest extends TestCase
 {
+    protected PlainType $plainType;
+    protected SelectionType $selectionType;
+    protected SelectionValue $selectionValue;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->plainType = app(PlainType::class);
+        $this->selectionType = app(SelectionType::class);
+        $this->selectionValue = app(SelectionValue::class);
+    }
+
     /** @test */
     public function can_fetch_all_selection_values()
     {
@@ -18,25 +31,25 @@ class SelectionValueControllerTest extends TestCase
             ->getJson(route('custom-field.selection-values.index'))
             ->assertJsonCount(0);
 
-        SelectionValue::factory()->count(5)->create();
+        $this->selectionValue::factory()->count(5)->create();
 
         $this
             ->getJson(route('custom-field.selection-values.index'))
             ->assertJsonCount(5);
 
-        $this->assertCount(5, SelectionValue::all());
+        $this->assertCount(5, $this->selectionValue::all());
     }
 
     /** @test */
     public function creates_selection_value()
     {
-        $plain = PlainType::factory()->create();
+        $plain = $this->plainType::factory()->create();
 
-        $type = SelectionType::factory()->create([
+        $type = $this->selectionType::factory()->create([
             'plain_type_id' => $plain->id,
         ]);
 
-        $request = SelectionValue::factory()->make([
+        $request = $this->selectionValue::factory()->make([
             'selection_type_id' => $type->id,
         ])->toArray();
 
@@ -46,13 +59,13 @@ class SelectionValueControllerTest extends TestCase
                 'label' => $request['label'],
             ]);
 
-        $this->assertCount(1, SelectionValue::all());
+        $this->assertCount(1, $this->selectionValue::all());
     }
 
     /** @test */
     public function can_return_selection_value_by_id()
     {
-        $selectionValues = SelectionValue::factory()->count(5)->create();
+        $selectionValues = $this->selectionValue::factory()->count(5)->create();
 
         $selectionValueId = $selectionValues->random()->id;
 
@@ -64,13 +77,13 @@ class SelectionValueControllerTest extends TestCase
     /** @test */
     public function can_update_selection_value()
     {
-        $plain = PlainType::factory()->create();
+        $plain = $this->plainType::factory()->create();
 
-        $type = SelectionType::factory()->create([
+        $type = $this->selectionType::factory()->create([
             'plain_type_id' => $plain->id,
         ]);
 
-        $selectionValue = SelectionValue::factory()->create([
+        $selectionValue = $this->selectionValue::factory()->create([
             'selection_type_id' => $type->id,
         ]);
 
@@ -90,14 +103,14 @@ class SelectionValueControllerTest extends TestCase
     /** @test */
     public function can_delete_selection_value()
     {
-        $selectionValue = SelectionValue::factory()->create();
+        $selectionValue = $this->selectionValue::factory()->create();
 
-        $this->assertCount(1, SelectionValue::all());
+        $this->assertCount(1, $this->selectionValue::all());
 
         $this
             ->deleteJson(route('custom-field.selection-values.destroy', $selectionValue->id))
             ->assertOk();
 
-        $this->assertCount(0, SelectionValue::all());
+        $this->assertCount(0, $this->selectionValue::all());
     }
 }

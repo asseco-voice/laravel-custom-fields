@@ -4,20 +4,23 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
-use Asseco\CustomFields\App\Models\PlainType;
+use Asseco\CustomFields\App\Contracts\PlainType;
 use Illuminate\Database\Seeder;
 
 class PlainTypeSeeder extends Seeder
 {
     public function run(): void
     {
-        $types = array_keys(config('asseco-custom-fields.type_mappings.plain'));
+        /** @var PlainType $plainType */
+        $plainType = app(PlainType::class);
+
+        $types = array_keys(config('asseco-custom-fields.plain_types'));
 
         $plainTypes = [];
         foreach ($types as $type) {
             $plainTypes[] = ['name' => $type];
         }
 
-        PlainType::query()->upsert($plainTypes, 'name');
+        $plainType::query()->upsert($plainTypes, 'name');
     }
 }

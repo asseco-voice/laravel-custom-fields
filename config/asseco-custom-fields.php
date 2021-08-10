@@ -1,5 +1,6 @@
 <?php
 
+use Asseco\BlueprintAudit\App\MigrationMethodPicker;
 use Asseco\CustomFields\App\Models\CustomField;
 use Asseco\CustomFields\App\Models\Form;
 use Asseco\CustomFields\App\Models\PlainType;
@@ -21,21 +22,41 @@ use Asseco\CustomFields\App\Traits\Customizable;
 
 return [
 
-    'custom_field_model'    => CustomField::class,
-    'form_model'            => Form::class,
-    'plain_type_model'      => PlainType::class,
-    'remote_type_model'     => RemoteType::class,
-    'selection_type_model'  => SelectionType::class,
-    'selection_value_model' => SelectionValue::class,
-    'relation_model'        => Relation::class,
-    'validation_model'      => Validation::class,
-    'value_model'           => Value::class,
-
     /**
-     * Should the package run the migrations. Set to false if you're publishing
-     * and changing default migrations.
+     * Model bindings.
      */
-    'runs_migrations'       => true,
+    'models' => [
+        'custom_field'    => CustomField::class,
+        'form'            => Form::class,
+        'plain_type'      => PlainType::class,
+        'remote_type'     => RemoteType::class,
+        'selection_type'  => SelectionType::class,
+        'selection_value' => SelectionValue::class,
+        'relation'        => Relation::class,
+        'validation'      => Validation::class,
+        'value'           => Value::class,
+    ],
+
+    'migrations'  => [
+
+        /**
+         * UUIDs as primary keys.
+         */
+        'uuid'       => false,
+
+        /**
+         * Timestamp types.
+         *
+         * @see https://github.com/asseco-voice/laravel-common/blob/master/config/asseco-common.php
+         */
+        'timestamps' => MigrationMethodPicker::PLAIN,
+
+        /**
+         * Should the package run the migrations. Set to false if you're publishing
+         * and changing default migrations.
+         */
+        'run'        => true,
+    ],
 
     /**
      * Path to Laravel models in 'path => namespace' format.
@@ -43,27 +64,23 @@ return [
      * This does not recurse in folders, so you need to specify
      * an array of paths if non-standard models are to be used
      */
-    'models_path'           => [
+    'models_path' => [
         app_path('Models') => 'App\\Models\\',
     ],
 
     /**
      * Namespace to Customizable trait.
      */
-    'trait_path'            => Customizable::class,
+    'trait_path'  => Customizable::class,
 
-    'type_mappings' => [
-        'plain'     => [
-            'string'   => StringType::class,
-            'integer'  => IntegerType::class,
-            'float'    => FloatType::class,
-            'text'     => TextType::class,
-            'boolean'  => BooleanType::class,
-            'datetime' => DateTimeType::class,
-            'date'     => DateType::class,
-            'time'     => TimeType::class,
-        ],
-        'remote'    => RemoteType::class,
-        'selection' => SelectionType::class,
+    'plain_types' => [
+        'string'   => StringType::class,
+        'integer'  => IntegerType::class,
+        'float'    => FloatType::class,
+        'text'     => TextType::class,
+        'boolean'  => BooleanType::class,
+        'datetime' => DateTimeType::class,
+        'date'     => DateType::class,
+        'time'     => TimeType::class,
     ],
 ];

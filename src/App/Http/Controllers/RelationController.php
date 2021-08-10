@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
+use Asseco\CustomFields\App\Contracts\Relation as RelationContract;
 use Asseco\CustomFields\App\Http\Requests\RelationRequest;
 use Asseco\CustomFields\App\Models\Relation;
 use Exception;
@@ -14,11 +15,11 @@ use Illuminate\Http\JsonResponse;
  */
 class RelationController extends Controller
 {
-    protected Relation $relation;
+    protected RelationContract $relation;
 
-    public function __construct()
+    public function __construct(RelationContract $relation)
     {
-        $this->relation = app('cf-relation');
+        $this->relation = $relation;
     }
 
     /**

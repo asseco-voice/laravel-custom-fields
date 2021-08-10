@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
+use Asseco\CustomFields\App\Contracts\CustomField;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -25,6 +26,9 @@ class TypeController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(config('asseco-custom-fields.type_mappings'));
+        /** @var CustomField $customField */
+        $customField = app(CustomField::class);
+
+        return response()->json($customField::types());
     }
 }

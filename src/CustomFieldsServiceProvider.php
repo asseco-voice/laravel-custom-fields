@@ -4,6 +4,15 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields;
 
+use Asseco\CustomFields\App\Contracts\CustomField;
+use Asseco\CustomFields\App\Contracts\Form;
+use Asseco\CustomFields\App\Contracts\PlainType;
+use Asseco\CustomFields\App\Contracts\Relation;
+use Asseco\CustomFields\App\Contracts\RemoteType;
+use Asseco\CustomFields\App\Contracts\SelectionType;
+use Asseco\CustomFields\App\Contracts\SelectionValue;
+use Asseco\CustomFields\App\Contracts\Validation;
+use Asseco\CustomFields\App\Contracts\Value;
 use Illuminate\Support\ServiceProvider;
 
 class CustomFieldsServiceProvider extends ServiceProvider
@@ -25,7 +34,7 @@ class CustomFieldsServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
 
-        if (config('asseco-custom-fields.runs_migrations')) {
+        if (config('asseco-custom-fields.migrations.run')) {
             $this->loadMigrationsFrom(__DIR__ . '/../migrations');
         }
 
@@ -40,14 +49,14 @@ class CustomFieldsServiceProvider extends ServiceProvider
 
     protected function bindClasses()
     {
-        $this->app->bind('cf-custom-field', config('asseco-custom-fields.custom_field_model'));
-        $this->app->bind('cf-form', config('asseco-custom-fields.form_model'));
-        $this->app->bind('cf-plain-type', config('asseco-custom-fields.plain_type_model'));
-        $this->app->bind('cf-remote-type', config('asseco-custom-fields.remote_type_model'));
-        $this->app->bind('cf-selection-type', config('asseco-custom-fields.selection_type_model'));
-        $this->app->bind('cf-selection-value', config('asseco-custom-fields.selection_value_model'));
-        $this->app->bind('cf-relation', config('asseco-custom-fields.relation_model'));
-        $this->app->bind('cf-validation', config('asseco-custom-fields.validation_model'));
-        $this->app->bind('cf-value', config('asseco-custom-fields.value_model'));
+        $this->app->bind(CustomField::class, config('asseco-custom-fields.models.custom_field'));
+        $this->app->bind(Form::class, config('asseco-custom-fields.models.form'));
+        $this->app->bind(PlainType::class, config('asseco-custom-fields.models.plain_type'));
+        $this->app->bind(RemoteType::class, config('asseco-custom-fields.models.remote_type'));
+        $this->app->bind(SelectionType::class, config('asseco-custom-fields.models.selection_type'));
+        $this->app->bind(SelectionValue::class, config('asseco-custom-fields.models.selection_value'));
+        $this->app->bind(Relation::class, config('asseco-custom-fields.models.relation'));
+        $this->app->bind(Validation::class, config('asseco-custom-fields.models.validation'));
+        $this->app->bind(Value::class, config('asseco-custom-fields.models.value'));
     }
 }
