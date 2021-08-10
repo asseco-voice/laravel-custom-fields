@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Asseco\CustomFields\App\Models\Validation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ValidationFactory extends Factory

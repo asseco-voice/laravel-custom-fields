@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Asseco\CustomFields\App\Models\RemoteType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RemoteTypeFactory extends Factory
