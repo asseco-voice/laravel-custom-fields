@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
+use Asseco\CustomFields\App\Contracts\Value as ValueContract;
 use Asseco\CustomFields\App\Http\Requests\ValueRequest;
 use Asseco\CustomFields\App\Models\Value;
 use Exception;
@@ -15,11 +16,11 @@ use Throwable;
  */
 class ValueController extends Controller
 {
-    protected Value $value;
+    protected ValueContract $value;
 
-    public function __construct()
+    public function __construct(ValueContract $value)
     {
-        $this->value = app('cf-value');
+        $this->value = $value;
     }
 
     /**

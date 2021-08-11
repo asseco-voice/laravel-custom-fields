@@ -4,26 +4,31 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
-use Asseco\CustomFields\App\Models\PlainType;
-use Asseco\CustomFields\App\Models\RemoteType;
+use Asseco\CustomFields\App\Contracts\PlainType;
+use Asseco\CustomFields\App\Contracts\RemoteType;
 use Illuminate\Database\Seeder;
 
 class RemoteTypeSeeder extends Seeder
 {
     public function run(): void
     {
+        /** @var PlainType $plainType */
+        $plainType = app(PlainType::class);
+        /** @var RemoteType $remoteType */
+        $remoteType = app(RemoteType::class);
+
         $methods = ['GET', 'POST', 'PUT'];
 
         // Force casting remote types to string unless we decide on different implementation.
-        $plainTypeId = PlainType::query()->where('name', 'string')->firstOrFail()->id;
+        $plainTypeId = $plainType::query()->where('name', 'string')->firstOrFail()->id;
 
-        $remoteTypes = RemoteType::factory()->count(50)->make()
+        $remoteTypes = $remoteType::factory()->count(50)->make()
             ->each(function (RemoteType $remoteType) use ($plainTypeId, $methods) {
                 $remoteType->timestamps = false;
                 $remoteType->plain_type_id = $plainTypeId;
                 $remoteType->method = $methods[array_rand($methods)];
             })->makeHidden('name')->toArray();
 
-        RemoteType::query()->insert($remoteTypes);
+        $remoteType::query()->insert($remoteTypes);
     }
 }

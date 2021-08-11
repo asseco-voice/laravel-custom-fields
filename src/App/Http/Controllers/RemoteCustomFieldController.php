@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
+use Asseco\CustomFields\App\Contracts\CustomField;
+use Asseco\CustomFields\App\Contracts\PlainType;
+use Asseco\CustomFields\App\Contracts\RemoteType;
 use Asseco\CustomFields\App\Http\Requests\RemoteCustomFieldRequest;
-use Asseco\CustomFields\App\Models\CustomField;
-use Asseco\CustomFields\App\Models\PlainType;
-use Asseco\CustomFields\App\Models\RemoteType;
 use Asseco\CustomFields\App\Traits\TransformsOutput;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Client\Response;
@@ -24,13 +24,13 @@ class RemoteCustomFieldController extends Controller
 {
     use TransformsOutput;
 
-    protected string $remoteClass;
     protected CustomField $customField;
+    protected string $remoteClass;
 
-    public function __construct()
+    public function __construct(CustomField $customField)
     {
-        $this->remoteClass = config('asseco-custom-fields.type_mappings.remote');
-        $this->customField = app('cf-custom-field');
+        $this->customField = $customField;
+        $this->remoteClass = config('asseco-custom-fields.models.remote_type');
     }
 
     /**
@@ -72,7 +72,7 @@ class RemoteCustomFieldController extends Controller
 
             // Force casting remote types to string unless we decide on different implementation.
             /** @var PlainType $plainType */
-            $plainType = app('cf-plain-type');
+            $plainType = app(PlainType::class);
             $plainTypeId = $plainType::query()->where('name', 'string')->firstOrFail()->id;
 
             $cfData = Arr::except($data, 'remote');

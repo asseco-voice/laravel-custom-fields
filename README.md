@@ -171,3 +171,9 @@ definition only.
 If you want to make your own parser, you can publish the config file and replace
 ``Form`` model implementation with your form. Extend the parent model and override
 ``relateCustomFieldsFromDefinition()`` function. 
+
+# Extending the package
+
+Publishing the configuration will enable you to change package models as
+well as controlling how migrations behave. If extending the model, make sure
+you're extending the original model in your implementation.

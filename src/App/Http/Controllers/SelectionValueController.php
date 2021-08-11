@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
+use Asseco\CustomFields\App\Contracts\SelectionValue as SelectionValueContract;
 use Asseco\CustomFields\App\Http\Requests\SelectionValueRequest;
 use Asseco\CustomFields\App\Models\SelectionValue;
 use Exception;
@@ -14,11 +15,11 @@ use Illuminate\Http\JsonResponse;
  */
 class SelectionValueController extends Controller
 {
-    protected SelectionValue $selectionValue;
+    protected SelectionValueContract $selectionValue;
 
-    public function __construct()
+    public function __construct(SelectionValueContract $selectionValue)
     {
-        $this->selectionValue = app('cf-selection-value');
+        $this->selectionValue = $selectionValue;
     }
 
     /**

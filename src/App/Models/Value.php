@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Models;
 
+use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\Database\Factories\ValueFactory;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Http\Request;
 use Throwable;
 
-class Value extends Model
+class Value extends Model implements \Asseco\CustomFields\App\Contracts\Value
 {
     use HasFactory;
 
@@ -47,7 +48,7 @@ class Value extends Model
 
     public function customField(): BelongsTo
     {
-        return $this->belongsTo(get_class(app('cf-custom-field')));
+        return $this->belongsTo(get_class(app(CustomField::class)));
     }
 
     public function getValueAttribute()
@@ -68,7 +69,7 @@ class Value extends Model
     public static function validateCreate(Request $request): void
     {
         /** @var CustomField $customFieldClass */
-        $customFieldClass = app('cf-custom-field');
+        $customFieldClass = app(CustomField::class);
         /**
          * @var CustomField $customField
          */

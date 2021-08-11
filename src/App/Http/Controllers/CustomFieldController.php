@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
+use Asseco\CustomFields\App\Contracts\CustomField as CustomFieldContract;
 use Asseco\CustomFields\App\Http\Requests\CustomFieldCreateRequest;
 use Asseco\CustomFields\App\Http\Requests\CustomFieldUpdateRequest;
 use Asseco\CustomFields\App\Models\CustomField;
@@ -12,11 +13,11 @@ use Illuminate\Http\JsonResponse;
 
 class CustomFieldController extends Controller
 {
-    protected CustomField $customField;
+    protected CustomFieldContract $customField;
 
-    public function __construct()
+    public function __construct(CustomFieldContract $customField)
     {
-        $this->customField = app('cf-custom-field');
+        $this->customField = $customField;
     }
 
     /**

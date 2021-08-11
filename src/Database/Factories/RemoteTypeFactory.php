@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Asseco\CustomFields\App\Models\RemoteType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RemoteTypeFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = RemoteType::class;
+    public function modelName()
+    {
+        return config('asseco-custom-fields.models.remote_type');
+    }
 
     /**
      * Define the model's default state.

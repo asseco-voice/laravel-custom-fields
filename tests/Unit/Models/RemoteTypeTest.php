@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Tests\Unit\Models;
 
-use Asseco\CustomFields\App\Models\CustomField;
-use Asseco\CustomFields\App\Models\PlainType;
-use Asseco\CustomFields\App\Models\RemoteType;
+use Asseco\CustomFields\App\Contracts\CustomField;
+use Asseco\CustomFields\App\Contracts\PlainType;
+use Asseco\CustomFields\App\Contracts\RemoteType;
 use Asseco\CustomFields\Database\Factories\RemoteTypeFactory;
 use Asseco\CustomFields\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -15,10 +15,23 @@ class RemoteTypeTest extends TestCase
 {
     use DatabaseMigrations;
 
+    protected CustomField $customField;
+    protected PlainType $plainType;
+    protected RemoteType $remoteType;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->customField = app(CustomField::class);
+        $this->plainType = app(PlainType::class);
+        $this->remoteType = app(RemoteType::class);
+    }
+
     /** @test */
     public function has_factory()
     {
-        $this->assertInstanceOf(RemoteTypeFactory::class, RemoteType::factory());
+        $this->assertInstanceOf(RemoteTypeFactory::class, $this->remoteType::factory());
     }
 
     /** @test */
@@ -26,8 +39,8 @@ class RemoteTypeTest extends TestCase
     {
         $remoteType = $this->createRemoteType();
 
-        $customField = CustomField::factory()->create([
-            'selectable_type' => RemoteType::class,
+        $customField = $this->customField::factory()->create([
+            'selectable_type' => get_class($this->remoteType),
             'selectable_id'   => $remoteType->id,
         ]);
 
@@ -37,15 +50,15 @@ class RemoteTypeTest extends TestCase
     /** @test */
     public function appends_name_attribute()
     {
-        $remoteType = RemoteType::factory()->make();
+        $remoteType = $this->remoteType::factory()->make();
 
         $this->assertEquals('remote', $remoteType->name);
     }
 
     protected function createRemoteType()
     {
-        return RemoteType::factory()->create([
-            'plain_type_id' => PlainType::factory()->create()->id,
+        return $this->remoteType::factory()->create([
+            'plain_type_id' => $this->plainType::factory()->create()->id,
         ]);
     }
 }

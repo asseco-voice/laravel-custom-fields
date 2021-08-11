@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Traits;
 
-use Asseco\CustomFields\App\Models\Value;
+use Asseco\CustomFields\App\Contracts\Value;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait Customizable
 {
     public function customFieldValues(): MorphMany
     {
-        return $this->morphMany(get_class(app('cf-value')), 'model');
+        return $this->morphMany(get_class(app(Value::class)), 'model');
     }
 
     /**

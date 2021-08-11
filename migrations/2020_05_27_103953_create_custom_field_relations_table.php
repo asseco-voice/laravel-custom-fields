@@ -1,5 +1,6 @@
 <?php
 
+use Asseco\BlueprintAudit\App\MigrationMethodPicker;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,12 +15,17 @@ class CreateCustomFieldRelationsTable extends Migration
     public function up()
     {
         Schema::create('custom_field_relations', function (Blueprint $table) {
-            $table->id();
+            if (config('asseco-custom-fields.migrations.uuid')) {
+                $table->uuid('id')->primary();
+                $table->foreignUuid('parent_id')->constrained('custom_fields')->cascadeOnDelete();
+                $table->foreignUuid('child_id')->constrained('custom_fields')->cascadeOnDelete();
+            } else {
+                $table->id();
+                $table->foreignId('parent_id')->constrained('custom_fields')->cascadeOnDelete();
+                $table->foreignId('child_id')->constrained('custom_fields')->cascadeOnDelete();
+            }
 
-            $table->foreignId('parent_id')->constrained('custom_fields')->cascadeOnDelete();
-            $table->foreignId('child_id')->constrained('custom_fields')->cascadeOnDelete();
-
-            $table->timestamps();
+            MigrationMethodPicker::pick($table, config('asseco-custom-fields.migrations.timestamps'));
         });
     }
 

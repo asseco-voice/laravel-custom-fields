@@ -4,11 +4,20 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Tests\Feature\Http\Controllers;
 
-use Asseco\CustomFields\App\Models\Form;
+use Asseco\CustomFields\App\Contracts\Form;
 use Asseco\CustomFields\Tests\TestCase;
 
 class FormControllerTest extends TestCase
 {
+    protected Form $form;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->form = app(Form::class);
+    }
+
     /** @test */
     public function can_fetch_all_forms()
     {
@@ -16,19 +25,19 @@ class FormControllerTest extends TestCase
             ->getJson(route('custom-field.forms.index'))
             ->assertJsonCount(0);
 
-        Form::factory()->count(5)->create();
+        $this->form::factory()->count(5)->create();
 
         $this
             ->getJson(route('custom-field.forms.index'))
             ->assertJsonCount(5);
 
-        $this->assertCount(5, Form::all());
+        $this->assertCount(5, $this->form::all());
     }
 
     /** @test */
     public function rejects_creating_form_with_invalid_name()
     {
-        $request = Form::factory()->make([
+        $request = $this->form::factory()->make([
             'name' => 'invalid name',
         ])->toArray();
 
@@ -40,7 +49,7 @@ class FormControllerTest extends TestCase
     /** @test */
     public function creates_form()
     {
-        $request = Form::factory()->make([
+        $request = $this->form::factory()->make([
             'definition' => ['a' => 'b'],
         ])->toArray();
 
@@ -50,13 +59,13 @@ class FormControllerTest extends TestCase
                 'name' => $request['name'],
             ]);
 
-        $this->assertCount(1, Form::all());
+        $this->assertCount(1, $this->form::all());
     }
 
     /** @test */
     public function can_return_form_by_id()
     {
-        $forms = Form::factory()->count(5)->create();
+        $forms = $this->form::factory()->count(5)->create();
 
         $formId = $forms->random()->id;
 
@@ -68,7 +77,7 @@ class FormControllerTest extends TestCase
     /** @test */
     public function can_update_form()
     {
-        $form = Form::factory()->create();
+        $form = $this->form::factory()->create();
 
         $request = [
             'name' => 'updated_name',
@@ -86,14 +95,14 @@ class FormControllerTest extends TestCase
     /** @test */
     public function can_delete_form()
     {
-        $form = Form::factory()->create();
+        $form = $this->form::factory()->create();
 
-        $this->assertCount(1, Form::all());
+        $this->assertCount(1, $this->form::all());
 
         $this
             ->deleteJson(route('custom-field.forms.destroy', $form->id))
             ->assertOk();
 
-        $this->assertCount(0, Form::all());
+        $this->assertCount(0, $this->form::all());
     }
 }

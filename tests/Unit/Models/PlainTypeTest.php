@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Asseco\CustomFields\Tests\Unit\Models;
 
 use Asseco\CustomFields\App\Contracts\Mappable;
-use Asseco\CustomFields\App\Models\PlainType;
+use Asseco\CustomFields\App\Contracts\PlainType;
 use Asseco\CustomFields\Database\Factories\PlainTypeFactory;
 use Asseco\CustomFields\Tests\TestCase;
 use Illuminate\Database\Eloquent\Model;
@@ -16,16 +16,25 @@ class PlainTypeTest extends TestCase
 {
     use DatabaseMigrations;
 
+    protected PlainType $plainType;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->plainType = app(PlainType::class);
+    }
+
     /** @test */
     public function has_factory()
     {
-        $this->assertInstanceOf(PlainTypeFactory::class, PlainType::factory());
+        $this->assertInstanceOf(PlainTypeFactory::class, $this->plainType::factory());
     }
 
     /** @test */
     public function has_basic_sub_types()
     {
-        $plainMappings = PlainType::subTypes();
+        $plainMappings = $this->plainType::subTypes();
 
         $this->assertNotNull($plainMappings);
 
@@ -47,7 +56,7 @@ class PlainTypeTest extends TestCase
     public function sub_types_have_registered_classes(array $plainMappings)
     {
         foreach ($plainMappings as $typeName => $typeClass) {
-            $class = PlainType::getSubTypeClass($typeName);
+            $class = $this->plainType::getSubTypeClass($typeName);
 
             $this->assertEquals($typeClass, $class);
         }
@@ -58,7 +67,7 @@ class PlainTypeTest extends TestCase
     {
         $this->expectException(TypeError::class);
 
-        PlainType::getSubTypeClass(now()->timestamp);
+        $this->plainType::getSubTypeClass(now()->timestamp);
     }
 
     /**
@@ -68,7 +77,7 @@ class PlainTypeTest extends TestCase
      */
     public function returns_pipe_delimited_sub_types(array $basicSubTypes)
     {
-        $regexSubTypes = PlainType::getRegexSubTypes();
+        $regexSubTypes = $this->plainType::getRegexSubTypes();
 
         $this->assertEquals(implode('|', array_keys($basicSubTypes)), $regexSubTypes);
     }
@@ -80,14 +89,14 @@ class PlainTypeTest extends TestCase
      */
     public function sub_types_are_scoped_correctly(array $basicSubTypes)
     {
-        PlainType::factory()->count(5)->create();
+        $this->plainType::factory()->count(5)->create();
 
         foreach ($basicSubTypes as $typeName => $typeClass) {
-            $plainType = PlainType::factory()->create(['name' => $typeName]);
+            $plainType = $this->plainType::factory()->create(['name' => $typeName]);
             $instance = new $typeClass;
 
             $this->assertInstanceOf(Mappable::class, $instance);
-            $this->assertInstanceOf(PlainType::class, $instance);
+            $this->assertInstanceOf(get_class($this->plainType), $instance);
 
             /**
              * @var $instance Model

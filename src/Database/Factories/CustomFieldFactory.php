@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Asseco\CustomFields\App\Models\CustomField;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CustomFieldFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = CustomField::class;
+    public function modelName()
+    {
+        return config('asseco-custom-fields.models.custom_field');
+    }
 
     /**
      * Define the model's default state.

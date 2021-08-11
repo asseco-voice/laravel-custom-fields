@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Factories;
 
-use Asseco\CustomFields\App\Models\Validation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ValidationFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Validation::class;
+    public function modelName()
+    {
+        return config('asseco-custom-fields.models.validation');
+    }
 
     /**
      * Define the model's default state.

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
+use Asseco\CustomFields\App\Contracts\Form as FormContract;
 use Asseco\CustomFields\App\Http\Requests\FormRequest;
 use Asseco\CustomFields\App\Models\Form;
 use Exception;
@@ -15,11 +16,11 @@ use Illuminate\Http\Request;
  */
 class FormController extends Controller
 {
-    protected Form $form;
+    protected FormContract $form;
 
-    public function __construct()
+    public function __construct(FormContract $form)
     {
-        $this->form = app('cf-form');
+        $this->form = $form;
     }
 
     /**

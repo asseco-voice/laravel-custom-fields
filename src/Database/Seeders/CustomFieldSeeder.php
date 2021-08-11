@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\Database\Seeders;
 
+use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\App\Contracts\Mappable;
-use Asseco\CustomFields\App\Models\CustomField;
+use Asseco\CustomFields\App\Contracts\PlainType;
+use Asseco\CustomFields\App\Contracts\RemoteType;
+use Asseco\CustomFields\App\Contracts\SelectionType;
+use Asseco\CustomFields\App\Contracts\Validation;
+use Asseco\CustomFields\App\Contracts\Value;
 use Asseco\CustomFields\App\Models\ParentType;
-use Asseco\CustomFields\App\Models\PlainType;
-use Asseco\CustomFields\App\Models\RemoteType;
-use Asseco\CustomFields\App\Models\SelectionType;
-use Asseco\CustomFields\App\Models\Validation;
-use Asseco\CustomFields\App\Models\Value;
 use Asseco\CustomFields\App\Traits\FindsTraits;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -32,14 +32,25 @@ class CustomFieldSeeder extends Seeder
             return;
         }
 
-        $types = CustomField::types();
-        $plainTypes = PlainType::all('id', 'name');
-        $selectionTypes = SelectionType::all('id');
-        $remoteTypes = RemoteType::all('id');
-        $validations = Validation::all('id');
+        /** @var CustomField $customField */
+        $customField = app(CustomField::class);
+        /** @var PlainType $plainType */
+        $plainType = app(PlainType::class);
+        /** @var SelectionType $selectionType */
+        $selectionType = app(SelectionType::class);
+        /** @var RemoteType $remoteType */
+        $remoteType = app(RemoteType::class);
+        /** @var Validation $validation */
+        $validation = app(Validation::class);
+
+        $types = $customField::types();
+        $plainTypes = $plainType::all('id', 'name');
+        $selectionTypes = $selectionType::all('id');
+        $remoteTypes = $remoteType::all('id');
+        $validations = $validation::all('id');
 
         for ($j = 0; $j < 20; $j++) {
-            $customFields = CustomField::factory()->count(10)->make()
+            $customFields = $customField::factory()->count(10)->make()
                 ->each(function (CustomField $customField) use ($types, $plainTypes, $selectionTypes, $remoteTypes, $validations, $models) {
                     $typeName = array_rand($types);
                     $typeClass = $types[$typeName];
@@ -53,16 +64,16 @@ class CustomFieldSeeder extends Seeder
                     $customField->validation_id = $shouldValidate ? $validations->random(1)->first()->id : null;
                 })->toArray();
 
-            CustomField::query()->insert($customFields);
+            $customField::query()->insert($customFields);
         }
     }
 
     protected function getTypeValue(string $typeClass, string $typeName, Collection $plainTypes, Collection $selectionTypes, Collection $remoteTypes)
     {
         switch ($typeClass) {
-            case RemoteType::class:
+            case config('asseco-custom-fields.models.remote_type'):
                 return $remoteTypes->random(1)->first()->id;
-            case SelectionType::class:
+            case config('asseco-custom-fields.models.selection_type'):
                 return $selectionTypes->random(1)->first()->id;
             default:
                 return $plainTypes->where('name', $typeName)->first()->id;
@@ -71,7 +82,10 @@ class CustomFieldSeeder extends Seeder
 
     private function shouldValidate(Model $model)
     {
-        $column = Value::FALLBACK_VALUE_COLUMN;
+        /** @var Value $value */
+        $value = app(Value::class);
+
+        $column = $value::FALLBACK_VALUE_COLUMN;
 
         if ($model instanceof Mappable) {
             $column = $model::mapToValueColumn();

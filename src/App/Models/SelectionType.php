@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Models;
 
+use Asseco\CustomFields\App\Contracts\CustomField;
+use Asseco\CustomFields\App\Contracts\SelectionValue;
 use Asseco\CustomFields\Database\Factories\SelectionTypeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class SelectionType extends ParentType
+class SelectionType extends ParentType implements \Asseco\CustomFields\App\Contracts\SelectionType
 {
     use HasFactory;
 
@@ -26,12 +28,12 @@ class SelectionType extends ParentType
 
     public function customFields(): MorphMany
     {
-        return $this->morphMany(get_class(app('cf-custom-field')), 'selectable');
+        return $this->morphMany(get_class(app(CustomField::class)), 'selectable');
     }
 
     public function values(): HasMany
     {
-        return $this->hasMany(get_class(app('cf-selection-value')));
+        return $this->hasMany(get_class(app(SelectionValue::class)));
     }
 
     public function getNameAttribute()

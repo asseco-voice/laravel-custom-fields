@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Models;
 
+use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\Database\Factories\RemoteTypeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class RemoteType extends ParentType
+class RemoteType extends ParentType implements \Asseco\CustomFields\App\Contracts\RemoteType
 {
     use HasFactory;
 
@@ -30,7 +31,7 @@ class RemoteType extends ParentType
 
     public function customFields(): MorphMany
     {
-        return $this->morphMany(get_class(app('cf-custom-field')), 'selectable');
+        return $this->morphMany(get_class(app(CustomField::class)), 'selectable');
     }
 
     public function getNameAttribute()

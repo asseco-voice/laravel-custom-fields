@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
+use Asseco\CustomFields\App\Contracts\CustomField;
+use Asseco\CustomFields\App\Contracts\PlainType;
+use Asseco\CustomFields\App\Contracts\SelectionValue;
 use Asseco\CustomFields\App\Http\Requests\SelectionCustomFieldRequest;
-use Asseco\CustomFields\App\Models\CustomField;
-use Asseco\CustomFields\App\Models\PlainType;
-use Asseco\CustomFields\App\Models\SelectionValue;
-use Asseco\CustomFields\App\Models\Value;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
@@ -19,13 +18,13 @@ use Illuminate\Support\Facades\DB;
  */
 class SelectionCustomFieldController extends Controller
 {
-    protected string $selectionClass;
     protected CustomField $customField;
+    protected string $selectionClass;
 
-    public function __construct()
+    public function __construct(CustomField $customField)
     {
-        $this->selectionClass = config('asseco-custom-fields.type_mappings.selection');
-        $this->customField = app('cf-custom-field');
+        $this->customField = $customField;
+        $this->selectionClass = config('asseco-custom-fields.models.selection_type');
     }
 
     /**
@@ -62,7 +61,7 @@ class SelectionCustomFieldController extends Controller
             $multiselect = Arr::get($selectionData, 'multiselect', false);
 
             /** @var PlainType $plainType */
-            $plainType = app('cf-plain-type');
+            $plainType = app(PlainType::class);
             $plainTypeId = $plainType::query()->where('name', $type)->firstOrFail()->id;
 
             /**
@@ -77,8 +76,8 @@ class SelectionCustomFieldController extends Controller
             $selectionValues = Arr::get($data, 'values', []);
 
             foreach ($selectionValues as $value) {
-                /** @var Value $selectionValue */
-                $selectionValue = app('cf-selection-value');
+                /** @var SelectionValue $selectionValue */
+                $selectionValue = app(SelectionValue::class);
                 $selectionValue::query()->create(
                     array_merge($value, ['selection_type_id' => $selectionType->id])
                 );

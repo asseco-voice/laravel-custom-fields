@@ -1,5 +1,6 @@
 <?php
 
+use Asseco\CustomFields\App\Contracts\PlainType;
 use Asseco\CustomFields\App\Http\Controllers\CustomFieldController;
 use Asseco\CustomFields\App\Http\Controllers\FormController;
 use Asseco\CustomFields\App\Http\Controllers\ModelController;
@@ -11,7 +12,6 @@ use Asseco\CustomFields\App\Http\Controllers\SelectionValueController;
 use Asseco\CustomFields\App\Http\Controllers\TypeController;
 use Asseco\CustomFields\App\Http\Controllers\ValidationController;
 use Asseco\CustomFields\App\Http\Controllers\ValueController;
-use Asseco\CustomFields\App\Models\PlainType;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 /** @var PlainType $plainType */
-$plainType = app('cf-plain-type');
+$plainType = app(PlainType::class);
 
 Route::pattern('plain_type', $plainType::getRegexSubTypes());
 

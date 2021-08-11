@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
-class PlainType extends Model
+class PlainType extends Model implements \Asseco\CustomFields\App\Contracts\PlainType
 {
     use HasFactory;
 
@@ -24,7 +24,7 @@ class PlainType extends Model
 
     public static function subTypes(): array
     {
-        return config('asseco-custom-fields.type_mappings.plain');
+        return config('asseco-custom-fields.plain_types');
     }
 
     public static function getSubTypeClass(string $type): string
