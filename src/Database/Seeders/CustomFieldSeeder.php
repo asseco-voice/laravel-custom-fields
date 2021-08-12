@@ -53,7 +53,7 @@ class CustomFieldSeeder extends Seeder
         for ($j = 0; $j < 20; $j++) {
             $customFields = $customField::factory()->count(10)->make()
                 ->each(function (CustomField $customField) use ($types, $plainTypes, $selectionTypes, $remoteTypes, $validations, $models) {
-                    if(config('asseco-custom-fields.migrations.uuid')){
+                    if (config('asseco-custom-fields.migrations.uuid')) {
                         $customField->id = Str::uuid();
                     }
 

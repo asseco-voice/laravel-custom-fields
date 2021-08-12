@@ -58,7 +58,6 @@ class ValueSeeder extends Seeder
                 $value->{$type} = $fakeValue;
             })->makeHidden('value')->toArray();
 
-
         $valueClass::query()->insert($values);
     }
 

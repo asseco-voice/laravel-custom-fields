@@ -33,7 +33,6 @@ class SelectionValueSeeder extends Seeder
             $selectionValues = array_merge_recursive($selectionValues,
                 $selectionValueClass::factory()->count($random)->make()
                     ->each(function (SelectionValue $selectionValue) use ($selectionTypes, $faker) {
-
                         if (config('asseco-custom-fields.migrations.uuid')) {
                             $selectionValue->id = Str::uuid();
                         }

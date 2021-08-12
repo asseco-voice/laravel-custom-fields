@@ -25,8 +25,7 @@ class RemoteTypeSeeder extends Seeder
 
         $remoteTypes = $remoteType::factory()->count(50)->make()
             ->each(function (RemoteType $remoteType) use ($plainTypeId, $methods) {
-
-                if(config('asseco-custom-fields.migrations.uuid')){
+                if (config('asseco-custom-fields.migrations.uuid')) {
                     $remoteType->id = Str::uuid();
                 }
 

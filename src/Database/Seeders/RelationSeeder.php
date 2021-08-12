@@ -28,7 +28,7 @@ class RelationSeeder extends Seeder
 
         $relations = $relation::factory()->count(200)->make()
             ->each(function (Relation $relation) use ($customFields) {
-                if(config('asseco-custom-fields.migrations.uuid')){
+                if (config('asseco-custom-fields.migrations.uuid')) {
                     $relation->id = Str::uuid();
                 }
 

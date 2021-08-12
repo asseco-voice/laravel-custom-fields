@@ -22,8 +22,7 @@ class SelectionTypeSeeder extends Seeder
 
         $selectionTypes = $selectionType::factory()->count(50)->make()
             ->each(function (SelectionType $selectionType) use ($types) {
-
-                if(config('asseco-custom-fields.migrations.uuid')){
+                if (config('asseco-custom-fields.migrations.uuid')) {
                     $selectionType->id = Str::uuid();
                 }
 

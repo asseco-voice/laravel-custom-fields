@@ -17,7 +17,7 @@ class FormSeeder extends Seeder
 
         $forms = $form::factory()->count(100)->make()
             ->each(function (Form $form) {
-                if(config('asseco-custom-fields.migrations.uuid')){
+                if (config('asseco-custom-fields.migrations.uuid')) {
                     $form->id = Str::uuid();
                 }
 

@@ -19,10 +19,10 @@ class PlainTypeSeeder extends Seeder
 
         $plainTypes = [];
         foreach ($types as $type) {
-            if(config('asseco-custom-fields.migrations.uuid')){
+            if (config('asseco-custom-fields.migrations.uuid')) {
                 $plainTypes[] = [
                     'id'   => Str::uuid(),
-                    'name' => $type
+                    'name' => $type,
                 ];
             } else {
                 $plainTypes[] = ['name' => $type];
