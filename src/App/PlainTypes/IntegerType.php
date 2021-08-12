@@ -8,7 +8,7 @@ use Asseco\CustomFields\App\Contracts\Mappable;
 use Asseco\CustomFields\App\Models\PlainType;
 use Illuminate\Database\Eloquent\Builder;
 
-class IntegerType extends PlainType implements Mappable
+class IntegerType extends PlainType implements Mappable, \Asseco\CustomFields\App\Contracts\PlainTypes\IntegerType
 {
     protected static function booted()
     {

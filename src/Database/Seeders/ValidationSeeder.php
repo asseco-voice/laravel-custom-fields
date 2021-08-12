@@ -6,6 +6,7 @@ namespace Asseco\CustomFields\Database\Seeders;
 
 use Asseco\CustomFields\App\Contracts\Validation;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class ValidationSeeder extends Seeder
 {
@@ -14,11 +15,17 @@ class ValidationSeeder extends Seeder
         /** @var Validation $validation */
         $validation = app(Validation::class);
 
-        $validations = $validation::factory()->count(200)->make()
-            ->each(function (Validation $validation) {
-                $validation->timestamps = false;
-            })
-            ->toArray();
+        $validations = $validation::factory()->count(200)->make([
+            'id' => function () {
+                if (config('asseco-custom-fields.migrations.uuid')) {
+                    return Str::uuid();
+                }
+
+                return null;
+            },
+        ])->each(function (Validation $validation) {
+            $validation->timestamps = false;
+        })->toArray();
 
         $validation::query()->insert($validations);
     }

@@ -117,8 +117,8 @@ class CustomField extends Model implements CustomFieldContract
     {
         $plain = config('asseco-custom-fields.plain_types');
         $other = [
-            'remote'    => app(RemoteType::class),
-            'selection' => app(SelectionType::class),
+            'remote'    => get_class(app(RemoteType::class)),
+            'selection' => get_class(app(SelectionType::class)),
         ];
 
         return array_merge_recursive($plain, $other);

@@ -16,6 +16,7 @@ use Asseco\CustomFields\App\Traits\FindsTraits;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CustomFieldSeeder extends Seeder
 {
@@ -52,6 +53,10 @@ class CustomFieldSeeder extends Seeder
         for ($j = 0; $j < 20; $j++) {
             $customFields = $customField::factory()->count(10)->make()
                 ->each(function (CustomField $customField) use ($types, $plainTypes, $selectionTypes, $remoteTypes, $validations, $models) {
+                    if(config('asseco-custom-fields.migrations.uuid')){
+                        $customField->id = Str::uuid();
+                    }
+
                     $typeName = array_rand($types);
                     $typeClass = $types[$typeName];
                     $typeValue = $this->getTypeValue($typeClass, $typeName, $plainTypes, $selectionTypes, $remoteTypes);

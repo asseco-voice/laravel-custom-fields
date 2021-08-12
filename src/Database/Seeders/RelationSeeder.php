@@ -7,6 +7,7 @@ namespace Asseco\CustomFields\Database\Seeders;
 use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\App\Contracts\Relation;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class RelationSeeder extends Seeder
 {
@@ -27,6 +28,10 @@ class RelationSeeder extends Seeder
 
         $relations = $relation::factory()->count(200)->make()
             ->each(function (Relation $relation) use ($customFields) {
+                if(config('asseco-custom-fields.migrations.uuid')){
+                    $relation->id = Str::uuid();
+                }
+
                 $relation->timestamps = false;
                 $relation->parent_id = $customFields->random(1)->first()->id;
                 $relation->child_id = $customFields->random(1)->first()->id;

@@ -7,6 +7,7 @@ namespace Asseco\CustomFields\Database\Seeders;
 use Asseco\CustomFields\App\Contracts\PlainType;
 use Asseco\CustomFields\App\Contracts\RemoteType;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class RemoteTypeSeeder extends Seeder
 {
@@ -24,6 +25,11 @@ class RemoteTypeSeeder extends Seeder
 
         $remoteTypes = $remoteType::factory()->count(50)->make()
             ->each(function (RemoteType $remoteType) use ($plainTypeId, $methods) {
+
+                if(config('asseco-custom-fields.migrations.uuid')){
+                    $remoteType->id = Str::uuid();
+                }
+
                 $remoteType->timestamps = false;
                 $remoteType->plain_type_id = $plainTypeId;
                 $remoteType->method = $methods[array_rand($methods)];

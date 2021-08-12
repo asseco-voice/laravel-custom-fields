@@ -8,7 +8,7 @@ use Asseco\CustomFields\App\Contracts\Mappable;
 use Asseco\CustomFields\App\Models\PlainType;
 use Illuminate\Database\Eloquent\Builder;
 
-class StringType extends PlainType implements Mappable
+class StringType extends PlainType implements Mappable, \Asseco\CustomFields\App\Contracts\PlainTypes\StringType
 {
     protected static function booted()
     {

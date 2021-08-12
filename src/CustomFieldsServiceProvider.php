@@ -4,15 +4,23 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields;
 
+use Asseco\CustomFields\App\Contracts\BooleanType;
 use Asseco\CustomFields\App\Contracts\CustomField;
+use Asseco\CustomFields\App\Contracts\DateTimeType;
+use Asseco\CustomFields\App\Contracts\DateType;
+use Asseco\CustomFields\App\Contracts\FloatType;
 use Asseco\CustomFields\App\Contracts\Form;
+use Asseco\CustomFields\App\Contracts\IntegerType;
 use Asseco\CustomFields\App\Contracts\PlainType;
 use Asseco\CustomFields\App\Contracts\Relation;
 use Asseco\CustomFields\App\Contracts\RemoteType;
 use Asseco\CustomFields\App\Contracts\SelectionType;
 use Asseco\CustomFields\App\Contracts\SelectionValue;
+use Asseco\CustomFields\App\Contracts\TextType;
+use Asseco\CustomFields\App\Contracts\TimeType;
 use Asseco\CustomFields\App\Contracts\Validation;
 use Asseco\CustomFields\App\Contracts\Value;
+use Asseco\CustomFields\App\PlainTypes\StringType;
 use Illuminate\Support\ServiceProvider;
 
 class CustomFieldsServiceProvider extends ServiceProvider
@@ -58,5 +66,14 @@ class CustomFieldsServiceProvider extends ServiceProvider
         $this->app->bind(Relation::class, config('asseco-custom-fields.models.relation'));
         $this->app->bind(Validation::class, config('asseco-custom-fields.models.validation'));
         $this->app->bind(Value::class, config('asseco-custom-fields.models.value'));
+
+        $this->app->bind(BooleanType::class, config('asseco-custom-fields.plain_types.boolean'));
+        $this->app->bind(DateTimeType::class, config('asseco-custom-fields.plain_types.date_time'));
+        $this->app->bind(DateType::class, config('asseco-custom-fields.plain_types.date'));
+        $this->app->bind(FloatType::class, config('asseco-custom-fields.plain_types.float'));
+        $this->app->bind(IntegerType::class, config('asseco-custom-fields.plain_types.integer'));
+        $this->app->bind(StringType::class, config('asseco-custom-fields.plain_types.string'));
+        $this->app->bind(TextType::class, config('asseco-custom-fields.plain_types.text'));
+        $this->app->bind(TimeType::class, config('asseco-custom-fields.plain_types.time'));
     }
 }

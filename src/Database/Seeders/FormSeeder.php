@@ -6,6 +6,7 @@ namespace Asseco\CustomFields\Database\Seeders;
 
 use Asseco\CustomFields\App\Contracts\Form;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class FormSeeder extends Seeder
 {
@@ -16,6 +17,10 @@ class FormSeeder extends Seeder
 
         $forms = $form::factory()->count(100)->make()
             ->each(function (Form $form) {
+                if(config('asseco-custom-fields.migrations.uuid')){
+                    $form->id = Str::uuid();
+                }
+
                 $form->timestamps = false;
             })
             ->toArray();

@@ -9,6 +9,7 @@ use Asseco\CustomFields\App\Contracts\SelectionValue;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class SelectionValueSeeder extends Seeder
 {
@@ -16,8 +17,8 @@ class SelectionValueSeeder extends Seeder
     {
         /** @var SelectionType $selectionType */
         $selectionType = app(SelectionType::class);
-        /** @var SelectionValue $selectionValue */
-        $selectionValue = app(SelectionValue::class);
+        /** @var SelectionValue $selectionValueClass */
+        $selectionValueClass = app(SelectionValue::class);
 
         $faker = Factory::create();
         $amount = 50;
@@ -30,8 +31,13 @@ class SelectionValueSeeder extends Seeder
             $random = rand(3, 10);
 
             $selectionValues = array_merge_recursive($selectionValues,
-                $selectionValue::factory()->count($random)->make()
+                $selectionValueClass::factory()->count($random)->make()
                     ->each(function (SelectionValue $selectionValue) use ($selectionTypes, $faker) {
+
+                        if (config('asseco-custom-fields.migrations.uuid')) {
+                            $selectionValue->id = Str::uuid();
+                        }
+
                         $selectionType = $selectionTypes->random(1)->first();
 
                         $selectionValue->timestamps = false;
@@ -39,9 +45,9 @@ class SelectionValueSeeder extends Seeder
                         $selectionValue->value = $this->getTypeValue($selectionType, $faker);
                     })->toArray()
             );
-
-            $selectionValue::query()->insert($selectionValues);
         }
+
+        $selectionValueClass::query()->insert($selectionValues);
     }
 
     protected function getTypeValue(SelectionType $selectionType, Generator $faker)
@@ -55,6 +61,10 @@ class SelectionValueSeeder extends Seeder
                 return $faker->randomFloat();
             case 'date':
                 return $faker->date();
+            case 'time':
+                return $faker->time();
+            case 'datetime':
+                return $faker->datetime();
             case 'text':
                 return $faker->sentence;
             case 'boolean':

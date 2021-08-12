@@ -6,6 +6,7 @@ namespace Asseco\CustomFields\Database\Seeders;
 
 use Asseco\CustomFields\App\Contracts\PlainType;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class PlainTypeSeeder extends Seeder
 {
@@ -18,9 +19,16 @@ class PlainTypeSeeder extends Seeder
 
         $plainTypes = [];
         foreach ($types as $type) {
-            $plainTypes[] = ['name' => $type];
+            if(config('asseco-custom-fields.migrations.uuid')){
+                $plainTypes[] = [
+                    'id'   => Str::uuid(),
+                    'name' => $type
+                ];
+            } else {
+                $plainTypes[] = ['name' => $type];
+            }
         }
 
-        $plainType::query()->upsert($plainTypes, 'name');
+        $plainType::query()->upsert($plainTypes, ['name'], ['name']);
     }
 }

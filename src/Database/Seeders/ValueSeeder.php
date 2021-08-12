@@ -12,6 +12,7 @@ use Asseco\CustomFields\App\Traits\FindsTraits;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class ValueSeeder extends Seeder
 {
@@ -21,16 +22,16 @@ class ValueSeeder extends Seeder
 
     public function run(): void
     {
-        /** @var CustomField $customField */
-        $customField = app(CustomField::class);
-        /** @var Value $value */
-        $value = app(Value::class);
+        /** @var CustomField $customFieldClass */
+        $customFieldClass = app(CustomField::class);
+        /** @var Value $valueClass */
+        $valueClass = app(Value::class);
 
         $faker = Factory::create();
         $traitPath = config('asseco-custom-fields.trait_path');
 
         $models = $this->getModelsWithTrait($traitPath);
-        $customFields = $customField::with('selectable')->get();
+        $customFields = $customFieldClass::all();
 
         if ($customFields->isEmpty()) {
             echo "No custom fields available, skipping...\n";
@@ -38,8 +39,12 @@ class ValueSeeder extends Seeder
             return;
         }
 
-        $values = $value::factory()->count(500)->make()
+        $values = $valueClass::factory()->count(500)->make()
             ->each(function (Value $value) use ($customFields, $models, $faker) {
+                if (config('asseco-custom-fields.migrations.uuid')) {
+                    $value->id = Str::uuid();
+                }
+
                 $customField = $customFields->random(1)->first();
                 $model = $models[array_rand($models)];
                 $selectable = $customField->selectable;
@@ -53,10 +58,11 @@ class ValueSeeder extends Seeder
                 $value->{$type} = $fakeValue;
             })->makeHidden('value')->toArray();
 
-        $value::query()->insert($values);
+
+        $valueClass::query()->insert($values);
     }
 
-    protected function getCached(string $model): int
+    protected function getCached(string $model): string
     {
         if (!array_key_exists($model, $this->cached)) {
             $this->cached[$model] = $model::all('id')->pluck('id')->toArray();
@@ -87,6 +93,10 @@ class ValueSeeder extends Seeder
                 return $value ?: $faker->randomFloat();
             case 'date':
                 return $value ?: $faker->date();
+            case 'time':
+                return $value ?: $faker->time();
+            case 'datetime':
+                return $value ?: $faker->datetime();
             case 'text':
                 return $value ?: $faker->sentence;
             case 'boolean':

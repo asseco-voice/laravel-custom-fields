@@ -27,6 +27,8 @@ class ValueFactory extends Factory
             'integer'         => null,
             'float'           => null,
             'date'            => null,
+            'time'            => null,
+            'datetime'        => null,
             'text'            => null,
             'boolean'         => null,
             'string'          => null,

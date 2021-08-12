@@ -37,6 +37,17 @@ return [
         'value'           => Value::class,
     ],
 
+    'plain_types' => [
+        'boolean'  => BooleanType::class,
+        'datetime' => DateTimeType::class,
+        'date'     => DateType::class,
+        'float'    => FloatType::class,
+        'integer'  => IntegerType::class,
+        'string'   => StringType::class,
+        'text'     => TextType::class,
+        'time'     => TimeType::class,
+    ],
+
     'migrations'  => [
 
         /**
@@ -72,15 +83,4 @@ return [
      * Namespace to Customizable trait.
      */
     'trait_path'  => Customizable::class,
-
-    'plain_types' => [
-        'string'   => StringType::class,
-        'integer'  => IntegerType::class,
-        'float'    => FloatType::class,
-        'text'     => TextType::class,
-        'boolean'  => BooleanType::class,
-        'datetime' => DateTimeType::class,
-        'date'     => DateType::class,
-        'time'     => TimeType::class,
-    ],
 ];
