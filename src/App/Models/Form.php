@@ -134,7 +134,7 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
         return !array_key_exists($customField->name, $formData) && $customField->required;
     }
 
-    public function createValues(array $formData, string $modelType, int $modelId): array
+    public function createValues(array $formData, string $modelType, $modelId): array
     {
         $values = [];
 
