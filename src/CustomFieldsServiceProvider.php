@@ -4,23 +4,24 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields;
 
-use Asseco\CustomFields\App\Contracts\BooleanType;
 use Asseco\CustomFields\App\Contracts\CustomField;
-use Asseco\CustomFields\App\Contracts\DateTimeType;
-use Asseco\CustomFields\App\Contracts\DateType;
-use Asseco\CustomFields\App\Contracts\FloatType;
 use Asseco\CustomFields\App\Contracts\Form;
-use Asseco\CustomFields\App\Contracts\IntegerType;
 use Asseco\CustomFields\App\Contracts\PlainType;
+use Asseco\CustomFields\App\Contracts\PlainTypes\BooleanType;
+use Asseco\CustomFields\App\Contracts\PlainTypes\DateTimeType;
+use Asseco\CustomFields\App\Contracts\PlainTypes\DateType;
+use Asseco\CustomFields\App\Contracts\PlainTypes\FloatType;
+use Asseco\CustomFields\App\Contracts\PlainTypes\IntegerType;
+use Asseco\CustomFields\App\Contracts\PlainTypes\StringType;
+use Asseco\CustomFields\App\Contracts\PlainTypes\TextType;
+use Asseco\CustomFields\App\Contracts\PlainTypes\TimeType;
 use Asseco\CustomFields\App\Contracts\Relation;
 use Asseco\CustomFields\App\Contracts\RemoteType;
 use Asseco\CustomFields\App\Contracts\SelectionType;
 use Asseco\CustomFields\App\Contracts\SelectionValue;
-use Asseco\CustomFields\App\Contracts\TextType;
-use Asseco\CustomFields\App\Contracts\TimeType;
 use Asseco\CustomFields\App\Contracts\Validation;
 use Asseco\CustomFields\App\Contracts\Value;
-use Asseco\CustomFields\App\PlainTypes\StringType;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class CustomFieldsServiceProvider extends ServiceProvider
@@ -53,6 +54,8 @@ class CustomFieldsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/asseco-custom-fields.php' => config_path('asseco-custom-fields.php'),
         ], 'asseco-custom-fields');
+
+        $this->routeModelBinding();
     }
 
     protected function bindClasses()
@@ -75,5 +78,19 @@ class CustomFieldsServiceProvider extends ServiceProvider
         $this->app->bind(StringType::class, config('asseco-custom-fields.plain_types.string'));
         $this->app->bind(TextType::class, config('asseco-custom-fields.plain_types.text'));
         $this->app->bind(TimeType::class, config('asseco-custom-fields.plain_types.time'));
+    }
+
+    protected function routeModelBinding()
+    {
+        Route::model('custom_field', get_class(app(CustomField::class)));
+        Route::model('form', get_class(app(Form::class)));
+        Route::model('remote_type', get_class(app(RemoteType::class)));
+        // Plain type pattern is defined in routes, so no need to register it here
+        // Route::model('plain_type', get_class(app(PlainType::class)));
+        Route::model('selection_type', get_class(app(SelectionType::class)));
+        Route::model('selection_value', get_class(app(SelectionValue::class)));
+        Route::model('relation', get_class(app(Relation::class)));
+        Route::model('validation', get_class(app(Validation::class)));
+        Route::model('value', get_class(app(Value::class)));
     }
 }
