@@ -27,9 +27,9 @@ class ValueRequest extends FormRequest
     public function rules()
     {
         return [
-            'custom_field_id' => 'required|integer|exists:custom_fields,id',
+            'custom_field_id' => 'required|exists:custom_fields,id',
             'model_type'      => 'required|string',
-            'model_id'        => 'required|integer',
+            'model_id'        => 'required',
             'string'          => 'nullable|string|max:255',
             'integer'         => 'nullable|integer',
             'float'           => 'nullable|numeric',
