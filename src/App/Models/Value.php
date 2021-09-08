@@ -6,6 +6,7 @@ namespace Asseco\CustomFields\App\Models;
 
 use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\Database\Factories\ValueFactory;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,6 +36,25 @@ class Value extends Model implements \Asseco\CustomFields\App\Contracts\Value
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected $appends = ['value'];
+
+    protected static function booted()
+    {
+        static::creating(function (self $customFieldValue) {
+            if ($customFieldValue->customField->getValueColumn() === 'date'){
+                $value = new Carbon($customFieldValue->{$customFieldValue->customField->getValueColumn()});
+                $customFieldValue->{$customFieldValue->customField->getValueColumn()} = $value->toDateString();
+            }
+            if ($customFieldValue->customField->getValueColumn() === 'time'){
+                $value = new Carbon($customFieldValue->{$customFieldValue->customField->getValueColumn()});
+                $customFieldValue->{$customFieldValue->customField->getValueColumn()} = $value->toTimeString();
+            }
+
+            if ($customFieldValue->customField->getValueColumn() === 'datetime'){
+                $value = new Carbon($customFieldValue->{$customFieldValue->customField->getValueColumn()});
+                $customFieldValue->{$customFieldValue->customField->getValueColumn()} = $value->format('Y-m-d H:i:s');
+            }
+        });
+    }
 
     protected static function newFactory()
     {
