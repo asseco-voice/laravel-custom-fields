@@ -40,16 +40,16 @@ class Value extends Model implements \Asseco\CustomFields\App\Contracts\Value
     protected static function booted()
     {
         static::creating(function (self $customFieldValue) {
-            if ($customFieldValue->customField->getValueColumn() === 'date'){
+            if ($customFieldValue->customField->getValueColumn() === 'date') {
                 $value = new Carbon($customFieldValue->{$customFieldValue->customField->getValueColumn()});
                 $customFieldValue->{$customFieldValue->customField->getValueColumn()} = $value->toDateString();
             }
-            if ($customFieldValue->customField->getValueColumn() === 'time'){
+            if ($customFieldValue->customField->getValueColumn() === 'time') {
                 $value = new Carbon($customFieldValue->{$customFieldValue->customField->getValueColumn()});
                 $customFieldValue->{$customFieldValue->customField->getValueColumn()} = $value->toTimeString();
             }
 
-            if ($customFieldValue->customField->getValueColumn() === 'datetime'){
+            if ($customFieldValue->customField->getValueColumn() === 'datetime') {
                 $value = new Carbon($customFieldValue->{$customFieldValue->customField->getValueColumn()});
                 $customFieldValue->{$customFieldValue->customField->getValueColumn()} = $value->format('Y-m-d H:i:s');
             }
