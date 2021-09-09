@@ -41,7 +41,7 @@ class Value extends Model implements \Asseco\CustomFields\App\Contracts\Value
     {
         static::creating(function (self $customFieldValue) {
             $valueColumn = $customFieldValue->customField->getValueColumn();
-            switch ($valueColumn){
+            switch ($valueColumn) {
                 case 'date':
                     $customFieldValue->{$valueColumn} = (new Carbon($customFieldValue->{$valueColumn}))->toDateString();
                     break;
@@ -82,7 +82,7 @@ class Value extends Model implements \Asseco\CustomFields\App\Contracts\Value
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @throws Throwable
      */
     public static function validateCreate(Request $request): void
@@ -107,7 +107,7 @@ class Value extends Model implements \Asseco\CustomFields\App\Contracts\Value
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @throws Throwable
      */
     public function validateUpdate(Request $request): void
@@ -127,8 +127,8 @@ class Value extends Model implements \Asseco\CustomFields\App\Contracts\Value
     }
 
     /**
-     * @param string $valueColumn
-     * @param Request $request
+     * @param  string  $valueColumn
+     * @param  Request  $request
      * @throws Throwable
      */
     protected static function filterByAllowedColumn(string $valueColumn, Request $request): void

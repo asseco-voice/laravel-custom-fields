@@ -51,7 +51,7 @@ class PlainTypeTest extends TestCase
     /**
      * @test
      * @depends has_basic_sub_types
-     * @param array $plainMappings
+     * @param  array  $plainMappings
      */
     public function sub_types_have_registered_classes(array $plainMappings)
     {
@@ -85,7 +85,7 @@ class PlainTypeTest extends TestCase
     /**
      * @test
      * @depends has_basic_sub_types
-     * @param array $basicSubTypes
+     * @param  array  $basicSubTypes
      */
     public function sub_types_are_scoped_correctly(array $basicSubTypes)
     {

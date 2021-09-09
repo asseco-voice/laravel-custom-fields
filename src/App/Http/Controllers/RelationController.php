@@ -35,7 +35,7 @@ class RelationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param RelationRequest $request
+     * @param  RelationRequest  $request
      * @return JsonResponse
      */
     public function store(RelationRequest $request): JsonResponse
@@ -48,7 +48,7 @@ class RelationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Relation $relation
+     * @param  Relation  $relation
      * @return JsonResponse
      */
     public function show(Relation $relation): JsonResponse
@@ -59,8 +59,8 @@ class RelationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param RelationRequest $request
-     * @param Relation $relation
+     * @param  RelationRequest  $request
+     * @param  Relation  $relation
      * @return JsonResponse
      */
     public function update(RelationRequest $request, Relation $relation): JsonResponse
@@ -73,7 +73,7 @@ class RelationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Relation $relation
+     * @param  Relation  $relation
      * @return JsonResponse
      * @throws Exception
      */

@@ -29,7 +29,7 @@ class PlainCustomFieldController extends Controller
      * @path plain_type string One of the plain types (string, text, integer, float, date, boolean)
      * @multiple true
      *
-     * @param string|null $type
+     * @param  string|null  $type
      * @return JsonResponse
      */
     public function index(string $type = null): JsonResponse
@@ -43,8 +43,8 @@ class PlainCustomFieldController extends Controller
      * @path plain_type string One of the plain types (string, text, integer, float, date, boolean)
      * @except selectable_type selectable_id
      *
-     * @param PlainCustomFieldRequest $request
-     * @param string $type
+     * @param  PlainCustomFieldRequest  $request
+     * @param  string  $type
      * @return JsonResponse
      */
     public function store(PlainCustomFieldRequest $request, string $type): JsonResponse
