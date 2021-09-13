@@ -36,6 +36,7 @@ class CustomFieldUpdateRequest extends FormRequest
             'label'         => 'sometimes|string|max:255',
             'placeholder'   => 'nullable|string',
             'required'      => 'boolean',
+            'hidden'        => 'boolean',
             'validation_id' => 'nullable|exists:custom_field_validations,id',
             'group'         => 'nullable|string',
             'order'         => 'nullable|integer',
