@@ -49,7 +49,7 @@ class FormRequest extends LaravelFormRequest
     /**
      * Dynamically set validator from 'required' to 'sometimes' if resource is being updated.
      *
-     * @param Validator $validator
+     * @param  Validator  $validator
      */
     public function withValidator(Validator $validator)
     {

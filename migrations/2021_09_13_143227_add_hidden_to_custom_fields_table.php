@@ -25,7 +25,7 @@ class AddHiddenToCustomFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::table('custom_fields', function(Blueprint $table) {
+        Schema::table('custom_fields', function (Blueprint $table) {
             $table->dropColumn('hidden');
         });
     }

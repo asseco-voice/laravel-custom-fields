@@ -47,8 +47,8 @@ class SelectionCustomFieldController extends Controller
      * @append selection SelectionType
      * @append values SelectionValue
      *
-     * @param SelectionCustomFieldRequest $request
-     * @param string $type
+     * @param  SelectionCustomFieldRequest  $request
+     * @param  string  $type
      * @return JsonResponse
      */
     public function store(SelectionCustomFieldRequest $request, string $type): JsonResponse

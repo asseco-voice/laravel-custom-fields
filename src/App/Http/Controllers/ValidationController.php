@@ -35,7 +35,7 @@ class ValidationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param ValidationRequest $request
+     * @param  ValidationRequest  $request
      * @return JsonResponse
      */
     public function store(ValidationRequest $request): JsonResponse
@@ -48,7 +48,7 @@ class ValidationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Validation $validation
+     * @param  Validation  $validation
      * @return JsonResponse
      */
     public function show(Validation $validation): JsonResponse
@@ -59,8 +59,8 @@ class ValidationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ValidationRequest $request
-     * @param Validation $validation
+     * @param  ValidationRequest  $request
+     * @param  Validation  $validation
      * @return JsonResponse
      */
     public function update(ValidationRequest $request, Validation $validation): JsonResponse
@@ -73,8 +73,9 @@ class ValidationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Validation $validation
+     * @param  Validation  $validation
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function destroy(Validation $validation): JsonResponse

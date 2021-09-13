@@ -36,8 +36,9 @@ class ValueController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param ValueRequest $request
+     * @param  ValueRequest  $request
      * @return JsonResponse
+     *
      * @throws Throwable
      */
     public function store(ValueRequest $request): JsonResponse
@@ -52,7 +53,7 @@ class ValueController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Value $value
+     * @param  Value  $value
      * @return JsonResponse
      */
     public function show(Value $value): JsonResponse
@@ -63,9 +64,10 @@ class ValueController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ValueRequest $request
-     * @param Value $value
+     * @param  ValueRequest  $request
+     * @param  Value  $value
      * @return JsonResponse
+     *
      * @throws Throwable
      */
     public function update(ValueRequest $request, Value $value): JsonResponse
@@ -80,8 +82,9 @@ class ValueController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Value $value
+     * @param  Value  $value
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function destroy(Value $value): JsonResponse
