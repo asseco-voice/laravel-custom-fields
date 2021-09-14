@@ -36,7 +36,7 @@ class FormController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param FormRequest $request
+     * @param  FormRequest  $request
      * @return JsonResponse
      */
     public function store(FormRequest $request): JsonResponse
@@ -49,7 +49,7 @@ class FormController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Form $form
+     * @param  Form  $form
      * @return JsonResponse
      */
     public function show(Form $form): JsonResponse
@@ -60,8 +60,8 @@ class FormController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param FormRequest $request
-     * @param Form $form
+     * @param  FormRequest  $request
+     * @param  Form  $form
      * @return JsonResponse
      */
     public function update(FormRequest $request, Form $form): JsonResponse
@@ -74,8 +74,9 @@ class FormController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Form $form
+     * @param  Form  $form
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function destroy(Form $form): JsonResponse
@@ -86,9 +87,10 @@ class FormController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @param $formName
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function validateAgainstCustomInput(Request $request, $formName)

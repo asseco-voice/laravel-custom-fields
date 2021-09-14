@@ -63,7 +63,8 @@ class Value extends Model implements \Asseco\CustomFields\App\Contracts\Value
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
+     *
      * @throws Throwable
      */
     public static function validateCreate(Request $request): void
@@ -88,7 +89,8 @@ class Value extends Model implements \Asseco\CustomFields\App\Contracts\Value
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
+     *
      * @throws Throwable
      */
     public function validateUpdate(Request $request): void
@@ -108,8 +110,9 @@ class Value extends Model implements \Asseco\CustomFields\App\Contracts\Value
     }
 
     /**
-     * @param string $valueColumn
-     * @param Request $request
+     * @param  string  $valueColumn
+     * @param  Request  $request
+     *
      * @throws Throwable
      */
     protected static function filterByAllowedColumn(string $valueColumn, Request $request): void

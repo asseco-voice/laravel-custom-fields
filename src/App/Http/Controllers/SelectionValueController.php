@@ -35,7 +35,7 @@ class SelectionValueController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param SelectionValueRequest $request
+     * @param  SelectionValueRequest  $request
      * @return JsonResponse
      */
     public function store(SelectionValueRequest $request): JsonResponse
@@ -48,7 +48,7 @@ class SelectionValueController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param SelectionValue $selectionValue
+     * @param  SelectionValue  $selectionValue
      * @return JsonResponse
      */
     public function show(SelectionValue $selectionValue): JsonResponse
@@ -59,8 +59,8 @@ class SelectionValueController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param SelectionValueRequest $request
-     * @param SelectionValue $selectionValue
+     * @param  SelectionValueRequest  $request
+     * @param  SelectionValue  $selectionValue
      * @return JsonResponse
      */
     public function update(SelectionValueRequest $request, SelectionValue $selectionValue): JsonResponse
@@ -73,8 +73,9 @@ class SelectionValueController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param SelectionValue $selectionValue
+     * @param  SelectionValue  $selectionValue
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function destroy(SelectionValue $selectionValue): JsonResponse

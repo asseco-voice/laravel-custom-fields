@@ -17,7 +17,7 @@ trait Customizable
     /**
      * Append custom field key-value pairs to event. Key is CF name, value is exact value.
      *
-     * @param array|null $customFieldValues
+     * @param  array|null  $customFieldValues
      * @return array
      */
     public function flattenCustomFieldValues(?array $customFieldValues = null): array

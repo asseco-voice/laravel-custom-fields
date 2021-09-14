@@ -18,6 +18,7 @@ class ModelController extends Controller
      * Display a listing of the resource.
      *
      * @response model array[string]
+     *
      * @return JsonResponse
      */
     public function index(): JsonResponse

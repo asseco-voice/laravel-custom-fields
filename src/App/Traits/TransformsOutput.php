@@ -21,7 +21,7 @@ trait TransformsOutput
     }
 
     /**
-     * @param array $mappings
+     * @param  array  $mappings
      * @param $item
      * @return array
      */

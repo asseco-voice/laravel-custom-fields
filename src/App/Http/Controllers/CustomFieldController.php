@@ -33,7 +33,7 @@ class CustomFieldController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CustomFieldCreateRequest $request
+     * @param  CustomFieldCreateRequest  $request
      * @return JsonResponse
      */
     public function store(CustomFieldCreateRequest $request): JsonResponse
@@ -46,7 +46,7 @@ class CustomFieldController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param CustomField $customField
+     * @param  CustomField  $customField
      * @return JsonResponse
      */
     public function show(CustomField $customField): JsonResponse
@@ -57,8 +57,8 @@ class CustomFieldController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CustomFieldUpdateRequest $request
-     * @param CustomField $customField
+     * @param  CustomFieldUpdateRequest  $request
+     * @param  CustomField  $customField
      * @return JsonResponse
      */
     public function update(CustomFieldUpdateRequest $request, CustomField $customField): JsonResponse
@@ -71,8 +71,9 @@ class CustomFieldController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param CustomField $customField
+     * @param  CustomField  $customField
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function destroy(CustomField $customField): JsonResponse
