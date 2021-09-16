@@ -75,6 +75,7 @@ class RelationController extends Controller
      *
      * @param  Relation  $relation
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function destroy(Relation $relation): JsonResponse

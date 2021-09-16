@@ -102,6 +102,7 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
     /**
      * @param  array  $formData
      * @return array
+     *
      * @throws Exception
      */
     public function validate(array $formData): array

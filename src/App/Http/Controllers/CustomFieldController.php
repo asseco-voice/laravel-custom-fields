@@ -73,6 +73,7 @@ class CustomFieldController extends Controller
      *
      * @param  CustomField  $customField
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function destroy(CustomField $customField): JsonResponse

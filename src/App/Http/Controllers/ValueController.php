@@ -38,6 +38,7 @@ class ValueController extends Controller
      *
      * @param  ValueRequest  $request
      * @return JsonResponse
+     *
      * @throws Throwable
      */
     public function store(ValueRequest $request): JsonResponse
@@ -66,6 +67,7 @@ class ValueController extends Controller
      * @param  ValueRequest  $request
      * @param  Value  $value
      * @return JsonResponse
+     *
      * @throws Throwable
      */
     public function update(ValueRequest $request, Value $value): JsonResponse
@@ -82,6 +84,7 @@ class ValueController extends Controller
      *
      * @param  Value  $value
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function destroy(Value $value): JsonResponse

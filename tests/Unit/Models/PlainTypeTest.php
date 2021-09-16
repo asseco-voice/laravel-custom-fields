@@ -51,6 +51,7 @@ class PlainTypeTest extends TestCase
     /**
      * @test
      * @depends has_basic_sub_types
+     *
      * @param  array  $plainMappings
      */
     public function sub_types_have_registered_classes(array $plainMappings)
@@ -73,6 +74,7 @@ class PlainTypeTest extends TestCase
     /**
      * @test
      * @depends has_basic_sub_types
+     *
      * @param $basicSubTypes
      */
     public function returns_pipe_delimited_sub_types(array $basicSubTypes)
@@ -85,6 +87,7 @@ class PlainTypeTest extends TestCase
     /**
      * @test
      * @depends has_basic_sub_types
+     *
      * @param  array  $basicSubTypes
      */
     public function sub_types_are_scoped_correctly(array $basicSubTypes)

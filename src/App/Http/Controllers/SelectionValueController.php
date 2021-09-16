@@ -75,6 +75,7 @@ class SelectionValueController extends Controller
      *
      * @param  SelectionValue  $selectionValue
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function destroy(SelectionValue $selectionValue): JsonResponse

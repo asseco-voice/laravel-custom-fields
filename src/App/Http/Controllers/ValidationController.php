@@ -75,6 +75,7 @@ class ValidationController extends Controller
      *
      * @param  Validation  $validation
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function destroy(Validation $validation): JsonResponse

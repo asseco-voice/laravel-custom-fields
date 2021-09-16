@@ -76,6 +76,7 @@ class FormController extends Controller
      *
      * @param  Form  $form
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function destroy(Form $form): JsonResponse
@@ -89,6 +90,7 @@ class FormController extends Controller
      * @param  Request  $request
      * @param $formName
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function validateAgainstCustomInput(Request $request, $formName)
