@@ -32,7 +32,9 @@ class ValueControllerTest extends TestCase
             ->getJson(route('custom-field.values.index'))
             ->assertJsonCount(0);
 
-        $this->value::factory()->count(5)->create();
+        $customField = $this->customField::factory()->create();
+
+        $this->value::factory()->count(5)->create(['custom_field_id'=> $customField->id]);
 
         $this
             ->getJson(route('custom-field.values.index'))
@@ -124,7 +126,9 @@ class ValueControllerTest extends TestCase
     /** @test */
     public function can_return_value_by_id()
     {
-        $this->value::factory()->count(5)->create();
+        $customField = $this->customField::factory()->create();
+
+        $this->value::factory()->count(5)->create(['custom_field_id'=> $customField->id]);
 
         $this
             ->getJson(route('custom-field.values.show', 3))
@@ -184,7 +188,9 @@ class ValueControllerTest extends TestCase
     /** @test */
     public function can_delete_value()
     {
-        $value = $this->value::factory()->create();
+        $customField = $this->customField::factory()->create();
+
+        $value = $this->value::factory()->create(['custom_field_id'=> $customField->id]);
 
         $this->assertCount(1, $this->value::all());
 

@@ -6,6 +6,7 @@ namespace Asseco\CustomFields\App\Models;
 
 use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\Database\Factories\ValueFactory;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,6 +36,24 @@ class Value extends Model implements \Asseco\CustomFields\App\Contracts\Value
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected $appends = ['value'];
+
+    protected static function booted()
+    {
+        static::creating(function (self $customFieldValue) {
+            $valueColumn = $customFieldValue->customField->getValueColumn();
+            switch ($valueColumn) {
+                case 'date':
+                    $customFieldValue->{$valueColumn} = (new Carbon($customFieldValue->{$valueColumn}))->toDateString();
+                    break;
+                case 'time':
+                    $customFieldValue->{$valueColumn} = (new Carbon($customFieldValue->{$valueColumn}))->toTimeString();
+                    break;
+                case 'datetime':
+                    $customFieldValue->{$valueColumn} = (new Carbon($customFieldValue->{$valueColumn}))->format('Y-m-d H:i:s');
+                    break;
+            }
+        });
+    }
 
     protected static function newFactory()
     {
