@@ -47,6 +47,19 @@ class CustomField extends Model implements CustomFieldContract
             throw_if(preg_match('/\s/', $customField->name),
                 new Exception('Custom field name must not contain spaces.'));
         });
+
+        static::updated(function (self $customField) {
+            $forms = $customField->forms;
+            $changed = $customField->getDirty();
+            $old = $customField->getOriginal();
+
+            foreach ($forms as $form) {
+                if(array_key_exists('name', $changed)) {
+                    $definition = str_replace("\"key\":\"{$old['name']}\"", "\"key\":\"{$changed['name']}\"", json_encode($form->definition));
+                    $form->update(['definition' => json_decode($definition)]);
+                }
+            }
+        });
     }
 
     public function selectable(): MorphTo
