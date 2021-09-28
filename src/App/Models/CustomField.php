@@ -54,7 +54,7 @@ class CustomField extends Model implements CustomFieldContract
             $oldValues = $customField->getOriginal();
 
             foreach ($forms as $form) {
-                if(array_key_exists('name', $newValues)) {
+                if (array_key_exists('name', $newValues)) {
                     $form->updateDefinition($oldValues, $newValues);
                     $form->refresh();
                 }
