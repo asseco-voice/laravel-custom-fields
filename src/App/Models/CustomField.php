@@ -50,13 +50,13 @@ class CustomField extends Model implements CustomFieldContract
 
         static::updated(function (self $customField) {
             $forms = $customField->forms;
-            $changed = $customField->getDirty();
-            $old = $customField->getOriginal();
+            $newValues = $customField->getDirty();
+            $oldValues = $customField->getOriginal();
 
             foreach ($forms as $form) {
-                if(array_key_exists('name', $changed)) {
-                    $definition = str_replace("\"key\":\"{$old['name']}\"", "\"key\":\"{$changed['name']}\"", json_encode($form->definition));
-                    $form->update(['definition' => json_decode($definition)]);
+                if(array_key_exists('name', $newValues)) {
+                    $form->updateDefinition($oldValues, $newValues);
+                    $form->refresh();
                 }
             }
         });

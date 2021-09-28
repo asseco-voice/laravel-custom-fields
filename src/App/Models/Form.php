@@ -161,4 +161,10 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
 
         return $values;
     }
+
+    public function updateDefinition(array $oldValues, array $newValues): void
+    {
+        $definition = str_replace("\"key\":\"{$oldValues['name']}\"", "\"key\":\"{$newValues['name']}\"", json_encode($this->definition));
+        $this->update(['definition' => json_decode($definition)]);
+    }
 }
