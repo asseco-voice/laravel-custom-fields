@@ -36,7 +36,7 @@ class SelectionCustomFieldController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json($this->customField::selection()->get());
+        return response()->json($this->customField::selection()->with('selectable')->get());
     }
 
     /**
