@@ -41,7 +41,7 @@ class RemoteCustomFieldController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json($this->customField::remote()->get());
+        return response()->json($this->customField::remote()->with('selectable')->get());
     }
 
     /**
