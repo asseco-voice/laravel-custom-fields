@@ -50,7 +50,7 @@ class RemoteCustomFieldController extends Controller
      * @except selectable_type selectable_id
      * @append remote RemoteType
      *
-     * @param RemoteCustomFieldRequest $request
+     * @param  RemoteCustomFieldRequest  $request
      * @return JsonResponse
      */
     public function store(RemoteCustomFieldRequest $request): JsonResponse
@@ -84,7 +84,7 @@ class RemoteCustomFieldController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param RemoteType $remoteType
+     * @param  RemoteType  $remoteType
      * @return JsonResponse
      */
     public function resolve(RemoteType $remoteType): JsonResponse
