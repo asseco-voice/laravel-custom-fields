@@ -8,6 +8,8 @@ use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\App\Contracts\PlainType;
 use Asseco\CustomFields\App\Contracts\SelectionValue;
 use Asseco\CustomFields\App\Http\Requests\SelectionCustomFieldRequest;
+use Asseco\CustomFields\App\Http\Requests\SelectionTypeRequest;
+use Asseco\CustomFields\App\Models\SelectionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
@@ -94,5 +96,19 @@ class SelectionCustomFieldController extends Controller
         });
 
         return response()->json($customField->refresh()->load('selectable.values'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  SelectionTypeRequest  $request
+     * @param  SelectionType $selectionType
+     * @return JsonResponse
+     */
+    public function update(SelectionTypeRequest $request, SelectionType $selectionType): JsonResponse
+    {
+        $selectionType->update($request->validated());
+
+        return response()->json($selectionType->refresh());
     }
 }

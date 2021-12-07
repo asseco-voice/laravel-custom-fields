@@ -8,6 +8,7 @@ use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\App\Contracts\PlainType;
 use Asseco\CustomFields\App\Contracts\RemoteType;
 use Asseco\CustomFields\App\Http\Requests\RemoteCustomFieldRequest;
+use Asseco\CustomFields\App\Http\Requests\RemoteTypeRequest;
 use Asseco\CustomFields\App\Traits\TransformsOutput;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\JsonResponse;
@@ -79,6 +80,20 @@ class RemoteCustomFieldController extends Controller
         });
 
         return response()->json($customField->refresh()->load('selectable'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  RemoteTypeRequest  $request
+     * @param  RemoteType $remoteType
+     * @return JsonResponse
+     */
+    public function update(RemoteTypeRequest $request, RemoteType $remoteType): JsonResponse
+    {
+        $remoteType->update($request->validated());
+
+        return response()->json($remoteType->refresh());
     }
 
     /**
