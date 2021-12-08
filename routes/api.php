@@ -46,7 +46,7 @@ Route::prefix('api')->middleware('api')->group(function () {
 
         Route::get('selection', [SelectionCustomFieldController::class, 'index'])->name('selection.index');
         Route::post('selection/{plain_type}', [SelectionCustomFieldController::class, 'store'])->name('selection.store');
-        Route::match(['put', 'patch'], 'selection/{selectable_type}', [SelectionCustomFieldController::class, 'update'])->name('selection.update');
+        Route::match(['put', 'patch'], 'selection/{selection_type}', [SelectionCustomFieldController::class, 'update'])->name('selection.update');
 
         Route::apiResource('selection-values', SelectionValueController::class);
 
