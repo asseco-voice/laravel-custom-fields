@@ -86,7 +86,7 @@ class RemoteCustomFieldController extends Controller
      * Update the specified resource in storage.
      *
      * @param  RemoteTypeRequest  $request
-     * @param  RemoteType $remoteType
+     * @param  RemoteType  $remoteType
      * @return JsonResponse
      */
     public function update(RemoteTypeRequest $request, RemoteType $remoteType): JsonResponse

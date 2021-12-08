@@ -102,7 +102,7 @@ class SelectionCustomFieldController extends Controller
      * Update the specified resource in storage.
      *
      * @param  SelectionTypeRequest  $request
-     * @param  SelectionType $selectionType
+     * @param  SelectionType  $selectionType
      * @return JsonResponse
      */
     public function update(SelectionTypeRequest $request, SelectionType $selectionType): JsonResponse
