@@ -41,10 +41,12 @@ Route::prefix('api')->middleware('api')->group(function () {
         Route::post('plain/{plain_type}', [PlainCustomFieldController::class, 'store'])->name('plain.store');
 
         Route::apiResource('remote', RemoteCustomFieldController::class)->only(['index', 'store']);
+        Route::match(['put', 'patch'], 'remote/{remote_type}', [RemoteCustomFieldController::class, 'update'])->name('remote.update');
         Route::get('remote/{remote_type}/resolve', [RemoteCustomFieldController::class, 'resolve'])->name('remote.resolve');
 
         Route::get('selection', [SelectionCustomFieldController::class, 'index'])->name('selection.index');
         Route::post('selection/{plain_type}', [SelectionCustomFieldController::class, 'store'])->name('selection.store');
+        Route::match(['put', 'patch'], 'selection/{selection_type}', [SelectionCustomFieldController::class, 'update'])->name('selection.update');
 
         Route::apiResource('selection-values', SelectionValueController::class);
 
