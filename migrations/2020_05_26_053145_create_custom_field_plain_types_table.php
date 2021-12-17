@@ -26,9 +26,9 @@ class CreateCustomFieldPlainTypesTable extends Migration
             $table->string('name', 150)->unique('cf_name_types');
 
             MigrationMethodPicker::pick($table, config('asseco-custom-fields.migrations.timestamps'));
-
-            $this->seedData();
         });
+
+        $this->seedData();
     }
 
     /**
