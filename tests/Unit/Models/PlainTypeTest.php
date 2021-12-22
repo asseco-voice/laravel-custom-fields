@@ -95,7 +95,7 @@ class PlainTypeTest extends TestCase
         $this->plainType::factory()->count(5)->create();
 
         foreach ($basicSubTypes as $typeName => $typeClass) {
-            $plainType = $this->plainType::factory()->create(['name' => $typeName]);
+            $plainType = $this->plainType::query()->where('name', $typeName)->first();
             $instance = new $typeClass;
 
             $this->assertInstanceOf(Mappable::class, $instance);

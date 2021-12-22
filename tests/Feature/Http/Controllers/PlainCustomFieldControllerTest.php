@@ -26,12 +26,8 @@ class PlainCustomFieldControllerTest extends TestCase
     /** @test */
     public function returns_only_plain_custom_fields()
     {
-        $this
-            ->getJson(route('custom-field.plain.index'))
-            ->assertJsonCount(0);
-
-        $plainType1 = $this->plainType::factory()->create(['name' => 'string']);
-        $plainType2 = $this->plainType::factory()->create(['name' => 'boolean']);
+        $plainType1 = $this->plainType::query()->where('name', 'string')->first();
+        $plainType2 = $this->plainType::query()->where('name', 'boolean')->first();
 
         $this->customField::factory()->create([
             'selectable_type' => StringType::class,
@@ -66,8 +62,6 @@ class PlainCustomFieldControllerTest extends TestCase
     /** @test */
     public function creates_plain_custom_field()
     {
-        $this->plainType::factory()->create(['name' => 'string']);
-
         $request = $this->customField::factory()->make()->toArray();
 
         $this

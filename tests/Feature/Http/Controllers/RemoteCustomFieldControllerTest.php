@@ -32,7 +32,7 @@ class RemoteCustomFieldControllerTest extends TestCase
             ->assertJsonCount(0);
 
         $remoteType = $this->remoteType::factory()->create([
-            'plain_type_id' => $this->plainType::factory()->create(['name' => 'string'])->id,
+            'plain_type_id' => $this->plainType::query()->where('name', 'string')->first()->id,
         ]);
 
         $this->customField::factory()->create([
@@ -77,7 +77,7 @@ class RemoteCustomFieldControllerTest extends TestCase
         $request = $this->customField::factory()->make()->toArray();
 
         $request['remote'] = $this->remoteType::factory()->make([
-            'plain_type_id' => $this->plainType::factory()->create(['name' => 'string'])->id,
+            'plain_type_id' => $this->plainType::query()->where('name', 'string')->first()->id,
             'body'          => [],
             'mappings'      => [],
         ])->toArray();

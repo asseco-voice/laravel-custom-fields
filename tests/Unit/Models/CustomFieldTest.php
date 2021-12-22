@@ -69,8 +69,8 @@ class CustomFieldTest extends TestCase
     /** @test */
     public function filters_out_plain_types()
     {
-        $plainType1 = $this->plainType::factory()->create(['name' => 'string']);
-        $plainType2 = $this->plainType::factory()->create(['name' => 'boolean']);
+        $plainType1 = $this->plainType::query()->where('name', 'string')->first();
+        $plainType2 = $this->plainType::query()->where('name', 'boolean')->first();
 
         $this->customField::factory()->create([
             'selectable_type' => StringType::class,
@@ -89,7 +89,7 @@ class CustomFieldTest extends TestCase
     /** @test */
     public function filters_out_remote_types()
     {
-        $plainType1 = $this->plainType::factory()->create(['name' => 'string']);
+        $plainType1 = $this->plainType::query()->where('name', 'string')->first();
 
         $this->remoteType::factory()->count(2)->create([
             'plain_type_id' => $plainType1->id,
@@ -106,7 +106,7 @@ class CustomFieldTest extends TestCase
     /** @test */
     public function filters_out_selection_types()
     {
-        $plainType1 = $this->plainType::factory()->create(['name' => 'string']);
+        $plainType1 = $this->plainType::query()->where('name', 'string')->first();
 
         $this->selectionType::factory()->count(2)->create([
             'plain_type_id' => $plainType1->id,
@@ -180,12 +180,12 @@ class CustomFieldTest extends TestCase
     /** @test */
     public function returns_appropriate_value_column()
     {
-        $plainType1 = $this->plainType::factory()->create(['name' => 'string']);
-        $plainType2 = $this->plainType::factory()->create(['name' => 'integer']);
-        $plainType3 = $this->plainType::factory()->create(['name' => 'float']);
-        $plainType4 = $this->plainType::factory()->create(['name' => 'date']);
-        $plainType5 = $this->plainType::factory()->create(['name' => 'text']);
-        $plainType6 = $this->plainType::factory()->create(['name' => 'boolean']);
+        $plainType1 = $this->plainType::query()->where('name', 'string')->first();
+        $plainType2 = $this->plainType::query()->where('name', 'integer')->first();
+        $plainType3 = $this->plainType::query()->where('name', 'float')->first();
+        $plainType4 = $this->plainType::query()->where('name', 'date')->first();
+        $plainType5 = $this->plainType::query()->where('name', 'text')->first();
+        $plainType6 = $this->plainType::query()->where('name', 'boolean')->first();
 
         // Plain types
 
@@ -294,7 +294,7 @@ class CustomFieldTest extends TestCase
     /** @test */
     public function provides_short_format()
     {
-        $plainType = $this->plainType::factory()->create(['name' => 'string']);
+        $plainType = $this->plainType::query()->where('name', 'string')->first();
 
         /**
          * @var $customField CustomField

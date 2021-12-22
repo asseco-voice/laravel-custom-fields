@@ -35,7 +35,7 @@ class SelectionCustomFieldControllerTest extends TestCase
             ->assertJsonCount(0);
 
         $selectionType = $this->selectionType::factory()->create([
-            'plain_type_id' => $this->plainType::factory()->create(['name' => 'string'])->id,
+            'plain_type_id' => $this->plainType::query()->where('name', 'string')->first()->id,
         ]);
 
         $this->customField::factory()->create([
@@ -70,7 +70,7 @@ class SelectionCustomFieldControllerTest extends TestCase
         $request = $this->customField::factory()->make()->toArray();
 
         $request['selection'] = $this->selectionType::factory()->make([
-            'plain_type_id' => $this->plainType::factory()->create(['name' => 'string'])->id,
+            'plain_type_id' => $this->plainType::query()->where('name', 'string')->first()->id,
         ])->toArray();
 
         $this
@@ -89,7 +89,7 @@ class SelectionCustomFieldControllerTest extends TestCase
         $request = $this->customField::factory()->make()->toArray();
 
         $request['selection'] = $this->selectionType::factory()->make([
-            'plain_type_id' => $this->plainType::factory()->create(['name' => 'string'])->id,
+            'plain_type_id' => $this->plainType::query()->where('name', 'string')->first()->id,
         ])->toArray();
 
         $request['values'] = $this->selectionValue::factory()->count(5)->make()->toArray();

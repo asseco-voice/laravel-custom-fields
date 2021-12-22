@@ -46,7 +46,7 @@ class ValueControllerTest extends TestCase
     /** @test */
     public function creates_value()
     {
-        $selectable = $this->plainType::factory()->create(['name' => 'string']);
+        $selectable = $this->plainType::query()->where('name', 'string')->first();
         $customField = $this->customField::factory()->create([
             'selectable_type' => StringType::class,
             'selectable_id'   => $selectable->id,
@@ -82,7 +82,7 @@ class ValueControllerTest extends TestCase
     /** @test */
     public function fails_creating_if_value_has_inadequate_value_types()
     {
-        $selectable = $this->plainType::factory()->create(['name' => 'string']);
+        $selectable = $this->plainType::query()->where('name', 'string')->first();
         $customField = $this->customField::factory()->create([
             'selectable_type' => StringType::class,
             'selectable_id'   => $selectable->id,
@@ -105,7 +105,7 @@ class ValueControllerTest extends TestCase
     /** @test */
     public function fails_creating_if_value_has_missing_value_types()
     {
-        $selectable = $this->plainType::factory()->create(['name' => 'string']);
+        $selectable = $this->plainType::query()->where('name', 'string')->first();
         $customField = $this->customField::factory()->create([
             'selectable_type' => StringType::class,
             'selectable_id'   => $selectable->id,
@@ -138,7 +138,7 @@ class ValueControllerTest extends TestCase
     /** @test */
     public function can_update_value()
     {
-        $selectable = $this->plainType::factory()->create(['name' => 'string']);
+        $selectable = $this->plainType::query()->where('name', 'string')->first();
         $customField = $this->customField::factory()->create([
             'selectable_type' => StringType::class,
             'selectable_id'   => $selectable->id,
@@ -165,7 +165,7 @@ class ValueControllerTest extends TestCase
     /** @test */
     public function fails_updating_if_value_has_inadequate_value_types()
     {
-        $selectable = $this->plainType::factory()->create(['name' => 'string']);
+        $selectable = $this->plainType::query()->where('name', 'string')->first();
         $customField = $this->customField::factory()->create([
             'selectable_type' => StringType::class,
             'selectable_id'   => $selectable->id,
