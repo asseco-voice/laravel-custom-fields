@@ -58,6 +58,5 @@ Route::prefix('api')->middleware('api')->group(function () {
         Route::post('forms/{form_name}/validate', [FormController::class, 'validateAgainstCustomInput'])->name('forms.validate');
         Route::apiResource('forms', FormController::class);
     });
-
 });
 Route::apiResource('form-templates', FormTemplateController::class);

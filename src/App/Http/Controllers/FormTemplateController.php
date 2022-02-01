@@ -30,7 +30,7 @@ class FormTemplateController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param FormTemplateRequest $request
+     * @param  FormTemplateRequest  $request
      * @return JsonResponse
      */
     public function store(FormTemplateRequest $request): JsonResponse
@@ -46,7 +46,7 @@ class FormTemplateController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param FormTemplate $formTemplate
+     * @param  FormTemplate  $formTemplate
      * @return JsonResponse
      */
     public function show(FormTemplate $formTemplate): JsonResponse
@@ -57,21 +57,22 @@ class FormTemplateController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param FormTemplateRequest $request
-     * @param FormTemplate $formTemplate
+     * @param  FormTemplateRequest  $request
+     * @param  FormTemplate  $formTemplate
      * @return JsonResponse
      */
     public function update(FormTemplateRequest $request, FormTemplate $formTemplate): JsonResponse
     {
         $formTemplate->createCustomFieldValues(Arr::get($request->validated(), 'form_data', []));
         $formTemplate->update(Arr::except($request->validated(), 'form_data'));
+
         return response()->json($formTemplate->refresh()->load('customFieldValues.customField.selectable'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param FormTemplate $formTemplate
+     * @param  FormTemplate  $formTemplate
      * @return JsonResponse
      */
     public function destroy(FormTemplate $formTemplate): JsonResponse
