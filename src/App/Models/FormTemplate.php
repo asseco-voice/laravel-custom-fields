@@ -28,7 +28,7 @@ class FormTemplate extends Model implements \Asseco\CustomFields\App\Contracts\F
         if (empty($formData)) {
             return [];
         }
-        $modelType = get_class(app(\Asseco\CustomFields\App\Contracts\FormTemplate::class));
+
         $values = [];
 
         /**
@@ -44,7 +44,7 @@ class FormTemplate extends Model implements \Asseco\CustomFields\App\Contracts\F
             $type = $customField->getValueColumn();
 
             $values[] = $customField->values()->updateOrCreate([
-                'model_type' => $modelType,
+                'model_type' => $this->getMorphClass(),
                 'model_id' => $this->id,
             ],
                 [$type => $formCustomField]
