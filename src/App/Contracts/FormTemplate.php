@@ -1,6 +1,7 @@
 <?php
 
 namespace Asseco\CustomFields\App\Contracts;
+
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -8,5 +9,4 @@ use Illuminate\Database\Eloquent\Model;
  */
 interface FormTemplate
 {
-
 }

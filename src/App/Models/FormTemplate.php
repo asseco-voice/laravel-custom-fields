@@ -2,11 +2,11 @@
 
 namespace Asseco\CustomFields\App\Models;
 
+use Asseco\CustomFields\App\Contracts\Form;
 use Asseco\CustomFields\App\Traits\Customizable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Arr;
-use Asseco\CustomFields\App\Contracts\Form;
 
 class FormTemplate extends Model implements \Asseco\CustomFields\App\Contracts\FormTemplate
 {
@@ -20,7 +20,7 @@ class FormTemplate extends Model implements \Asseco\CustomFields\App\Contracts\F
     }
 
     /**
-     * @param array $formData
+     * @param  array  $formData
      * @return array
      */
     public function createCustomFieldValues(array $formData = []): array
@@ -53,5 +53,4 @@ class FormTemplate extends Model implements \Asseco\CustomFields\App\Contracts\F
 
         return $values;
     }
-
 }

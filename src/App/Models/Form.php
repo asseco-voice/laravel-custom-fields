@@ -6,7 +6,6 @@ namespace Asseco\CustomFields\App\Models;
 
 use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\App\Contracts\FormTemplate;
-use Asseco\CustomFields\App\Contracts\RemoteType;
 use Asseco\CustomFields\Database\Factories\FormFactory;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -108,7 +107,7 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
     }
 
     /**
-     * @param array $formData
+     * @param  array  $formData
      * @return array
      *
      * @throws Exception
