@@ -3,6 +3,7 @@
 use Asseco\CustomFields\App\Contracts\PlainType;
 use Asseco\CustomFields\App\Http\Controllers\CustomFieldController;
 use Asseco\CustomFields\App\Http\Controllers\FormController;
+use Asseco\CustomFields\App\Http\Controllers\FormTemplateController;
 use Asseco\CustomFields\App\Http\Controllers\ModelController;
 use Asseco\CustomFields\App\Http\Controllers\PlainCustomFieldController;
 use Asseco\CustomFields\App\Http\Controllers\RelationController;
@@ -57,4 +58,6 @@ Route::prefix('api')->middleware('api')->group(function () {
         Route::post('forms/{form_name}/validate', [FormController::class, 'validateAgainstCustomInput'])->name('forms.validate');
         Route::apiResource('forms', FormController::class);
     });
+
 });
+Route::apiResource('form-templates', FormTemplateController::class);
