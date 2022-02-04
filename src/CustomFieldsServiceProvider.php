@@ -6,6 +6,7 @@ namespace Asseco\CustomFields;
 
 use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\App\Contracts\Form;
+use Asseco\CustomFields\App\Contracts\FormTemplate;
 use Asseco\CustomFields\App\Contracts\PlainType;
 use Asseco\CustomFields\App\Contracts\PlainTypes\BooleanType;
 use Asseco\CustomFields\App\Contracts\PlainTypes\DateTimeType;
@@ -69,6 +70,7 @@ class CustomFieldsServiceProvider extends ServiceProvider
         $this->app->bind(Relation::class, config('asseco-custom-fields.models.relation'));
         $this->app->bind(Validation::class, config('asseco-custom-fields.models.validation'));
         $this->app->bind(Value::class, config('asseco-custom-fields.models.value'));
+        $this->app->bind(FormTemplate::class, config('asseco-custom-fields.models.form_template'));
 
         $this->app->bind(BooleanType::class, config('asseco-custom-fields.plain_types.boolean'));
         $this->app->bind(DateTimeType::class, config('asseco-custom-fields.plain_types.date_time'));

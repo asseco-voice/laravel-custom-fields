@@ -3,6 +3,7 @@
 use Asseco\BlueprintAudit\App\MigrationMethodPicker;
 use Asseco\CustomFields\App\Models\CustomField;
 use Asseco\CustomFields\App\Models\Form;
+use Asseco\CustomFields\App\Models\FormTemplate;
 use Asseco\CustomFields\App\Models\PlainType;
 use Asseco\CustomFields\App\Models\Relation;
 use Asseco\CustomFields\App\Models\RemoteType;
@@ -35,6 +36,7 @@ return [
         'relation'        => Relation::class,
         'validation'      => Validation::class,
         'value'           => Value::class,
+        'form_template'   => FormTemplate::class,
     ],
 
     'plain_types' => [

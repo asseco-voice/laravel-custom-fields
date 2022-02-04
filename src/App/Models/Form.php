@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Asseco\CustomFields\App\Models;
 
 use Asseco\CustomFields\App\Contracts\CustomField;
+use Asseco\CustomFields\App\Contracts\FormTemplate;
 use Asseco\CustomFields\Database\Factories\FormFactory;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Arr;
 
 class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
@@ -55,6 +57,11 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
             $form->relateCustomFieldsFromDefinition();
             $form->refresh();
         });
+    }
+
+    public function templates(): HasMany
+    {
+        return $this->hasMany(get_class(app(FormTemplate::class)));
     }
 
     protected function relateCustomFieldsFromDefinition()
@@ -153,7 +160,7 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
 
             $values[] = $customField->values()->updateOrCreate([
                 'model_type' => $modelType,
-                'model_id'   => $modelId,
+                'model_id' => $modelId,
             ],
                 [$type => $formCustomField]
             );
