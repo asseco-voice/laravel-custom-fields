@@ -20,7 +20,7 @@ class FormTemplate extends Model implements \Asseco\CustomFields\App\Contracts\F
     }
 
     /**
-     * @param array $formData
+     * @param  array  $formData
      * @return array
      */
     public function createCustomFieldValues(array $formData = []): array
