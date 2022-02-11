@@ -20,7 +20,7 @@ class FormTemplate extends Model implements \Asseco\CustomFields\App\Contracts\F
     }
 
     /**
-     * @param  array  $formData
+     * @param array $formData
      * @return array
      */
     public function createCustomFieldValues(array $formData = []): array
@@ -45,7 +45,7 @@ class FormTemplate extends Model implements \Asseco\CustomFields\App\Contracts\F
 
             $values[] = $customField->values()->updateOrCreate([
                 'model_type' => $this->getMorphClass(),
-                'model_id' => $this->id,
+                'model_id'   => $this->id,
             ],
                 [$type => $formCustomField]
             );
