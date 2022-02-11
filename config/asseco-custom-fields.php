@@ -29,14 +29,14 @@ return [
     'models' => [
         'custom_field'    => CustomField::class,
         'form'            => Form::class,
+        'form_template'   => FormTemplate::class,
         'plain_type'      => PlainType::class,
+        'relation'        => Relation::class,
         'remote_type'     => RemoteType::class,
         'selection_type'  => SelectionType::class,
         'selection_value' => SelectionValue::class,
-        'relation'        => Relation::class,
         'validation'      => Validation::class,
         'value'           => Value::class,
-        'form_template'   => FormTemplate::class,
     ],
 
     'plain_types' => [
