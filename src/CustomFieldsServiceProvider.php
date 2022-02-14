@@ -86,6 +86,7 @@ class CustomFieldsServiceProvider extends ServiceProvider
     {
         Route::model('custom_field', get_class(app(CustomField::class)));
         Route::model('form', get_class(app(Form::class)));
+        Route::model('form_template', get_class(app(FormTemplate::class)));
         Route::model('remote_type', get_class(app(RemoteType::class)));
         // Plain type pattern is defined in routes, so no need to register it here
         // Route::model('plain_type', get_class(app(PlainType::class)));
