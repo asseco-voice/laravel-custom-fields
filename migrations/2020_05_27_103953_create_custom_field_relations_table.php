@@ -17,12 +17,12 @@ class CreateCustomFieldRelationsTable extends Migration
         Schema::create('custom_field_relations', function (Blueprint $table) {
             if (config('asseco-custom-fields.migrations.uuid')) {
                 $table->uuid('id')->primary();
-                $table->foreignUuid('parent_id')->constrained('custom_fields')->cascadeOnDelete();
-                $table->foreignUuid('child_id')->constrained('custom_fields')->cascadeOnDelete();
+                $table->foreignUuid('parent_id')->constrained('custom_fields');
+                $table->foreignUuid('child_id')->constrained('custom_fields');
             } else {
                 $table->id();
-                $table->foreignId('parent_id')->constrained('custom_fields')->cascadeOnDelete();
-                $table->foreignId('child_id')->constrained('custom_fields')->cascadeOnDelete();
+                $table->foreignId('parent_id')->constrained('custom_fields');
+                $table->foreignId('child_id')->constrained('custom_fields');
             }
 
             MigrationMethodPicker::pick($table, config('asseco-custom-fields.migrations.timestamps'));
