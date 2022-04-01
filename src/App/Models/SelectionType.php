@@ -21,6 +21,8 @@ class SelectionType extends ParentType implements \Asseco\CustomFields\App\Contr
 
     protected $appends = ['name'];
 
+    protected $with = ['values'];
+
     protected static function newFactory()
     {
         return SelectionTypeFactory::new();
