@@ -27,4 +27,20 @@ class SelectionValue extends Model implements \Asseco\CustomFields\App\Contracts
     {
         return $this->belongsTo(get_class(app(SelectionType::class)));
     }
+
+    public function getValueAttribute($value)
+    {
+        $selectionType = $this->selectionType()->without('values')->first();
+
+        switch ($selectionType->type->name) {
+            case 'integer':
+                return (int) $value;
+            case 'float':
+                return (float) $value;
+            case 'boolean':
+                return (bool) $value;
+            default:
+                return $value;
+        }
+    }
 }

@@ -21,13 +21,10 @@ class SelectionValueSeeder extends Seeder
         $selectionValueClass = app(SelectionValue::class);
 
         $faker = Factory::create();
-        $amount = 50;
         $selectionTypes = $selectionType::with('type')->get();
 
         $selectionValues = [];
-        for ($i = 0; $i < $amount; $i++) {
-
-            $selectionType = $selectionTypes->random(1)->first();
+        foreach ($selectionTypes as $selectionType) {
 
             if ($selectionType->type->name === 'boolean') {
                 $number = 2;
