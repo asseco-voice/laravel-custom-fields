@@ -75,7 +75,7 @@ class ValueSeeder extends Seeder
     protected function getType($selectable)
     {
         if ($selectable instanceof SelectionType) {
-            return [$selectable->type->name, $selectable->values->random(1)->first()->value];
+            return [$selectable->type->name, null];
         } elseif ($selectable instanceof RemoteType) {
             return ['string', null];
         } else {
