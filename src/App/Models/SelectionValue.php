@@ -9,6 +9,7 @@ use Asseco\CustomFields\Database\Factories\SelectionValueFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class SelectionValue extends Model implements \Asseco\CustomFields\App\Contracts\SelectionValue
 {
@@ -17,6 +18,8 @@ class SelectionValue extends Model implements \Asseco\CustomFields\App\Contracts
     protected $table = 'custom_field_selection_values';
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    protected $hidden = ['type'];
 
     protected static function newFactory()
     {
@@ -28,17 +31,29 @@ class SelectionValue extends Model implements \Asseco\CustomFields\App\Contracts
         return $this->belongsTo(get_class(app(SelectionType::class)));
     }
 
+    public function type(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            get_class(app(PlainType::class)),
+            get_class(app(SelectionType::class)),
+            'id',
+            'id',
+            'selection_type_id',
+            'plain_type_id'
+        );
+    }
+
     public function getValueAttribute($value)
     {
-        $selectionType = $this->selectionType()->without('values')->first();
+        $plainType = optional($this->type)->name;
 
-        switch ($selectionType->type->name) {
+        switch ($plainType) {
             case 'integer':
-                return (int) $value;
+                return (int)$value;
             case 'float':
-                return (float) $value;
+                return (float)$value;
             case 'boolean':
-                return (bool) $value;
+                return (bool)$value;
             default:
                 return $value;
         }
