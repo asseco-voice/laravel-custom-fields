@@ -50,7 +50,6 @@ class AddUniqueIndexToCustomFieldSelectionValuesTable extends Migration
         $selectionValues = DB::table('custom_field_selection_values')->get();
 
         foreach ($selectionValues as $selectionValue) {
-
             if (DB::table('custom_field_selection_values')->where('id', $selectionValue->id)->exists()) {
                 $ids = DB::table('custom_field_selection_values')
                     ->where('selection_type_id', $selectionValue->selection_type_id)

@@ -49,11 +49,11 @@ class SelectionValue extends Model implements \Asseco\CustomFields\App\Contracts
 
         switch ($plainType) {
             case 'integer':
-                return (int)$value;
+                return (int) $value;
             case 'float':
-                return (float)$value;
+                return (float) $value;
             case 'boolean':
-                return (bool)$value;
+                return (bool) $value;
             default:
                 return $value;
         }

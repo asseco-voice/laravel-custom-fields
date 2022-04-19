@@ -25,7 +25,6 @@ class SelectionValueSeeder extends Seeder
 
         $selectionValues = [];
         foreach ($selectionTypes as $selectionType) {
-
             if ($selectionType->type->name === 'boolean') {
                 $number = 2;
             } else {
