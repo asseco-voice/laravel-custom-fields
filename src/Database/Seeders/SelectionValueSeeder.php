@@ -21,7 +21,7 @@ class SelectionValueSeeder extends Seeder
         $selectionValueClass = app(SelectionValue::class);
 
         $faker = Factory::create();
-        $selectionTypes = $selectionType::with('type')->get();
+        $selectionTypes = $selectionType::with('type')->whereDoesntHave('values')->get();
 
         $selectionValues = [];
         foreach ($selectionTypes as $selectionType) {

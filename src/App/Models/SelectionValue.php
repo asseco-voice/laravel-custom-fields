@@ -19,8 +19,6 @@ class SelectionValue extends Model implements \Asseco\CustomFields\App\Contracts
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    protected $hidden = ['type'];
-
     protected static function newFactory()
     {
         return SelectionValueFactory::new();
