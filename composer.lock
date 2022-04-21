@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc6d47de965946689c4c4eb6ece272ce",
+    "content-hash": "24882da699cec7753782e96f549f0192",
     "packages": [
         {
             "name": "asseco-voice/laravel-blueprint-audit",
@@ -62,16 +62,16 @@
         },
         {
             "name": "asseco-voice/laravel-common",
-            "version": "v0.3.1",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/asseco-voice/laravel-common.git",
-                "reference": "b158384b64c41912a186d6b739e59dab8c3cd825"
+                "reference": "1430a3341bbad3ae4296805508da226d97e75d04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/asseco-voice/laravel-common/zipball/b158384b64c41912a186d6b739e59dab8c3cd825",
-                "reference": "b158384b64c41912a186d6b739e59dab8c3cd825",
+                "url": "https://api.github.com/repos/asseco-voice/laravel-common/zipball/1430a3341bbad3ae4296805508da226d97e75d04",
+                "reference": "1430a3341bbad3ae4296805508da226d97e75d04",
                 "shasum": ""
             },
             "require": {
@@ -111,9 +111,9 @@
             ],
             "support": {
                 "issues": "https://github.com/asseco-voice/laravel-common/issues",
-                "source": "https://github.com/asseco-voice/laravel-common/tree/v0.3.1"
+                "source": "https://github.com/asseco-voice/laravel-common/tree/v1.0.0"
             },
-            "time": "2021-08-20T07:19:26+00:00"
+            "time": "2022-04-20T10:57:54+00:00"
         },
         {
             "name": "brick/math",
@@ -6985,5 +6985,5 @@
         "php": "^7.4 || ^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }

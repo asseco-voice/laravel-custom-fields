@@ -5,7 +5,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "laravel/framework": "^8.0",
-        "asseco-voice/laravel-common": "~0.1"
+        "asseco-voice/laravel-common": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "9.4",
