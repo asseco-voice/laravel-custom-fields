@@ -41,6 +41,12 @@ class SelectionValue extends Model implements \Asseco\CustomFields\App\Contracts
         );
     }
 
+    /**
+     * Accessor for casting value to appropriate type based on the actual plain type.
+     *
+     * @param $value
+     * @return bool|float|int
+     */
     public function getValueAttribute($value)
     {
         $plainType = optional($this->type)->name;

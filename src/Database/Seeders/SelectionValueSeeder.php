@@ -6,13 +6,15 @@ namespace Asseco\CustomFields\Database\Seeders;
 
 use Asseco\CustomFields\App\Contracts\SelectionType;
 use Asseco\CustomFields\App\Contracts\SelectionValue;
+use Asseco\CustomFields\App\Traits\FakesTypeValues;
 use Faker\Factory;
-use Faker\Generator;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
 class SelectionValueSeeder extends Seeder
 {
+    use FakesTypeValues;
+
     public function run(): void
     {
         /** @var SelectionType $selectionType */
@@ -41,39 +43,15 @@ class SelectionValueSeeder extends Seeder
 
                         $selectionValue->timestamps = false;
                         $selectionValue->selection_type_id = $selectionType->id;
-                        $selectionValue->value = $this->getTypeValue($selectionType, $faker);
+                        $selectionValue->value = $this->fakeValueFromType($selectionType->type->name, $faker);
                     })->toArray()
             );
 
             // We do this to reset fakers unique value list, so that
             // values are unique per custom field instead of database
-            $faker->unique($reset = true);
+            $faker->unique(true);
         }
 
         $selectionValueClass::query()->insert($selectionValues);
-    }
-
-    protected function getTypeValue(SelectionType $selectionType, Generator $faker)
-    {
-        $plainType = $selectionType->type->name;
-
-        switch ($plainType) {
-            case 'integer':
-                return $faker->unique()->randomNumber();
-            case 'float':
-                return $faker->unique()->randomFloat();
-            case 'date':
-                return $faker->unique()->date();
-            case 'time':
-                return $faker->unique()->time();
-            case 'datetime':
-                return $faker->unique()->datetime();
-            case 'text':
-                return $faker->unique()->sentence;
-            case 'boolean':
-                return $faker->unique()->boolean;
-            default:
-                return $faker->unique()->word;
-        }
     }
 }
