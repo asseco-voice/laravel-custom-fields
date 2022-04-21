@@ -8,15 +8,16 @@ use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\App\Contracts\RemoteType;
 use Asseco\CustomFields\App\Contracts\SelectionType;
 use Asseco\CustomFields\App\Contracts\Value;
+use Asseco\CustomFields\App\Traits\FakesTypeValues;
 use Asseco\CustomFields\App\Traits\FindsTraits;
 use Faker\Factory;
-use Faker\Generator;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
 class ValueSeeder extends Seeder
 {
-    use FindsTraits;
+    use FindsTraits, FakesTypeValues;
 
     protected array $cached = [];
 
@@ -49,7 +50,7 @@ class ValueSeeder extends Seeder
                 $model = $models[array_rand($models)];
                 $selectable = $customField->selectable;
                 [$type, $typeValue] = $this->getType($selectable);
-                $fakeValue = $this->fakeValueFromType($type, $typeValue, $faker);
+                $fakeValue = $typeValue ?: $this->fakeValueFromType($type, $faker);
 
                 $value->timestamps = false;
                 $value->model_type = $model;
@@ -64,6 +65,7 @@ class ValueSeeder extends Seeder
     protected function getCached(string $model): string
     {
         if (!array_key_exists($model, $this->cached)) {
+            /** @var Model $model */
             $this->cached[$model] = $model::all('id')->pluck('id')->toArray();
         }
 
@@ -72,7 +74,7 @@ class ValueSeeder extends Seeder
         return $cached[array_rand($cached)];
     }
 
-    protected function getType($selectable)
+    protected function getType($selectable): array
     {
         if ($selectable instanceof SelectionType) {
             return [$selectable->type->name, $selectable->values->random(1)->first()->value];
@@ -80,28 +82,6 @@ class ValueSeeder extends Seeder
             return ['string', null];
         } else {
             return [$selectable->name, null];
-        }
-    }
-
-    protected function fakeValueFromType($type, $value, Generator $faker)
-    {
-        switch ($type) {
-            case 'integer':
-                return $value ?: $faker->randomNumber();
-            case 'float':
-                return $value ?: $faker->randomFloat();
-            case 'date':
-                return $value ?: $faker->date();
-            case 'time':
-                return $value ?: $faker->time();
-            case 'datetime':
-                return $value ?: $faker->datetime();
-            case 'text':
-                return $value ?: $faker->sentence;
-            case 'boolean':
-                return $value ?: $faker->boolean;
-            default:
-                return $value ?: $faker->word;
         }
     }
 }
