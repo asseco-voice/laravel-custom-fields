@@ -7,7 +7,7 @@ on:
 jobs:
   build:
 
-    runs-on: Ubuntu-20.04
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v2
@@ -15,7 +15,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.0'
           extensions: mbstring, intl
           ini-values: post_max_size=256M, max_execution_time=180
           coverage: xdebug
@@ -42,7 +42,8 @@ jobs:
           vendor/phpunit/phpunit/phpunit
 
       - name: PHP STatic ANalyser (phpstan)
-        uses: chindit/actions-phpstan@1.0.1
+        uses: php-actions/phpstan@v3
         with:
-          # Arguments to add to PHPStan CLI
-          arguments: --level 0 src
+          path: 'src'
+          php_version: '8.0'
+          level: 0
