@@ -47,3 +47,4 @@ jobs:
           path: 'src'
           php_version: '8.0'
           level: 0
+          memory_limit: 256M
