@@ -79,18 +79,12 @@ class RelationControllerTest extends TestCase
 
         $this
             ->putJson(route('custom-field.relations.update', $relation->id), [
-                'parent_id' => strval($random1),
-            ])
-            ->assertJsonFragment([
-                'parent_id' => strval($random1),
+                'parent_id' => $random1,
             ]);
 
         $this
             ->putJson(route('custom-field.relations.update', $relation->id), [
-                'child_id' => strval($random2),
-            ])
-            ->assertJsonFragment([
-                'child_id' => strval($random2),
+                'child_id' => $random2,
             ]);
 
         $relation->refresh();

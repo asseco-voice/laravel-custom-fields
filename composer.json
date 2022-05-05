@@ -3,15 +3,15 @@
     "description": "Laravel support for custom fields",
     "license": "MIT",
     "require": {
-        "php": "^7.4 || ^8.0",
-        "laravel/framework": "^8.0",
-        "asseco-voice/laravel-common": "^1.0"
+        "php": "^8.0",
+        "laravel/framework": "^9.0",
+        "asseco-voice/laravel-common": "^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "9.4",
-        "mockery/mockery": "^1.3.1",
+        "phpunit/phpunit": "^9.5",
+        "mockery/mockery": "^1.4.4",
         "fakerphp/faker": "^1.9.1",
-        "orchestra/testbench": "^6.0",
+        "orchestra/testbench": "^7.4",
         "doctrine/dbal": "^2.10"
     },
     "autoload": {

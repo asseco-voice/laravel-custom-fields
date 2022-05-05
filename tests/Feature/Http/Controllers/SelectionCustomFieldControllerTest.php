@@ -92,6 +92,7 @@ class SelectionCustomFieldControllerTest extends TestCase
             'plain_type_id' => $this->plainType::query()->where('name', 'string')->first()->id,
         ])->toArray();
 
+        // TODO: flaky test because 'value' is not unique in factory. If set to unique, it breaks seeders
         $request['values'] = $this->selectionValue::factory()->count(5)->make()->toArray();
 
         $this
