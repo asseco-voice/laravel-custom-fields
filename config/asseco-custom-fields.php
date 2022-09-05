@@ -85,4 +85,9 @@ return [
      * Namespace to Customizable trait.
      */
     'trait_path'  => Customizable::class,
+
+    'routes' => [
+        'prefix'     => 'api',
+        'middleware' => ['api'],
+    ],
 ];
