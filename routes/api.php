@@ -31,32 +31,34 @@ $plainType = app(PlainType::class);
 
 Route::pattern('plain_type', $plainType::getRegexSubTypes());
 
-Route::prefix('api')->middleware('api')->group(function () {
-    Route::apiResource('custom-fields', CustomFieldController::class);
+Route::prefix(config('asseco-custom-fields.routes.prefix'))
+    ->middleware(config('asseco-custom-fields.routes.middleware'))
+    ->group(function () {
+        Route::apiResource('custom-fields', CustomFieldController::class);
 
-    Route::prefix('custom-field')->name('custom-field.')->group(function () {
-        Route::get('types', [TypeController::class, 'index'])->name('types.index');
-        Route::get('models', [ModelController::class, 'index'])->name('models.index');
+        Route::prefix('custom-field')->name('custom-field.')->group(function () {
+            Route::get('types', [TypeController::class, 'index'])->name('types.index');
+            Route::get('models', [ModelController::class, 'index'])->name('models.index');
 
-        Route::get('plain/{plain_type?}', [PlainCustomFieldController::class, 'index'])->name('plain.index');
-        Route::post('plain/{plain_type}', [PlainCustomFieldController::class, 'store'])->name('plain.store');
+            Route::get('plain/{plain_type?}', [PlainCustomFieldController::class, 'index'])->name('plain.index');
+            Route::post('plain/{plain_type}', [PlainCustomFieldController::class, 'store'])->name('plain.store');
 
-        Route::apiResource('remote', RemoteCustomFieldController::class)->only(['index', 'store']);
-        Route::match(['put', 'patch'], 'remote/{remote_type}', [RemoteCustomFieldController::class, 'update'])->name('remote.update');
-        Route::get('remote/{remote_type}/resolve', [RemoteCustomFieldController::class, 'resolve'])->name('remote.resolve');
+            Route::apiResource('remote', RemoteCustomFieldController::class)->only(['index', 'store']);
+            Route::match(['put', 'patch'], 'remote/{remote_type}', [RemoteCustomFieldController::class, 'update'])->name('remote.update');
+            Route::get('remote/{remote_type}/resolve', [RemoteCustomFieldController::class, 'resolve'])->name('remote.resolve');
 
-        Route::get('selection', [SelectionCustomFieldController::class, 'index'])->name('selection.index');
-        Route::post('selection/{plain_type}', [SelectionCustomFieldController::class, 'store'])->name('selection.store');
-        Route::match(['put', 'patch'], 'selection/{selection_type}', [SelectionCustomFieldController::class, 'update'])->name('selection.update');
+            Route::get('selection', [SelectionCustomFieldController::class, 'index'])->name('selection.index');
+            Route::post('selection/{plain_type}', [SelectionCustomFieldController::class, 'store'])->name('selection.store');
+            Route::match(['put', 'patch'], 'selection/{selection_type}', [SelectionCustomFieldController::class, 'update'])->name('selection.update');
 
-        Route::apiResource('selection-values', SelectionValueController::class);
+            Route::apiResource('selection-values', SelectionValueController::class);
 
-        Route::apiResource('validations', ValidationController::class);
-        Route::apiResource('relations', RelationController::class);
-        Route::apiResource('values', ValueController::class);
+            Route::apiResource('validations', ValidationController::class);
+            Route::apiResource('relations', RelationController::class);
+            Route::apiResource('values', ValueController::class);
 
-        Route::post('forms/{form_name}/validate', [FormController::class, 'validateAgainstCustomInput'])->name('forms.validate');
-        Route::apiResource('forms', FormController::class);
-        Route::apiResource('form-templates', FormTemplateController::class);
+            Route::post('forms/{form_name}/validate', [FormController::class, 'validateAgainstCustomInput'])->name('forms.validate');
+            Route::apiResource('forms', FormController::class);
+            Route::apiResource('form-templates', FormTemplateController::class);
+        });
     });
-});
