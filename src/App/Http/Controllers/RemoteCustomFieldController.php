@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
-use Asseco\Chassis\App\Facades\Iam;
 use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\App\Contracts\PlainType;
 use Asseco\CustomFields\App\Contracts\RemoteType;
@@ -122,8 +121,8 @@ class RemoteCustomFieldController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param RemoteType $remoteType
-     * @param string $identifierValue
+     * @param  RemoteType  $remoteType
+     * @param  string  $identifierValue
      * @return JsonResponse
      */
     public function resolveByIdentifierValue(RemoteType $remoteType, string $identifierValue): JsonResponse
