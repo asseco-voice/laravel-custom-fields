@@ -97,7 +97,7 @@ return [
     'should_cache_remote' => false,
 
     /**
-     * Number of seconds that the remote custom field response should remain in cache
+     * Number of seconds that the remote custom field response should remain in cache.
      */
-    'remote_cache_ttl' => 3600
+    'remote_cache_ttl' => 3600,
 ];

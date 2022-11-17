@@ -10,12 +10,9 @@ use Asseco\CustomFields\App\Contracts\RemoteType;
 use Asseco\CustomFields\App\Http\Requests\RemoteCustomFieldRequest;
 use Asseco\CustomFields\App\Http\Requests\RemoteTypeRequest;
 use Asseco\CustomFields\App\Traits\TransformsOutput;
-use Illuminate\Http\Client\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
 
 /**
  * @group Remote Custom Fields
