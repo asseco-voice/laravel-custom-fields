@@ -13,6 +13,7 @@ use Asseco\CustomFields\App\Traits\TransformsOutput;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
@@ -104,14 +105,9 @@ class RemoteCustomFieldController extends Controller
      */
     public function resolve(RemoteType $remoteType): JsonResponse
     {
-        /**
-         * @var Response $response
-         */
-        $response = Http::withHeaders($remoteType->headers ?: [])
-            ->withBody($remoteType->body, 'application/json')
-            ->{$remoteType->method}($remoteType->url);
+        $data = $remoteType->getRemoteData();
 
-        $data = $remoteType->data_path ? Arr::get($response->json(), $remoteType->data_path) : $response->json();
+        $data = $remoteType->data_path ? Arr::get($data, $remoteType->data_path) : $data;
 
         $transformed = $this->transform($data, json_decode($remoteType->mappings, true));
 
@@ -127,14 +123,9 @@ class RemoteCustomFieldController extends Controller
      */
     public function resolveByIdentifierValue(RemoteType $remoteType, string $identifierValue): JsonResponse
     {
-        /**
-         * @var Response $response
-         */
-        $response = Http::withHeaders($remoteType->headers ?: [])
-            ->withBody($remoteType->body, 'application/json')
-            ->{$remoteType->method}($remoteType->url);
+        $data = $remoteType->getRemoteData();
 
-        $data = $remoteType->data_path ? Arr::get($response->json(), $remoteType->data_path) : $response->json();
+        $data = $remoteType->data_path ? Arr::get($data, $remoteType->data_path) : $data;
 
         $data = collect($data)->where($remoteType->identifier_property, $identifierValue)->first();
 
