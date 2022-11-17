@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Controllers;
 
+use Asseco\Chassis\App\Facades\Iam;
 use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\App\Contracts\PlainType;
 use Asseco\CustomFields\App\Contracts\RemoteType;
@@ -111,7 +112,34 @@ class RemoteCustomFieldController extends Controller
             ->withBody($remoteType->body, 'application/json')
             ->{$remoteType->method}($remoteType->url);
 
-        $transformed = $this->transform($response->json(), json_decode($remoteType->mappings, true));
+        $data = $remoteType->data_path ? Arr::get($response->json(), $remoteType->data_path) : $response->json();
+
+        $transformed = $this->transform($data, json_decode($remoteType->mappings, true));
+
+        return response()->json($transformed);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param RemoteType $remoteType
+     * @param string $identifierValue
+     * @return JsonResponse
+     */
+    public function resolveByIdentifierValue(RemoteType $remoteType, string $identifierValue): JsonResponse
+    {
+        /**
+         * @var Response $response
+         */
+        $response = Http::withHeaders($remoteType->headers ?: [])
+            ->withBody($remoteType->body, 'application/json')
+            ->{$remoteType->method}($remoteType->url);
+
+        $data = $remoteType->data_path ? Arr::get($response->json(), $remoteType->data_path) : $response->json();
+
+        $data = collect($data)->where($remoteType->identifier_property, $identifierValue)->first();
+
+        $transformed = $this->mapSingle($remoteType->mappings, $data);
 
         return response()->json($transformed);
     }
