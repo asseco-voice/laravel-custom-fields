@@ -26,20 +26,22 @@ class RemoteCustomFieldRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'            => 'required|string|regex:/^[^\s]*$/i|unique:custom_fields,name' . ($this->custom_field ? ',' . $this->custom_field->id : null),
-            'label'           => 'required|string|max:255',
-            'placeholder'     => 'nullable|string',
-            'model'           => 'required|string',
-            'required'        => 'boolean',
-            'validation_id'   => 'nullable|exists:custom_field_validations',
-            'group'           => 'nullable|string',
-            'order'           => 'nullable|integer',
-            'remote'          => 'required|array',
-            'remote.url'      => 'required|url',
-            'remote.method'   => 'required|in:GET,POST,PUT',
-            'remote.body'     => 'nullable|array',
-            'remote.headers'  => 'nullable|array',
-            'remote.mappings' => 'nullable|array',
+            'name'                       => 'required|string|regex:/^[^\s]*$/i|unique:custom_fields,name' . ($this->custom_field ? ',' . $this->custom_field->id : null),
+            'label'                      => 'required|string|max:255',
+            'placeholder'                => 'nullable|string',
+            'model'                      => 'required|string',
+            'required'                   => 'boolean',
+            'validation_id'              => 'nullable|exists:custom_field_validations',
+            'group'                      => 'nullable|string',
+            'order'                      => 'nullable|integer',
+            'remote'                     => 'required|array',
+            'remote.url'                 => 'required|url',
+            'remote.method'              => 'required|in:GET,POST,PUT',
+            'remote.body'                => 'nullable|array',
+            'remote.headers'             => 'nullable|array',
+            'remote.mappings'            => 'nullable|array',
+            'remote.data_path'           => 'nullable|string',
+            'remote.identifier_property' => 'nullable|string',
         ];
     }
 
