@@ -32,7 +32,7 @@ class RemoteTypeRequest extends FormRequest
             'headers'             => 'nullable|array',
             'mappings'            => 'nullable|array',
             'data_path'           => 'nullable|string',
-            'identifier_property' => 'nullable|string'
+            'identifier_property' => 'nullable|string',
         ];
     }
 }

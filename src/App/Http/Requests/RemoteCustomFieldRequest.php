@@ -41,7 +41,7 @@ class RemoteCustomFieldRequest extends FormRequest
             'remote.headers'             => 'nullable|array',
             'remote.mappings'            => 'nullable|array',
             'remote.data_path'           => 'nullable|string',
-            'remote.identifier_property' => 'nullable|string'
+            'remote.identifier_property' => 'nullable|string',
         ];
     }
 
