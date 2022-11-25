@@ -26,11 +26,13 @@ class RemoteTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'url'      => 'url',
-            'method'   => 'in:GET,POST,PUT',
-            'body'     => 'nullable|array',
-            'headers'  => 'nullable|array',
-            'mappings' => 'nullable|array',
+            'url'                 => 'url',
+            'method'              => 'in:GET,POST,PUT',
+            'body'                => 'nullable|array',
+            'headers'             => 'nullable|array',
+            'mappings'            => 'nullable|array',
+            'data_path'           => 'nullable|string',
+            'identifier_property' => 'nullable|string'
         ];
     }
 }
