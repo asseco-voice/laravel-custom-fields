@@ -52,12 +52,17 @@ class RemoteType extends ParentType implements \Asseco\CustomFields\App\Contract
             return Cache::get($cacheKey);
         }
 
-        $response = Http::withHeaders($this->headers ?: [])
+        $response = Http::withHeaders($this->getHeaders() ?: [])
             ->withBody($this->body, 'application/json')
-            ->{$this->method}($this->url)->json();
+            ->{$this->method}($this->url)->throw()->json();
 
         Cache::put($cacheKey, $response, config('asseco-custom-fields.remote_cache_ttl'));
 
         return $response;
+    }
+
+    protected function getHeaders()
+    {
+        return $this->headers;
     }
 }

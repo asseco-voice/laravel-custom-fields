@@ -126,7 +126,7 @@ class RemoteCustomFieldController extends Controller
 
         $data = collect($data)->where($remoteType->identifier_property, $identifierValue)->first();
 
-        $transformed = $this->mapSingle($remoteType->mappings, $data);
+        $transformed = is_array($data) ? $this->mapSingle($remoteType->mappings, $data) : $data;
 
         return response()->json($transformed);
     }
