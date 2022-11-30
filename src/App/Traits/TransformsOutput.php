@@ -21,15 +21,15 @@ trait TransformsOutput
     }
 
     /**
-     * @param  array  $mappings
-     * @param $item
+     * @param array $mappings
+     * @param array $item
      * @return array
      */
     protected function mapSingle(array $mappings, array $item): array
     {
         $data = [];
 
-        foreach ($mappings as $localKey => $remoteKey) {
+        foreach ($mappings as $remoteKey => $localKey) {
             if (!array_key_exists($remoteKey, $item)) {
                 continue;
             }
