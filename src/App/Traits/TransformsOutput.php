@@ -21,8 +21,8 @@ trait TransformsOutput
     }
 
     /**
-     * @param array $mappings
-     * @param array $item
+     * @param  array  $mappings
+     * @param  array  $item
      * @return array
      */
     protected function mapSingle(array $mappings, array $item): array
