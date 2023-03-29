@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * @group Remote Custom Fields
+ *
  * @model CustomField
  */
 class RemoteCustomFieldController extends Controller
@@ -47,6 +48,7 @@ class RemoteCustomFieldController extends Controller
      * Store a newly created resource in storage.
      *
      * @except selectable_type selectable_id
+     *
      * @append remote RemoteType
      *
      * @param  RemoteCustomFieldRequest  $request
@@ -58,7 +60,6 @@ class RemoteCustomFieldController extends Controller
 
         /** @var CustomField $customField */
         $customField = DB::transaction(function () use ($data) {
-
             // Force casting remote types to string unless we decide on different implementation.
             $plainTypeId = $this->plainType::query()->where('name', 'string')->firstOrFail()->id;
 

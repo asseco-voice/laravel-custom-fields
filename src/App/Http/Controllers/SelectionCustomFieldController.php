@@ -45,7 +45,9 @@ class SelectionCustomFieldController extends Controller
      * Store a newly created resource in storage.
      *
      * @path plain_type string One of the plain types (string, text, integer, float, date, boolean)
+     *
      * @except selectable_type selectable_id
+     *
      * @append selection SelectionType
      * @append values SelectionValue
      *
