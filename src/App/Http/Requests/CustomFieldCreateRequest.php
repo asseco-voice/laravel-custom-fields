@@ -35,7 +35,7 @@ class CustomFieldCreateRequest extends FormRequest
                 'regex:/^[^\s]*$/i',
                 Rule::unique('custom_fields')->ignore($this->custom_field)->where(function ($query) {
                     return $this->usesSoftDelete() ? $query->whereNull('deleted_at') : $query;
-                })
+                }),
             ],
             'label'           => 'required|string|max:255',
             'placeholder'     => 'nullable|string',
