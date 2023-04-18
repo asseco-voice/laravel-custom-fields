@@ -43,6 +43,7 @@ class CustomFieldUpdateRequest extends FormRequest
                     return $this->usesSoftDelete() ? $query->whereNull('deleted_at') : $query;
                 }),
             ],
+            'label'         => 'sometimes|string|max:255',
             'placeholder'   => 'nullable|string',
             'required'      => 'boolean',
             'hidden'        => 'boolean',
