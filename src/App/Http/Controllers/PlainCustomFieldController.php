@@ -27,6 +27,7 @@ class PlainCustomFieldController extends Controller
      * Display a listing of the resource.
      *
      * @path plain_type string One of the plain types (string, text, integer, float, date, boolean)
+     *
      * @multiple true
      *
      * @param  string|null  $type
@@ -41,6 +42,7 @@ class PlainCustomFieldController extends Controller
      * Store a newly created resource in storage.
      *
      * @path plain_type string One of the plain types (string, text, integer, float, date, boolean)
+     *
      * @except selectable_type selectable_id
      *
      * @param  PlainCustomFieldRequest  $request

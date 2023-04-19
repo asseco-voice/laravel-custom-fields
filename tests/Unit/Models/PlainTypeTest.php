@@ -50,6 +50,7 @@ class PlainTypeTest extends TestCase
 
     /**
      * @test
+     *
      * @depends has_basic_sub_types
      *
      * @param  array  $plainMappings
@@ -73,6 +74,7 @@ class PlainTypeTest extends TestCase
 
     /**
      * @test
+     *
      * @depends has_basic_sub_types
      *
      * @param $basicSubTypes
@@ -86,6 +88,7 @@ class PlainTypeTest extends TestCase
 
     /**
      * @test
+     *
      * @depends has_basic_sub_types
      *
      * @param  array  $basicSubTypes
