@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Asseco\CustomFields\App\Http\Requests;
 
+use Asseco\CustomFields\App\Contracts\CustomField as CustomFieldContract;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
+use Illuminate\Validation\Rule;
 
 class CustomFieldUpdateRequest extends FormRequest
 {
@@ -32,7 +35,14 @@ class CustomFieldUpdateRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name'          => 'sometimes|string|regex:/^[^\s]*$/i|unique:custom_fields,name' . ($this->custom_field ? ',' . $this->custom_field->id : null),
+            'name'          => [
+                'required',
+                'string',
+                'regex:/^[^\s]*$/i',
+                Rule::unique('custom_fields')->ignore($this->custom_field)->where(function ($query) {
+                    return $this->usesSoftDelete() ? $query->whereNull('deleted_at') : $query;
+                }),
+            ],
             'label'         => 'sometimes|string|max:255',
             'placeholder'   => 'nullable|string',
             'required'      => 'boolean',
@@ -55,5 +65,10 @@ class CustomFieldUpdateRequest extends FormRequest
         return [
             'name.regex' => 'Custom field name must not contain spaces.',
         ];
+    }
+
+    private function usesSoftDelete(): bool
+    {
+        return in_array(SoftDeletes::class, class_uses_recursive(app(CustomFieldContract::class)));
     }
 }

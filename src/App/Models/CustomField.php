@@ -65,6 +65,12 @@ class CustomField extends Model implements CustomFieldContract
             $customField->parent()->delete();
             $customField->children()->delete();
         });
+
+        static::saving(function (self $customField) {
+            if ($customField->isDirty('name') && $customField->exists()) {
+                throw new Exception("Custom field with the name $customField->name already exists.");
+            }
+        });
     }
 
     public function selectable(): MorphTo
@@ -184,5 +190,12 @@ class CustomField extends Model implements CustomFieldContract
             'type'  => $type ?: $this->selectable->name,
             'value' => $value,
         ]];
+    }
+
+    protected function exists(): bool
+    {
+        return app(CustomFieldContract::class)::query()
+            ->where('name', $this->name)
+            ->exists();
     }
 }
