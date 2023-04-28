@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('custom_fields', function (Blueprint $table) {
-            $table->dropIndex('cf_name');
+            $table->dropUnique('cf_name');
         });
     }
 
