@@ -77,7 +77,7 @@ class PlainTypeTest extends TestCase
      *
      * @depends has_basic_sub_types
      *
-     * @param $basicSubTypes
+     * @param  $basicSubTypes
      */
     public function returns_pipe_delimited_sub_types(array $basicSubTypes)
     {

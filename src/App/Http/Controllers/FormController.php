@@ -88,7 +88,7 @@ class FormController extends Controller
 
     /**
      * @param  Request  $request
-     * @param $formName
+     * @param  $formName
      * @return JsonResponse
      *
      * @throws Exception
