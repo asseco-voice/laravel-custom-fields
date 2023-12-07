@@ -64,6 +64,7 @@ class CustomField extends Model implements CustomFieldContract
         static::deleted(function (self $customField) {
             $customField->parent()->delete();
             $customField->children()->delete();
+            $customField->values()->delete();
         });
 
         static::saving(function (self $customField) {
