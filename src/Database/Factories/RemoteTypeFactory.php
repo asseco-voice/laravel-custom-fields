@@ -22,16 +22,16 @@ class RemoteTypeFactory extends Factory
     {
         return [
             'plain_type_id' => null,
-            'url'           => $this->faker->url,
-            'method'        => $this->faker->randomElement(['GET', 'POST', 'PUT']),
-            'body'          => '{"test":"test"}',
-            'mappings'      => json_encode(
+            'url' => $this->faker->url,
+            'method' => $this->faker->randomElement(['GET', 'POST', 'PUT']),
+            'body' => '{"test":"test"}',
+            'mappings' => json_encode(
                 array_combine(
                     $this->faker->words(5),
                     $this->faker->words(5),
                 )),
-            'created_at'    => now(),
-            'updated_at'    => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

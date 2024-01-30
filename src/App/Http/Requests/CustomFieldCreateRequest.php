@@ -29,7 +29,7 @@ class CustomFieldCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'          => [
+            'name' => [
                 'required',
                 'string',
                 'regex:/^[^\s]*$/i',
@@ -37,16 +37,16 @@ class CustomFieldCreateRequest extends FormRequest
                     return $this->usesSoftDelete() ? $query->whereNull('deleted_at') : $query;
                 }),
             ],
-            'label'           => 'required|string|max:255',
-            'placeholder'     => 'nullable|string',
+            'label' => 'required|string|max:255',
+            'placeholder' => 'nullable|string',
             'selectable_type' => 'required',
-            'selectable_id'   => 'required',
-            'model'           => 'required|string',
-            'required'        => 'boolean',
-            'hidden'          => 'boolean',
-            'validation_id'   => 'nullable|exists:custom_field_validations,id',
-            'group'           => 'nullable|string',
-            'order'           => 'nullable|integer',
+            'selectable_id' => 'required',
+            'model' => 'required|string',
+            'required' => 'boolean',
+            'hidden' => 'boolean',
+            'validation_id' => 'nullable|exists:custom_field_validations,id',
+            'group' => 'nullable|string',
+            'order' => 'nullable|integer',
         ];
     }
 

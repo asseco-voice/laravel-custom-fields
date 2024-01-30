@@ -44,7 +44,7 @@ class SelectionTypeTest extends TestCase
 
         $customField = $this->customField::factory()->create([
             'selectable_type' => get_class($this->selectionType),
-            'selectable_id'   => $selectionType->id,
+            'selectable_id' => $selectionType->id,
         ]);
 
         $this->assertEquals($customField->id, $selectionType->customFields->first()->id);

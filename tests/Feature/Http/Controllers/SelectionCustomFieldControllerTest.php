@@ -40,7 +40,7 @@ class SelectionCustomFieldControllerTest extends TestCase
 
         $this->customField::factory()->create([
             'selectable_type' => get_class($this->selectionType),
-            'selectable_id'   => $selectionType->id,
+            'selectable_id' => $selectionType->id,
         ]);
 
         $this->customField::factory()->count(5)->create();
@@ -76,7 +76,7 @@ class SelectionCustomFieldControllerTest extends TestCase
         $this
             ->postJson(route('custom-field.selection.store', 'string'), $request)
             ->assertJsonFragment([
-                'id'   => 1,
+                'id' => 1,
                 'name' => $request['name'],
             ]);
 
@@ -98,7 +98,7 @@ class SelectionCustomFieldControllerTest extends TestCase
         $this
             ->postJson(route('custom-field.selection.store', 'string'), $request)
             ->assertJsonFragment([
-                'id'   => 1,
+                'id' => 1,
                 'name' => $request['name'],
             ]);
 

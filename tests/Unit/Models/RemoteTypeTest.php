@@ -41,7 +41,7 @@ class RemoteTypeTest extends TestCase
 
         $customField = $this->customField::factory()->create([
             'selectable_type' => get_class($this->remoteType),
-            'selectable_id'   => $remoteType->id,
+            'selectable_id' => $remoteType->id,
         ]);
 
         $this->assertEquals($customField->id, $remoteType->customFields->first()->id);

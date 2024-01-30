@@ -24,8 +24,8 @@ class RemoteType extends ParentType implements \Asseco\CustomFields\App\Contract
     protected $appends = ['name'];
 
     protected $casts = [
-        'body'     => 'array',
-        'headers'  => 'array',
+        'body' => 'array',
+        'headers' => 'array',
         'mappings' => 'array',
     ];
 

@@ -27,13 +27,13 @@ class FormTest extends TestCase
         $validation = Validation::factory()->create(['regex' => '[A-Z]']);
 
         $this->cf1 = CustomField::factory()->create([
-            'name'          => 'cf1',
+            'name' => 'cf1',
             'validation_id' => $validation->id,
-            'required'      => 0,
+            'required' => 0,
         ]);
 
         $this->cf2 = CustomField::factory()->create([
-            'name'     => 'cf2',
+            'name' => 'cf2',
             'required' => 1,
         ]);
     }
@@ -366,11 +366,11 @@ class FormTest extends TestCase
 
         $expected = [
             'cf1' => [
-                'type'  => 'string',
+                'type' => 'string',
                 'value' => 'ABC',
             ],
             'cf2' => [
-                'type'  => 'string',
+                'type' => 'string',
                 'value' => 'ABC',
             ],
         ];

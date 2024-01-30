@@ -45,7 +45,7 @@ class RelationControllerTest extends TestCase
         $this
             ->postJson(route('custom-field.relations.store'), [
                 'parent_id' => $customFields->first()->id,
-                'child_id'  => $customFields->last()->id,
+                'child_id' => $customFields->last()->id,
             ]);
 
         $this->assertCount(1, $this->relation::all());
@@ -71,7 +71,7 @@ class RelationControllerTest extends TestCase
 
         $relation = $this->relation::factory()->create([
             'parent_id' => $cf1,
-            'child_id'  => $cf2,
+            'child_id' => $cf2,
         ]);
 
         $random1 = $customFields->whereNotIn('id', [$cf1, $cf2])->random()->id;

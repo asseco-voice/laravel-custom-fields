@@ -21,19 +21,19 @@ class ValueFactory extends Factory
     public function definition()
     {
         return [
-            'model_type'      => $this->faker->word,
-            'model_id'        => $this->faker->randomNumber(),
+            'model_type' => $this->faker->word,
+            'model_id' => $this->faker->randomNumber(),
             'custom_field_id' => $this->faker->randomNumber(),
-            'integer'         => null,
-            'float'           => null,
-            'date'            => null,
-            'time'            => null,
-            'datetime'        => null,
-            'text'            => null,
-            'boolean'         => null,
-            'string'          => null,
-            'created_at'      => now(),
-            'updated_at'      => now(),
+            'integer' => null,
+            'float' => null,
+            'date' => null,
+            'time' => null,
+            'datetime' => null,
+            'text' => null,
+            'boolean' => null,
+            'string' => null,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

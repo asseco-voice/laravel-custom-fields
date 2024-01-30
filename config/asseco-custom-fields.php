@@ -27,35 +27,35 @@ return [
      * Model bindings.
      */
     'models' => [
-        'custom_field'    => CustomField::class,
-        'form'            => Form::class,
-        'form_template'   => FormTemplate::class,
-        'plain_type'      => PlainType::class,
-        'relation'        => Relation::class,
-        'remote_type'     => RemoteType::class,
-        'selection_type'  => SelectionType::class,
+        'custom_field' => CustomField::class,
+        'form' => Form::class,
+        'form_template' => FormTemplate::class,
+        'plain_type' => PlainType::class,
+        'relation' => Relation::class,
+        'remote_type' => RemoteType::class,
+        'selection_type' => SelectionType::class,
         'selection_value' => SelectionValue::class,
-        'validation'      => Validation::class,
-        'value'           => Value::class,
+        'validation' => Validation::class,
+        'value' => Value::class,
     ],
 
     'plain_types' => [
-        'boolean'  => BooleanType::class,
+        'boolean' => BooleanType::class,
         'datetime' => DateTimeType::class,
-        'date'     => DateType::class,
-        'float'    => FloatType::class,
-        'integer'  => IntegerType::class,
-        'string'   => StringType::class,
-        'text'     => TextType::class,
-        'time'     => TimeType::class,
+        'date' => DateType::class,
+        'float' => FloatType::class,
+        'integer' => IntegerType::class,
+        'string' => StringType::class,
+        'text' => TextType::class,
+        'time' => TimeType::class,
     ],
 
-    'migrations'  => [
+    'migrations' => [
 
         /**
          * UUIDs as primary keys.
          */
-        'uuid'       => false,
+        'uuid' => false,
 
         /**
          * Timestamp types.
@@ -68,7 +68,7 @@ return [
          * Should the package run the migrations. Set to false if you're publishing
          * and changing default migrations.
          */
-        'run'        => true,
+        'run' => true,
     ],
 
     /**
@@ -84,10 +84,10 @@ return [
     /**
      * Namespace to Customizable trait.
      */
-    'trait_path'  => Customizable::class,
+    'trait_path' => Customizable::class,
 
     'routes' => [
-        'prefix'     => 'api',
+        'prefix' => 'api',
         'middleware' => ['api'],
     ],
 

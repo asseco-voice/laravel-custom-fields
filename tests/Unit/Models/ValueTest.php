@@ -66,7 +66,7 @@ class ValueTest extends TestCase
     {
         $value = $this->value::factory()->make([
             'integer' => 321,
-            'string'  => 'something',
+            'string' => 'something',
         ]);
 
         // 'string' is defined before 'integer' in $this->value::VALUE_COLUMNS

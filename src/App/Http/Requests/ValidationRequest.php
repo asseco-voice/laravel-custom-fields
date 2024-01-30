@@ -27,8 +27,8 @@ class ValidationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'    => 'required|string|max:150|unique:custom_field_validations,name' . ($this->validation ? ',' . $this->validation->id : null),
-            'regex'   => 'nullable|string|max:255',
+            'name' => 'required|string|max:150|unique:custom_field_validations,name' . ($this->validation ? ',' . $this->validation->id : null),
+            'regex' => 'nullable|string|max:255',
             'generic' => 'boolean',
         ];
     }

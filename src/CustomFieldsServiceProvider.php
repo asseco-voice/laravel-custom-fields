@@ -22,6 +22,8 @@ use Asseco\CustomFields\App\Contracts\SelectionType;
 use Asseco\CustomFields\App\Contracts\SelectionValue;
 use Asseco\CustomFields\App\Contracts\Validation;
 use Asseco\CustomFields\App\Contracts\Value;
+use Asseco\CustomFields\App\Exceptions\Handler;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -80,6 +82,10 @@ class CustomFieldsServiceProvider extends ServiceProvider
         $this->app->bind(StringType::class, config('asseco-custom-fields.plain_types.string'));
         $this->app->bind(TextType::class, config('asseco-custom-fields.plain_types.text'));
         $this->app->bind(TimeType::class, config('asseco-custom-fields.plain_types.time'));
+
+        $this->app->extend(ExceptionHandler::class, function (ExceptionHandler $handler, $app) {
+            return new Handler($this->app);
+        });
     }
 
     protected function routeModelBinding()

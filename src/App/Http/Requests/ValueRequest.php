@@ -28,16 +28,16 @@ class ValueRequest extends FormRequest
     {
         return [
             'custom_field_id' => 'required|exists:custom_fields,id',
-            'model_type'      => 'required|string',
-            'model_id'        => 'required',
-            'string'          => 'nullable|string|max:255',
-            'integer'         => 'nullable|integer',
-            'float'           => 'nullable|numeric',
-            'text'            => 'nullable|string',
-            'boolean'         => 'nullable|boolean',
-            'datetime'        => 'nullable|string',
-            'date'            => 'nullable|string',
-            'time'            => 'nullable|string',
+            'model_type' => 'required|string',
+            'model_id' => 'required',
+            'string' => 'nullable|string|max:255',
+            'integer' => 'nullable|integer',
+            'float' => 'nullable|numeric',
+            'text' => 'nullable|string',
+            'boolean' => 'nullable|boolean',
+            'datetime' => 'nullable|string',
+            'date' => 'nullable|string',
+            'time' => 'nullable|string',
         ];
     }
 

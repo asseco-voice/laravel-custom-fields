@@ -21,7 +21,7 @@ class PlainTypeFactory extends Factory
     public function definition()
     {
         return [
-            'name'       => implode(' ', $this->faker->words(5)),
+            'name' => implode(' ', $this->faker->words(5)),
             'created_at' => now(),
             'updated_at' => now(),
         ];

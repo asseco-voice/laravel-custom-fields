@@ -22,11 +22,11 @@ class SelectionValueFactory extends Factory
     {
         return [
             'selection_type_id' => $this->faker->randomNumber(),
-            'label'             => $this->faker->word,
-            'preselect'         => $this->faker->boolean(10),
-            'value'             => $this->faker->word,
-            'created_at'        => now(),
-            'updated_at'        => now(),
+            'label' => $this->faker->word,
+            'preselect' => $this->faker->boolean(10),
+            'value' => $this->faker->word,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

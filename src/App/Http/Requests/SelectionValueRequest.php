@@ -28,9 +28,9 @@ class SelectionValueRequest extends FormRequest
     {
         return [
             'selection_type_id' => 'required|exists:custom_field_selection_types,id',
-            'label'             => 'nullable|string',
-            'value'             => 'required|string',
-            'preselect'         => 'boolean',
+            'label' => 'nullable|string',
+            'value' => 'required|string',
+            'preselect' => 'boolean',
         ];
     }
 

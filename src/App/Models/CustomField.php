@@ -12,6 +12,7 @@ use Asseco\CustomFields\App\Contracts\RemoteType;
 use Asseco\CustomFields\App\Contracts\SelectionType;
 use Asseco\CustomFields\App\Contracts\Validation;
 use Asseco\CustomFields\App\Contracts\Value;
+use Asseco\CustomFields\App\Exceptions\FieldValidationException;
 use Asseco\CustomFields\Database\Factories\CustomFieldFactory;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
@@ -113,6 +114,10 @@ class CustomField extends Model implements CustomFieldContract
         return $this->belongsTo(get_class(app(Validation::class)));
     }
 
+    /**
+     * @throws \Throwable
+     * @throws FieldValidationException
+     */
     public function validate($input): void
     {
         /**
@@ -141,7 +146,7 @@ class CustomField extends Model implements CustomFieldContract
     {
         $plain = config('asseco-custom-fields.plain_types');
         $other = [
-            'remote'    => get_class(app(RemoteType::class)),
+            'remote' => get_class(app(RemoteType::class)),
             'selection' => get_class(app(SelectionType::class)),
         ];
 
@@ -187,7 +192,7 @@ class CustomField extends Model implements CustomFieldContract
         }
 
         return [$this->name => [
-            'type'  => $type ?: $this->selectable->name,
+            'type' => $type ?: $this->selectable->name,
             'value' => $value,
         ]];
     }

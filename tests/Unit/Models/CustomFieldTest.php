@@ -74,11 +74,11 @@ class CustomFieldTest extends TestCase
 
         $this->customField::factory()->create([
             'selectable_type' => StringType::class,
-            'selectable_id'   => $plainType1->id,
+            'selectable_id' => $plainType1->id,
         ]);
         $this->customField::factory()->create([
             'selectable_type' => BooleanType::class,
-            'selectable_id'   => $plainType2->id,
+            'selectable_id' => $plainType2->id,
         ]);
 
         $this->customField::factory()->create(['selectable_type' => 'NotA$this->plainType::class']);
@@ -194,7 +194,7 @@ class CustomFieldTest extends TestCase
          */
         $customField1 = $this->customField::factory()->create([
             'selectable_type' => StringType::class,
-            'selectable_id'   => $plainType1->id,
+            'selectable_id' => $plainType1->id,
         ]);
 
         $this->assertEquals('string', $customField1->getValueColumn());
@@ -204,7 +204,7 @@ class CustomFieldTest extends TestCase
          */
         $customField2 = $this->customField::factory()->create([
             'selectable_type' => IntegerType::class,
-            'selectable_id'   => $plainType2->id,
+            'selectable_id' => $plainType2->id,
         ]);
 
         $this->assertEquals('integer', $customField2->getValueColumn());
@@ -214,7 +214,7 @@ class CustomFieldTest extends TestCase
          */
         $customField3 = $this->customField::factory()->create([
             'selectable_type' => FloatType::class,
-            'selectable_id'   => $plainType3->id,
+            'selectable_id' => $plainType3->id,
         ]);
 
         $this->assertEquals('float', $customField3->getValueColumn());
@@ -224,7 +224,7 @@ class CustomFieldTest extends TestCase
          */
         $customField4 = $this->customField::factory()->create([
             'selectable_type' => DateType::class,
-            'selectable_id'   => $plainType4->id,
+            'selectable_id' => $plainType4->id,
         ]);
 
         $this->assertEquals('date', $customField4->getValueColumn());
@@ -234,7 +234,7 @@ class CustomFieldTest extends TestCase
          */
         $customField5 = $this->customField::factory()->create([
             'selectable_type' => TextType::class,
-            'selectable_id'   => $plainType5->id,
+            'selectable_id' => $plainType5->id,
         ]);
 
         $this->assertEquals('text', $customField5->getValueColumn());
@@ -244,7 +244,7 @@ class CustomFieldTest extends TestCase
          */
         $customField6 = $this->customField::factory()->create([
             'selectable_type' => BooleanType::class,
-            'selectable_id'   => $plainType6->id,
+            'selectable_id' => $plainType6->id,
         ]);
 
         $this->assertEquals('boolean', $customField6->getValueColumn());
@@ -259,7 +259,7 @@ class CustomFieldTest extends TestCase
          */
         $customField7 = $this->customField::factory()->create([
             'selectable_type' => get_class($this->remoteType),
-            'selectable_id'   => $remoteType->id,
+            'selectable_id' => $remoteType->id,
         ]);
 
         $this->assertEquals('float', $customField7->getValueColumn());
@@ -274,7 +274,7 @@ class CustomFieldTest extends TestCase
          */
         $customField8 = $this->customField::factory()->create([
             'selectable_type' => get_class($this->selectionType),
-            'selectable_id'   => $selectionType->id,
+            'selectable_id' => $selectionType->id,
         ]);
 
         $this->assertEquals('text', $customField8->getValueColumn());
@@ -300,9 +300,9 @@ class CustomFieldTest extends TestCase
          * @var $customField CustomField
          */
         $customField = $this->customField::factory()->create([
-            'name'            => 'cf1',
+            'name' => 'cf1',
             'selectable_type' => StringType::class,
-            'selectable_id'   => $plainType->id,
+            'selectable_id' => $plainType->id,
         ]);
 
         /**
@@ -310,12 +310,12 @@ class CustomFieldTest extends TestCase
          */
         $value = $this->value::factory()->create([
             'custom_field_id' => $customField->id,
-            'string'          => 'some value',
+            'string' => 'some value',
         ]);
 
         $expected = [
             'cf1' => [
-                'type'  => 'string',
+                'type' => 'string',
                 'value' => 'some value',
             ],
         ];
@@ -336,12 +336,12 @@ class CustomFieldTest extends TestCase
          */
         $value = $this->value::factory()->create([
             'custom_field_id' => $customField->id,
-            'string'          => 'some value',
+            'string' => 'some value',
         ]);
 
         $expected = [
             'cf1' => [
-                'type'  => 'string',
+                'type' => 'string',
                 'value' => 'some value',
             ],
         ];
