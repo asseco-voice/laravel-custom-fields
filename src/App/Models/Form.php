@@ -6,12 +6,15 @@ namespace Asseco\CustomFields\App\Models;
 
 use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\App\Contracts\FormTemplate;
+use Asseco\CustomFields\App\Exceptions\FieldValidationException;
+use Asseco\CustomFields\App\Exceptions\MissingRequiredFieldException;
 use Asseco\CustomFields\Database\Factories\FormFactory;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
 
 class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
@@ -107,7 +110,7 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
     }
 
     /**
-     * @param  array  $formData
+     * @param array $formData
      * @return array
      *
      * @throws Exception
@@ -115,23 +118,37 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
     public function validate(array $formData): array
     {
         $validatedFields = [];
+        $missingRequiredFields = [];
+        $validationErrors = [];
 
         /**
          * @var CustomField $customField
          */
         foreach ($this->customFields as $customField) {
             if ($this->notSetButRequired($customField, $formData)) {
-                throw new Exception("The '$customField->name' field is required!");
+                $missingRequiredFields[$customField->name] = "required";
             }
 
             if (!isset($formData[$customField->name])) {
                 continue;
             }
 
-            $customField->validate($formData[$customField->name]);
+            try {
+                $customField->validate($formData[$customField->name]);
+            } catch (FieldValidationException $e) {
+                $validationErrors[$customField->name] = $e->getData();
+            }
 
             $validatedFields = array_merge(
                 $validatedFields, $customField->shortFormat($formData[$customField->name]));
+        }
+
+        if (!empty($missingRequiredFields)) {
+            throw new MissingRequiredFieldException("Missing required fields", 422, null, $missingRequiredFields);
+        }
+
+        if (!empty($validationErrors)) {
+            throw new FieldValidationException("Missing required fields", 400, null, $missingRequiredFields);
         }
 
         return $validatedFields;
