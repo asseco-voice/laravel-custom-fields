@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
 
 class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
@@ -110,7 +109,7 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
     }
 
     /**
-     * @param array $formData
+     * @param  array  $formData
      * @return array
      *
      * @throws Exception
@@ -126,7 +125,7 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
          */
         foreach ($this->customFields as $customField) {
             if ($this->notSetButRequired($customField, $formData)) {
-                $missingRequiredFields[$customField->name] = "required";
+                $missingRequiredFields[$customField->name] = 'required';
             }
 
             if (!isset($formData[$customField->name])) {
@@ -144,11 +143,11 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
         }
 
         if (!empty($missingRequiredFields)) {
-            throw new MissingRequiredFieldException("Missing required fields", 422, null, $missingRequiredFields);
+            throw new MissingRequiredFieldException('Missing required fields', 422, null, $missingRequiredFields);
         }
 
         if (!empty($validationErrors)) {
-            throw new FieldValidationException("Missing required fields", 400, null, $missingRequiredFields);
+            throw new FieldValidationException('Missing required fields', 400, null, $missingRequiredFields);
         }
 
         return $validatedFields;

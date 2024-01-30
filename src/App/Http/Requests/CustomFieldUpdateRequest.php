@@ -35,7 +35,7 @@ class CustomFieldUpdateRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name'          => [
+            'name' => [
                 'required',
                 'string',
                 'regex:/^[^\s]*$/i',
@@ -43,13 +43,13 @@ class CustomFieldUpdateRequest extends FormRequest
                     return $this->usesSoftDelete() ? $query->whereNull('deleted_at') : $query;
                 }),
             ],
-            'label'         => 'sometimes|string|max:255',
-            'placeholder'   => 'nullable|string',
-            'required'      => 'boolean',
-            'hidden'        => 'boolean',
+            'label' => 'sometimes|string|max:255',
+            'placeholder' => 'nullable|string',
+            'required' => 'boolean',
+            'hidden' => 'boolean',
             'validation_id' => 'nullable|exists:custom_field_validations,id',
-            'group'         => 'nullable|string',
-            'order'         => 'nullable|integer',
+            'group' => 'nullable|string',
+            'order' => 'nullable|integer',
         ];
 
         return Arr::except($rules, self::LOCKED_FOR_EDITING);

@@ -28,7 +28,7 @@ class RelationRequest extends FormRequest
     {
         return [
             'parent_id' => 'required|exists:custom_fields,id',
-            'child_id'  => 'required|exists:custom_fields,id|different:parent_id',
+            'child_id' => 'required|exists:custom_fields,id|different:parent_id',
         ];
     }
 

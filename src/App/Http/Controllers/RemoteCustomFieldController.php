@@ -68,7 +68,7 @@ class RemoteCustomFieldController extends Controller
 
             $selectableData = [
                 'selectable_type' => get_class($this->remoteClass),
-                'selectable_id'   => $remoteType->id,
+                'selectable_id' => $remoteType->id,
             ];
 
             $cfData = Arr::except($data, 'remote');

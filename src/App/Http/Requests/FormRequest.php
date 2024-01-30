@@ -27,8 +27,8 @@ class FormRequest extends LaravelFormRequest
     public function rules()
     {
         return [
-            'tenant_id'  => 'nullable',
-            'name'       => 'required|string|regex:/^[^\s]*$/i|unique:forms,name' . ($this->form ? ',' . $this->form->id : null),
+            'tenant_id' => 'nullable',
+            'name' => 'required|string|regex:/^[^\s]*$/i|unique:forms,name' . ($this->form ? ',' . $this->form->id : null),
             'definition' => 'required|array',
             'action_url' => 'nullable|string',
         ];

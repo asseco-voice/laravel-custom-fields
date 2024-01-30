@@ -22,9 +22,9 @@ class SelectionTypeFactory extends Factory
     {
         return [
             'plain_type_id' => null,
-            'multiselect'   => $this->faker->boolean,
-            'created_at'    => now(),
-            'updated_at'    => now(),
+            'multiselect' => $this->faker->boolean,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

@@ -58,7 +58,7 @@ class PlainCustomFieldController extends Controller
 
         $selectableData = [
             'selectable_type' => $typeModel,
-            'selectable_id'   => $typeModel::query()->firstOrFail('id')->id,
+            'selectable_id' => $typeModel::query()->firstOrFail('id')->id,
         ];
 
         $customField = $this->customField::query()->create(array_merge($data, $selectableData));

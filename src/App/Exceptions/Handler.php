@@ -3,7 +3,6 @@
 namespace Asseco\CustomFields\App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -45,15 +44,15 @@ class Handler extends ExceptionHandler
     {
         $this->renderable(function (MissingRequiredFieldException $e) {
             return response()->json([
-                "message"=> $e->getMessage(),
-                "errors" => $e->getData()
+                'message' => $e->getMessage(),
+                'errors' => $e->getData(),
             ], $e->getCode());
         });
 
         $this->renderable(function (FieldValidationException $e) {
             return response()->json([
-                "message"=> $e->getMessage(),
-                "errors" => $e->getData()
+                'message' => $e->getMessage(),
+                'errors' => $e->getData(),
             ], $e->getCode());
         });
     }

@@ -34,7 +34,7 @@ class ValueControllerTest extends TestCase
 
         $customField = $this->customField::factory()->create();
 
-        $this->value::factory()->count(5)->create(['custom_field_id'=> $customField->id]);
+        $this->value::factory()->count(5)->create(['custom_field_id' => $customField->id]);
 
         $this
             ->getJson(route('custom-field.values.index'))
@@ -49,12 +49,12 @@ class ValueControllerTest extends TestCase
         $selectable = $this->plainType::query()->where('name', 'string')->first();
         $customField = $this->customField::factory()->create([
             'selectable_type' => StringType::class,
-            'selectable_id'   => $selectable->id,
+            'selectable_id' => $selectable->id,
         ]);
 
         $request = $this->value::factory()->make([
             'custom_field_id' => $customField->id,
-            'string'          => 'test value',
+            'string' => 'test value',
         ])->toArray();
 
         $this
@@ -85,14 +85,14 @@ class ValueControllerTest extends TestCase
         $selectable = $this->plainType::query()->where('name', 'string')->first();
         $customField = $this->customField::factory()->create([
             'selectable_type' => StringType::class,
-            'selectable_id'   => $selectable->id,
+            'selectable_id' => $selectable->id,
         ]);
 
         // Value is defined as 'string', so no other types should be provided
         $request = $this->value::factory()->make([
             'custom_field_id' => $customField->id,
-            'string'          => 'test value',
-            'text'            => 'should not be provided',
+            'string' => 'test value',
+            'text' => 'should not be provided',
         ])->toArray();
 
         $this
@@ -108,7 +108,7 @@ class ValueControllerTest extends TestCase
         $selectable = $this->plainType::query()->where('name', 'string')->first();
         $customField = $this->customField::factory()->create([
             'selectable_type' => StringType::class,
-            'selectable_id'   => $selectable->id,
+            'selectable_id' => $selectable->id,
         ]);
 
         // 'string' is required, but missing
@@ -128,7 +128,7 @@ class ValueControllerTest extends TestCase
     {
         $customField = $this->customField::factory()->create();
 
-        $this->value::factory()->count(5)->create(['custom_field_id'=> $customField->id]);
+        $this->value::factory()->count(5)->create(['custom_field_id' => $customField->id]);
 
         $this
             ->getJson(route('custom-field.values.show', 3))
@@ -141,12 +141,12 @@ class ValueControllerTest extends TestCase
         $selectable = $this->plainType::query()->where('name', 'string')->first();
         $customField = $this->customField::factory()->create([
             'selectable_type' => StringType::class,
-            'selectable_id'   => $selectable->id,
+            'selectable_id' => $selectable->id,
         ]);
 
         $value = $this->value::factory()->create([
             'custom_field_id' => $customField->id,
-            'string'          => 'test value',
+            'string' => 'test value',
         ]);
 
         $request = [
@@ -168,12 +168,12 @@ class ValueControllerTest extends TestCase
         $selectable = $this->plainType::query()->where('name', 'string')->first();
         $customField = $this->customField::factory()->create([
             'selectable_type' => StringType::class,
-            'selectable_id'   => $selectable->id,
+            'selectable_id' => $selectable->id,
         ]);
 
         $value = $this->value::factory()->create([
             'custom_field_id' => $customField->id,
-            'string'          => 'test value',
+            'string' => 'test value',
         ]);
 
         $request = [
@@ -190,7 +190,7 @@ class ValueControllerTest extends TestCase
     {
         $customField = $this->customField::factory()->create();
 
-        $value = $this->value::factory()->create(['custom_field_id'=> $customField->id]);
+        $value = $this->value::factory()->create(['custom_field_id' => $customField->id]);
 
         $this->assertCount(1, $this->value::all());
 

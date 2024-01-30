@@ -74,7 +74,7 @@ class SelectionCustomFieldController extends Controller
             $selectionTypeModel = $this->selectionClass;
             $selectionType = $selectionTypeModel::query()->create([
                 'plain_type_id' => $plainTypeId,
-                'multiselect'   => $multiselect,
+                'multiselect' => $multiselect,
             ]);
 
             $selectionValues = Arr::get($data, 'values', []);
@@ -89,7 +89,7 @@ class SelectionCustomFieldController extends Controller
 
             $selectableData = [
                 'selectable_type' => $this->selectionClass,
-                'selectable_id'   => $selectionType->id,
+                'selectable_id' => $selectionType->id,
             ];
 
             $cfData = Arr::except($data, ['selection', 'values']);

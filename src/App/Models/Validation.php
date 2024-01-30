@@ -7,7 +7,6 @@ namespace Asseco\CustomFields\App\Models;
 use Asseco\CustomFields\App\Contracts\CustomField;
 use Asseco\CustomFields\App\Exceptions\FieldValidationException;
 use Asseco\CustomFields\Database\Factories\ValidationFactory;
-use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -31,8 +30,9 @@ class Validation extends Model implements \Asseco\CustomFields\App\Contracts\Val
     }
 
     /**
-     * @param $input
+     * @param  $input
      * @return void
+     *
      * @throws FieldValidationException|\Throwable
      */
     public function validate($input): void

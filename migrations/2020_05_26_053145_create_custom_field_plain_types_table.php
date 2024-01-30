@@ -49,14 +49,14 @@ class CreateCustomFieldPlainTypesTable extends Migration
         foreach ($types as $type) {
             if (config('asseco-custom-fields.migrations.uuid')) {
                 $plainTypes[] = [
-                    'id'         => Str::uuid(),
-                    'name'       => $type,
+                    'id' => Str::uuid(),
+                    'name' => $type,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
             } else {
                 $plainTypes[] = [
-                    'name'       => $type,
+                    'name' => $type,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];

@@ -21,8 +21,8 @@ class RelationFactory extends Factory
     public function definition()
     {
         return [
-            'parent_id'  => $this->faker->randomNumber(),
-            'child_id'   => $this->faker->randomNumber(),
+            'parent_id' => $this->faker->randomNumber(),
+            'child_id' => $this->faker->randomNumber(),
             'created_at' => now(),
             'updated_at' => now(),
         ];

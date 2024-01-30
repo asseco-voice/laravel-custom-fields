@@ -22,17 +22,17 @@ class CustomFieldFactory extends Factory
     {
         return [
             'selectable_type' => $this->faker->word,
-            'selectable_id'   => $this->faker->randomNumber(),
-            'name'            => implode('_', $this->faker->words(5)),
-            'label'           => $this->faker->word,
-            'placeholder'     => $this->faker->word,
-            'model'           => $this->faker->word,
-            'required'        => $this->faker->boolean(10),
-            'validation_id'   => null,
-            'group'           => null,
-            'order'           => null,
-            'created_at'      => now(),
-            'updated_at'      => now(),
+            'selectable_id' => $this->faker->randomNumber(),
+            'name' => implode('_', $this->faker->words(5)),
+            'label' => $this->faker->word,
+            'placeholder' => $this->faker->word,
+            'model' => $this->faker->word,
+            'required' => $this->faker->boolean(10),
+            'validation_id' => null,
+            'group' => null,
+            'order' => null,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

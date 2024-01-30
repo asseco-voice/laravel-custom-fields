@@ -31,11 +31,11 @@ class PlainCustomFieldControllerTest extends TestCase
 
         $this->customField::factory()->create([
             'selectable_type' => StringType::class,
-            'selectable_id'   => $plainType1->id,
+            'selectable_id' => $plainType1->id,
         ]);
         $this->customField::factory()->create([
             'selectable_type' => BooleanType::class,
-            'selectable_id'   => $plainType2->id,
+            'selectable_id' => $plainType2->id,
         ]);
 
         $this->customField::factory()->count(5)->create();
@@ -67,7 +67,7 @@ class PlainCustomFieldControllerTest extends TestCase
         $this
             ->postJson(route('custom-field.plain.store', 'string'), $request)
             ->assertJsonFragment([
-                'id'   => 1,
+                'id' => 1,
                 'name' => $request['name'],
             ]);
 

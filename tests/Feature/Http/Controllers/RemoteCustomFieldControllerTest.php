@@ -37,7 +37,7 @@ class RemoteCustomFieldControllerTest extends TestCase
 
         $this->customField::factory()->create([
             'selectable_type' => get_class($this->remoteType),
-            'selectable_id'   => $remoteType->id,
+            'selectable_id' => $remoteType->id,
         ]);
 
         $this->customField::factory()->count(5)->create();
@@ -78,8 +78,8 @@ class RemoteCustomFieldControllerTest extends TestCase
 
         $request['remote'] = $this->remoteType::factory()->make([
             'plain_type_id' => $this->plainType::query()->where('name', 'string')->first()->id,
-            'body'          => [],
-            'mappings'      => [],
+            'body' => [],
+            'mappings' => [],
         ])->toArray();
 
         $this
