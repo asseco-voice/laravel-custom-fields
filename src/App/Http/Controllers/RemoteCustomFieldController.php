@@ -106,8 +106,7 @@ class RemoteCustomFieldController extends Controller
         $data = $remoteType->getRemoteData();
 
         $data = $remoteType->data_path ? Arr::get($data, $remoteType->data_path) : $data;
-
-        $transformed = $this->transform($data, json_decode($remoteType->mappings, true));
+        $transformed = $this->transform($data, $remoteType->mappings);
 
         return response()->json($transformed);
     }
