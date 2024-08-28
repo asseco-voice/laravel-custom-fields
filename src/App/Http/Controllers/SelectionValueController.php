@@ -41,10 +41,14 @@ class SelectionValueController extends Controller
     public function store(SelectionValueRequest $request): JsonResponse
     {
         // check for deleted values
-        $selectionValue = $this->selectionValue::withTrashed()
-            ->where('selection_type_id', $request->get('selection_type_id'))
-            ->where('value', $request->get('value'))
-            ->first();
+
+        $selectionValue = null;
+        if (method_exists($this->selectionValue, 'bootSoftDeletes')) {
+            $selectionValue = $this->selectionValue::withTrashed()
+                ->where('selection_type_id', $request->get('selection_type_id'))
+                ->where('value', $request->get('value'))
+                ->first();
+        }
 
         if ($selectionValue) {
             if ($selectionValue->trashed()) {
