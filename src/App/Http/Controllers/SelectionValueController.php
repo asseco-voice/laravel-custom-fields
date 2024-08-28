@@ -40,7 +40,24 @@ class SelectionValueController extends Controller
      */
     public function store(SelectionValueRequest $request): JsonResponse
     {
-        $selectionValue = $this->selectionValue::query()->create($request->validated());
+        // check for deleted values
+        $selectionValue = $this->selectionValue::withTrashed()
+            ->where('selection_type_id', $request->get('selection_type_id'))
+            ->where('value', $request->get('value'))
+            ->first();
+
+        if ($selectionValue) {
+            if ($selectionValue->trashed()) {
+                // restore
+                $selectionValue->restoreQuietly();
+                $selectionValue->update($request->validated());
+            } else {
+                throw new Exception('Selection value already exists.', 400);
+            }
+        }
+        else {
+            $selectionValue = $this->selectionValue::query()->create($request->validated());
+        }
 
         return response()->json($selectionValue->refresh());
     }
