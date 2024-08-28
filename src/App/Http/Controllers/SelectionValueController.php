@@ -54,8 +54,7 @@ class SelectionValueController extends Controller
             } else {
                 throw new Exception('Selection value already exists.', 400);
             }
-        }
-        else {
+        } else {
             $selectionValue = $this->selectionValue::query()->create($request->validated());
         }
 
