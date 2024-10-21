@@ -52,8 +52,7 @@ class SelectionValueController extends Controller
                     // restore
                     $selectionValue->restoreQuietly();
                     $selectionValue->update($request->validated());
-                }
-                else {
+                } else {
                     throw new Exception('Selection value already exists.', 400);
                 }
             } else {
