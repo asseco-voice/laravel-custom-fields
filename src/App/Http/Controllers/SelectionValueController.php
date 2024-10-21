@@ -47,12 +47,16 @@ class SelectionValueController extends Controller
                 ->where('value', $request->get('value'))
                 ->first();
 
-            if ($selectionValue->trashed()) {
-                // restore
-                $selectionValue->restoreQuietly();
-                $selectionValue->update($request->validated());
+            if ($selectionValue) {
+                if ($selectionValue->trashed()) {
+                    // restore
+                    $selectionValue->restoreQuietly();
+                    $selectionValue->update($request->validated());
+                } else {
+                    throw new Exception('Selection value already exists.', 400);
+                }
             } else {
-                throw new Exception('Selection value already exists.', 400);
+                $selectionValue = $this->selectionValue::query()->create($request->validated());
             }
         } else {
             $selectionValue = $this->selectionValue::query()->create($request->validated());
