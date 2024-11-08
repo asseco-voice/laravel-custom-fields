@@ -101,7 +101,7 @@ class Value extends Model implements \Asseco\CustomFields\App\Contracts\Value
 
         self::filterByAllowedColumn($valueColumn, $request);
 
-        throw_if(!$request->has($valueColumn) || empty($request->get($valueColumn)),
+        throw_if(!$request->has($valueColumn) || is_null($request->get($valueColumn)),
             new Exception("Attribute '$valueColumn' needs to be provided."));
 
         $customField->validate($request->get($valueColumn));
