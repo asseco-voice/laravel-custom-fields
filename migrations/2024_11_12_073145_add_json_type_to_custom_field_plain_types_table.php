@@ -13,6 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
+
+        $exists = DB::table('custom_field_plain_types')->where('name', 'json')->exists();
+        if ($exists) {
+            // already exists
+            return;
+        }
+
         $types = ['json'];
 
         $plainTypes = [];
