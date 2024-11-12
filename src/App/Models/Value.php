@@ -37,9 +37,9 @@ class Value extends Model implements \Asseco\CustomFields\App\Contracts\Value
 
     protected $appends = ['value'];
     protected $casts = [
-        'float'     => 'float',
-        'boolean'   => 'boolean',
-        'json'      => 'array',
+        'float' => 'float',
+        'boolean' => 'boolean',
+        'json' => 'array',
     ];
 
     protected static function booted()
