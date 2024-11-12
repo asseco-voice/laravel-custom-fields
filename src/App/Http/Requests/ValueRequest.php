@@ -38,6 +38,7 @@ class ValueRequest extends FormRequest
             'datetime' => 'nullable|string',
             'date' => 'nullable|string',
             'time' => 'nullable|string',
+            'json' => 'nullable|array',
         ];
     }
 

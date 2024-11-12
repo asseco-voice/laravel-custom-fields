@@ -16,6 +16,7 @@ use Asseco\CustomFields\App\PlainTypes\DateTimeType;
 use Asseco\CustomFields\App\PlainTypes\DateType;
 use Asseco\CustomFields\App\PlainTypes\FloatType;
 use Asseco\CustomFields\App\PlainTypes\IntegerType;
+use Asseco\CustomFields\App\PlainTypes\JsonType;
 use Asseco\CustomFields\App\PlainTypes\StringType;
 use Asseco\CustomFields\App\PlainTypes\TextType;
 use Asseco\CustomFields\App\PlainTypes\TimeType;
@@ -48,6 +49,7 @@ return [
         'string' => StringType::class,
         'text' => TextType::class,
         'time' => TimeType::class,
+        'json' => JsonType::class,
     ],
 
     'migrations' => [
