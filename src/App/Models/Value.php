@@ -23,7 +23,7 @@ class Value extends Model implements \Asseco\CustomFields\App\Contracts\Value
      * Columns which are classified as value columns.
      */
     public const VALUE_COLUMNS = [
-        'string', 'integer', 'float', 'text', 'boolean', 'datetime', 'date', 'time',
+        'string', 'integer', 'float', 'text', 'boolean', 'datetime', 'date', 'time', 'json',
     ];
 
     /**
@@ -36,6 +36,11 @@ class Value extends Model implements \Asseco\CustomFields\App\Contracts\Value
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected $appends = ['value'];
+    protected $casts = [
+        'float'     => 'float',
+        'boolean'   => 'boolean',
+        'json'      => 'array',
+    ];
 
     protected static function booted()
     {
