@@ -44,7 +44,7 @@ class PlainCustomFieldRequest extends FormRequest
             'validation_id' => 'nullable|exists:custom_field_validations',
             'group' => 'nullable|string',
             'order' => 'nullable|integer',
-            'renderer' => 'nullable|string'
+            'renderer' => 'nullable|string',
         ];
     }
 
