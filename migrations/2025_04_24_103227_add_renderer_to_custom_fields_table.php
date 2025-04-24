@@ -14,7 +14,7 @@ class AddRendererToCustomFieldsTable extends Migration
     public function up()
     {
         Schema::table('custom_fields', function (Blueprint $table) {
-            $table->text('renderer');
+            $table->text('renderer')->nullable();
         });
     }
 

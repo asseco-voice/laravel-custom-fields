@@ -44,6 +44,7 @@ class RemoteCustomFieldRequest extends FormRequest
             'validation_id' => 'nullable|exists:custom_field_validations',
             'group' => 'nullable|string',
             'order' => 'nullable|integer',
+            'renderer' => 'nullable|string',
             'remote' => 'required|array',
             'remote.url' => 'required|url',
             'remote.method' => 'required|in:GET,POST,PUT',
