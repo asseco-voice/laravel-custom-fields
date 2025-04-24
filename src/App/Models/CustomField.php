@@ -80,7 +80,7 @@ class CustomField extends Model implements CustomFieldContract
         return $this->morphTo();
     }
 
-    public function scopePlain(Builder $query, string $subType = null): Builder
+    public function scopePlain(Builder $query, ?string $subType = null): Builder
     {
         /** @var PlainType $plainType */
         $plainType = app(PlainType::class);
