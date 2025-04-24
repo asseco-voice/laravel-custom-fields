@@ -33,7 +33,7 @@ class PlainCustomFieldController extends Controller
      * @param  string|null  $type
      * @return JsonResponse
      */
-    public function index(string $type = null): JsonResponse
+    public function index(?string $type = null): JsonResponse
     {
         return response()->json($this->customField::plain($type)->get());
     }
