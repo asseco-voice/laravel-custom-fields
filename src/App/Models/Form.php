@@ -36,6 +36,8 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
         'definition' => 'array',
     ];
 
+    private array $_customFieldNames = [];
+
     protected static function newFactory()
     {
         return FormFactory::new();
@@ -71,13 +73,14 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
         $components = Arr::get($this->definition, 'components', []);
 
         $this->extractCustomFields($components);
+        $this->relateCustomFields();
     }
 
     protected function extractCustomFields(array $components): void
     {
         foreach ($components as $componentKey => $component) {
             if ($componentKey === 'key') {
-                $this->relateCustomField($component);
+                $this->_customFieldNames[] = $component;
             }
 
             if (!is_array($component)) {
@@ -103,6 +106,17 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
         }
     }
 
+    protected function relateCustomFields(): void
+    {
+        /** @var CustomField $customFieldClass */
+        $customFieldClass = app(CustomField::class);
+        $customFieldIds = $customFieldClass::query()->whereIn('name', array_unique($this->_customFieldNames))->get()->pluck('id');
+
+        if (!empty($customFieldIds)) {
+            $this->customFields()->attach($customFieldIds);
+        }
+    }
+
     public function customFields(): BelongsToMany
     {
         return $this->belongsToMany(get_class(app(CustomField::class)))->withTimestamps();
@@ -112,7 +126,7 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
      * @param  array  $formData
      * @return array
      *
-     * @throws Exception
+     * @throws Exception|\Throwable
      */
     public function validate(array $formData): array
     {
