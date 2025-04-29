@@ -111,7 +111,7 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
         if (empty($this->_customFieldNames)) {
             return;
         }
-        
+
         /** @var CustomField $customFieldClass */
         $customFieldClass = app(CustomField::class);
         $customFieldIds = $customFieldClass::query()->whereIn('name', array_unique($this->_customFieldNames))->get()->pluck('id');
