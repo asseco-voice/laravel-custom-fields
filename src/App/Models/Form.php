@@ -72,6 +72,7 @@ class Form extends Model implements \Asseco\CustomFields\App\Contracts\Form
     {
         $components = Arr::get($this->definition, 'components', []);
 
+        $this->_customFieldNames = [];
         $this->extractCustomFields($components);
         $this->relateCustomFields();
     }
