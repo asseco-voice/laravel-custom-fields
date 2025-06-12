@@ -47,6 +47,7 @@ Route::prefix(config('asseco-custom-fields.routes.prefix'))
             Route::match(['put', 'patch'], 'remote/{remote_type}', [RemoteCustomFieldController::class, 'update'])->name('remote.update');
             Route::get('remote/{remote_type}/resolve', [RemoteCustomFieldController::class, 'resolve'])->name('remote.resolve');
             Route::get('remote/{remote_type}/resolve/{identifier_value}', [RemoteCustomFieldController::class, 'resolveByIdentifierValue'])->name('remote.resolveByIdentifierValue');
+            Route::get('remote/{remote_type}/search/{q?}', [RemoteCustomFieldController::class, 'search'])->name('remote.search');
 
             Route::get('selection', [SelectionCustomFieldController::class, 'index'])->name('selection.index');
             Route::post('selection/{plain_type}', [SelectionCustomFieldController::class, 'store'])->name('selection.store');
