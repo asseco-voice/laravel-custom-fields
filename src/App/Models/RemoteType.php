@@ -29,6 +29,9 @@ class RemoteType extends ParentType implements \Asseco\CustomFields\App\Contract
         'mappings' => 'array',
     ];
 
+    const DEFAULT_IDENTIFIER_PROPERTY       = 'id';
+    const DEFAULT_SEARCH_QUERY_PARAMETER    = 'q';
+
     protected static function newFactory()
     {
         return RemoteTypeFactory::new();
@@ -44,21 +47,55 @@ class RemoteType extends ParentType implements \Asseco\CustomFields\App\Contract
         return 'remote';
     }
 
-    public function getRemoteData()
+
+    private function fetchData(?string $value = null, bool $search = false) {
+
+        $qParam = $this->identifier_property ?: self::DEFAULT_IDENTIFIER_PROPERTY;
+        if ($search) {
+            $qParam = self::DEFAULT_SEARCH_QUERY_PARAMETER;
+        }
+
+        $body = $this->body;
+        $url = $this->url;
+
+        if ($value) {
+            // get by ID
+            if ($this->method == 'POST') {
+                empty($body) ? ($body = [ $qParam => $value]) : ($body[ $qParam ] = $value);
+            }
+            else {
+                $parsed = parse_url($url);
+                parse_str($parsed['query'] ?? '', $params);
+                $params[ $qParam ] = $value;
+                $url = $parsed['scheme'] . '://' . $parsed['host'];
+                if (!empty($parsed['port'])) {
+                    $url .= ':' . $parsed['port'];
+                }
+                $url .= $parsed['path'] . '?' . http_build_query($params);
+            }
+        }
+
+        return Http::withHeaders($this->getHeaders() ?: [])
+            ->withBody($body, 'application/json')
+            ->{$this->method}($url)->throw()->json();
+    }
+
+    public function getRemoteData(?string $identifierValue = null)
     {
         $cacheKey = 'remote_custom_field_' . $this->id;
-
         if (config('asseco-custom-fields.should_cache_remote') && Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
 
-        $response = Http::withHeaders($this->getHeaders() ?: [])
-            ->withBody($this->body, 'application/json')
-            ->{$this->method}($this->url)->throw()->json();
-
+        $response = $this->fetchData($identifierValue, false);
         Cache::put($cacheKey, $response, config('asseco-custom-fields.remote_cache_ttl'));
 
         return $response;
+    }
+
+    public function searchRemoteData(string $searchString)
+    {
+        return $this->fetchData($searchString, true);
     }
 
     protected function getHeaders()

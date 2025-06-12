@@ -11,6 +11,7 @@ use Asseco\CustomFields\App\Http\Requests\RemoteCustomFieldRequest;
 use Asseco\CustomFields\App\Http\Requests\RemoteTypeRequest;
 use Asseco\CustomFields\App\Traits\TransformsOutput;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
@@ -120,13 +121,31 @@ class RemoteCustomFieldController extends Controller
      */
     public function resolveByIdentifierValue(RemoteType $remoteType, string $identifierValue): JsonResponse
     {
-        $data = $remoteType->getRemoteData();
+        $data = $remoteType->getRemoteData($identifierValue);
 
         $data = $remoteType->data_path ? Arr::get($data, $remoteType->data_path) : $data;
 
         $data = collect($data)->where($remoteType->identifier_property, $identifierValue)->first();
 
         $transformed = is_array($data) ? $this->mapSingle($remoteType->mappings, $data) : $data;
+
+        return response()->json($transformed);
+    }
+
+
+    public function search( Request $request, RemoteType $remoteType, string $q = ''): JsonResponse
+    {
+        // check query parameter
+        $q = $q ?: $request->input('q');
+        if (!empty($q)) {
+            $data = $remoteType->searchRemoteData($q);
+        }
+        else {
+            $data = $remoteType->getRemoteData();
+        }
+
+        $data = $remoteType->data_path ? Arr::get($data, $remoteType->data_path) : $data;
+        $transformed = $this->transform($data, $remoteType->mappings);
 
         return response()->json($transformed);
     }

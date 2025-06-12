@@ -28,7 +28,6 @@ trait TransformsOutput
     protected function mapSingle(array $mappings, array $item): array
     {
         $data = [];
-
         foreach ($mappings as $remoteKey => $localKey) {
             if (!array_key_exists($remoteKey, $item)) {
                 continue;

@@ -29,6 +29,18 @@ use Illuminate\Support\Facades\Log;
  * @method static Builder remote()
  * @method static Builder selection()
  *
+ * @property string $id
+ * @property string $name
+ * @property string $label
+ * @property string $placeholder
+ * @property string $model
+ * @property bool $required
+ * @property bool $hidden
+ * @property bool $is_searchable
+ * @property string $group
+ * @property int $order
+ * @property string $renderer
+ *
  * Class CustomField
  */
 class CustomField extends Model implements CustomFieldContract
