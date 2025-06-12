@@ -29,8 +29,8 @@ class RemoteType extends ParentType implements \Asseco\CustomFields\App\Contract
         'mappings' => 'array',
     ];
 
-    const DEFAULT_IDENTIFIER_PROPERTY       = 'id';
-    const DEFAULT_SEARCH_QUERY_PARAMETER    = 'q';
+    const DEFAULT_IDENTIFIER_PROPERTY = 'id';
+    const DEFAULT_SEARCH_QUERY_PARAMETER = 'q';
 
     protected static function newFactory()
     {
@@ -47,9 +47,8 @@ class RemoteType extends ParentType implements \Asseco\CustomFields\App\Contract
         return 'remote';
     }
 
-
-    private function fetchData(?string $value = null, bool $search = false) {
-
+    private function fetchData(?string $value = null, bool $search = false)
+    {
         $qParam = $this->identifier_property ?: self::DEFAULT_IDENTIFIER_PROPERTY;
         if ($search) {
             $qParam = self::DEFAULT_SEARCH_QUERY_PARAMETER;
@@ -61,12 +60,11 @@ class RemoteType extends ParentType implements \Asseco\CustomFields\App\Contract
         if ($value) {
             // get by ID
             if ($this->method == 'POST') {
-                empty($body) ? ($body = [ $qParam => $value]) : ($body[ $qParam ] = $value);
-            }
-            else {
+                empty($body) ? ($body = [$qParam => $value]) : ($body[$qParam] = $value);
+            } else {
                 $parsed = parse_url($url);
                 parse_str($parsed['query'] ?? '', $params);
-                $params[ $qParam ] = $value;
+                $params[$qParam] = $value;
                 $url = $parsed['scheme'] . '://' . $parsed['host'];
                 if (!empty($parsed['port'])) {
                     $url .= ':' . $parsed['port'];

@@ -132,15 +132,13 @@ class RemoteCustomFieldController extends Controller
         return response()->json($transformed);
     }
 
-
-    public function search( Request $request, RemoteType $remoteType, string $q = ''): JsonResponse
+    public function search(Request $request, RemoteType $remoteType, string $q = ''): JsonResponse
     {
         // check query parameter
         $q = $q ?: $request->input('q');
         if (!empty($q)) {
             $data = $remoteType->searchRemoteData($q);
-        }
-        else {
+        } else {
             $data = $remoteType->getRemoteData();
         }
 
