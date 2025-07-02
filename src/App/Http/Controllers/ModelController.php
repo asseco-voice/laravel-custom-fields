@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 /**
  * @group CustomField - Customizable models
+ *
  * @tags CustomField - Customizable models
  */
 class ModelController extends Controller

@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 
 /**
  * @group CustomFields - Validation
+ *
  * @tags CustomFields - Validation
  */
 class ValidationController extends Controller

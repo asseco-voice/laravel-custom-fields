@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 /**
  * @group CustomFields - Type-Class
+ *
  * @tags CustomFields - Type-Class
  */
 class TypeController extends Controller

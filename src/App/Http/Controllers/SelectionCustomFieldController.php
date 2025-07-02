@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * @model CustomField
+ *
  * @group CustomFields - Selection type
+ *
  * @tags CustomFields - Selection type
  */
 class SelectionCustomFieldController extends Controller

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * @group CustomFields - Remote type
+ *
  * @tags CustomFields - Remote type
  *
  * @model CustomField
