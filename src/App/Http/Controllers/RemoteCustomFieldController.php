@@ -16,7 +16,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 /**
- * @group Remote Custom Fields
+ * @group CustomFields - Remote type
+ * @tags CustomFields - Remote type
  *
  * @model CustomField
  */

@@ -11,6 +11,8 @@ use Illuminate\Http\JsonResponse;
 
 /**
  * @model CustomField
+ * @group CustomFields - Plain type
+ * @tags CustomFields - Plain type
  */
 class PlainCustomFieldController extends Controller
 {

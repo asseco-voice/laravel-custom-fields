@@ -12,7 +12,8 @@ use Illuminate\Http\JsonResponse;
 use Throwable;
 
 /**
- * @group Custom Field Values
+ * @group CustomFields - Values
+ * @tags CustomFields - Values
  */
 class ValueController extends Controller
 {
@@ -27,6 +28,7 @@ class ValueController extends Controller
      * Display a listing of the resource.
      *
      * @return JsonResponse
+     * @response array<Value>
      */
     public function index(): JsonResponse
     {
@@ -38,6 +40,7 @@ class ValueController extends Controller
      *
      * @param  ValueRequest  $request
      * @return JsonResponse
+     * @response Value
      *
      * @throws Throwable
      */
@@ -67,6 +70,7 @@ class ValueController extends Controller
      * @param  ValueRequest  $request
      * @param  Value  $value
      * @return JsonResponse
+     * @response Value
      *
      * @throws Throwable
      */

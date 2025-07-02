@@ -11,7 +11,8 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 
 /**
- * @group Custom Field Validations
+ * @group CustomFields - Validation
+ * @tags CustomFields - Validation
  */
 class ValidationController extends Controller
 {

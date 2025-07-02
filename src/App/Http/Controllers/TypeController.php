@@ -8,7 +8,8 @@ use Asseco\CustomFields\App\Contracts\CustomField;
 use Illuminate\Http\JsonResponse;
 
 /**
- * @group Custom Field Type-Class Mappings
+ * @group CustomFields - Type-Class
+ * @tags CustomFields - Type-Class
  */
 class TypeController extends Controller
 {

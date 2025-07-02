@@ -8,6 +8,11 @@ use Asseco\CustomFields\App\Models\FormTemplate;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 
+
+/**
+ * @group CustomFields - Form Templates
+ * @tags CustomFields - Form Templates
+ */
 class FormTemplateController extends Controller
 {
     protected FormTemplateContract $formTemplate;
@@ -21,6 +26,7 @@ class FormTemplateController extends Controller
      * Display a listing of the resource.
      *
      * @return JsonResponse
+     * @response array<FormTemplate>
      */
     public function index(): JsonResponse
     {
@@ -32,6 +38,7 @@ class FormTemplateController extends Controller
      *
      * @param  FormTemplateRequest  $request
      * @return JsonResponse
+     * @response FormTemplate
      */
     public function store(FormTemplateRequest $request): JsonResponse
     {
@@ -60,6 +67,7 @@ class FormTemplateController extends Controller
      * @param  FormTemplateRequest  $request
      * @param  FormTemplate  $formTemplate
      * @return JsonResponse
+     * @response FormTemplate
      */
     public function update(FormTemplateRequest $request, FormTemplate $formTemplate): JsonResponse
     {

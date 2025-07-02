@@ -8,7 +8,8 @@ use Asseco\CustomFields\App\Traits\FindsTraits;
 use Illuminate\Http\JsonResponse;
 
 /**
- * @group Customizable Models
+ * @group CustomField - Customizable models
+ * @tags CustomField - Customizable models
  */
 class ModelController extends Controller
 {

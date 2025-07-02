@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 
 /**
  * @group Custom Field Relations
+ * @hidden
  */
 class RelationController extends Controller
 {

@@ -11,6 +11,10 @@ use Asseco\CustomFields\App\Models\CustomField;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * @groups CustomFields
+ * @tags CustomFields
+ */
 class CustomFieldController extends Controller
 {
     protected CustomFieldContract $customField;
@@ -24,6 +28,7 @@ class CustomFieldController extends Controller
      * Display a listing of the resource.
      *
      * @return JsonResponse
+     * @response array<CustomField>
      */
     public function index(): JsonResponse
     {

@@ -12,7 +12,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
- * @group Custom Field Forms
+ * @group CustomField - Forms
+ * @tags CustomField - Forms
  */
 class FormController extends Controller
 {

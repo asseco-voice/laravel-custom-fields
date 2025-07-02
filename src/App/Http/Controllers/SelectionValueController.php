@@ -11,7 +11,8 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 
 /**
- * @group Custom Field Relations
+ * @group CustomFields - Selection Value
+ * @tags CustomFields - Selection Value
  */
 class SelectionValueController extends Controller
 {
