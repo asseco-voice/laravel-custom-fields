@@ -45,6 +45,7 @@ class RemoteCustomFieldRequest extends FormRequest
             'group' => 'nullable|string',
             'order' => 'nullable|integer',
             'renderer' => 'nullable|string',
+            'is_gdpr_data' => 'nullable|boolean',
             'remote' => 'required|array',
             'remote.url' => 'required|url',
             'remote.method' => 'required|in:GET,POST,PUT',
