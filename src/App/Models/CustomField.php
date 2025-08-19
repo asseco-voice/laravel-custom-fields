@@ -37,6 +37,7 @@ use Illuminate\Support\Facades\Log;
  * @property bool $required
  * @property bool $hidden
  * @property bool $is_searchable
+ * @property bool $is_gdpr_data
  * @property string $group
  * @property int $order
  * @property string $renderer
