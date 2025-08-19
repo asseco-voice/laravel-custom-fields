@@ -45,6 +45,7 @@ class SelectionCustomFieldRequest extends FormRequest
             'group' => 'nullable|string',
             'order' => 'nullable|integer',
             'renderer' => 'nullable|string',
+            'is_gdpr_data' => 'nullable|boolean',
             'selection' => 'array',
             'selection.multiselect' => 'boolean',
             'values' => 'array',

@@ -52,6 +52,7 @@ class CustomFieldUpdateRequest extends FormRequest
             'group' => 'nullable|string',
             'order' => 'nullable|integer',
             'renderer' => 'nullable|string',
+            'is_gdpr_data' => 'nullable|boolean',
         ];
 
         return Arr::except($rules, self::LOCKED_FOR_EDITING);

@@ -49,6 +49,7 @@ class CustomFieldCreateRequest extends FormRequest
             'group' => 'nullable|string',
             'order' => 'nullable|integer',
             'renderer' => 'nullable|string',
+            'is_gdpr_data' => 'nullable|boolean',
         ];
     }
 

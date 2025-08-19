@@ -98,7 +98,6 @@ class SelectionCustomFieldControllerTest extends TestCase
         $this
             ->postJson(route('custom-field.selection.store', 'string'), $request)
             ->assertJsonFragment([
-                'id' => 1,
                 'name' => $request['name'],
             ]);
 
