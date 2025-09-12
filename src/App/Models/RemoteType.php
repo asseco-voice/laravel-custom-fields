@@ -80,13 +80,17 @@ class RemoteType extends ParentType implements \Asseco\CustomFields\App\Contract
 
     public function getRemoteData(?string $identifierValue = null)
     {
-        $cacheKey = 'remote_custom_field_' . $this->id . '_' . $identifierValue;
+        $cacheKey = 'remote_custom_field_' . $this->id;
         if (config('asseco-custom-fields.should_cache_remote') && Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
 
         $response = $this->fetchData($identifierValue, false);
-        Cache::put($cacheKey, $response, config('asseco-custom-fields.remote_cache_ttl'));
+
+        if (!$identifierValue) {
+            // cache only all
+            Cache::put($cacheKey, $response, config('asseco-custom-fields.remote_cache_ttl'));
+        }
 
         return $response;
     }

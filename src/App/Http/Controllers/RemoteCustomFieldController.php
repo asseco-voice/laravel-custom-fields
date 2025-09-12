@@ -52,8 +52,9 @@ class RemoteCustomFieldController extends Controller
      *
      * @append remote RemoteType
      *
-     * @param  RemoteCustomFieldRequest  $request
+     * @param RemoteCustomFieldRequest $request
      * @return JsonResponse
+     * @throws \Throwable
      */
     public function store(RemoteCustomFieldRequest $request): JsonResponse
     {
@@ -107,7 +108,7 @@ class RemoteCustomFieldController extends Controller
         $data = $remoteType->getRemoteData();
 
         $data = $remoteType->data_path ? Arr::get($data, $remoteType->data_path) : $data;
-        $transformed = $this->transform($data, $remoteType->mappings);
+        $transformed = $this->transform($data, $remoteType->mappings, $remoteType->identifier_property);
 
         return response()->json($transformed);
     }
@@ -127,7 +128,7 @@ class RemoteCustomFieldController extends Controller
 
         $data = collect($data)->where($remoteType->identifier_property, $identifierValue)->first();
 
-        $transformed = is_array($data) ? $this->mapSingle($remoteType->mappings, $data) : $data;
+        $transformed = is_array($data) ? $this->mapSingle($remoteType->mappings, $data, $remoteType->identifier_property) : $data;
 
         return response()->json($transformed);
     }
@@ -143,7 +144,7 @@ class RemoteCustomFieldController extends Controller
         }
 
         $data = $remoteType->data_path ? Arr::get($data, $remoteType->data_path) : $data;
-        $transformed = $this->transform($data, $remoteType->mappings);
+        $transformed = $this->transform($data, $remoteType->mappings, $remoteType->identifier_property);
 
         return response()->json($transformed);
     }

@@ -6,7 +6,7 @@ namespace Asseco\CustomFields\App\Traits;
 
 trait TransformsOutput
 {
-    protected function transform(array $response, ?array $mappings): array
+    protected function transform(array $response, ?array $mappings, ?string $idProperty = null): array
     {
         if (!$mappings) {
             return $response;
@@ -14,18 +14,19 @@ trait TransformsOutput
 
         $transformed = [];
         foreach ($response as $item) {
-            $transformed[] = $this->mapSingle($mappings, $item);
+            $transformed[] = $this->mapSingle($mappings, $item, $idProperty);
         }
 
         return $transformed;
     }
 
     /**
-     * @param  array  $mappings
-     * @param  array  $item
+     * @param array $mappings
+     * @param array $item
+     * @param string|null $idProperty
      * @return array
      */
-    protected function mapSingle(array $mappings, array $item): array
+    protected function mapSingle(array $mappings, array $item, ?string $idProperty = null): array
     {
         $data = [];
         foreach ($mappings as $remoteKey => $localKey) {
@@ -36,6 +37,10 @@ trait TransformsOutput
             $data = array_merge_recursive($data, [
                 $localKey => $item[$remoteKey],
             ]);
+        }
+
+        if ($idProperty) {
+            $data[ $idProperty] = $item[ $idProperty ] ?? null;
         }
 
         return $data;
