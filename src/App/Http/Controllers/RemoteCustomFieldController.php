@@ -52,8 +52,9 @@ class RemoteCustomFieldController extends Controller
      *
      * @append remote RemoteType
      *
-     * @param RemoteCustomFieldRequest $request
+     * @param  RemoteCustomFieldRequest  $request
      * @return JsonResponse
+     *
      * @throws \Throwable
      */
     public function store(RemoteCustomFieldRequest $request): JsonResponse

@@ -21,9 +21,9 @@ trait TransformsOutput
     }
 
     /**
-     * @param array $mappings
-     * @param array $item
-     * @param string|null $idProperty
+     * @param  array  $mappings
+     * @param  array  $item
+     * @param  string|null  $idProperty
      * @return array
      */
     protected function mapSingle(array $mappings, array $item, ?string $idProperty = null): array
@@ -40,7 +40,7 @@ trait TransformsOutput
         }
 
         if ($idProperty) {
-            $data[ $idProperty] = $item[ $idProperty ] ?? null;
+            $data[$idProperty] = $item[$idProperty] ?? null;
         }
 
         return $data;
