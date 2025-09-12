@@ -39,8 +39,8 @@ trait TransformsOutput
             ]);
         }
 
-        if ($idProperty) {
-            $data[$idProperty] = $item[$idProperty] ?? null;
+        if ($idProperty && array_key_exists($idProperty, $item) && !array_key_exists($idProperty, $data)) {
+            $data[$idProperty] = $item[$idProperty];
         }
 
         return $data;
