@@ -124,11 +124,14 @@ class RemoteCustomFieldController extends Controller
     public function resolveByIdentifierValue(RemoteType $remoteType, string $identifierValue): JsonResponse
     {
         $data = $remoteType->getRemoteData($identifierValue);
-
         $data = $remoteType->data_path ? Arr::get($data, $remoteType->data_path) : $data;
 
-        $data = collect($data)->where($remoteType->identifier_property, $identifierValue)->first();
+        // check if not list ... if API returned just one item, not a list
+        if (!array_is_list($data)) {
+            $data = [ $data ];
+        }
 
+        $data = collect($data)->where($remoteType->identifier_property, $identifierValue)->first();
         $transformed = is_array($data) ? $this->mapSingle($remoteType->mappings, $data, $remoteType->identifier_property) : $data;
 
         return response()->json($transformed);
