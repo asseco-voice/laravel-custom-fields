@@ -62,14 +62,19 @@ class RemoteType extends ParentType implements \Asseco\CustomFields\App\Contract
             if ($this->method == 'POST') {
                 empty($body) ? ($body = [$qParam => $value]) : ($body[$qParam] = $value);
             } else {
-                $parsed = parse_url($url);
-                parse_str($parsed['query'] ?? '', $params);
-                $params[$qParam] = $value;
-                $url = $parsed['scheme'] . '://' . $parsed['host'];
-                if (!empty($parsed['port'])) {
-                    $url .= ':' . $parsed['port'];
+                if (!$search) {
+                    // use CRUD style for GET-ing record
+                    $url = rtrim($url, '/') . '/' . $value;
+                } else {
+                    $parsed = parse_url($url);
+                    parse_str($parsed['query'] ?? '', $params);
+                    $params[$qParam] = $value;
+                    $url = $parsed['scheme'] . '://' . $parsed['host'];
+                    if (!empty($parsed['port'])) {
+                        $url .= ':' . $parsed['port'];
+                    }
+                    $url .= $parsed['path'] . '?' . http_build_query($params);
                 }
-                $url .= $parsed['path'] . '?' . http_build_query($params);
             }
         }
 
