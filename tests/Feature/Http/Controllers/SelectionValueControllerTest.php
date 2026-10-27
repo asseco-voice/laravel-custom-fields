@@ -24,7 +24,7 @@ class SelectionValueControllerTest extends TestCase
         $this->selectionValue = app(SelectionValue::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_fetch_all_selection_values()
     {
         $this
@@ -40,7 +40,7 @@ class SelectionValueControllerTest extends TestCase
         $this->assertCount(5, $this->selectionValue::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function creates_selection_value()
     {
         $plain = $this->plainType::factory()->create();
@@ -62,7 +62,7 @@ class SelectionValueControllerTest extends TestCase
         $this->assertCount(1, $this->selectionValue::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_return_selection_value_by_id()
     {
         $selectionValues = $this->selectionValue::factory()->count(5)->create();
@@ -74,7 +74,7 @@ class SelectionValueControllerTest extends TestCase
             ->assertJsonFragment(['id' => $selectionValueId]);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_update_selection_value()
     {
         $plain = $this->plainType::factory()->create();
@@ -100,7 +100,7 @@ class SelectionValueControllerTest extends TestCase
         $this->assertEquals($request['label'], $selectionValue->refresh()->label);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_delete_selection_value()
     {
         $selectionValue = $this->selectionValue::factory()->create();

@@ -6,45 +6,58 @@ on:
 
 jobs:
   build:
+    name: PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }}
 
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: '8.2'
+            laravel: '10'
+            testbench: '^8.5'
+            phpunit: '^10.5'
+          - php: '8.3'
+            laravel: '13'
+            testbench: '^11.0'
+            phpunit: '^12.0'
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
-          extensions: mbstring, intl
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl, pdo_sqlite
           ini-values: post_max_size=256M, max_execution_time=180
-          coverage: xdebug
-          tools: php-cs-fixer, phpunit
+          coverage: none
+          tools: phpstan:2
 
-      - name: Validate composer.json and composer.lock
-        run: composer validate
+      - name: Validate composer.json
+        run: composer validate --no-check-lock
 
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v4
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-
+      # Every Laravel 10 release has advisories fixed only in Laravel 12+, so Composer would otherwise
+      # refuse them all (or pick the unreleased 10.x-dev). CI only; composer.json is not changed.
+      - name: Allow Laravel 10 despite its advisories
+        if: matrix.laravel == '10'
+        run: composer config audit.block-insecure false
 
-      - name: Install dependencies
-        if: steps.composer-cache.outputs.cache-hit != 'true'
-        run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Install dependencies for Laravel ${{ matrix.laravel }}
+        run: |
+          composer require "laravel/framework:^${{ matrix.laravel }}.0" --no-update --no-interaction
+          composer require "orchestra/testbench:${{ matrix.testbench }}" "phpunit/phpunit:${{ matrix.phpunit }}" --dev --no-update --no-interaction
+          composer update --prefer-dist --prefer-stable --no-progress --no-interaction
+          composer show laravel/framework | grep -m1 '^versions'
 
       - name: Execute PHPUnit tests
-        run:
-          vendor/phpunit/phpunit/phpunit
+        run: |
+          if [ -n "$(find tests -name '*Test.php' 2>/dev/null)" ]; then
+            vendor/bin/phpunit
+          else
+            echo "This package has no tests"
+          fi
 
       - name: PHP STatic ANalyser (phpstan)
-        uses: php-actions/phpstan@v3
-        with:
-          version: latest
-          path: 'src'
-          php_version: '8.2'
-          level: 0
+        run: phpstan analyse src --level=0 --no-progress --memory-limit=1G

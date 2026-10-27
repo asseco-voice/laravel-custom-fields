@@ -19,7 +19,7 @@ class RelationTest extends TestCase
         $this->relation = app(Relation::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_factory()
     {
         $this->assertInstanceOf(RelationFactory::class, $this->relation::factory());

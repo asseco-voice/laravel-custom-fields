@@ -25,13 +25,13 @@ class ValueTest extends TestCase
         $this->value = app(Value::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_factory()
     {
         $this->assertInstanceOf(ValueFactory::class, $this->value::factory());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_fetch_related_custom_field()
     {
         $customField = $this->customField::factory()->create();
@@ -43,7 +43,7 @@ class ValueTest extends TestCase
         $this->assertEquals($customField->id, $value->customField->id);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function returns_value_from_non_empty_column()
     {
         $value = $this->value::factory()->make([
@@ -53,7 +53,7 @@ class ValueTest extends TestCase
         $this->assertEquals('123', $value->value);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function fails_to_return_if_all_value_columns_are_empty()
     {
         $value = $this->value::factory()->make();
@@ -61,7 +61,7 @@ class ValueTest extends TestCase
         $this->assertNull($value->value);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function returns_only_first_match_of_many_non_empty_columns_by_order_of_precedence()
     {
         $value = $this->value::factory()->make([

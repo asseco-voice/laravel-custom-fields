@@ -31,13 +31,13 @@ class SelectionTypeTest extends TestCase
         $this->selectionValue = app(SelectionValue::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_factory()
     {
         $this->assertInstanceOf(SelectionTypeFactory::class, $this->selectionType::factory());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_fetch_related_custom_fields()
     {
         $selectionType = $this->createSelectionType();
@@ -50,7 +50,7 @@ class SelectionTypeTest extends TestCase
         $this->assertEquals($customField->id, $selectionType->customFields->first()->id);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_fetch_values()
     {
         $selectionType = $this->createSelectionType();
@@ -62,7 +62,7 @@ class SelectionTypeTest extends TestCase
         $this->assertEquals($selectionValue->id, $selectionType->values->first()->id);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function appends_name_attribute()
     {
         $remoteType = $this->selectionType::factory()->make();

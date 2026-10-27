@@ -18,7 +18,7 @@ class ValidationControllerTest extends TestCase
         $this->validation = app(Validation::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_fetch_all_validations()
     {
         $this
@@ -34,7 +34,7 @@ class ValidationControllerTest extends TestCase
         $this->assertCount(5, $this->validation::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function creates_validation()
     {
         $request = $this->validation::factory()->make()->toArray();
@@ -48,7 +48,7 @@ class ValidationControllerTest extends TestCase
         $this->assertCount(1, $this->validation::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_return_validation_by_id()
     {
         $validations = $this->validation::factory()->count(5)->create();
@@ -60,7 +60,7 @@ class ValidationControllerTest extends TestCase
             ->assertJsonFragment(['id' => $validationId]);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_update_validation()
     {
         $validation = $this->validation::factory()->create();
@@ -78,7 +78,7 @@ class ValidationControllerTest extends TestCase
         $this->assertEquals($request['name'], $validation->refresh()->name);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_delete_validation()
     {
         $validation = $this->validation::factory()->create();

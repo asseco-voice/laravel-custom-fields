@@ -28,13 +28,13 @@ class SelectionValueTest extends TestCase
         $this->selectionValue = app(SelectionValue::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_factory()
     {
         $this->assertInstanceOf(SelectionValueFactory::class, $this->selectionValue::factory());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_fetch_selection_type()
     {
         $selectionType = $this->selectionType::factory()->create([

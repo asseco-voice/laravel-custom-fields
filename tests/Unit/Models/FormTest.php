@@ -38,13 +38,13 @@ class FormTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_factory()
     {
         $this->assertInstanceOf(FormFactory::class, Form::factory());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function relates_custom_fields_from_components()
     {
         $form = Form::factory()->create([
@@ -59,7 +59,7 @@ class FormTest extends TestCase
         $this->assertCount(2, $form->customFields);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function relates_custom_fields_from_inner_components()
     {
         $form = Form::factory()->create([
@@ -76,7 +76,7 @@ class FormTest extends TestCase
         $this->assertCount(2, $form->customFields);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function relates_custom_fields_from_mixed_components()
     {
         $form = Form::factory()->create([
@@ -93,7 +93,7 @@ class FormTest extends TestCase
         $this->assertCount(2, $form->customFields);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function relates_only_existing_custom_fields()
     {
         $form = Form::factory()->create([
@@ -108,7 +108,7 @@ class FormTest extends TestCase
         $this->assertCount(1, $form->customFields);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function relates_nothing()
     {
         $form = Form::factory()->create();
@@ -116,7 +116,7 @@ class FormTest extends TestCase
         $this->assertCount(0, $form->customFields);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function ignores_defined_form_components()
     {
         $form = Form::factory()->create([
@@ -132,7 +132,7 @@ class FormTest extends TestCase
         $this->assertCount(0, $form->customFields);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function updates_custom_fields_if_form_definition_changes()
     {
         $form = Form::factory()->create([
@@ -178,7 +178,7 @@ class FormTest extends TestCase
         $this->assertCount(2, $form->customFields);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function validates_empty_input()
     {
         /**
@@ -195,7 +195,7 @@ class FormTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function validates_valid_input()
     {
         /**
@@ -218,7 +218,7 @@ class FormTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function validates_invalid_input()
     {
         $this->expectException(Exception::class);
@@ -237,7 +237,7 @@ class FormTest extends TestCase
         $form->validate(['cf1' => 'abc']);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_throw_on_missing_required_fields()
     {
         $this->expectException(Exception::class);
@@ -256,7 +256,7 @@ class FormTest extends TestCase
         $form->validate([]);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function creates_values_from_given_form_data()
     {
         $this->cf1->update([
@@ -285,7 +285,7 @@ class FormTest extends TestCase
         $this->assertNull($value->float);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function does_not_create_anything_on_invalid_form_data()
     {
         /**
@@ -304,7 +304,7 @@ class FormTest extends TestCase
         $this->assertNull($form->customFields->first()->values->first());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function updates_custom_field_values()
     {
         $this->cf1->update([
@@ -333,7 +333,7 @@ class FormTest extends TestCase
         $this->assertEquals('test updated', $form->customFields->first()->values->first()->value);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function accepts_valid_form_names()
     {
         Form::factory()->create(['name' => 'valid_name']);
@@ -341,7 +341,7 @@ class FormTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_form_name_containing_spaces()
     {
         $this->expectException(Exception::class);
@@ -349,7 +349,7 @@ class FormTest extends TestCase
         Form::factory()->create(['name' => 'not a valid name']);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function returns_short_format_for_validated_fields()
     {
         /**

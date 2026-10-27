@@ -18,7 +18,7 @@ class FormControllerTest extends TestCase
         $this->form = app(Form::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_fetch_all_forms()
     {
         $this
@@ -34,7 +34,7 @@ class FormControllerTest extends TestCase
         $this->assertCount(5, $this->form::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_creating_form_with_invalid_name()
     {
         $request = $this->form::factory()->make([
@@ -46,7 +46,7 @@ class FormControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function creates_form()
     {
         $request = $this->form::factory()->make([
@@ -62,7 +62,7 @@ class FormControllerTest extends TestCase
         $this->assertCount(1, $this->form::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_return_form_by_id()
     {
         $forms = $this->form::factory()->count(5)->create();
@@ -74,7 +74,7 @@ class FormControllerTest extends TestCase
             ->assertJsonFragment(['id' => $formId]);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_update_form()
     {
         $form = $this->form::factory()->create();
@@ -92,7 +92,7 @@ class FormControllerTest extends TestCase
         $this->assertEquals($request['name'], $form->refresh()->name);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_delete_form()
     {
         $form = $this->form::factory()->create();

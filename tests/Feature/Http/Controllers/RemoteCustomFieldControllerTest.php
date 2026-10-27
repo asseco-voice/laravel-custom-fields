@@ -24,7 +24,7 @@ class RemoteCustomFieldControllerTest extends TestCase
         $this->remoteType = app(RemoteType::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function returns_only_remote_custom_fields()
     {
         $this
@@ -49,7 +49,7 @@ class RemoteCustomFieldControllerTest extends TestCase
         $this->assertCount(6, $this->customField::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_creating_remote_custom_field_with_invalid_name()
     {
         $request = $this->customField::factory()->make([
@@ -61,7 +61,7 @@ class RemoteCustomFieldControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_creating_remote_custom_field_without_remote_parameters()
     {
         $request = $this->customField::factory()->make()->toArray();
@@ -71,7 +71,7 @@ class RemoteCustomFieldControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function creates_remote_custom_field()
     {
         $request = $this->customField::factory()->make()->toArray();

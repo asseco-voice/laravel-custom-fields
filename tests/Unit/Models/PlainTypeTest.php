@@ -25,13 +25,13 @@ class PlainTypeTest extends TestCase
         $this->plainType = app(PlainType::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_factory()
     {
         $this->assertInstanceOf(PlainTypeFactory::class, $this->plainType::factory());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_basic_sub_types()
     {
         $plainMappings = $this->plainType::subTypes();
@@ -49,12 +49,12 @@ class PlainTypeTest extends TestCase
     }
 
     /**
-     * @test
      *
-     * @depends has_basic_sub_types
      *
      * @param  array  $plainMappings
      */
+    #[\PHPUnit\Framework\Attributes\Depends('has_basic_sub_types')]
+    #[\PHPUnit\Framework\Attributes\Test]
     public function sub_types_have_registered_classes(array $plainMappings)
     {
         foreach ($plainMappings as $typeName => $typeClass) {
@@ -64,7 +64,7 @@ class PlainTypeTest extends TestCase
         }
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function throws_error_on_non_existing_class()
     {
         $this->expectException(TypeError::class);
@@ -73,12 +73,12 @@ class PlainTypeTest extends TestCase
     }
 
     /**
-     * @test
      *
-     * @depends has_basic_sub_types
      *
      * @param  $basicSubTypes
      */
+    #[\PHPUnit\Framework\Attributes\Depends('has_basic_sub_types')]
+    #[\PHPUnit\Framework\Attributes\Test]
     public function returns_pipe_delimited_sub_types(array $basicSubTypes)
     {
         $regexSubTypes = $this->plainType::getRegexSubTypes();
@@ -87,12 +87,12 @@ class PlainTypeTest extends TestCase
     }
 
     /**
-     * @test
      *
-     * @depends has_basic_sub_types
      *
      * @param  array  $basicSubTypes
      */
+    #[\PHPUnit\Framework\Attributes\Depends('has_basic_sub_types')]
+    #[\PHPUnit\Framework\Attributes\Test]
     public function sub_types_are_scoped_correctly(array $basicSubTypes)
     {
         $this->plainType::factory()->count(5)->create();

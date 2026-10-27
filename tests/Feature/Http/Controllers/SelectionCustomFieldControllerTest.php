@@ -27,7 +27,7 @@ class SelectionCustomFieldControllerTest extends TestCase
         $this->selectionValue = app(SelectionValue::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function returns_only_selection_custom_fields()
     {
         $this
@@ -52,7 +52,7 @@ class SelectionCustomFieldControllerTest extends TestCase
         $this->assertCount(6, $this->customField::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_creating_selection_custom_field_with_invalid_name()
     {
         $request = $this->customField::factory()->make([
@@ -64,7 +64,7 @@ class SelectionCustomFieldControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function creates_selection_custom_field()
     {
         $request = $this->customField::factory()->make()->toArray();
@@ -83,7 +83,7 @@ class SelectionCustomFieldControllerTest extends TestCase
         $this->assertCount(1, $this->customField::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function creates_selection_custom_field_with_values()
     {
         $request = $this->customField::factory()->make()->toArray();
