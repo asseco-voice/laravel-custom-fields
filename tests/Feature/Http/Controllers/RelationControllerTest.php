@@ -21,7 +21,7 @@ class RelationControllerTest extends TestCase
         $this->relation = app(Relation::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_fetch_all_relations()
     {
         $this
@@ -37,7 +37,7 @@ class RelationControllerTest extends TestCase
         $this->assertCount(5, $this->relation::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function creates_relation()
     {
         $customFields = $this->customField::factory()->count(2)->create();
@@ -51,7 +51,7 @@ class RelationControllerTest extends TestCase
         $this->assertCount(1, $this->relation::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_return_relation_by_id()
     {
         $this->relation::factory()->count(5)->create();
@@ -61,7 +61,7 @@ class RelationControllerTest extends TestCase
             ->assertJsonFragment(['id' => 3]);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_update_relation()
     {
         $customFields = $this->customField::factory()->count(5)->create();
@@ -93,7 +93,7 @@ class RelationControllerTest extends TestCase
         $this->assertEquals($random2, $relation->child_id);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_delete_relation()
     {
         $relation = $this->relation::factory()->create();

@@ -26,13 +26,13 @@ class ValidationTest extends TestCase
         $this->validation = app(Validation::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_factory()
     {
         $this->assertInstanceOf(ValidationFactory::class, $this->validation::factory());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_fetch_related_custom_fields()
     {
         $validation = $this->validation::factory()->create();
@@ -44,7 +44,7 @@ class ValidationTest extends TestCase
         $this->assertEquals($customField->id, $validation->customFields->first()->id);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function validates_regex()
     {
         $validation = $this->validation::factory()->create([
@@ -54,7 +54,7 @@ class ValidationTest extends TestCase
         $this->assertNull($validation->validate('ABC'));
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function validates_exact_regex()
     {
         $validation = $this->validation::factory()->create([
@@ -64,7 +64,7 @@ class ValidationTest extends TestCase
         $this->assertNull($validation->validate('123 abc'));
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function fails_regex_validation()
     {
         $this->expectException(Exception::class);

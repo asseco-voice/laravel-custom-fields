@@ -18,7 +18,7 @@ class CustomFieldControllerTest extends TestCase
         $this->customField = app(CustomField::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_fetch_all_custom_fields()
     {
         $this
@@ -34,7 +34,7 @@ class CustomFieldControllerTest extends TestCase
         $this->assertCount(5, $this->customField::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_creating_custom_field_with_invalid_name()
     {
         $request = $this->customField::factory()->make([
@@ -46,7 +46,7 @@ class CustomFieldControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function creates_custom_field()
     {
         $request = $this->customField::factory()->make()->toArray();
@@ -60,7 +60,7 @@ class CustomFieldControllerTest extends TestCase
         $this->assertCount(1, $this->customField::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_return_custom_field_by_id()
     {
         $customFields = $this->customField::factory()->count(5)->create();
@@ -72,7 +72,7 @@ class CustomFieldControllerTest extends TestCase
             ->assertJsonFragment(['id' => $customFieldId]);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_update_custom_field()
     {
         $customField = $this->customField::factory()->create();
@@ -90,7 +90,7 @@ class CustomFieldControllerTest extends TestCase
         $this->assertEquals($request['name'], $customField->refresh()->name);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_delete_custom_field()
     {
         $customField = $this->customField::factory()->create();

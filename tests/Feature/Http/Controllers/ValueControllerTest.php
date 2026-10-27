@@ -25,7 +25,7 @@ class ValueControllerTest extends TestCase
         $this->value = app(Value::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_fetch_all_values()
     {
         $this
@@ -43,7 +43,7 @@ class ValueControllerTest extends TestCase
         $this->assertCount(5, $this->value::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function creates_value()
     {
         $selectable = $this->plainType::query()->where('name', 'string')->first();
@@ -66,7 +66,7 @@ class ValueControllerTest extends TestCase
         $this->assertCount(1, $this->value::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function fails_creating_if_value_has_no_valid_custom_field_relation()
     {
         // This way, CustomField ID will be random, not existing
@@ -79,7 +79,7 @@ class ValueControllerTest extends TestCase
         $this->assertCount(0, $this->value::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function fails_creating_if_value_has_inadequate_value_types()
     {
         $selectable = $this->plainType::query()->where('name', 'string')->first();
@@ -102,7 +102,7 @@ class ValueControllerTest extends TestCase
         $this->assertCount(0, $this->value::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function fails_creating_if_value_has_missing_value_types()
     {
         $selectable = $this->plainType::query()->where('name', 'string')->first();
@@ -123,7 +123,7 @@ class ValueControllerTest extends TestCase
         $this->assertCount(0, $this->value::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_return_value_by_id()
     {
         $customField = $this->customField::factory()->create();
@@ -135,7 +135,7 @@ class ValueControllerTest extends TestCase
             ->assertJsonFragment(['id' => 3]);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_update_value()
     {
         $selectable = $this->plainType::query()->where('name', 'string')->first();
@@ -162,7 +162,7 @@ class ValueControllerTest extends TestCase
         $this->assertEquals($request['string'], $value->refresh()->string);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function fails_updating_if_value_has_inadequate_value_types()
     {
         $selectable = $this->plainType::query()->where('name', 'string')->first();
@@ -185,7 +185,7 @@ class ValueControllerTest extends TestCase
             ->assertStatus(500);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_delete_value()
     {
         $customField = $this->customField::factory()->create();

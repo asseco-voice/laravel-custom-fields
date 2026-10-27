@@ -23,7 +23,7 @@ class PlainCustomFieldControllerTest extends TestCase
         $this->plainType = app(PlainType::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function returns_only_plain_custom_fields()
     {
         $plainType1 = $this->plainType::query()->where('name', 'string')->first();
@@ -47,7 +47,7 @@ class PlainCustomFieldControllerTest extends TestCase
         $this->assertCount(7, $this->customField::all());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_creating_plain_custom_field_with_invalid_name()
     {
         $request = $this->customField::factory()->make([
@@ -59,7 +59,7 @@ class PlainCustomFieldControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function creates_plain_custom_field()
     {
         $request = $this->customField::factory()->make()->toArray();

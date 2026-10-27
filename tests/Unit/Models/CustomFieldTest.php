@@ -44,13 +44,13 @@ class CustomFieldTest extends TestCase
         $this->value = app(Value::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_factory()
     {
         $this->assertInstanceOf(CustomFieldFactory::class, $this->customField::factory());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function accepts_valid_custom_field_names()
     {
         $this->customField::factory()->create(['name' => 'valid_name']);
@@ -58,7 +58,7 @@ class CustomFieldTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_custom_field_name_containing_spaces()
     {
         $this->expectException(Exception::class);
@@ -66,7 +66,7 @@ class CustomFieldTest extends TestCase
         $this->customField::factory()->create(['name' => 'not a valid name']);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function filters_out_plain_types()
     {
         $plainType1 = $this->plainType::query()->where('name', 'string')->first();
@@ -86,7 +86,7 @@ class CustomFieldTest extends TestCase
         $this->assertEquals(2, $this->customField::plain()->get()->count());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function filters_out_remote_types()
     {
         $plainType1 = $this->plainType::query()->where('name', 'string')->first();
@@ -103,7 +103,7 @@ class CustomFieldTest extends TestCase
         $this->assertEquals(2, $this->customField::remote()->get()->count());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function filters_out_selection_types()
     {
         $plainType1 = $this->plainType::query()->where('name', 'string')->first();
@@ -120,7 +120,7 @@ class CustomFieldTest extends TestCase
         $this->assertEquals(2, $this->customField::selection()->get()->count());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function will_not_validate_if_validation_not_present()
     {
         $customField1 = $this->customField::factory()->create();
@@ -130,7 +130,7 @@ class CustomFieldTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_child_relations()
     {
         $this->customField::factory()->count(5)->create();
@@ -146,7 +146,7 @@ class CustomFieldTest extends TestCase
         $this->assertEquals(4, $this->relation::all()->count());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_parent_relations()
     {
         $this->customField::factory()->count(5)->create();
@@ -162,7 +162,7 @@ class CustomFieldTest extends TestCase
         $this->assertEquals(4, $this->relation::all()->count());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function flattens_registered_types()
     {
         $types = $this->customField::types();
@@ -177,7 +177,7 @@ class CustomFieldTest extends TestCase
         $this->assertArrayHasKey('selection', $types);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function returns_appropriate_value_column()
     {
         $plainType1 = $this->plainType::query()->where('name', 'string')->first();
@@ -280,7 +280,7 @@ class CustomFieldTest extends TestCase
         $this->assertEquals('text', $customField8->getValueColumn());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function falls_back_to_string_value_column_for_unknown_types()
     {
         /**
@@ -291,7 +291,7 @@ class CustomFieldTest extends TestCase
         $this->assertEquals('string', $customField->getValueColumn());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function provides_short_format()
     {
         $plainType = $this->plainType::query()->where('name', 'string')->first();
@@ -323,7 +323,7 @@ class CustomFieldTest extends TestCase
         $this->assertEquals($expected, $customField->shortFormat($value->value));
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function short_format_returns_fallback_for_non_existing_selectable_types()
     {
         /**

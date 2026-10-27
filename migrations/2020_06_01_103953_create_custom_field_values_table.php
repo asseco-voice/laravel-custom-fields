@@ -27,7 +27,7 @@ class CreateCustomFieldValuesTable extends Migration
 
             $table->string('string', 255)->nullable();
             $table->integer('integer')->nullable();
-            $table->float('float', 18, 6)->nullable();
+            $table->double('float')->nullable();
             $table->text('text')->nullable();
             $table->boolean('boolean')->nullable();
             $table->datetime('datetime')->nullable();

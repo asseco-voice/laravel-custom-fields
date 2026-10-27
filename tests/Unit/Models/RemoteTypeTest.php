@@ -28,13 +28,13 @@ class RemoteTypeTest extends TestCase
         $this->remoteType = app(RemoteType::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_factory()
     {
         $this->assertInstanceOf(RemoteTypeFactory::class, $this->remoteType::factory());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_fetch_related_custom_fields()
     {
         $remoteType = $this->createRemoteType();
@@ -47,7 +47,7 @@ class RemoteTypeTest extends TestCase
         $this->assertEquals($customField->id, $remoteType->customFields->first()->id);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function appends_name_attribute()
     {
         $remoteType = $this->remoteType::factory()->make();
