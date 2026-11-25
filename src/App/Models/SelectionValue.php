@@ -57,7 +57,9 @@ class SelectionValue extends Model implements \Asseco\CustomFields\App\Contracts
             case 'float':
                 return (float) $value;
             case 'boolean':
-                return (bool) $value;
+                // "false", "0", "no" and "off" are false; a (bool) cast made every non-empty string true,
+                // so both options of a Yes/No field read as true. Other strings keep the old cast.
+                return filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) ?? (bool) $value;
             default:
                 return $value;
         }
