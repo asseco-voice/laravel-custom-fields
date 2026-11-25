@@ -47,4 +47,23 @@ class SelectionValueTest extends TestCase
 
         $this->assertEquals($selectionValue->id, $selectionType->values->first()->id);
     }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function boolean_values_read_back_as_stored()
+    {
+        $selectionType = $this->selectionType::factory()->create([
+            'plain_type_id' => $this->plainType::query()->where('name', 'boolean')->firstOrFail()->id,
+        ]);
+
+        $expected = ['true' => true, 'false' => false, '1' => true, '0' => false, 'no' => false, 'maybe' => true];
+
+        foreach ($expected as $stored => $read) {
+            $selectionValue = $this->selectionValue::factory()->create([
+                'selection_type_id' => $selectionType->id,
+                'value'             => (string) $stored,
+            ]);
+
+            $this->assertSame($read, $selectionValue->fresh()->value, "stored \"$stored\"");
+        }
+    }
 }
